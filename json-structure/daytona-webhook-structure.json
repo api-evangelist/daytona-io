@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-structure.org/v0.1/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/json-structure/daytona-webhook-structure.json",
+  "name": "daytona-webhook",
+  "description": "JSON Structure for the Daytona Webhook resource. Derived from the official Daytona OpenAPI specification at https://www.daytona.io/docs/openapi.json.",
+  "type": "string",
+  "properties": {},
+  "required": []
+}

@@ -1,0 +1,89 @@
+specification: API Commons Rate Limits 0.1
+name: Daytona Rate Limits
+description: >-
+  Daytona Cloud enforces request rate, concurrency, and quota policies at the organization level. Specific
+  numeric limits depend on plan and historical usage and are surfaced in the Daytona Dashboard under
+  Account Management. Customers can request increases via support@daytona.com.
+url: https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/rate-limits/daytona-io-rate-limits.yml
+provider: daytona-io
+humanURL: https://www.daytona.io/docs/en/account-management/limits
+created: '2026-05-25'
+modified: '2026-05-25'
+
+scopes:
+- id: api-request-rate
+  name: Control-Plane API Request Rate
+  description: Limits requests per minute against app.daytona.io/api (sandbox lifecycle, snapshots, volumes, organizations).
+  policy:
+    type: rate
+    unit: request
+    per: minute
+    scope: organization
+    enforcement: server-side
+    headers:
+      - X-RateLimit-Limit
+      - X-RateLimit-Remaining
+      - X-RateLimit-Reset
+    response:
+      status: 429
+      retryAfterHeader: Retry-After
+    default:
+      note: >-
+        Per-organization request-rate limits are enforced but not publicly disclosed as a single number. They are
+        configured per plan and visible in the Dashboard under Account Management > Limits.
+
+- id: sandbox-concurrency
+  name: Concurrent Sandbox Quota
+  description: Maximum number of started sandboxes that may exist concurrently within an organization.
+  policy:
+    type: concurrency
+    unit: sandbox
+    scope: organization
+    enforcement: server-side
+    default:
+      note: >-
+        Concurrent sandbox quotas vary by plan and historical usage. Customers can lift the cap by contacting
+        support@daytona.com or via the in-app upgrade flow.
+
+- id: snapshot-quota
+  name: Snapshot Storage Quota
+  description: Total storage consumed by snapshots, billed per GiB-hour beyond the free tier.
+  policy:
+    type: quota
+    unit: GiB
+    scope: organization
+    enforcement: billing
+    default:
+      note: First 5 GiB of persistent storage are free; additional storage is billed pay-as-you-go.
+
+- id: toolbox-process-timeout
+  name: Toolbox Process Execution Timeout
+  description: Maximum wall-clock time for a single Toolbox process execution call.
+  policy:
+    type: timeout
+    unit: second
+    scope: operation
+    enforcement: sandbox-side
+    default:
+      note: Configurable per request via the timeout field; the platform enforces an upper bound documented in the API reference.
+
+- id: preview-bandwidth
+  name: Sandbox Preview Bandwidth
+  description: Bandwidth and connection limits on Daytona's preview proxy.
+  policy:
+    type: bandwidth
+    unit: GiB
+    scope: sandbox
+    enforcement: server-side
+    default:
+      note: Bandwidth caps apply per sandbox preview URL; see Network Limits documentation.
+
+guidance:
+- audience: ai-agents
+  note: >-
+    Agents should respect 429 responses, honour Retry-After, and back off exponentially. Prefer one long-lived
+    sandbox per agent run over creating a new sandbox per LLM turn to avoid hitting the concurrent sandbox quota.
+- audience: integrators
+  note: >-
+    Integrate with the Daytona Dashboard's Limits page to surface current usage to end users. Webhooks can be
+    used to react to sandbox.destroyed events rather than polling.

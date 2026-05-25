@@ -1,0 +1,94 @@
+extends:
+  - spectral:oas
+
+rules:
+  # Daytona uses /v1-style resource collections with kebab-case path segments
+  daytona-paths-kebab-case:
+    description: Path segments MUST be lowercase kebab-case (matching Daytona's docker-registry, object-storage, api-keys conventions).
+    severity: error
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9]+([-/][a-z0-9]+)*|/\\{[a-zA-Z0-9_]+\\})+$"
+
+  # Daytona tags are lowercase or kebab-case nouns (sandbox, snapshots, api-keys, docker-registry)
+  daytona-tags-lowercase-kebab:
+    description: Tag names MUST be lowercase kebab-case (matching Daytona's convention).
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z]+(-[a-z]+)*$"
+
+  # Every operation has an operationId
+  daytona-operation-has-operationId:
+    description: Every operation MUST declare an operationId for SDK code generation.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: operationId
+      function: truthy
+
+  # operationId follows verbResource camelCase, matching Daytona NestJS controllers
+  daytona-operationId-camelCase:
+    description: operationId MUST be camelCase verbNoun (e.g., createSandbox, listSnapshots).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # Every operation is tagged
+  daytona-operation-has-tag:
+    description: Every operation MUST be tagged so it can be grouped in the API reference (Sandbox, Snapshots, Toolbox, etc.).
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  # Every operation has a summary
+  daytona-operation-has-summary:
+    description: Every operation MUST declare a summary for the Scalar API reference.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  # Bearer auth via JWT API key is the canonical scheme
+  daytona-security-bearer-required:
+    description: A bearer auth scheme MUST be declared in components.securitySchemes.
+    severity: error
+    given: $.components.securitySchemes
+    then:
+      function: truthy
+
+  # Servers must point to the production app.daytona.io host (or proxy.app.daytona.io for the Toolbox)
+  daytona-servers-required:
+    description: Specs MUST declare at least one server. Use https://app.daytona.io/api for the control plane or https://proxy.app.daytona.io/toolbox for the in-sandbox Toolbox.
+    severity: error
+    given: $.servers
+    then:
+      function: truthy
+
+  # Provider contact must be set
+  daytona-contact-info:
+    description: info.contact MUST be set with Daytona's support contact (support@daytona.com).
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  # All schemas have descriptions for downstream codegen
+  daytona-schema-descriptions:
+    description: Components schemas SHOULD have a description so SDK comments are populated.
+    severity: warn
+    given: $.components.schemas[*]
+    then:
+      field: description
+      function: truthy

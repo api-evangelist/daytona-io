@@ -1,0 +1,17 @@
+{
+  "id": "sb-01HXY4Z9R8K0V1J9N7Q3F2W5T6",
+  "organizationId": "org-01HXY4Z9R8K0V1J9N7Q3F2W5T6",
+  "snapshot": "daytonaio/sandbox:0.4.3",
+  "user": "daytona",
+  "state": "started",
+  "labels": {
+    "team": "agents"
+  },
+  "public": false,
+  "target": "us",
+  "cpu": 2,
+  "memory": 4,
+  "disk": 10,
+  "createdAt": "2026-05-25T10:11:12Z",
+  "updatedAt": "2026-05-25T10:11:14Z"
+}

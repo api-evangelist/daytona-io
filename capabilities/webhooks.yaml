@@ -1,0 +1,135 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Daytona Webhooks
+  description: 'Daytona Webhooks. 3 operations. Lead operation: Get Svix Consumer App Portal access for an organization. Self-contained
+    Naftiko capability covering one Daytona business surface.'
+  tags:
+  - Daytona
+  - Webhooks
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DAYTONA_API_KEY: DAYTONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: webhooks
+    baseUri: https://app.daytona.io/api
+    description: Daytona Webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: webhooks-organizations-organizationid-app-portal-access
+      path: /webhooks/organizations/{organizationId}/app-portal-access
+      operations:
+      - name: webhookcontroller-getappportalaccess
+        method: POST
+        description: Get Svix Consumer App Portal access for an organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: webhooks-organizations-organizationid-initialization-status
+      path: /webhooks/organizations/{organizationId}/initialization-status
+      operations:
+      - name: webhookcontroller-getinitializationstatus
+        method: GET
+        description: Get webhook initialization status for an organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: webhooks-organizations-organizationid-refresh-endpoints
+      path: /webhooks/organizations/{organizationId}/refresh-endpoints
+      operations:
+      - name: webhookcontroller-refreshendpoints
+        method: POST
+        description: Refresh cached endpoint presence flag for an organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      value: '{{env.DAYTONA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: webhooks-rest
+    port: 8080
+    description: REST adapter for Daytona Webhooks. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/webhooks/organizations/{organizationId}/app-portal-access
+      name: webhooks-organizations-organizationid-app-portal-access
+      description: REST surface for webhooks-organizations-organizationid-app-portal-access.
+      operations:
+      - method: POST
+        name: webhookcontroller-getappportalaccess
+        description: Get Svix Consumer App Portal access for an organization
+        call: webhooks.webhookcontroller-getappportalaccess
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhooks/organizations/{organizationId}/initialization-status
+      name: webhooks-organizations-organizationid-initialization-status
+      description: REST surface for webhooks-organizations-organizationid-initialization-status.
+      operations:
+      - method: GET
+        name: webhookcontroller-getinitializationstatus
+        description: Get webhook initialization status for an organization
+        call: webhooks.webhookcontroller-getinitializationstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhooks/organizations/{organizationId}/refresh-endpoints
+      name: webhooks-organizations-organizationid-refresh-endpoints
+      description: REST surface for webhooks-organizations-organizationid-refresh-endpoints.
+      operations:
+      - method: POST
+        name: webhookcontroller-refreshendpoints
+        description: Refresh cached endpoint presence flag for an organization
+        call: webhooks.webhookcontroller-refreshendpoints
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Daytona Webhooks. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: daytona-get-svix-consumer-app-portal-access-for-an-organization
+      description: Get Svix Consumer App Portal access for an organization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: webhooks.webhookcontroller-getappportalaccess
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-webhook-initialization-status-for-an-organization
+      description: Get webhook initialization status for an organization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: webhooks.webhookcontroller-getinitializationstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-refresh-cached-endpoint-presence-flag-for-an-organizatio
+      description: Refresh cached endpoint presence flag for an organization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: webhooks.webhookcontroller-refreshendpoints
+      outputParameters:
+      - type: object
+        mapping: $.

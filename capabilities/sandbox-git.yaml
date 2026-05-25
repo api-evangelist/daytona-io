@@ -1,0 +1,377 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Daytona Sandbox Git
+  description: 'Daytona Sandbox Git. 11 operations. Lead operation: Add files to the Git staging area. Self-contained Naftiko
+    capability covering one Daytona business surface.'
+  tags:
+  - Daytona
+  - Git
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DAYTONA_API_KEY: DAYTONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sandbox-git
+    baseUri: https://proxy.app.daytona.io/toolbox
+    description: Daytona Sandbox Git business capability. Self-contained, no shared references.
+    resources:
+    - name: git-add
+      path: /git/add
+      operations:
+      - name: addfiles
+        method: POST
+        description: Add files to the Git staging area
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-branches
+      path: /git/branches
+      operations:
+      - name: listbranches
+        method: GET
+        description: Get a list of all branches in the Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createbranch
+        method: POST
+        description: Create a new branch in the Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletebranch
+        method: DELETE
+        description: Delete a branch from the Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-checkout
+      path: /git/checkout
+      operations:
+      - name: checkoutbranch
+        method: POST
+        description: Switch to a different branch or commit in the Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-clone
+      path: /git/clone
+      operations:
+      - name: clonerepository
+        method: POST
+        description: Clone a Git repository to the specified path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-commit
+      path: /git/commit
+      operations:
+      - name: commitchanges
+        method: POST
+        description: Commit staged changes to the Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-history
+      path: /git/history
+      operations:
+      - name: getcommithistory
+        method: GET
+        description: Get the commit history of the Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-pull
+      path: /git/pull
+      operations:
+      - name: pullchanges
+        method: POST
+        description: Pull changes from the remote Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-push
+      path: /git/push
+      operations:
+      - name: pushchanges
+        method: POST
+        description: Push local changes to the remote Git repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: git-status
+      path: /git/status
+      operations:
+      - name: getstatus
+        method: GET
+        description: Get the Git status of the repository at the specified path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      value: '{{env.DAYTONA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: sandbox-git-rest
+    port: 8080
+    description: REST adapter for Daytona Sandbox Git. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/git/add
+      name: git-add
+      description: REST surface for git-add.
+      operations:
+      - method: POST
+        name: addfiles
+        description: Add files to the Git staging area
+        call: sandbox-git.addfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/branches
+      name: git-branches
+      description: REST surface for git-branches.
+      operations:
+      - method: GET
+        name: listbranches
+        description: Get a list of all branches in the Git repository
+        call: sandbox-git.listbranches
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createbranch
+        description: Create a new branch in the Git repository
+        call: sandbox-git.createbranch
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletebranch
+        description: Delete a branch from the Git repository
+        call: sandbox-git.deletebranch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/checkout
+      name: git-checkout
+      description: REST surface for git-checkout.
+      operations:
+      - method: POST
+        name: checkoutbranch
+        description: Switch to a different branch or commit in the Git repository
+        call: sandbox-git.checkoutbranch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/clone
+      name: git-clone
+      description: REST surface for git-clone.
+      operations:
+      - method: POST
+        name: clonerepository
+        description: Clone a Git repository to the specified path
+        call: sandbox-git.clonerepository
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/commit
+      name: git-commit
+      description: REST surface for git-commit.
+      operations:
+      - method: POST
+        name: commitchanges
+        description: Commit staged changes to the Git repository
+        call: sandbox-git.commitchanges
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/history
+      name: git-history
+      description: REST surface for git-history.
+      operations:
+      - method: GET
+        name: getcommithistory
+        description: Get the commit history of the Git repository
+        call: sandbox-git.getcommithistory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/pull
+      name: git-pull
+      description: REST surface for git-pull.
+      operations:
+      - method: POST
+        name: pullchanges
+        description: Pull changes from the remote Git repository
+        call: sandbox-git.pullchanges
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/push
+      name: git-push
+      description: REST surface for git-push.
+      operations:
+      - method: POST
+        name: pushchanges
+        description: Push local changes to the remote Git repository
+        call: sandbox-git.pushchanges
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/git/status
+      name: git-status
+      description: REST surface for git-status.
+      operations:
+      - method: GET
+        name: getstatus
+        description: Get the Git status of the repository at the specified path
+        call: sandbox-git.getstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sandbox-git-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Daytona Sandbox Git. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: daytona-add-files-to-git-staging
+      description: Add files to the Git staging area
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-git.addfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-list-branches
+      description: Get a list of all branches in the Git repository
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-git.listbranches
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-create-a-new-branch
+      description: Create a new branch in the Git repository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-git.createbranch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-delete-a-branch
+      description: Delete a branch from the Git repository
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: sandbox-git.deletebranch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-checkout-branch-or-commit
+      description: Switch to a different branch or commit in the Git repository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-git.checkoutbranch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-clone-a-git-repository
+      description: Clone a Git repository to the specified path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-git.clonerepository
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-commit-changes
+      description: Commit staged changes to the Git repository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-git.commitchanges
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-commit-history
+      description: Get the commit history of the Git repository
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-git.getcommithistory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-pull-changes-from-remote
+      description: Pull changes from the remote Git repository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-git.pullchanges
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-push-changes-to-remote
+      description: Push local changes to the remote Git repository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-git.pushchanges
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-git-status
+      description: Get the Git status of the repository at the specified path
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-git.getstatus
+      outputParameters:
+      - type: object
+        mapping: $.

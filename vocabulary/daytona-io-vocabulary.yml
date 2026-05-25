@@ -1,0 +1,78 @@
+name: Daytona Vocabulary
+description: >-
+  Controlled vocabulary for the Daytona AI sandbox platform. Captures the operational, capability, and resource
+  dimensions that recur across the Daytona control-plane API and the in-sandbox Toolbox API, suitable for use as
+  tag taxonomies, faceted search keys, and capability mapping in the API Evangelist Network.
+url: https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/vocabulary/daytona-io-vocabulary.yml
+created: '2026-05-25'
+modified: '2026-05-25'
+
+dimensions:
+- name: Resource
+  description: First-class resources exposed by the Daytona platform.
+  terms:
+  - { name: Sandbox,           description: An isolated execution environment that boots in under 90ms. }
+  - { name: Snapshot,          description: A point-in-time capture of sandbox state used to resume or fan out. }
+  - { name: Volume,            description: Persistent storage that can be mounted into one or more sandboxes. }
+  - { name: Organization,      description: Multi-tenant boundary owning sandboxes, keys, runners, and quotas. }
+  - { name: User,              description: A human identity with linked accounts and notification preferences. }
+  - { name: ApiKey,            description: Bearer credential authenticating an organization member or service. }
+  - { name: Webhook,           description: Subscription delivering sandbox lifecycle events to an external URL. }
+  - { name: Runner,            description: Compute pool that executes sandboxes; managed by Daytona or self-hosted. }
+  - { name: Region,            description: Geographical or cloud region in which sandboxes can be scheduled. }
+  - { name: Preview,           description: Public URL exposing a port running inside a sandbox via Daytona's proxy. }
+  - { name: AuditLog,          description: Immutable record of administrative actions on the control plane. }
+  - { name: DockerRegistry,    description: Container registry credential used to pull custom sandbox images. }
+
+- name: Capability
+  description: Capabilities offered to autonomous agents and humans operating inside a Daytona sandbox.
+  terms:
+  - { name: FileSystem,         description: List, read, write, move, delete, search, and replace files. }
+  - { name: Git,                description: Clone, status, branch, commit, push, and pull Git repositories. }
+  - { name: ProcessExecution,   description: Run arbitrary commands with stdout/stderr streaming. }
+  - { name: PTY,                description: Spawn pseudo-terminals for interactive shell sessions. }
+  - { name: LSP,                description: Language Server Protocol bridging for code intelligence. }
+  - { name: Interpreter,        description: Inline Python and TypeScript code execution without a shell. }
+  - { name: ComputerUse,        description: Programmatic control of Linux/Windows/macOS desktops. }
+  - { name: Port,               description: Manage and expose ports running inside a sandbox. }
+  - { name: MCP,                description: Model Context Protocol surface exposing sandbox tools to agents. }
+
+- name: Lifecycle
+  description: Sandbox lifecycle states and transitions.
+  terms:
+  - { name: Provisioning,  description: Sandbox is being created and bootstrapped. }
+  - { name: Started,       description: Sandbox is running and accepting work. }
+  - { name: Stopped,       description: Sandbox is paused but resumable. }
+  - { name: Archived,      description: Sandbox is cold-stored; state preserved but compute released. }
+  - { name: Destroyed,     description: Sandbox is permanently deleted. }
+  - { name: AutoStop,      description: Auto-stop policy controlling idle stop intervals. }
+  - { name: AutoArchive,   description: Auto-archive policy controlling idle archive intervals. }
+
+- name: Deployment
+  description: Ways Daytona can be consumed.
+  terms:
+  - { name: DaytonaCloud,            description: Fully managed SaaS at app.daytona.io. }
+  - { name: CustomerManagedCompute,  description: Managed control plane, customer-owned compute. }
+  - { name: SelfHostedOpenSource,    description: AGPL-3.0 platform self-hosted on Kubernetes. }
+
+- name: Audience
+  description: Personas Daytona targets.
+  terms:
+  - { name: AIAgent,         description: Autonomous coding/computer-use agents running on top of LLMs. }
+  - { name: AgentFramework,  description: Frameworks orchestrating agents (LangChain, ADK, AgentKit, OpenHands). }
+  - { name: Developer,       description: Human engineers using sandboxes as cloud dev environments. }
+  - { name: EvaluationHarness, description: Benchmark and test harnesses running massively parallel agents. }
+
+- name: Tooling
+  description: SDKs, CLIs, and integrations.
+  terms:
+  - { name: PythonSDK,    description: Official Daytona SDK for Python. }
+  - { name: TypeScriptSDK, description: Official Daytona SDK for TypeScript/Node.js. }
+  - { name: RubySDK,      description: Official Daytona SDK for Ruby. }
+  - { name: GoSDK,        description: Official Daytona SDK for Go. }
+  - { name: JavaSDK,      description: Official Daytona SDK for Java. }
+  - { name: CLI,          description: Daytona Go command-line interface. }
+  - { name: HelmChart,    description: Kubernetes deployment via official Helm charts. }
+  - { name: TerraformModule, description: Infrastructure-as-code modules for cloud deployment. }
+  - { name: VSCodeExtension, description: VS Code extension for connecting to sandboxes. }
+  - { name: JetBrainsPlugin, description: JetBrains IDE plugin for connecting to sandboxes. }

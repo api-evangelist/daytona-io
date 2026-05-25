@@ -1,0 +1,314 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the sandbox",
+      "example": "sandbox123"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "The organization ID of the sandbox",
+      "example": "organization123"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the sandbox",
+      "example": "MySandbox"
+    },
+    "snapshot": {
+      "type": "string",
+      "description": "The snapshot used for the sandbox",
+      "example": "daytonaio/sandbox:latest"
+    },
+    "user": {
+      "type": "string",
+      "description": "The user associated with the project",
+      "example": "daytona"
+    },
+    "env": {
+      "type": "object",
+      "description": "Environment variables for the sandbox",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "NODE_ENV": "production"
+      }
+    },
+    "labels": {
+      "type": "object",
+      "description": "Labels for the sandbox",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "example": {
+        "daytona.io/public": "true"
+      }
+    },
+    "public": {
+      "type": "boolean",
+      "description": "Whether the sandbox http preview is public",
+      "example": false
+    },
+    "networkBlockAll": {
+      "type": "boolean",
+      "description": "Whether to block all network access for the sandbox",
+      "example": false
+    },
+    "networkAllowList": {
+      "type": "string",
+      "description": "Comma-separated list of allowed CIDR network addresses for the sandbox",
+      "example": "192.168.1.0/16,10.0.0.0/24"
+    },
+    "target": {
+      "type": "string",
+      "description": "The target environment for the sandbox",
+      "example": "local"
+    },
+    "cpu": {
+      "type": "number",
+      "description": "The CPU quota for the sandbox",
+      "example": 2
+    },
+    "gpu": {
+      "type": "number",
+      "description": "The GPU quota for the sandbox",
+      "example": 0
+    },
+    "memory": {
+      "type": "number",
+      "description": "The memory quota for the sandbox",
+      "example": 4
+    },
+    "disk": {
+      "type": "number",
+      "description": "The disk quota for the sandbox",
+      "example": 10
+    },
+    "state": {
+      "description": "The state of the sandbox",
+      "example": "creating",
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "creating",
+            "restoring",
+            "destroyed",
+            "destroying",
+            "started",
+            "stopped",
+            "starting",
+            "stopping",
+            "error",
+            "build_failed",
+            "pending_build",
+            "building_snapshot",
+            "unknown",
+            "pulling_snapshot",
+            "archived",
+            "archiving",
+            "resizing",
+            "snapshotting",
+            "forking"
+          ],
+          "description": "The state of the sandbox"
+        }
+      ]
+    },
+    "desiredState": {
+      "description": "The desired state of the sandbox",
+      "example": "destroyed",
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "destroyed",
+            "started",
+            "stopped",
+            "resized",
+            "archived"
+          ],
+          "description": "The desired state of the sandbox"
+        }
+      ]
+    },
+    "errorReason": {
+      "type": "string",
+      "description": "The error reason of the sandbox",
+      "example": "The sandbox is not running"
+    },
+    "recoverable": {
+      "type": "boolean",
+      "description": "Whether the sandbox error is recoverable.",
+      "example": true
+    },
+    "backupState": {
+      "type": "string",
+      "description": "The state of the backup",
+      "enum": [
+        "None",
+        "Pending",
+        "InProgress",
+        "Completed",
+        "Error"
+      ],
+      "example": "None"
+    },
+    "backupCreatedAt": {
+      "type": "string",
+      "description": "The creation timestamp of the last backup",
+      "example": "2024-10-01T12:00:00Z"
+    },
+    "autoStopInterval": {
+      "type": "number",
+      "description": "Auto-stop interval in minutes (0 means disabled)",
+      "example": 30
+    },
+    "autoArchiveInterval": {
+      "type": "number",
+      "description": "Auto-archive interval in minutes",
+      "example": 10080
+    },
+    "autoDeleteInterval": {
+      "type": "number",
+      "description": "Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)",
+      "example": 30
+    },
+    "volumes": {
+      "description": "Array of volumes attached to the sandbox",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "volumeId": {
+            "type": "string",
+            "description": "The ID of the volume",
+            "example": "volume123"
+          },
+          "mountPath": {
+            "type": "string",
+            "description": "The mount path for the volume",
+            "example": "/data"
+          },
+          "subpath": {
+            "type": "string",
+            "description": "Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.",
+            "example": "users/alice"
+          }
+        },
+        "required": [
+          "volumeId",
+          "mountPath"
+        ]
+      }
+    },
+    "buildInfo": {
+      "description": "Build information for the sandbox",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "dockerfileContent": {
+              "type": "string",
+              "description": "The Dockerfile content used for the build",
+              "example": "FROM node:14\nWORKDIR /app\nCOPY . .\nRUN npm install\nCMD [\"npm\", \"start\"]"
+            },
+            "contextHashes": {
+              "description": "The context hashes used for the build",
+              "example": [
+                "hash1",
+                "hash2"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "createdAt": {
+              "format": "date-time",
+              "type": "string",
+              "description": "The creation timestamp"
+            },
+            "updatedAt": {
+              "format": "date-time",
+              "type": "string",
+              "description": "The last update timestamp"
+            },
+            "snapshotRef": {
+              "type": "string",
+              "description": "The snapshot reference",
+              "example": "daytonaio/sandbox:latest"
+            }
+          },
+          "required": [
+            "createdAt",
+            "updatedAt",
+            "snapshotRef"
+          ]
+        }
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "The creation timestamp of the sandbox",
+      "example": "2024-10-01T12:00:00Z"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "The last update timestamp of the sandbox",
+      "example": "2024-10-01T12:00:00Z"
+    },
+    "lastActivityAt": {
+      "type": "string",
+      "description": "The last activity timestamp of the sandbox",
+      "example": "2024-10-01T12:00:00Z"
+    },
+    "class": {
+      "type": "string",
+      "description": "The class of the sandbox",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "example": "small",
+      "deprecated": true
+    },
+    "daemonVersion": {
+      "type": "string",
+      "description": "The version of the daemon running in the sandbox",
+      "example": "1.0.0"
+    },
+    "runnerId": {
+      "type": "string",
+      "description": "The runner ID of the sandbox",
+      "example": "runner123"
+    },
+    "toolboxProxyUrl": {
+      "type": "string",
+      "description": "The toolbox proxy URL for the sandbox",
+      "example": "https://proxy.app.daytona.io/toolbox"
+    }
+  },
+  "required": [
+    "id",
+    "organizationId",
+    "name",
+    "user",
+    "env",
+    "labels",
+    "public",
+    "networkBlockAll",
+    "target",
+    "cpu",
+    "gpu",
+    "memory",
+    "disk",
+    "toolboxProxyUrl"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/json-schema/daytona-sandbox-schema.json",
+  "title": "Sandbox"
+}

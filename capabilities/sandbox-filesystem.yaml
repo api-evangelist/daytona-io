@@ -1,0 +1,451 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Daytona Sandbox Filesystem
+  description: 'Daytona Sandbox Filesystem. 13 operations. Lead operation: List files and directories in the specified path.
+    Self-contained Naftiko capability covering one Daytona business surface.'
+  tags:
+  - Daytona
+  - File-System
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DAYTONA_API_KEY: DAYTONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sandbox-filesystem
+    baseUri: https://proxy.app.daytona.io/toolbox
+    description: Daytona Sandbox Filesystem business capability. Self-contained, no shared references.
+    resources:
+    - name: files
+      path: /files
+      operations:
+      - name: listfiles
+        method: GET
+        description: List files and directories in the specified path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefile
+        method: DELETE
+        description: Delete a file or directory at the specified path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-bulk-download
+      path: /files/bulk-download
+      operations:
+      - name: downloadfiles
+        method: POST
+        description: Download multiple files by providing their paths. Successful files are returned as multipart parts named
+          `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shap
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-bulk-upload
+      path: /files/bulk-upload
+      operations:
+      - name: uploadfiles
+        method: POST
+        description: Upload multiple files with their destination paths
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-download
+      path: /files/download
+      operations:
+      - name: downloadfile
+        method: GET
+        description: Download a file by providing its path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-find
+      path: /files/find
+      operations:
+      - name: findinfiles
+        method: GET
+        description: Search for text pattern within files in a directory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-folder
+      path: /files/folder
+      operations:
+      - name: createfolder
+        method: POST
+        description: Create a folder with the specified path and optional permissions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-info
+      path: /files/info
+      operations:
+      - name: getfileinfo
+        method: GET
+        description: Get detailed information about a file or directory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-move
+      path: /files/move
+      operations:
+      - name: movefile
+        method: POST
+        description: Move or rename a file or directory from source to destination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-permissions
+      path: /files/permissions
+      operations:
+      - name: setfilepermissions
+        method: POST
+        description: Set file permissions, ownership, and group for a file or directory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-replace
+      path: /files/replace
+      operations:
+      - name: replaceinfiles
+        method: POST
+        description: Replace text pattern with new value in multiple files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-search
+      path: /files/search
+      operations:
+      - name: searchfiles
+        method: GET
+        description: Search for files matching a specific pattern in a directory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: files-upload
+      path: /files/upload
+      operations:
+      - name: uploadfile
+        method: POST
+        description: Upload a file to the specified path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      value: '{{env.DAYTONA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: sandbox-filesystem-rest
+    port: 8080
+    description: REST adapter for Daytona Sandbox Filesystem. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files
+      name: files
+      description: REST surface for files.
+      operations:
+      - method: GET
+        name: listfiles
+        description: List files and directories in the specified path
+        call: sandbox-filesystem.listfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefile
+        description: Delete a file or directory at the specified path
+        call: sandbox-filesystem.deletefile
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/bulk-download
+      name: files-bulk-download
+      description: REST surface for files-bulk-download.
+      operations:
+      - method: POST
+        name: downloadfiles
+        description: Download multiple files by providing their paths. Successful files are returned as multipart parts named
+          `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shap
+        call: sandbox-filesystem.downloadfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/bulk-upload
+      name: files-bulk-upload
+      description: REST surface for files-bulk-upload.
+      operations:
+      - method: POST
+        name: uploadfiles
+        description: Upload multiple files with their destination paths
+        call: sandbox-filesystem.uploadfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/download
+      name: files-download
+      description: REST surface for files-download.
+      operations:
+      - method: GET
+        name: downloadfile
+        description: Download a file by providing its path
+        call: sandbox-filesystem.downloadfile
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/find
+      name: files-find
+      description: REST surface for files-find.
+      operations:
+      - method: GET
+        name: findinfiles
+        description: Search for text pattern within files in a directory
+        call: sandbox-filesystem.findinfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/folder
+      name: files-folder
+      description: REST surface for files-folder.
+      operations:
+      - method: POST
+        name: createfolder
+        description: Create a folder with the specified path and optional permissions
+        call: sandbox-filesystem.createfolder
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/info
+      name: files-info
+      description: REST surface for files-info.
+      operations:
+      - method: GET
+        name: getfileinfo
+        description: Get detailed information about a file or directory
+        call: sandbox-filesystem.getfileinfo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/move
+      name: files-move
+      description: REST surface for files-move.
+      operations:
+      - method: POST
+        name: movefile
+        description: Move or rename a file or directory from source to destination
+        call: sandbox-filesystem.movefile
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/permissions
+      name: files-permissions
+      description: REST surface for files-permissions.
+      operations:
+      - method: POST
+        name: setfilepermissions
+        description: Set file permissions, ownership, and group for a file or directory
+        call: sandbox-filesystem.setfilepermissions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/replace
+      name: files-replace
+      description: REST surface for files-replace.
+      operations:
+      - method: POST
+        name: replaceinfiles
+        description: Replace text pattern with new value in multiple files
+        call: sandbox-filesystem.replaceinfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/search
+      name: files-search
+      description: REST surface for files-search.
+      operations:
+      - method: GET
+        name: searchfiles
+        description: Search for files matching a specific pattern in a directory
+        call: sandbox-filesystem.searchfiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/upload
+      name: files-upload
+      description: REST surface for files-upload.
+      operations:
+      - method: POST
+        name: uploadfile
+        description: Upload a file to the specified path
+        call: sandbox-filesystem.uploadfile
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sandbox-filesystem-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Daytona Sandbox Filesystem. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: daytona-list-files-and-directories
+      description: List files and directories in the specified path
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-filesystem.listfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-delete-a-file-or-directory
+      description: Delete a file or directory at the specified path
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: sandbox-filesystem.deletefile
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-download-multiple-files
+      description: Download multiple files by providing their paths. Successful files are returned as multipart parts named
+        `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shap
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-filesystem.downloadfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-upload-multiple-files
+      description: Upload multiple files with their destination paths
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-filesystem.uploadfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-download-a-file
+      description: Download a file by providing its path
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-filesystem.downloadfile
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-find-text-in-files
+      description: Search for text pattern within files in a directory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-filesystem.findinfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-create-a-folder
+      description: Create a folder with the specified path and optional permissions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-filesystem.createfolder
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-file-information
+      description: Get detailed information about a file or directory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-filesystem.getfileinfo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-move-or-rename-file-directory
+      description: Move or rename a file or directory from source to destination
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-filesystem.movefile
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-set-file-permissions
+      description: Set file permissions, ownership, and group for a file or directory
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-filesystem.setfilepermissions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-replace-text-in-files
+      description: Replace text pattern with new value in multiple files
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-filesystem.replaceinfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-search-files-by-pattern
+      description: Search for files matching a specific pattern in a directory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-filesystem.searchfiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-upload-a-file
+      description: Upload a file to the specified path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-filesystem.uploadfile
+      outputParameters:
+      - type: object
+        mapping: $.

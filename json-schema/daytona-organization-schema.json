@@ -1,0 +1,170 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Organization ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Organization name"
+    },
+    "createdBy": {
+      "type": "string",
+      "description": "User ID of the organization creator"
+    },
+    "personal": {
+      "type": "boolean",
+      "description": "Personal organization flag"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Creation timestamp"
+    },
+    "updatedAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Last update timestamp"
+    },
+    "suspended": {
+      "type": "boolean",
+      "description": "Suspended flag"
+    },
+    "suspendedAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Suspended at"
+    },
+    "suspensionReason": {
+      "type": "string",
+      "description": "Suspended reason"
+    },
+    "suspendedUntil": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Suspended until"
+    },
+    "suspensionCleanupGracePeriodHours": {
+      "type": "number",
+      "description": "Suspension cleanup grace period hours"
+    },
+    "maxCpuPerSandbox": {
+      "type": "number",
+      "description": "Max CPU per sandbox"
+    },
+    "maxMemoryPerSandbox": {
+      "type": "number",
+      "description": "Max memory per sandbox"
+    },
+    "maxDiskPerSandbox": {
+      "type": "number",
+      "description": "Max disk per sandbox"
+    },
+    "snapshotDeactivationTimeoutMinutes": {
+      "type": "number",
+      "description": "Time in minutes before an unused snapshot is deactivated",
+      "default": 20160
+    },
+    "sandboxLimitedNetworkEgress": {
+      "type": "boolean",
+      "description": "Sandbox default network block all"
+    },
+    "defaultRegionId": {
+      "type": "string",
+      "description": "Default region ID"
+    },
+    "authenticatedRateLimit": {
+      "type": "number",
+      "description": "Authenticated rate limit per minute",
+      "nullable": true
+    },
+    "sandboxCreateRateLimit": {
+      "type": "number",
+      "description": "Sandbox create rate limit per minute",
+      "nullable": true
+    },
+    "sandboxLifecycleRateLimit": {
+      "type": "number",
+      "description": "Sandbox lifecycle rate limit per minute",
+      "nullable": true
+    },
+    "experimentalConfig": {
+      "type": "object",
+      "description": "Experimental configuration"
+    },
+    "otelConfig": {
+      "description": "OpenTelemetry collection configuration",
+      "nullable": true,
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "endpoint": {
+              "type": "string",
+              "description": "Endpoint"
+            },
+            "headers": {
+              "type": "object",
+              "description": "Headers",
+              "example": {
+                "x-api-key": "my-api-key"
+              },
+              "nullable": true,
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "endpoint"
+          ]
+        }
+      ]
+    },
+    "authenticatedRateLimitTtlSeconds": {
+      "type": "number",
+      "description": "Authenticated rate limit TTL in seconds",
+      "nullable": true
+    },
+    "sandboxCreateRateLimitTtlSeconds": {
+      "type": "number",
+      "description": "Sandbox create rate limit TTL in seconds",
+      "nullable": true
+    },
+    "sandboxLifecycleRateLimitTtlSeconds": {
+      "type": "number",
+      "description": "Sandbox lifecycle rate limit TTL in seconds",
+      "nullable": true
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "createdBy",
+    "personal",
+    "createdAt",
+    "updatedAt",
+    "suspended",
+    "suspendedAt",
+    "suspensionReason",
+    "suspendedUntil",
+    "suspensionCleanupGracePeriodHours",
+    "maxCpuPerSandbox",
+    "maxMemoryPerSandbox",
+    "maxDiskPerSandbox",
+    "snapshotDeactivationTimeoutMinutes",
+    "sandboxLimitedNetworkEgress",
+    "authenticatedRateLimit",
+    "sandboxCreateRateLimit",
+    "sandboxLifecycleRateLimit",
+    "experimentalConfig",
+    "otelConfig",
+    "authenticatedRateLimitTtlSeconds",
+    "sandboxCreateRateLimitTtlSeconds",
+    "sandboxLifecycleRateLimitTtlSeconds"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/json-schema/daytona-organization-schema.json",
+  "title": "Organization"
+}

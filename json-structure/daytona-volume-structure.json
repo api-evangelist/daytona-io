@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-structure.org/v0.1/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/json-structure/daytona-volume-structure.json",
+  "name": "daytona-volume",
+  "description": "JSON Structure for the Daytona Volume resource. Derived from the official Daytona OpenAPI specification at https://www.daytona.io/docs/openapi.json.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Volume ID",
+      "example": "vol-12345678"
+    },
+    "name": {
+      "type": "string",
+      "description": "Volume name",
+      "example": "my-volume"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Organization ID",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "state": {
+      "description": "Volume state",
+      "example": "ready",
+      "allOf": [
+        {
+          "type": "string",
+          "enum": [
+            "creating",
+            "ready",
+            "pending_create",
+            "pending_delete",
+            "deleting",
+            "deleted",
+            "error"
+          ],
+          "description": "Volume state"
+        }
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Creation timestamp",
+      "example": "2023-01-01T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Last update timestamp",
+      "example": "2023-01-01T00:00:00.000Z"
+    },
+    "lastUsedAt": {
+      "type": "string",
+      "description": "Last used timestamp",
+      "example": "2023-01-01T00:00:00.000Z",
+      "nullable": true
+    },
+    "errorReason": {
+      "type": "string",
+      "description": "The error reason of the volume",
+      "example": "Error processing volume",
+      "nullable": true
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "organizationId",
+    "state",
+    "createdAt",
+    "updatedAt",
+    "errorReason"
+  ]
+}

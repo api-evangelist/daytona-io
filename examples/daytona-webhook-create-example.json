@@ -1,0 +1,10 @@
+{
+  "url": "https://example.com/daytona/events",
+  "events": [
+    "sandbox.created",
+    "sandbox.started",
+    "sandbox.stopped",
+    "sandbox.destroyed",
+    "snapshot.created"
+  ]
+}

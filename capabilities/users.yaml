@@ -1,0 +1,208 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Daytona Users
+  description: 'Daytona Users. 5 operations. Lead operation: Get authenticated user. Self-contained Naftiko capability covering
+    one Daytona business surface.'
+  tags:
+  - Daytona
+  - Users
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DAYTONA_API_KEY: DAYTONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: users
+    baseUri: https://app.daytona.io/api
+    description: Daytona Users business capability. Self-contained, no shared references.
+    resources:
+    - name: users-me
+      path: /users/me
+      operations:
+      - name: getauthenticateduser
+        method: GET
+        description: Get authenticated user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-account-providers
+      path: /users/account-providers
+      operations:
+      - name: getavailableaccountproviders
+        method: GET
+        description: Get available account providers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-linked-accounts
+      path: /users/linked-accounts
+      operations:
+      - name: linkaccount
+        method: POST
+        description: Link account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-linked-accounts-provider-provideruserid
+      path: /users/linked-accounts/{provider}/{providerUserId}
+      operations:
+      - name: unlinkaccount
+        method: DELETE
+        description: Unlink account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-mfa-sms-enroll
+      path: /users/mfa/sms/enroll
+      operations:
+      - name: enrollinsmsmfa
+        method: POST
+        description: Enroll in SMS MFA
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      value: '{{env.DAYTONA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: users-rest
+    port: 8080
+    description: REST adapter for Daytona Users. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/users/me
+      name: users-me
+      description: REST surface for users-me.
+      operations:
+      - method: GET
+        name: getauthenticateduser
+        description: Get authenticated user
+        call: users.getauthenticateduser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/account-providers
+      name: users-account-providers
+      description: REST surface for users-account-providers.
+      operations:
+      - method: GET
+        name: getavailableaccountproviders
+        description: Get available account providers
+        call: users.getavailableaccountproviders
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/linked-accounts
+      name: users-linked-accounts
+      description: REST surface for users-linked-accounts.
+      operations:
+      - method: POST
+        name: linkaccount
+        description: Link account
+        call: users.linkaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+        with:
+          body: rest.body
+    - path: /v1/users/linked-accounts/{provider}/{providerUserId}
+      name: users-linked-accounts-provider-provideruserid
+      description: REST surface for users-linked-accounts-provider-provideruserid.
+      operations:
+      - method: DELETE
+        name: unlinkaccount
+        description: Unlink account
+        call: users.unlinkaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/mfa/sms/enroll
+      name: users-mfa-sms-enroll
+      description: REST surface for users-mfa-sms-enroll.
+      operations:
+      - method: POST
+        name: enrollinsmsmfa
+        description: Enroll in SMS MFA
+        call: users.enrollinsmsmfa
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Daytona Users. One tool per consumed operation, routed inline through this capability's consumes
+      block.
+    tools:
+    - name: daytona-get-authenticated-user
+      description: Get authenticated user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users.getauthenticateduser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-available-account-providers
+      description: Get available account providers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users.getavailableaccountproviders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-link-account
+      description: Link account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: users.linkaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+      with:
+        body: tools.body
+    - name: daytona-unlink-account
+      description: Unlink account
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: users.unlinkaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-enroll-in-sms-mfa
+      description: Enroll in SMS MFA
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: users.enrollinsmsmfa
+      outputParameters:
+      - type: object
+        mapping: $.

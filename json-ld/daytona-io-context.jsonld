@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "daytona": "https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/json-ld/daytona-io-context.jsonld#",
+    "Sandbox": "daytona:Sandbox",
+    "Snapshot": "daytona:Snapshot",
+    "Volume": "daytona:Volume",
+    "Organization": "schema:Organization",
+    "User": "schema:Person",
+    "ApiKey": "daytona:ApiKey",
+    "Webhook": "daytona:Webhook",
+    "Runner": "daytona:Runner",
+    "Region": "schema:Place",
+    "Toolbox": "daytona:Toolbox",
+    "ComputerUseDesktop": "daytona:ComputerUseDesktop",
+
+    "id": "@id",
+    "type": "@type",
+    "name": "schema:name",
+    "description": "schema:description",
+    "createdAt": {"@id": "schema:dateCreated", "@type": "schema:DateTime"},
+    "updatedAt": {"@id": "schema:dateModified", "@type": "schema:DateTime"},
+
+    "snapshot": "daytona:snapshot",
+    "state": "daytona:state",
+    "target": "daytona:region",
+    "organizationId": {"@id": "daytona:organization", "@type": "@id"},
+    "userId": {"@id": "daytona:user", "@type": "@id"},
+    "labels": {"@id": "daytona:label", "@container": "@index"},
+    "envVars": {"@id": "daytona:envVar", "@container": "@index"},
+    "cpu": "daytona:cpu",
+    "memory": "daytona:memoryGiB",
+    "disk": "daytona:diskGiB",
+    "gpu": "daytona:gpu",
+    "public": "daytona:isPublic",
+    "autoStopInterval": "daytona:autoStopMinutes",
+    "autoArchiveInterval": "daytona:autoArchiveMinutes",
+
+    "size": "daytona:sizeGiB",
+    "mountPath": "daytona:mountPath",
+    "sandboxId": {"@id": "daytona:sandbox", "@type": "@id"},
+
+    "url": {"@id": "schema:url", "@type": "@id"},
+    "events": {"@id": "daytona:event", "@container": "@set"},
+    "signingSecret": "daytona:signingSecret",
+
+    "email": "schema:email",
+    "role": "daytona:role",
+    "permissions": {"@id": "daytona:permission", "@container": "@set"}
+  }
+}

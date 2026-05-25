@@ -1,0 +1,113 @@
+specification: API Commons FinOps 0.1
+name: Daytona FinOps Profile
+description: >-
+  Aligns the Daytona Cloud billing surface to the FinOps Framework / FOCUS data spec. Captures the resource
+  dimensions billed (vCPU, memory, storage, GPU), pricing model (per-second, pay-as-you-go), free allowances,
+  cost attribution tags, and the APIs and dashboards available for cost observability.
+url: https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/finops/daytona-io-finops.yml
+provider: daytona-io
+humanURL: https://www.daytona.io/pricing
+created: '2026-05-25'
+modified: '2026-05-25'
+
+billing:
+  model: pay-as-you-go
+  granularity: per-second
+  currency: USD
+  invoicing: monthly
+  minimumCommit: 0
+  signupCredit:
+    amount: 200
+    currency: USD
+    description: Automatic $200 credit applied on signup.
+  freeAllowance:
+  - resource: storage
+    amount: 5
+    unit: GiB
+    description: First 5 GiB of persistent storage free per organization.
+
+resources:
+- name: vCPU
+  unit: vCPU-hour
+  ratePerHour: 0.0504
+  ratePerSecond: 0.000014
+  focusServiceCategory: Compute
+  focusChargeCategory: Usage
+  description: Per-vCPU billing for running sandboxes.
+- name: Memory
+  unit: GiB-hour
+  ratePerHour: 0.0162
+  ratePerSecond: 0.0000045
+  focusServiceCategory: Compute
+  focusChargeCategory: Usage
+  description: Per-GiB memory billing for running sandboxes.
+- name: Storage
+  unit: GiB-hour
+  ratePerHour: 0.000108
+  ratePerSecond: 0.00000003
+  focusServiceCategory: Storage
+  focusChargeCategory: Usage
+  description: Persistent storage billed after the first 5 GiB free.
+- name: GPU H100
+  unit: GPU-hour
+  ratePerHour: 3.95
+  ratePerSecond: 0.001097
+  focusServiceCategory: AI and Machine Learning
+  focusChargeCategory: Usage
+  description: Nvidia H100 GPU attached to GPU-class sandboxes.
+- name: GPU RTX PRO 6000
+  unit: GPU-hour
+  ratePerHour: 3.03
+  ratePerSecond: 0.000842
+  focusServiceCategory: AI and Machine Learning
+  focusChargeCategory: Usage
+  description: Nvidia RTX PRO 6000 GPU attached to GPU-class sandboxes.
+
+costAttribution:
+  dimensions:
+  - name: Organization
+    description: Top-level billing boundary; aligns to FOCUS BillingAccountId.
+  - name: Sandbox Labels
+    description: Free-form key/value labels on sandboxes; map to FOCUS Tags for chargeback and showback.
+  - name: Region
+    description: Sandbox region; aligns to FOCUS Region.
+  - name: Sandbox ID
+    description: Per-sandbox cost attribution; aligns to FOCUS ResourceId.
+  - name: Snapshot ID
+    description: Per-snapshot storage cost attribution.
+  - name: Volume ID
+    description: Per-volume storage cost attribution.
+
+observability:
+  dashboard:
+    url: https://app.daytona.io/
+    description: Daytona Dashboard surfaces current usage, spend, and per-resource breakdowns.
+  apis:
+  - url: https://www.daytona.io/docs/en/account-management/billing
+    description: Billing documentation including invoice access and payment management.
+  - url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
+    description: OpenTelemetry collection for emitting sandbox traces and metrics to customer-owned backends.
+  exports:
+  - format: CSV
+    description: Invoice export available from the billing section of the dashboard.
+
+programs:
+- name: Startups Program
+  description: Up to $50k in free Daytona compute credits for qualifying startups.
+  url: https://www.daytona.io/pricing
+- name: Enterprise
+  description: Custom-priced contracts with optional Customer-Managed Compute or self-hosted open-source.
+  url: https://www.daytona.io/contact
+
+recommendations:
+- audience: ai-agent-platforms
+  note: >-
+    Use organization-level API keys and sandbox labels to attribute cost to individual tenants in
+    multi-tenant agent platforms.
+- audience: enterprises
+  note: >-
+    Evaluate Customer-Managed Compute for predictable cost under heavy use; pair with reserved GPU pools to
+    reduce per-second GPU spend.
+- audience: researchers
+  note: >-
+    Apply for the Startups Program early; $50k of credits can fund a large SWE-bench-style evaluation run.

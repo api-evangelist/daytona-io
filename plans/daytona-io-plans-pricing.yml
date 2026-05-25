@@ -1,0 +1,129 @@
+specification: API Commons Plans 0.1
+name: Daytona Plans and Pricing
+description: >-
+  Daytona Cloud commercial offering. Daytona is a usage-based platform — there are no traditional named tiers.
+  Instead, every customer pays per-second for the compute they consume (vCPU, memory, storage, GPU) with a $200
+  free-compute credit on signup, an enterprise tier with negotiated terms, and a Startups program offering up to
+  $50k in free credits to qualifying agent-infrastructure startups.
+url: https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/plans/daytona-io-plans-pricing.yml
+provider: daytona-io
+humanURL: https://www.daytona.io/pricing
+created: '2026-05-25'
+modified: '2026-05-25'
+
+plans:
+- id: free-credit
+  name: Free Credit
+  type: PayAsYouGo
+  description: $200 of free Daytona Cloud compute applied automatically on signup. No credit card required.
+  entries:
+  - geo: Global
+    unit: 200
+    label: USD
+    limit: 1
+    price: 0
+    metric: credit
+    timeFrame: once
+    description: One-time signup credit applied against pay-as-you-go usage.
+  elements:
+  - name: $200 in free compute credit
+  - name: Sub-90ms sandbox cold starts
+  - name: Full access to Sandbox, Snapshot, Volume, Toolbox, and Preview APIs
+  - name: SDKs for Python, TypeScript, Ruby, Go, and Java
+  - name: CLI access via Homebrew or Windows installer
+  - name: Email support via support@daytona.com and community Slack
+
+- id: pay-as-you-go
+  name: Pay-As-You-Go
+  type: PayAsYouGo
+  description: >-
+    Per-second usage-based pricing. Pay only for the compute your sandboxes consume. Volume discounts apply
+    automatically as usage grows.
+  entries:
+  - geo: Global
+    unit: 1
+    label: vCPU-hour
+    limit: 1
+    price: 0.0504
+    metric: vcpu
+    timeFrame: hour
+    description: vCPU billed per hour ($0.000014 per second).
+  - geo: Global
+    unit: 1
+    label: GiB-hour
+    limit: 1
+    price: 0.0162
+    metric: memory
+    timeFrame: hour
+    description: Memory billed per GiB per hour ($0.0000045 per second).
+  - geo: Global
+    unit: 1
+    label: GiB-hour
+    limit: 1
+    price: 0.000108
+    metric: storage
+    timeFrame: hour
+    description: Persistent storage billed per GiB per hour after the first 5 GiB which are free.
+  - geo: Global
+    unit: 1
+    label: GPU-hour
+    limit: 1
+    price: 3.95
+    metric: gpu-h100
+    timeFrame: hour
+    description: Nvidia H100 GPU billed per hour ($0.001097 per second).
+  - geo: Global
+    unit: 1
+    label: GPU-hour
+    limit: 1
+    price: 3.03
+    metric: gpu-rtx6000
+    timeFrame: hour
+    description: Nvidia RTX PRO 6000 GPU billed per hour ($0.000842 per second).
+  elements:
+  - name: Per-second billing
+  - name: First 5 GiB persistent storage free
+  - name: Volume discounts as usage scales
+  - name: Webhooks, snapshots, volumes, computer use included
+
+- id: startups
+  name: Startups Program
+  type: Credits
+  description: Up to $50,000 in free Daytona compute credits for qualifying early-stage startups building agent infrastructure.
+  entries:
+  - geo: Global
+    unit: 50000
+    label: USD
+    limit: 1
+    price: 0
+    metric: credit
+    timeFrame: program
+    description: Application-based; up to $50k in free credits for qualifying startups.
+  elements:
+  - name: Up to $50k in free Daytona compute credits
+  - name: Direct support from the Daytona team
+  - name: Eligibility determined by stage, sector, and use case
+
+- id: enterprise
+  name: Enterprise
+  type: Custom
+  description: >-
+    Custom-priced contracts for organizations with bespoke compliance, residency, security, support, and SLA
+    requirements. Includes optional Customer-Managed Compute (Daytona-managed control plane against
+    customer-owned compute) and on-premise / self-hosted open-source deployments.
+  entries:
+  - geo: Global
+    unit: 1
+    label: Contract
+    limit: 1
+    price: Call
+    metric: enterprise
+    timeFrame: year
+    description: Custom annual contract negotiated directly with Daytona sales.
+  elements:
+  - name: Customer-Managed Compute (your VPC / your Kubernetes)
+  - name: Self-Hosted Open Source deployment via Helm charts
+  - name: Volume pricing and committed-use discounts
+  - name: Single sign-on (SSO), audit logs, and security exhibit
+  - name: Custom SLAs and dedicated support
+  - name: Optional on-premise / air-gapped install

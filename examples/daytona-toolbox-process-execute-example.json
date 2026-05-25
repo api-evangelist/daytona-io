@@ -1,0 +1,7 @@
+{
+  "command": "python -c \"import pandas as pd; print(pd.__version__)\"",
+  "timeout": 30,
+  "env": {
+    "PYTHONUNBUFFERED": "1"
+  }
+}

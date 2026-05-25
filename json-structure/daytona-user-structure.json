@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-structure.org/v0.1/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/daytona-io/refs/heads/main/json-structure/daytona-user-structure.json",
+  "name": "daytona-user",
+  "description": "JSON Structure for the Daytona User resource. Derived from the official Daytona OpenAPI specification at https://www.daytona.io/docs/openapi.json.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "User ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "User name"
+    },
+    "email": {
+      "type": "string",
+      "description": "User email"
+    },
+    "publicKeys": {
+      "description": "User public keys",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Public key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Key name"
+          }
+        },
+        "required": [
+          "key",
+          "name"
+        ]
+      }
+    },
+    "createdAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Creation timestamp"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "email",
+    "publicKeys",
+    "createdAt"
+  ]
+}

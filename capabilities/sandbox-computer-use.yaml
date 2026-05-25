@@ -1,0 +1,1443 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Daytona Sandbox Computer Use
+  description: 'Daytona Sandbox Computer Use. 44 operations. Lead operation: Search the AT-SPI tree for nodes matching a role/name/state
+    filter and return a flat list.. Self-contained Naftiko capability covering one Daytona business surface.'
+  tags:
+  - Daytona
+  - Computer-Use
+  - Lsp
+  - Info
+  - Server
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DAYTONA_API_KEY: DAYTONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sandbox-computer-use
+    baseUri: https://proxy.app.daytona.io/toolbox
+    description: Daytona Sandbox Computer Use business capability. Self-contained, no shared references.
+    resources:
+    - name: computeruse-a11y-find
+      path: /computeruse/a11y/find
+      operations:
+      - name: findaccessibilitynodes
+        method: POST
+        description: Search the AT-SPI tree for nodes matching a role/name/state filter and return a flat list.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-a11y-node-focus
+      path: /computeruse/a11y/node/focus
+      operations:
+      - name: focusaccessibilitynode
+        method: POST
+        description: Move keyboard focus to the AT-SPI node identified by id (bus-name:object-path).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-a11y-node-invoke
+      path: /computeruse/a11y/node/invoke
+      operations:
+      - name: invokeaccessibilitynode
+        method: POST
+        description: Call an AT-SPI Action on the node. Leave action empty to invoke the node's primary (first) action.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-a11y-node-value
+      path: /computeruse/a11y/node/value
+      operations:
+      - name: setaccessibilitynodevalue
+        method: POST
+        description: Write the given value to the node via EditableText.SetTextContents or, for numeric controls, Value.CurrentValue.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-a11y-tree
+      path: /computeruse/a11y/tree
+      operations:
+      - name: getaccessibilitytree
+        method: GET
+        description: Fetch the AT-SPI accessibility tree for the focused application, a specific PID, or all registered applications.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-display-info
+      path: /computeruse/display/info
+      operations:
+      - name: getdisplayinfo
+        method: GET
+        description: Get information about all available displays
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-display-windows
+      path: /computeruse/display/windows
+      operations:
+      - name: getwindows
+        method: GET
+        description: Get information about all open windows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-keyboard-hotkey
+      path: /computeruse/keyboard/hotkey
+      operations:
+      - name: presshotkey
+        method: POST
+        description: Press a hotkey combination (e.g., ctrl+c, cmd+v)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-keyboard-key
+      path: /computeruse/keyboard/key
+      operations:
+      - name: presskey
+        method: POST
+        description: Press a key with optional modifiers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-keyboard-type
+      path: /computeruse/keyboard/type
+      operations:
+      - name: typetext
+        method: POST
+        description: Type text with optional delay between keystrokes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-mouse-click
+      path: /computeruse/mouse/click
+      operations:
+      - name: click
+        method: POST
+        description: Click the mouse button at the specified coordinates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-mouse-drag
+      path: /computeruse/mouse/drag
+      operations:
+      - name: drag
+        method: POST
+        description: Drag the mouse from start to end coordinates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-mouse-move
+      path: /computeruse/mouse/move
+      operations:
+      - name: movemouse
+        method: POST
+        description: Move the mouse cursor to the specified coordinates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-mouse-position
+      path: /computeruse/mouse/position
+      operations:
+      - name: getmouseposition
+        method: GET
+        description: Get the current mouse cursor position
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-mouse-scroll
+      path: /computeruse/mouse/scroll
+      operations:
+      - name: scroll
+        method: POST
+        description: Scroll the mouse wheel at the specified coordinates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-process-status
+      path: /computeruse/process-status
+      operations:
+      - name: getcomputerusestatus
+        method: GET
+        description: Get the status of all computer use processes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-process-processname-errors
+      path: /computeruse/process/{processName}/errors
+      operations:
+      - name: getprocesserrors
+        method: GET
+        description: Get errors for a specific computer use process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-process-processname-logs
+      path: /computeruse/process/{processName}/logs
+      operations:
+      - name: getprocesslogs
+        method: GET
+        description: Get logs for a specific computer use process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-process-processname-restart
+      path: /computeruse/process/{processName}/restart
+      operations:
+      - name: restartprocess
+        method: POST
+        description: Restart a specific computer use process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-process-processname-status
+      path: /computeruse/process/{processName}/status
+      operations:
+      - name: getprocessstatus
+        method: GET
+        description: Check if a specific computer use process is running
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-recordings
+      path: /computeruse/recordings
+      operations:
+      - name: listrecordings
+        method: GET
+        description: Get a list of all recordings (active and completed)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-recordings-start
+      path: /computeruse/recordings/start
+      operations:
+      - name: startrecording
+        method: POST
+        description: Start a new screen recording session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-recordings-stop
+      path: /computeruse/recordings/stop
+      operations:
+      - name: stoprecording
+        method: POST
+        description: Stop an active screen recording session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-recordings-id
+      path: /computeruse/recordings/{id}
+      operations:
+      - name: getrecording
+        method: GET
+        description: Get details of a specific recording by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleterecording
+        method: DELETE
+        description: Delete a recording file by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-recordings-id-download
+      path: /computeruse/recordings/{id}/download
+      operations:
+      - name: downloadrecording
+        method: GET
+        description: Download a recording by providing its ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-screenshot
+      path: /computeruse/screenshot
+      operations:
+      - name: takescreenshot
+        method: GET
+        description: Take a screenshot of the entire screen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-screenshot-compressed
+      path: /computeruse/screenshot/compressed
+      operations:
+      - name: takecompressedscreenshot
+        method: GET
+        description: Take a compressed screenshot of the entire screen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-screenshot-region
+      path: /computeruse/screenshot/region
+      operations:
+      - name: takeregionscreenshot
+        method: GET
+        description: Take a screenshot of a specific region of the screen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-screenshot-region-compressed
+      path: /computeruse/screenshot/region/compressed
+      operations:
+      - name: takecompressedregionscreenshot
+        method: GET
+        description: Take a compressed screenshot of a specific region of the screen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-start
+      path: /computeruse/start
+      operations:
+      - name: startcomputeruse
+        method: POST
+        description: Start all computer use processes and return their status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-status
+      path: /computeruse/status
+      operations:
+      - name: getcomputerusesystemstatus
+        method: GET
+        description: Get the current status of the computer use system
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computeruse-stop
+      path: /computeruse/stop
+      operations:
+      - name: stopcomputeruse
+        method: POST
+        description: Stop all computer use processes and return their status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: init
+      path: /init
+      operations:
+      - name: initialize
+        method: POST
+        description: Set the auth token and initialize telemetry for the toolbox server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lsp-completions
+      path: /lsp/completions
+      operations:
+      - name: completions
+        method: POST
+        description: Get code completion suggestions from the LSP server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lsp-did-close
+      path: /lsp/did-close
+      operations:
+      - name: didclose
+        method: POST
+        description: Notify the LSP server that a document has been closed
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lsp-did-open
+      path: /lsp/did-open
+      operations:
+      - name: didopen
+        method: POST
+        description: Notify the LSP server that a document has been opened
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lsp-document-symbols
+      path: /lsp/document-symbols
+      operations:
+      - name: documentsymbols
+        method: GET
+        description: Get symbols (functions, classes, etc.) from a document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lsp-start
+      path: /lsp/start
+      operations:
+      - name: start
+        method: POST
+        description: Start a Language Server Protocol server for the specified language
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lsp-stop
+      path: /lsp/stop
+      operations:
+      - name: stop
+        method: POST
+        description: Stop a Language Server Protocol server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lsp-workspacesymbols
+      path: /lsp/workspacesymbols
+      operations:
+      - name: workspacesymbols
+        method: GET
+        description: Search for symbols across the entire workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: user-home-dir
+      path: /user-home-dir
+      operations:
+      - name: getuserhomedir
+        method: GET
+        description: Get the current user home directory path.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: version
+      path: /version
+      operations:
+      - name: getversion
+        method: GET
+        description: Get the current daemon version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: work-dir
+      path: /work-dir
+      operations:
+      - name: getworkdir
+        method: GET
+        description: Get the current working directory path. This is default directory used for running commands.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      value: '{{env.DAYTONA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: sandbox-computer-use-rest
+    port: 8080
+    description: REST adapter for Daytona Sandbox Computer Use. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/computeruse/a11y/find
+      name: computeruse-a11y-find
+      description: REST surface for computeruse-a11y-find.
+      operations:
+      - method: POST
+        name: findaccessibilitynodes
+        description: Search the AT-SPI tree for nodes matching a role/name/state filter and return a flat list.
+        call: sandbox-computer-use.findaccessibilitynodes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/a11y/node/focus
+      name: computeruse-a11y-node-focus
+      description: REST surface for computeruse-a11y-node-focus.
+      operations:
+      - method: POST
+        name: focusaccessibilitynode
+        description: Move keyboard focus to the AT-SPI node identified by id (bus-name:object-path).
+        call: sandbox-computer-use.focusaccessibilitynode
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/a11y/node/invoke
+      name: computeruse-a11y-node-invoke
+      description: REST surface for computeruse-a11y-node-invoke.
+      operations:
+      - method: POST
+        name: invokeaccessibilitynode
+        description: Call an AT-SPI Action on the node. Leave action empty to invoke the node's primary (first) action.
+        call: sandbox-computer-use.invokeaccessibilitynode
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/a11y/node/value
+      name: computeruse-a11y-node-value
+      description: REST surface for computeruse-a11y-node-value.
+      operations:
+      - method: POST
+        name: setaccessibilitynodevalue
+        description: Write the given value to the node via EditableText.SetTextContents or, for numeric controls, Value.CurrentValue.
+        call: sandbox-computer-use.setaccessibilitynodevalue
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/a11y/tree
+      name: computeruse-a11y-tree
+      description: REST surface for computeruse-a11y-tree.
+      operations:
+      - method: GET
+        name: getaccessibilitytree
+        description: Fetch the AT-SPI accessibility tree for the focused application, a specific PID, or all registered applications.
+        call: sandbox-computer-use.getaccessibilitytree
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/display/info
+      name: computeruse-display-info
+      description: REST surface for computeruse-display-info.
+      operations:
+      - method: GET
+        name: getdisplayinfo
+        description: Get information about all available displays
+        call: sandbox-computer-use.getdisplayinfo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/display/windows
+      name: computeruse-display-windows
+      description: REST surface for computeruse-display-windows.
+      operations:
+      - method: GET
+        name: getwindows
+        description: Get information about all open windows
+        call: sandbox-computer-use.getwindows
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/keyboard/hotkey
+      name: computeruse-keyboard-hotkey
+      description: REST surface for computeruse-keyboard-hotkey.
+      operations:
+      - method: POST
+        name: presshotkey
+        description: Press a hotkey combination (e.g., ctrl+c, cmd+v)
+        call: sandbox-computer-use.presshotkey
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/keyboard/key
+      name: computeruse-keyboard-key
+      description: REST surface for computeruse-keyboard-key.
+      operations:
+      - method: POST
+        name: presskey
+        description: Press a key with optional modifiers
+        call: sandbox-computer-use.presskey
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/keyboard/type
+      name: computeruse-keyboard-type
+      description: REST surface for computeruse-keyboard-type.
+      operations:
+      - method: POST
+        name: typetext
+        description: Type text with optional delay between keystrokes
+        call: sandbox-computer-use.typetext
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/mouse/click
+      name: computeruse-mouse-click
+      description: REST surface for computeruse-mouse-click.
+      operations:
+      - method: POST
+        name: click
+        description: Click the mouse button at the specified coordinates
+        call: sandbox-computer-use.click
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/mouse/drag
+      name: computeruse-mouse-drag
+      description: REST surface for computeruse-mouse-drag.
+      operations:
+      - method: POST
+        name: drag
+        description: Drag the mouse from start to end coordinates
+        call: sandbox-computer-use.drag
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/mouse/move
+      name: computeruse-mouse-move
+      description: REST surface for computeruse-mouse-move.
+      operations:
+      - method: POST
+        name: movemouse
+        description: Move the mouse cursor to the specified coordinates
+        call: sandbox-computer-use.movemouse
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/mouse/position
+      name: computeruse-mouse-position
+      description: REST surface for computeruse-mouse-position.
+      operations:
+      - method: GET
+        name: getmouseposition
+        description: Get the current mouse cursor position
+        call: sandbox-computer-use.getmouseposition
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/mouse/scroll
+      name: computeruse-mouse-scroll
+      description: REST surface for computeruse-mouse-scroll.
+      operations:
+      - method: POST
+        name: scroll
+        description: Scroll the mouse wheel at the specified coordinates
+        call: sandbox-computer-use.scroll
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/process-status
+      name: computeruse-process-status
+      description: REST surface for computeruse-process-status.
+      operations:
+      - method: GET
+        name: getcomputerusestatus
+        description: Get the status of all computer use processes
+        call: sandbox-computer-use.getcomputerusestatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/process/{processName}/errors
+      name: computeruse-process-processname-errors
+      description: REST surface for computeruse-process-processname-errors.
+      operations:
+      - method: GET
+        name: getprocesserrors
+        description: Get errors for a specific computer use process
+        call: sandbox-computer-use.getprocesserrors
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/process/{processName}/logs
+      name: computeruse-process-processname-logs
+      description: REST surface for computeruse-process-processname-logs.
+      operations:
+      - method: GET
+        name: getprocesslogs
+        description: Get logs for a specific computer use process
+        call: sandbox-computer-use.getprocesslogs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/process/{processName}/restart
+      name: computeruse-process-processname-restart
+      description: REST surface for computeruse-process-processname-restart.
+      operations:
+      - method: POST
+        name: restartprocess
+        description: Restart a specific computer use process
+        call: sandbox-computer-use.restartprocess
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/process/{processName}/status
+      name: computeruse-process-processname-status
+      description: REST surface for computeruse-process-processname-status.
+      operations:
+      - method: GET
+        name: getprocessstatus
+        description: Check if a specific computer use process is running
+        call: sandbox-computer-use.getprocessstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/recordings
+      name: computeruse-recordings
+      description: REST surface for computeruse-recordings.
+      operations:
+      - method: GET
+        name: listrecordings
+        description: Get a list of all recordings (active and completed)
+        call: sandbox-computer-use.listrecordings
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/recordings/start
+      name: computeruse-recordings-start
+      description: REST surface for computeruse-recordings-start.
+      operations:
+      - method: POST
+        name: startrecording
+        description: Start a new screen recording session
+        call: sandbox-computer-use.startrecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/recordings/stop
+      name: computeruse-recordings-stop
+      description: REST surface for computeruse-recordings-stop.
+      operations:
+      - method: POST
+        name: stoprecording
+        description: Stop an active screen recording session
+        call: sandbox-computer-use.stoprecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/recordings/{id}
+      name: computeruse-recordings-id
+      description: REST surface for computeruse-recordings-id.
+      operations:
+      - method: GET
+        name: getrecording
+        description: Get details of a specific recording by ID
+        call: sandbox-computer-use.getrecording
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleterecording
+        description: Delete a recording file by ID
+        call: sandbox-computer-use.deleterecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/recordings/{id}/download
+      name: computeruse-recordings-id-download
+      description: REST surface for computeruse-recordings-id-download.
+      operations:
+      - method: GET
+        name: downloadrecording
+        description: Download a recording by providing its ID
+        call: sandbox-computer-use.downloadrecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/screenshot
+      name: computeruse-screenshot
+      description: REST surface for computeruse-screenshot.
+      operations:
+      - method: GET
+        name: takescreenshot
+        description: Take a screenshot of the entire screen
+        call: sandbox-computer-use.takescreenshot
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/screenshot/compressed
+      name: computeruse-screenshot-compressed
+      description: REST surface for computeruse-screenshot-compressed.
+      operations:
+      - method: GET
+        name: takecompressedscreenshot
+        description: Take a compressed screenshot of the entire screen
+        call: sandbox-computer-use.takecompressedscreenshot
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/screenshot/region
+      name: computeruse-screenshot-region
+      description: REST surface for computeruse-screenshot-region.
+      operations:
+      - method: GET
+        name: takeregionscreenshot
+        description: Take a screenshot of a specific region of the screen
+        call: sandbox-computer-use.takeregionscreenshot
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/screenshot/region/compressed
+      name: computeruse-screenshot-region-compressed
+      description: REST surface for computeruse-screenshot-region-compressed.
+      operations:
+      - method: GET
+        name: takecompressedregionscreenshot
+        description: Take a compressed screenshot of a specific region of the screen
+        call: sandbox-computer-use.takecompressedregionscreenshot
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/start
+      name: computeruse-start
+      description: REST surface for computeruse-start.
+      operations:
+      - method: POST
+        name: startcomputeruse
+        description: Start all computer use processes and return their status
+        call: sandbox-computer-use.startcomputeruse
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/status
+      name: computeruse-status
+      description: REST surface for computeruse-status.
+      operations:
+      - method: GET
+        name: getcomputerusesystemstatus
+        description: Get the current status of the computer use system
+        call: sandbox-computer-use.getcomputerusesystemstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/computeruse/stop
+      name: computeruse-stop
+      description: REST surface for computeruse-stop.
+      operations:
+      - method: POST
+        name: stopcomputeruse
+        description: Stop all computer use processes and return their status
+        call: sandbox-computer-use.stopcomputeruse
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/init
+      name: init
+      description: REST surface for init.
+      operations:
+      - method: POST
+        name: initialize
+        description: Set the auth token and initialize telemetry for the toolbox server
+        call: sandbox-computer-use.initialize
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lsp/completions
+      name: lsp-completions
+      description: REST surface for lsp-completions.
+      operations:
+      - method: POST
+        name: completions
+        description: Get code completion suggestions from the LSP server
+        call: sandbox-computer-use.completions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lsp/did-close
+      name: lsp-did-close
+      description: REST surface for lsp-did-close.
+      operations:
+      - method: POST
+        name: didclose
+        description: Notify the LSP server that a document has been closed
+        call: sandbox-computer-use.didclose
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lsp/did-open
+      name: lsp-did-open
+      description: REST surface for lsp-did-open.
+      operations:
+      - method: POST
+        name: didopen
+        description: Notify the LSP server that a document has been opened
+        call: sandbox-computer-use.didopen
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lsp/document-symbols
+      name: lsp-document-symbols
+      description: REST surface for lsp-document-symbols.
+      operations:
+      - method: GET
+        name: documentsymbols
+        description: Get symbols (functions, classes, etc.) from a document
+        call: sandbox-computer-use.documentsymbols
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lsp/start
+      name: lsp-start
+      description: REST surface for lsp-start.
+      operations:
+      - method: POST
+        name: start
+        description: Start a Language Server Protocol server for the specified language
+        call: sandbox-computer-use.start
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lsp/stop
+      name: lsp-stop
+      description: REST surface for lsp-stop.
+      operations:
+      - method: POST
+        name: stop
+        description: Stop a Language Server Protocol server
+        call: sandbox-computer-use.stop
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lsp/workspacesymbols
+      name: lsp-workspacesymbols
+      description: REST surface for lsp-workspacesymbols.
+      operations:
+      - method: GET
+        name: workspacesymbols
+        description: Search for symbols across the entire workspace
+        call: sandbox-computer-use.workspacesymbols
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/user-home-dir
+      name: user-home-dir
+      description: REST surface for user-home-dir.
+      operations:
+      - method: GET
+        name: getuserhomedir
+        description: Get the current user home directory path.
+        call: sandbox-computer-use.getuserhomedir
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/version
+      name: version
+      description: REST surface for version.
+      operations:
+      - method: GET
+        name: getversion
+        description: Get the current daemon version
+        call: sandbox-computer-use.getversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/work-dir
+      name: work-dir
+      description: REST surface for work-dir.
+      operations:
+      - method: GET
+        name: getworkdir
+        description: Get the current working directory path. This is default directory used for running commands.
+        call: sandbox-computer-use.getworkdir
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sandbox-computer-use-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Daytona Sandbox Computer Use. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: daytona-find-accessibility-nodes
+      description: Search the AT-SPI tree for nodes matching a role/name/state filter and return a flat list.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.findaccessibilitynodes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-focus-an-accessibility-node
+      description: Move keyboard focus to the AT-SPI node identified by id (bus-name:object-path).
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.focusaccessibilitynode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-invoke-an-action-on-an-accessibility-node
+      description: Call an AT-SPI Action on the node. Leave action empty to invoke the node's primary (first) action.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.invokeaccessibilitynode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-set-the-value-of-an-accessibility-node
+      description: Write the given value to the node via EditableText.SetTextContents or, for numeric controls, Value.CurrentValue.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.setaccessibilitynodevalue
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-accessibility-tree
+      description: Fetch the AT-SPI accessibility tree for the focused application, a specific PID, or all registered applications.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getaccessibilitytree
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-display-information
+      description: Get information about all available displays
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getdisplayinfo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-windows-information
+      description: Get information about all open windows
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getwindows
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-press-hotkey
+      description: Press a hotkey combination (e.g., ctrl+c, cmd+v)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.presshotkey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-press-key
+      description: Press a key with optional modifiers
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.presskey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-type-text
+      description: Type text with optional delay between keystrokes
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.typetext
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-click-mouse-button
+      description: Click the mouse button at the specified coordinates
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.click
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-drag-mouse
+      description: Drag the mouse from start to end coordinates
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.drag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-move-mouse-cursor
+      description: Move the mouse cursor to the specified coordinates
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.movemouse
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-mouse-position
+      description: Get the current mouse cursor position
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getmouseposition
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-scroll-mouse-wheel
+      description: Scroll the mouse wheel at the specified coordinates
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.scroll
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-computer-use-process-status
+      description: Get the status of all computer use processes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getcomputerusestatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-process-errors
+      description: Get errors for a specific computer use process
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getprocesserrors
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-process-logs
+      description: Get logs for a specific computer use process
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getprocesslogs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-restart-specific-process
+      description: Restart a specific computer use process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.restartprocess
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-specific-process-status
+      description: Check if a specific computer use process is running
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getprocessstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-list-all-recordings
+      description: Get a list of all recordings (active and completed)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.listrecordings
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-start-a-new-recording
+      description: Start a new screen recording session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.startrecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-stop-a-recording
+      description: Stop an active screen recording session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.stoprecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-recording-details
+      description: Get details of a specific recording by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getrecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-delete-a-recording
+      description: Delete a recording file by ID
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: sandbox-computer-use.deleterecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-download-a-recording
+      description: Download a recording by providing its ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.downloadrecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-take-a-screenshot
+      description: Take a screenshot of the entire screen
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.takescreenshot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-take-a-compressed-screenshot
+      description: Take a compressed screenshot of the entire screen
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.takecompressedscreenshot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-take-a-region-screenshot
+      description: Take a screenshot of a specific region of the screen
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.takeregionscreenshot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-take-a-compressed-region-screenshot
+      description: Take a compressed screenshot of a specific region of the screen
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.takecompressedregionscreenshot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-start-computer-use-processes
+      description: Start all computer use processes and return their status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.startcomputeruse
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-computer-use-status
+      description: Get the current status of the computer use system
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getcomputerusesystemstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-stop-computer-use-processes
+      description: Stop all computer use processes and return their status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.stopcomputeruse
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-initialize-toolbox-server
+      description: Set the auth token and initialize telemetry for the toolbox server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.initialize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-code-completions
+      description: Get code completion suggestions from the LSP server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.completions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-notify-document-closed
+      description: Notify the LSP server that a document has been closed
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.didclose
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-notify-document-opened
+      description: Notify the LSP server that a document has been opened
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.didopen
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-document-symbols
+      description: Get symbols (functions, classes, etc.) from a document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.documentsymbols
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-start-lsp-server
+      description: Start a Language Server Protocol server for the specified language
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.start
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-stop-lsp-server
+      description: Stop a Language Server Protocol server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sandbox-computer-use.stop
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-workspace-symbols
+      description: Search for symbols across the entire workspace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.workspacesymbols
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-user-home-directory
+      description: Get the current user home directory path.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getuserhomedir
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-version
+      description: Get the current daemon version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-working-directory
+      description: Get the current working directory path. This is default directory used for running commands.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sandbox-computer-use.getworkdir
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,230 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Daytona Admin Docker Registry
+  description: 'Daytona Admin Docker Registry. 6 operations. Lead operation: Create registry. Self-contained Naftiko capability
+    covering one Daytona business surface.'
+  tags:
+  - Daytona
+  - Docker-Registry
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DAYTONA_API_KEY: DAYTONA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-docker-registry
+    baseUri: https://app.daytona.io/api
+    description: Daytona Admin Docker Registry business capability. Self-contained, no shared references.
+    resources:
+    - name: docker-registry
+      path: /docker-registry
+      operations:
+      - name: createregistry
+        method: POST
+        description: Create registry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listregistries
+        method: GET
+        description: List registries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: docker-registry-registry-push-access
+      path: /docker-registry/registry-push-access
+      operations:
+      - name: gettransientpushaccess
+        method: GET
+        description: Get temporary registry access for pushing snapshots
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: docker-registry-id
+      path: /docker-registry/{id}
+      operations:
+      - name: getregistry
+        method: GET
+        description: Get registry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateregistry
+        method: PATCH
+        description: Update registry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteregistry
+        method: DELETE
+        description: Delete registry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      value: '{{env.DAYTONA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: admin-docker-registry-rest
+    port: 8080
+    description: REST adapter for Daytona Admin Docker Registry. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/docker-registry
+      name: docker-registry
+      description: REST surface for docker-registry.
+      operations:
+      - method: POST
+        name: createregistry
+        description: Create registry
+        call: admin-docker-registry.createregistry
+        outputParameters:
+        - type: object
+          mapping: $.
+        with:
+          body: rest.body
+      - method: GET
+        name: listregistries
+        description: List registries
+        call: admin-docker-registry.listregistries
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docker-registry/registry-push-access
+      name: docker-registry-registry-push-access
+      description: REST surface for docker-registry-registry-push-access.
+      operations:
+      - method: GET
+        name: gettransientpushaccess
+        description: Get temporary registry access for pushing snapshots
+        call: admin-docker-registry.gettransientpushaccess
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/docker-registry/{id}
+      name: docker-registry-id
+      description: REST surface for docker-registry-id.
+      operations:
+      - method: GET
+        name: getregistry
+        description: Get registry
+        call: admin-docker-registry.getregistry
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateregistry
+        description: Update registry
+        call: admin-docker-registry.updateregistry
+        outputParameters:
+        - type: object
+          mapping: $.
+        with:
+          body: rest.body
+      - method: DELETE
+        name: deleteregistry
+        description: Delete registry
+        call: admin-docker-registry.deleteregistry
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-docker-registry-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Daytona Admin Docker Registry. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: daytona-create-registry
+      description: Create registry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-docker-registry.createregistry
+      outputParameters:
+      - type: object
+        mapping: $.
+      with:
+        body: tools.body
+    - name: daytona-list-registries
+      description: List registries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-docker-registry.listregistries
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-temporary-registry-access-for-pushing-snapshots
+      description: Get temporary registry access for pushing snapshots
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-docker-registry.gettransientpushaccess
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-get-registry
+      description: Get registry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-docker-registry.getregistry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: daytona-update-registry
+      description: Update registry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-docker-registry.updateregistry
+      outputParameters:
+      - type: object
+        mapping: $.
+      with:
+        body: tools.body
+    - name: daytona-delete-registry
+      description: Delete registry
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: admin-docker-registry.deleteregistry
+      outputParameters:
+      - type: object
+        mapping: $.
