@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Daytona Restore an Archived Sandbox
+  summary: Start an archived or stopped sandbox and wait until it is running again.
+  description: >-
+    The companion to the stop-and-archive flow. Starting an archived sandbox in
+    Daytona triggers an asynchronous restore from cold storage, so this workflow
+    issues a start, polls the sandbox state until it reports started (looping
+    while it is restoring, pulling its snapshot, or starting, and ending if it
+    errors), and then reads the restored sandbox details. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sandboxApi
+  url: ../openapi/daytona-sandbox-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: restore-archived-sandbox
+  summary: Start an archived sandbox and wait for it to be running.
+  description: >-
+    Starts an archived or stopped sandbox, polls until it reaches the started
+    state, then returns the running sandbox details.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - sandboxIdOrName
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      sandboxIdOrName:
+        type: string
+        description: The ID or name of the archived or stopped sandbox to start.
+  steps:
+  - stepId: startSandbox
+    description: Start the sandbox, triggering a restore if it was archived.
+    operationId: startSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+  - stepId: pollStarted
+    description: >-
+      Poll the sandbox until it reports started, looping while it is restoring,
+      pulling its snapshot, or starting, and ending if it errors.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: running
+      type: goto
+      stepId: getDetails
+      criteria:
+      - context: $response.body
+        condition: $.state == "started"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error"
+        type: jsonpath
+    - name: stillRestoring
+      type: goto
+      stepId: pollStarted
+      criteria:
+      - context: $response.body
+        condition: $.state != "started" && $.state != "error"
+        type: jsonpath
+  - stepId: getDetails
+    description: Read the details of the restored, running sandbox.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    - name: verbose
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sandboxId: $response.body#/id
+      state: $response.body#/state
+  outputs:
+    sandboxId: $steps.getDetails.outputs.sandboxId
+    state: $steps.getDetails.outputs.state

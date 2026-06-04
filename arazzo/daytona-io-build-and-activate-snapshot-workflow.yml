@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: Daytona Build and Activate a Snapshot
+  summary: Register a snapshot from a container image, poll until it builds, and activate it if it lands inactive.
+  description: >-
+    Snapshots are the reusable images that back Daytona sandboxes. This workflow
+    registers a new snapshot from a container image, polls the snapshot until its
+    asynchronous build settles (looping while it is building, pending, or
+    pulling, and ending if the build fails), and then branches: when the built
+    snapshot is inactive it activates it, and when it is already active it
+    finishes. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: snapshotsApi
+  url: ../openapi/daytona-snapshots-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: build-and-activate-snapshot
+  summary: Create a snapshot from an image, wait for it to build, and activate it.
+  description: >-
+    Registers a snapshot from a container image, polls until the build
+    completes, then activates the snapshot when it is inactive.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - name
+    - imageName
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      name:
+        type: string
+        description: The name of the snapshot to create.
+      imageName:
+        type: string
+        description: The container image name to build the snapshot from (e.g. ubuntu:22.04).
+      cpu:
+        type: integer
+        description: CPU cores to allocate to sandboxes created from this snapshot.
+      memory:
+        type: integer
+        description: Memory in GB to allocate to sandboxes created from this snapshot.
+      disk:
+        type: integer
+        description: Disk space in GB to allocate to sandboxes created from this snapshot.
+  steps:
+  - stepId: createSnapshot
+    description: Register a new snapshot from the supplied container image.
+    operationId: createSnapshot
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        imageName: $inputs.imageName
+        cpu: $inputs.cpu
+        memory: $inputs.memory
+        disk: $inputs.disk
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      snapshotId: $response.body#/id
+      state: $response.body#/state
+  - stepId: pollBuild
+    description: >-
+      Poll the snapshot until the build completes, looping while it is building,
+      pending, or pulling, and ending if the build fails.
+    operationId: getSnapshot
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: id
+      in: path
+      value: $steps.createSnapshot.outputs.snapshotId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: inactive
+      type: goto
+      stepId: activateSnapshot
+      criteria:
+      - context: $response.body
+        condition: $.state == "inactive"
+        type: jsonpath
+    - name: alreadyActive
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "active"
+        type: jsonpath
+    - name: buildFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error" || $.state == "build_failed"
+        type: jsonpath
+    - name: stillBuilding
+      type: goto
+      stepId: pollBuild
+      criteria:
+      - context: $response.body
+        condition: $.state != "active" && $.state != "inactive" && $.state != "error" && $.state != "build_failed"
+        type: jsonpath
+  - stepId: activateSnapshot
+    description: Activate the built snapshot so sandboxes can be created from it.
+    operationId: activateSnapshot
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: id
+      in: path
+      value: $steps.createSnapshot.outputs.snapshotId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      snapshotId: $response.body#/id
+      state: $response.body#/state
+  outputs:
+    snapshotId: $steps.createSnapshot.outputs.snapshotId
+    state: $steps.activateSnapshot.outputs.state

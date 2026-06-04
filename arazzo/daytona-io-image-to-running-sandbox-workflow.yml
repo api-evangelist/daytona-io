@@ -1,0 +1,154 @@
+arazzo: 1.0.1
+info:
+  title: Daytona From Container Image to Running Sandbox
+  summary: Build a snapshot from an image, wait for it to build, then launch and run a sandbox from it.
+  description: >-
+    The full bring-your-own-image path. This workflow registers a snapshot from
+    a container image, polls until the snapshot build completes (looping while it
+    is building, pending, or pulling, and ending if the build fails), creates a
+    sandbox from the freshly built snapshot, and polls the sandbox until it
+    reaches the started state. It spans the Snapshots and Sandbox APIs, and every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: snapshotsApi
+  url: ../openapi/daytona-snapshots-api-openapi.yml
+  type: openapi
+- name: sandboxApi
+  url: ../openapi/daytona-sandbox-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: image-to-running-sandbox
+  summary: Build a snapshot from an image and launch a running sandbox from it.
+  description: >-
+    Registers a snapshot from a container image, waits for the build, then
+    creates and runs a sandbox backed by that snapshot.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - snapshotName
+    - imageName
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      snapshotName:
+        type: string
+        description: The name of the snapshot to create and then back the sandbox with.
+      imageName:
+        type: string
+        description: The container image name to build the snapshot from (e.g. ubuntu:22.04).
+  steps:
+  - stepId: createSnapshot
+    description: Register a new snapshot from the supplied container image.
+    operationId: createSnapshot
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.snapshotName
+        imageName: $inputs.imageName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      snapshotId: $response.body#/id
+      snapshotName: $response.body#/name
+      state: $response.body#/state
+  - stepId: pollBuild
+    description: >-
+      Poll the snapshot until it becomes active, looping while it is building,
+      pending, or pulling, and ending if the build fails.
+    operationId: getSnapshot
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: id
+      in: path
+      value: $steps.createSnapshot.outputs.snapshotId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: active
+      type: goto
+      stepId: createSandbox
+      criteria:
+      - context: $response.body
+        condition: $.state == "active"
+        type: jsonpath
+    - name: buildFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error" || $.state == "build_failed"
+        type: jsonpath
+    - name: stillBuilding
+      type: goto
+      stepId: pollBuild
+      criteria:
+      - context: $response.body
+        condition: $.state != "active" && $.state != "error" && $.state != "build_failed"
+        type: jsonpath
+  - stepId: createSandbox
+    description: Create a sandbox backed by the freshly built snapshot.
+    operationId: createSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        snapshot: $steps.createSnapshot.outputs.snapshotName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sandboxId: $response.body#/id
+      state: $response.body#/state
+  - stepId: pollSandbox
+    description: >-
+      Poll the sandbox until it reaches started, looping while it is still
+      provisioning and ending if it errors.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $steps.createSandbox.outputs.sandboxId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: running
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "started"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error"
+        type: jsonpath
+    - name: stillProvisioning
+      type: goto
+      stepId: pollSandbox
+      criteria:
+      - context: $response.body
+        condition: $.state != "started" && $.state != "error"
+        type: jsonpath
+  outputs:
+    snapshotId: $steps.createSnapshot.outputs.snapshotId
+    sandboxId: $steps.createSandbox.outputs.sandboxId
+    sandboxState: $steps.pollSandbox.outputs.state

@@ -1,0 +1,132 @@
+arazzo: 1.0.1
+info:
+  title: Daytona Provision a Sandbox
+  summary: Create a sandbox from a snapshot, poll until it reaches the started state, then read its details.
+  description: >-
+    The core developer-environment provisioning flow for Daytona. The workflow
+    creates a new sandbox from a snapshot, then polls the sandbox until its
+    asynchronous state machine settles into the started state, branching back to
+    poll again while the sandbox is still creating, pulling its snapshot, or
+    starting, and ending if it lands in an error state. Once the sandbox is
+    running it reads the full sandbox details. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sandboxApi
+  url: ../openapi/daytona-sandbox-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-sandbox
+  summary: Create a sandbox from a snapshot and wait until it is running.
+  description: >-
+    Creates a sandbox using the supplied snapshot and resource hints, polls the
+    sandbox state until it becomes started, and returns the running sandbox
+    details.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - snapshot
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      snapshot:
+        type: string
+        description: The ID or name of the snapshot used to back the new sandbox.
+      name:
+        type: string
+        description: Optional name for the sandbox; defaults to the sandbox ID when omitted.
+      cpu:
+        type: integer
+        description: CPU cores to allocate to the sandbox.
+      memory:
+        type: integer
+        description: Memory in GB to allocate to the sandbox.
+      disk:
+        type: integer
+        description: Disk space in GB to allocate to the sandbox.
+  steps:
+  - stepId: createSandbox
+    description: >-
+      Create a new sandbox backed by the supplied snapshot with the requested
+      CPU, memory, and disk resources.
+    operationId: createSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        snapshot: $inputs.snapshot
+        cpu: $inputs.cpu
+        memory: $inputs.memory
+        disk: $inputs.disk
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sandboxId: $response.body#/id
+      initialState: $response.body#/state
+  - stepId: pollState
+    description: >-
+      Read the sandbox and branch on its state: keep polling while it is still
+      provisioning, finish when it is started, or stop if it errors.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $steps.createSandbox.outputs.sandboxId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: running
+      type: goto
+      stepId: getDetails
+      criteria:
+      - context: $response.body
+        condition: $.state == "started"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error"
+        type: jsonpath
+    - name: stillProvisioning
+      type: goto
+      stepId: pollState
+      criteria:
+      - context: $response.body
+        condition: $.state != "started" && $.state != "error"
+        type: jsonpath
+  - stepId: getDetails
+    description: Read the full details of the now-running sandbox.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $steps.createSandbox.outputs.sandboxId
+    - name: verbose
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sandboxId: $response.body#/id
+      state: $response.body#/state
+      target: $response.body#/target
+  outputs:
+    sandboxId: $steps.createSandbox.outputs.sandboxId
+    state: $steps.getDetails.outputs.state
+    target: $steps.getDetails.outputs.target

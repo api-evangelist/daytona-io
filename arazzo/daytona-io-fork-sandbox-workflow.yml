@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Daytona Fork a Sandbox
+  summary: Fork an existing sandbox into a new independent copy and wait until the fork is running.
+  description: >-
+    Forking gives every developer or agent an independent copy of a known-good
+    environment. This workflow forks an existing sandbox, receives the new fork's
+    identity, then polls the fork until it reaches the started state, looping
+    while it is still forking or starting and ending if it errors, before reading
+    the running fork details. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sandboxApi
+  url: ../openapi/daytona-sandbox-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: fork-sandbox
+  summary: Fork a sandbox into an independent copy and wait for it to run.
+  description: >-
+    Forks a source sandbox, polls the resulting fork until it reaches the
+    started state, then returns the fork details.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - sandboxIdOrName
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      sandboxIdOrName:
+        type: string
+        description: The ID or name of the source sandbox to fork.
+      name:
+        type: string
+        description: Optional name for the forked sandbox; a unique name is generated when omitted.
+  steps:
+  - stepId: forkSandbox
+    description: Fork the source sandbox into a new independent copy.
+    operationId: forkSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      forkId: $response.body#/id
+      state: $response.body#/state
+  - stepId: pollFork
+    description: >-
+      Poll the fork until it reaches started, looping while it is still forking
+      or starting and ending if it errors.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $steps.forkSandbox.outputs.forkId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: running
+      type: goto
+      stepId: getFork
+      criteria:
+      - context: $response.body
+        condition: $.state == "started"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error"
+        type: jsonpath
+    - name: stillForking
+      type: goto
+      stepId: pollFork
+      criteria:
+      - context: $response.body
+        condition: $.state != "started" && $.state != "error"
+        type: jsonpath
+  - stepId: getFork
+    description: Read the details of the running forked sandbox.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $steps.forkSandbox.outputs.forkId
+    - name: verbose
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      forkId: $response.body#/id
+      state: $response.body#/state
+  outputs:
+    forkId: $steps.forkSandbox.outputs.forkId
+    state: $steps.getFork.outputs.state

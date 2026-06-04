@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Daytona Stop and Archive a Sandbox
+  summary: Stop a running sandbox, wait until it is fully stopped, then archive it to cold storage.
+  description: >-
+    A cost-management flow for idle developer environments. Daytona only allows
+    a sandbox to be archived once it has stopped, so this workflow issues a stop,
+    polls the sandbox state until it reports stopped (looping while it is still
+    stopping and ending if it errors), and then archives the stopped sandbox.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sandboxApi
+  url: ../openapi/daytona-sandbox-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: stop-and-archive-sandbox
+  summary: Stop a sandbox and archive it once it has fully stopped.
+  description: >-
+    Stops a running sandbox, polls until it reaches the stopped state, then
+    archives it so its disk is moved to cold storage.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - sandboxIdOrName
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      sandboxIdOrName:
+        type: string
+        description: The ID or name of the sandbox to stop and archive.
+      force:
+        type: boolean
+        description: Force stop the sandbox using SIGKILL instead of SIGTERM.
+  steps:
+  - stepId: stopSandbox
+    description: Stop the running sandbox.
+    operationId: stopSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    - name: force
+      in: query
+      value: $inputs.force
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+  - stepId: pollStopped
+    description: >-
+      Poll the sandbox until it reports stopped, looping while it is still
+      stopping and ending if it enters an error state.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: stopped
+      type: goto
+      stepId: archiveSandbox
+      criteria:
+      - context: $response.body
+        condition: $.state == "stopped"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error"
+        type: jsonpath
+    - name: stillStopping
+      type: goto
+      stepId: pollStopped
+      criteria:
+      - context: $response.body
+        condition: $.state != "stopped" && $.state != "error"
+        type: jsonpath
+  - stepId: archiveSandbox
+    description: Archive the stopped sandbox, moving its disk to cold storage.
+    operationId: archiveSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sandboxId: $response.body#/id
+      state: $response.body#/state
+  outputs:
+    sandboxId: $steps.archiveSandbox.outputs.sandboxId
+    state: $steps.archiveSandbox.outputs.state

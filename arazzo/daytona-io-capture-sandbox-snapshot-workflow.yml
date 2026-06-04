@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Daytona Capture a Sandbox as a Snapshot
+  summary: Snapshot a live sandbox into a reusable image and wait for the sandbox to return to running.
+  description: >-
+    Turns a configured, live sandbox into a named, reusable snapshot. Daytona
+    captures the snapshot asynchronously, moving the sandbox through the
+    snapshotting state and back to started when done. This workflow triggers the
+    capture, then polls the sandbox until it returns to the started state,
+    looping while it is still snapshotting and ending if it errors. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sandboxApi
+  url: ../openapi/daytona-sandbox-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: capture-sandbox-snapshot
+  summary: Create a named snapshot from a sandbox and wait for the sandbox to settle.
+  description: >-
+    Captures a snapshot from a live sandbox, then polls the sandbox until it
+    returns to the started state.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - sandboxIdOrName
+    - name
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      sandboxIdOrName:
+        type: string
+        description: The ID or name of the sandbox to capture.
+      name:
+        type: string
+        description: Name for the new snapshot created from the sandbox.
+  steps:
+  - stepId: captureSnapshot
+    description: Trigger creation of a named snapshot from the live sandbox.
+    operationId: createSandboxSnapshot
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sandboxId: $response.body#/id
+      state: $response.body#/state
+  - stepId: pollSettled
+    description: >-
+      Poll the sandbox until it returns to started, looping while it is still
+      snapshotting and ending if it errors.
+    operationId: getSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: sandboxIdOrName
+      in: path
+      value: $inputs.sandboxIdOrName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: settled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "started"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error"
+        type: jsonpath
+    - name: stillSnapshotting
+      type: goto
+      stepId: pollSettled
+      criteria:
+      - context: $response.body
+        condition: $.state != "started" && $.state != "error"
+        type: jsonpath
+  outputs:
+    sandboxId: $steps.captureSnapshot.outputs.sandboxId
+    finalState: $steps.pollSettled.outputs.state

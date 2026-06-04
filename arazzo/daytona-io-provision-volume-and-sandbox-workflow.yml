@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Daytona Provision a Volume and Attach It to a New Sandbox
+  summary: Create a persistent volume, wait until it is ready, then launch a sandbox with the volume mounted.
+  description: >-
+    Persistent volumes let developer environments share data across sandbox
+    restarts and forks. This workflow creates a named volume, polls it until it
+    reaches the ready state (looping while it is still creating and ending if it
+    errors), and then provisions a new sandbox from a snapshot with the ready
+    volume mounted at the requested path. It spans the Volumes and Sandbox APIs,
+    and every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI descriptions.
+  version: 1.0.0
+sourceDescriptions:
+- name: volumesApi
+  url: ../openapi/daytona-volumes-api-openapi.yml
+  type: openapi
+- name: sandboxApi
+  url: ../openapi/daytona-sandbox-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-volume-and-sandbox
+  summary: Create a volume, wait until ready, then launch a sandbox with it mounted.
+  description: >-
+    Creates a persistent volume, polls until it is ready, then creates a sandbox
+    that mounts the volume at the supplied path.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - volumeName
+    - snapshot
+    - mountPath
+    properties:
+      apiToken:
+        type: string
+        description: Daytona API key used as a bearer token.
+      volumeName:
+        type: string
+        description: The name of the persistent volume to create.
+      snapshot:
+        type: string
+        description: The ID or name of the snapshot used to back the new sandbox.
+      mountPath:
+        type: string
+        description: The path at which the volume is mounted inside the sandbox (e.g. /data).
+  steps:
+  - stepId: createVolume
+    description: Create a new persistent volume.
+    operationId: createVolume
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.volumeName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      volumeId: $response.body#/id
+      state: $response.body#/state
+  - stepId: pollVolume
+    description: >-
+      Poll the volume until it reports ready, looping while it is still creating
+      and ending if it errors.
+    operationId: getVolume
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: volumeId
+      in: path
+      value: $steps.createVolume.outputs.volumeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: ready
+      type: goto
+      stepId: createSandbox
+      criteria:
+      - context: $response.body
+        condition: $.state == "ready"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "error"
+        type: jsonpath
+    - name: stillCreating
+      type: goto
+      stepId: pollVolume
+      criteria:
+      - context: $response.body
+        condition: $.state != "ready" && $.state != "error"
+        type: jsonpath
+  - stepId: createSandbox
+    description: Create a sandbox from the snapshot with the ready volume mounted.
+    operationId: createSandbox
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        snapshot: $inputs.snapshot
+        volumes:
+        - volumeId: $steps.createVolume.outputs.volumeId
+          mountPath: $inputs.mountPath
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sandboxId: $response.body#/id
+      state: $response.body#/state
+  outputs:
+    volumeId: $steps.createVolume.outputs.volumeId
+    sandboxId: $steps.createSandbox.outputs.sandboxId
+    sandboxState: $steps.createSandbox.outputs.state

@@ -287,6 +287,33 @@ maintainers:
   email: kin@apievangelist.com
   url: https://kinlane.com
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/daytona-io-build-and-activate-snapshot-workflow.yml
+    name: Daytona Build and Activate a Snapshot
+    summary: Register a snapshot from a container image, poll until it builds, and activate it if it lands inactive.
+  - url: arazzo/daytona-io-capture-sandbox-snapshot-workflow.yml
+    name: Daytona Capture a Sandbox as a Snapshot
+    summary: Snapshot a live sandbox into a reusable image and wait for the sandbox to return to running.
+  - url: arazzo/daytona-io-fork-sandbox-workflow.yml
+    name: Daytona Fork a Sandbox
+    summary: Fork an existing sandbox into a new independent copy and wait until the fork is running.
+  - url: arazzo/daytona-io-image-to-running-sandbox-workflow.yml
+    name: Daytona From Container Image to Running Sandbox
+    summary: Build a snapshot from an image, wait for it to build, then launch and run a sandbox from it.
+  - url: arazzo/daytona-io-provision-sandbox-workflow.yml
+    name: Daytona Provision a Sandbox
+    summary: Create a sandbox from a snapshot, poll until it reaches the started state, then read its details.
+  - url: arazzo/daytona-io-provision-volume-and-sandbox-workflow.yml
+    name: Daytona Provision a Volume and Attach It to a New Sandbox
+    summary: Create a persistent volume, wait until it is ready, then launch a sandbox with the volume mounted.
+  - url: arazzo/daytona-io-restore-archived-sandbox-workflow.yml
+    name: Daytona Restore an Archived Sandbox
+    summary: Start an archived or stopped sandbox and wait until it is running again.
+  - url: arazzo/daytona-io-stop-and-archive-sandbox-workflow.yml
+    name: Daytona Stop and Archive a Sandbox
+    summary: Stop a running sandbox, wait until it is fully stopped, then archive it to cold storage.
 - url: https://www.daytona.io/
   type: DeveloperPortal
 - url: https://www.daytona.io/docs
