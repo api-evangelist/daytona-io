@@ -1,10 +1,10 @@
 aid: daytona-io
 name: Daytona
 description: >-
-  Daytona is open-source, secure, and elastic infrastructure for running AI-generated code. Daytona sandboxes spin
-  up in under 90 milliseconds and provide isolated Linux, Windows, and macOS environments where autonomous agents
-  and developer workflows can execute untrusted code, perform file system and Git operations, run language servers,
-  drive virtual desktops, and persist state via snapshots and volumes. The platform exposes a control-plane REST API
+  Daytona is open-source, secure, and elastic infrastructure for running AI-generated code. Daytona sandboxes spin up in
+  under 90 milliseconds and provide isolated Linux, Windows, and macOS environments where autonomous agents and
+  developer workflows can execute untrusted code, perform file system and Git operations, run language servers, drive
+  virtual desktops, and persist state via snapshots and volumes. The platform exposes a control-plane REST API
   (sandboxes, snapshots, volumes, organizations, runners, webhooks) and an in-sandbox Toolbox API (file system, Git,
   LSP, process execution, PTY, computer use, interpreter), with official SDKs for TypeScript, Python, Ruby, Go, and
   Java, plus a Go CLI and Homebrew/Windows installers.
@@ -13,472 +13,447 @@ created: '2026-05-25'
 modified: '2026-05-25'
 specificationVersion: '0.20'
 tags:
-- AI
-- Agents
-- Artificial Intelligence
-- Cloud
-- Code Execution
-- Computer Use
-- Developer Tools
-- Infrastructure
-- Open Source
-- Sandbox
-- Secure Execution
-apis:
-- aid: daytona-io:daytona-sandbox-api
-  name: Daytona Sandbox API
-  tags:
   - AI
   - Agents
+  - Artificial Intelligence
+  - Cloud
+  - Code Execution
+  - Computer Use
+  - Developer Tools
+  - Infrastructure
+  - Open Source
   - Sandbox
-  - Lifecycle
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/sandboxes
+  - Secure Execution
+apis:
+  - aid: daytona-io:daytona-sandbox-api
+    name: Daytona Sandbox API
+    tags:
+      - AI
+      - Agents
+      - Sandbox
+      - Lifecycle
+    humanURL: https://www.daytona.io/docs/en/tools/api/
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/sandboxes
+        type: Documentation
+      - url: https://www.daytona.io/docs/en/tools/api/
+        type: APIReference
+      - url: openapi/daytona-sandbox-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/daytona-sandbox-schema.json
+        type: JSONSchema
+      - url: json-structure/daytona-sandbox-structure.json
+        type: JSONStructure
+      - url: examples/daytona-sandbox-create-example.json
+        type: Example
+    description: >-
+      Create, start, stop, archive, resize, and destroy isolated sandboxes that boot in under 90 milliseconds. The
+      Sandbox API manages the full sandbox lifecycle, exposes labels and metadata, and provides operations for network
+      access, backups, auto-stop / auto-archive policies, and SSH access keys. The legacy /workspace namespace is
+      included as an alias of /sandbox for backwards compatibility.
+  - aid: daytona-io:daytona-sandbox-toolbox-api
+    name: Daytona Sandbox Toolbox API
+    tags:
+      - AI
+      - Agents
+      - Computer Use
+      - File System
+      - Git
+      - LSP
+      - Process Execution
+      - Toolbox
+    humanURL: https://www.daytona.io/docs/en/agent-tools/file-system
+    baseURL: https://proxy.app.daytona.io/toolbox
+    properties:
+      - url: https://www.daytona.io/docs/en/agent-tools/file-system
+        type: Documentation
+      - url: https://www.daytona.io/docs/en/agent-tools/git
+        type: Documentation
+      - url: https://www.daytona.io/docs/en/agent-tools/language-server-protocol
+        type: Documentation
+      - url: https://www.daytona.io/docs/en/agent-tools/process-execution
+        type: Documentation
+      - url: https://www.daytona.io/docs/en/agent-tools/computer-use
+        type: Documentation
+      - url: openapi/daytona-sandbox-toolbox-api-openapi.yml
+        type: OpenAPI
+      - url: openapi/daytona-toolbox-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The Toolbox API is the in-sandbox surface for agents. It provides file system operations (list, read, write, move,
+      delete, search, replace, permissions), Git operations (clone, status, commit, push, branch), Process and PTY
+      execution, Language Server Protocol bridging for code intelligence, computer-use control for GUI desktops, an
+      interpreter for inline Python/TypeScript snippets, port and proxy management, and server metadata. Reach it via
+      the platform proxy or directly inside a sandbox.
+  - aid: daytona-io:daytona-snapshots-api
+    name: Daytona Snapshots API
+    tags:
+      - AI
+      - Sandbox
+      - Snapshots
+      - State
+    humanURL: https://www.daytona.io/docs/en/snapshots
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/snapshots
+        type: Documentation
+      - url: openapi/daytona-snapshots-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Capture, list, restore, share, and destroy sandbox snapshots. Snapshots persist sandbox state — file system,
+      processes, environment — so an agent can resume an interrupted workflow or fan out parallel branches from a common
+      base image. Includes operations for setting snapshot images, managing snapshot organization scope, and bulk
+      lifecycle actions.
+  - aid: daytona-io:daytona-volumes-api
+    name: Daytona Volumes API
+    tags:
+      - AI
+      - Sandbox
+      - Storage
+      - Volumes
+    humanURL: https://www.daytona.io/docs/en/volumes
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/volumes
+        type: Documentation
+      - url: openapi/daytona-volumes-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Create and manage persistent volumes that can be attached to one or more sandboxes for shared, durable storage
+      across the sandbox lifecycle. Supports listing, fetching, creating, updating, and deleting volumes and inspecting
+      their mount state.
+  - aid: daytona-io:daytona-preview-api
+    name: Daytona Preview API
+    tags:
+      - AI
+      - Sandbox
+      - Preview
+      - Networking
+    humanURL: https://www.daytona.io/docs/en/preview
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/preview
+        type: Documentation
+      - url: openapi/daytona-preview-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Expose ports running inside a sandbox to the public internet via Daytona's secure preview proxy. Useful for
+      showing a running web app, a Jupyter notebook, an LSP gateway, or any agent-produced HTTP service to an end-user
+      without provisioning a domain or load balancer.
+  - aid: daytona-io:daytona-webhooks-api
+    name: Daytona Webhooks API
+    tags:
+      - AI
+      - Eventing
+      - Webhooks
+    humanURL: https://www.daytona.io/docs/en/webhooks
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/webhooks
+        type: Documentation
+      - url: openapi/daytona-webhooks-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Configure webhooks so external systems receive callback notifications when sandbox lifecycle events occur (sandbox
+      created/started/stopped/destroyed, snapshot created, etc.). Includes endpoints for listing, fetching, creating,
+      and removing webhook subscriptions.
+  - aid: daytona-io:daytona-organizations-api
+    name: Daytona Organizations API
+    tags:
+      - Administrative
+      - Organizations
+      - Roles
+      - Quotas
+    humanURL: https://www.daytona.io/docs/en/account-management/organizations
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/account-management/organizations
+        type: Documentation
+      - url: openapi/daytona-organizations-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Manage organizations, members, roles, invitations, suspensions, and per-organization quotas. The Organizations API
+      is the multi-tenant control surface for Daytona Cloud — every sandbox, snapshot, key, and runner belongs to an
+      organization.
+  - aid: daytona-io:daytona-api-keys-api
+    name: Daytona API Keys API
+    tags:
+      - Administrative
+      - API Keys
+      - Authentication
+    humanURL: https://www.daytona.io/docs/en/account-management/api-keys
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/account-management/api-keys
+        type: Documentation
+      - url: openapi/daytona-api-keys-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Create, list, rotate, and revoke organization-scoped API keys used to authenticate requests against the Daytona
+      platform. API keys are bearer tokens passed as Authorization headers and can be scoped by role and permissions.
+  - aid: daytona-io:daytona-users-api
+    name: Daytona Users API
+    tags:
+      - Administrative
+      - Users
+      - Linked Accounts
+    humanURL: https://www.daytona.io/docs/en/account-management/linked-accounts
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/account-management/linked-accounts
+        type: Documentation
+      - url: openapi/daytona-users-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Manage user profiles, linked accounts (GitHub, GitLab, Bitbucket), and notification preferences. The Users API
+      governs the human side of Daytona — identity, profile, and personal settings — independent of the
+      organization-level admin surface.
+  - aid: daytona-io:daytona-admin-api
+    name: Daytona Admin API
+    tags:
+      - Administrative
+      - Audit
+      - Configuration
+      - Docker Registry
+      - Jobs
+      - Object Storage
+      - Regions
+      - Runners
+    humanURL: https://www.daytona.io/docs/en/deployments/customer-managed-compute
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/deployments/customer-managed-compute
+        type: Documentation
+      - url: https://www.daytona.io/docs/en/security/audit-logs
+        type: Documentation
+      - url: openapi/daytona-admin-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Platform-level administration covering runners (compute pools), regions, Docker registry configuration, object
+      storage, jobs, audit logs, and global config. Used by operators of customer-managed compute, by self-hosted
+      open-source deployments, and by Daytona staff for managed-service operations.
+  - aid: daytona-io:daytona-health-api
+    name: Daytona Health API
+    tags:
+      - Health
+      - Observability
+    humanURL: https://www.daytona.io/docs/en/observability/opentelemetry-collection
+    baseURL: https://app.daytona.io/api
+    properties:
+      - url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
+        type: Documentation
+      - url: openapi/daytona-health-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Liveness and readiness probes for the Daytona control plane. Returns 200 when the API is healthy and ready to
+      serve traffic. Used by infrastructure monitors, load balancers, and Kubernetes deployments running the open-source
+      Daytona platform.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://kinlane.com
+common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/daytona/overview
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+      - url: arazzo/daytona-io-build-and-activate-snapshot-workflow.yml
+        name: Daytona Build and Activate a Snapshot
+        summary: Register a snapshot from a container image, poll until it builds, and activate it if it lands inactive.
+      - url: arazzo/daytona-io-capture-sandbox-snapshot-workflow.yml
+        name: Daytona Capture a Sandbox as a Snapshot
+        summary: Snapshot a live sandbox into a reusable image and wait for the sandbox to return to running.
+      - url: arazzo/daytona-io-fork-sandbox-workflow.yml
+        name: Daytona Fork a Sandbox
+        summary: Fork an existing sandbox into a new independent copy and wait until the fork is running.
+      - url: arazzo/daytona-io-image-to-running-sandbox-workflow.yml
+        name: Daytona From Container Image to Running Sandbox
+        summary: Build a snapshot from an image, wait for it to build, then launch and run a sandbox from it.
+      - url: arazzo/daytona-io-provision-sandbox-workflow.yml
+        name: Daytona Provision a Sandbox
+        summary: Create a sandbox from a snapshot, poll until it reaches the started state, then read its details.
+      - url: arazzo/daytona-io-provision-volume-and-sandbox-workflow.yml
+        name: Daytona Provision a Volume and Attach It to a New Sandbox
+        summary: Create a persistent volume, wait until it is ready, then launch a sandbox with the volume mounted.
+      - url: arazzo/daytona-io-restore-archived-sandbox-workflow.yml
+        name: Daytona Restore an Archived Sandbox
+        summary: Start an archived or stopped sandbox and wait until it is running again.
+      - url: arazzo/daytona-io-stop-and-archive-sandbox-workflow.yml
+        name: Daytona Stop and Archive a Sandbox
+        summary: Stop a running sandbox, wait until it is fully stopped, then archive it to cold storage.
+  - url: https://www.daytona.io/
+    type: DeveloperPortal
+  - url: https://www.daytona.io/docs
     type: Documentation
+  - url: https://www.daytona.io/docs/en/getting-started
+    type: GettingStarted
+  - url: https://www.daytona.io/docs/en
+    type: Quickstart
   - url: https://www.daytona.io/docs/en/tools/api/
     type: APIReference
-  - url: openapi/daytona-sandbox-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/daytona-sandbox-schema.json
-    type: JSONSchema
-  - url: json-structure/daytona-sandbox-structure.json
-    type: JSONStructure
-  - url: examples/daytona-sandbox-create-example.json
-    type: Example
-  - type: NaftikoCapability
-    url: capabilities/sandbox-lifecycle.yaml
-  - type: NaftikoCapability
-    url: capabilities/sandbox-control.yaml
-  description: >-
-    Create, start, stop, archive, resize, and destroy isolated sandboxes that boot in under 90 milliseconds. The
-    Sandbox API manages the full sandbox lifecycle, exposes labels and metadata, and provides operations for
-    network access, backups, auto-stop / auto-archive policies, and SSH access keys. The legacy /workspace
-    namespace is included as an alias of /sandbox for backwards compatibility.
-- aid: daytona-io:daytona-sandbox-toolbox-api
-  name: Daytona Sandbox Toolbox API
-  tags:
-  - AI
-  - Agents
-  - Computer Use
-  - File System
-  - Git
-  - LSP
-  - Process Execution
-  - Toolbox
-  humanURL: https://www.daytona.io/docs/en/agent-tools/file-system
-  baseURL: https://proxy.app.daytona.io/toolbox
-  properties:
-  - url: https://www.daytona.io/docs/en/agent-tools/file-system
-    type: Documentation
-  - url: https://www.daytona.io/docs/en/agent-tools/git
-    type: Documentation
-  - url: https://www.daytona.io/docs/en/agent-tools/language-server-protocol
-    type: Documentation
-  - url: https://www.daytona.io/docs/en/agent-tools/process-execution
-    type: Documentation
-  - url: https://www.daytona.io/docs/en/agent-tools/computer-use
-    type: Documentation
-  - url: openapi/daytona-sandbox-toolbox-api-openapi.yml
-    type: OpenAPI
-  - url: openapi/daytona-toolbox-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/sandbox-filesystem.yaml
-  - type: NaftikoCapability
-    url: capabilities/sandbox-process-execution.yaml
-  - type: NaftikoCapability
-    url: capabilities/sandbox-git.yaml
-  - type: NaftikoCapability
-    url: capabilities/sandbox-computer-use.yaml
-  description: >-
-    The Toolbox API is the in-sandbox surface for agents. It provides file system operations (list, read, write,
-    move, delete, search, replace, permissions), Git operations (clone, status, commit, push, branch),
-    Process and PTY execution, Language Server Protocol bridging for code intelligence, computer-use control for
-    GUI desktops, an interpreter for inline Python/TypeScript snippets, port and proxy management, and server
-    metadata. Reach it via the platform proxy or directly inside a sandbox.
-- aid: daytona-io:daytona-snapshots-api
-  name: Daytona Snapshots API
-  tags:
-  - AI
-  - Sandbox
-  - Snapshots
-  - State
-  humanURL: https://www.daytona.io/docs/en/snapshots
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/snapshots
-    type: Documentation
-  - url: openapi/daytona-snapshots-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/snapshots.yaml
-  description: >-
-    Capture, list, restore, share, and destroy sandbox snapshots. Snapshots persist sandbox state — file system,
-    processes, environment — so an agent can resume an interrupted workflow or fan out parallel branches from a
-    common base image. Includes operations for setting snapshot images, managing snapshot organization scope, and
-    bulk lifecycle actions.
-- aid: daytona-io:daytona-volumes-api
-  name: Daytona Volumes API
-  tags:
-  - AI
-  - Sandbox
-  - Storage
-  - Volumes
-  humanURL: https://www.daytona.io/docs/en/volumes
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/volumes
-    type: Documentation
-  - url: openapi/daytona-volumes-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/volumes.yaml
-  description: >-
-    Create and manage persistent volumes that can be attached to one or more sandboxes for shared, durable storage
-    across the sandbox lifecycle. Supports listing, fetching, creating, updating, and deleting volumes and
-    inspecting their mount state.
-- aid: daytona-io:daytona-preview-api
-  name: Daytona Preview API
-  tags:
-  - AI
-  - Sandbox
-  - Preview
-  - Networking
-  humanURL: https://www.daytona.io/docs/en/preview
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/preview
-    type: Documentation
-  - url: openapi/daytona-preview-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/preview.yaml
-  description: >-
-    Expose ports running inside a sandbox to the public internet via Daytona's secure preview proxy. Useful for
-    showing a running web app, a Jupyter notebook, an LSP gateway, or any agent-produced HTTP service to an
-    end-user without provisioning a domain or load balancer.
-- aid: daytona-io:daytona-webhooks-api
-  name: Daytona Webhooks API
-  tags:
-  - AI
-  - Eventing
-  - Webhooks
-  humanURL: https://www.daytona.io/docs/en/webhooks
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/webhooks
-    type: Documentation
-  - url: openapi/daytona-webhooks-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/webhooks.yaml
-  description: >-
-    Configure webhooks so external systems receive callback notifications when sandbox lifecycle events occur
-    (sandbox created/started/stopped/destroyed, snapshot created, etc.). Includes endpoints for listing,
-    fetching, creating, and removing webhook subscriptions.
-- aid: daytona-io:daytona-organizations-api
-  name: Daytona Organizations API
-  tags:
-  - Administrative
-  - Organizations
-  - Roles
-  - Quotas
-  humanURL: https://www.daytona.io/docs/en/account-management/organizations
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/account-management/organizations
-    type: Documentation
-  - url: openapi/daytona-organizations-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/organizations.yaml
-  description: >-
-    Manage organizations, members, roles, invitations, suspensions, and per-organization quotas. The
-    Organizations API is the multi-tenant control surface for Daytona Cloud — every sandbox, snapshot, key, and
-    runner belongs to an organization.
-- aid: daytona-io:daytona-api-keys-api
-  name: Daytona API Keys API
-  tags:
-  - Administrative
-  - API Keys
-  - Authentication
-  humanURL: https://www.daytona.io/docs/en/account-management/api-keys
-  baseURL: https://app.daytona.io/api
-  properties:
+  - url: https://app.daytona.io/
+    type: Console
+  - url: https://app.daytona.io/
+    type: SignUp
+  - url: https://app.daytona.io/
+    type: Login
   - url: https://www.daytona.io/docs/en/account-management/api-keys
-    type: Documentation
-  - url: openapi/daytona-api-keys-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/api-keys.yaml
-  description: >-
-    Create, list, rotate, and revoke organization-scoped API keys used to authenticate requests against the
-    Daytona platform. API keys are bearer tokens passed as Authorization headers and can be scoped by role and
-    permissions.
-- aid: daytona-io:daytona-users-api
-  name: Daytona Users API
-  tags:
-  - Administrative
-  - Users
-  - Linked Accounts
-  humanURL: https://www.daytona.io/docs/en/account-management/linked-accounts
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/account-management/linked-accounts
-    type: Documentation
-  - url: openapi/daytona-users-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/users.yaml
-  description: >-
-    Manage user profiles, linked accounts (GitHub, GitLab, Bitbucket), and notification preferences. The Users
-    API governs the human side of Daytona — identity, profile, and personal settings — independent of the
-    organization-level admin surface.
-- aid: daytona-io:daytona-admin-api
-  name: Daytona Admin API
-  tags:
-  - Administrative
-  - Audit
-  - Configuration
-  - Docker Registry
-  - Jobs
-  - Object Storage
-  - Regions
-  - Runners
-  humanURL: https://www.daytona.io/docs/en/deployments/customer-managed-compute
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/deployments/customer-managed-compute
-    type: Documentation
-  - url: https://www.daytona.io/docs/en/security/audit-logs
-    type: Documentation
-  - url: openapi/daytona-admin-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/admin-runners.yaml
-  - type: NaftikoCapability
-    url: capabilities/admin-audit.yaml
-  - type: NaftikoCapability
-    url: capabilities/admin-docker-registry.yaml
-  description: >-
-    Platform-level administration covering runners (compute pools), regions, Docker registry configuration,
-    object storage, jobs, audit logs, and global config. Used by operators of customer-managed compute, by
-    self-hosted open-source deployments, and by Daytona staff for managed-service operations.
-- aid: daytona-io:daytona-health-api
-  name: Daytona Health API
-  tags:
-  - Health
-  - Observability
-  humanURL: https://www.daytona.io/docs/en/observability/opentelemetry-collection
-  baseURL: https://app.daytona.io/api
-  properties:
-  - url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
-    type: Documentation
-  - url: openapi/daytona-health-api-openapi.yml
-    type: OpenAPI
-  description: >-
-    Liveness and readiness probes for the Daytona control plane. Returns 200 when the API is healthy and ready
-    to serve traffic. Used by infrastructure monitors, load balancers, and Kubernetes deployments running the
-    open-source Daytona platform.
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-  url: https://kinlane.com
-common:
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/daytona-io-build-and-activate-snapshot-workflow.yml
-    name: Daytona Build and Activate a Snapshot
-    summary: Register a snapshot from a container image, poll until it builds, and activate it if it lands inactive.
-  - url: arazzo/daytona-io-capture-sandbox-snapshot-workflow.yml
-    name: Daytona Capture a Sandbox as a Snapshot
-    summary: Snapshot a live sandbox into a reusable image and wait for the sandbox to return to running.
-  - url: arazzo/daytona-io-fork-sandbox-workflow.yml
-    name: Daytona Fork a Sandbox
-    summary: Fork an existing sandbox into a new independent copy and wait until the fork is running.
-  - url: arazzo/daytona-io-image-to-running-sandbox-workflow.yml
-    name: Daytona From Container Image to Running Sandbox
-    summary: Build a snapshot from an image, wait for it to build, then launch and run a sandbox from it.
-  - url: arazzo/daytona-io-provision-sandbox-workflow.yml
-    name: Daytona Provision a Sandbox
-    summary: Create a sandbox from a snapshot, poll until it reaches the started state, then read its details.
-  - url: arazzo/daytona-io-provision-volume-and-sandbox-workflow.yml
-    name: Daytona Provision a Volume and Attach It to a New Sandbox
-    summary: Create a persistent volume, wait until it is ready, then launch a sandbox with the volume mounted.
-  - url: arazzo/daytona-io-restore-archived-sandbox-workflow.yml
-    name: Daytona Restore an Archived Sandbox
-    summary: Start an archived or stopped sandbox and wait until it is running again.
-  - url: arazzo/daytona-io-stop-and-archive-sandbox-workflow.yml
-    name: Daytona Stop and Archive a Sandbox
-    summary: Stop a running sandbox, wait until it is fully stopped, then archive it to cold storage.
-- url: https://www.daytona.io/
-  type: DeveloperPortal
-- url: https://www.daytona.io/docs
-  type: Documentation
-- url: https://www.daytona.io/docs/en/getting-started
-  type: GettingStarted
-- url: https://www.daytona.io/docs/en
-  type: Quickstart
-- url: https://www.daytona.io/docs/en/tools/api/
-  type: APIReference
-- url: https://app.daytona.io/
-  type: Console
-- url: https://app.daytona.io/
-  type: SignUp
-- url: https://app.daytona.io/
-  type: Login
-- url: https://www.daytona.io/docs/en/account-management/api-keys
-  type: Authentication
-- url: https://www.daytona.io/docs/en/account-management/limits
-  type: RateLimits
-- url: https://www.daytona.io/docs/en/sandbox/regions
-  type: Regions
-- url: https://www.daytona.io/dotfiles
-  type: Blog
-- url: https://www.daytona.io/dotfiles
-  type: Newsletter
-- url: https://youtube.com/@daytonaio
-  type: YouTube
-- url: https://go.daytona.io/slack
-  type: Support
-- url: https://www.daytona.io/contact
-  type: Contact
-- url: https://status.app.daytona.io/
-  type: StatusPage
-- url: https://trust.daytona.io/
-  type: TrustCenter
-- url: https://www.daytona.io/terms-of-service
-  type: TermsOfService
-- url: https://www.daytona.io/privacy-policy
-  type: PrivacyPolicy
-- url: https://www.daytona.io/docs/en/security/security-exhibit
-  type: Security
-- url: https://github.com/daytonaio
-  type: GitHubOrganization
-- url: https://github.com/daytonaio/daytona
-  type: GitHubRepository
-- url: https://twitter.com/daytonaio
-  type: X
-- url: https://www.linkedin.com/company/daytonaio/
-  type: LinkedIn
-- url: https://pypi.org/project/daytona/
-  type: SDK
-  name: Daytona Python SDK
-- url: https://www.npmjs.com/package/@daytonaio/sdk
-  type: SDK
-  name: Daytona TypeScript SDK
-- url: https://rubygems.org/gems/daytona
-  type: SDK
-  name: Daytona Ruby SDK
-- url: https://pkg.go.dev/github.com/daytonaio/daytona
-  type: SDK
-  name: Daytona Go SDK
-- url: https://central.sonatype.com/artifact/io.daytona/daytona-sdk
-  type: SDK
-  name: Daytona Java SDK
-- url: https://www.daytona.io/docs/en/tools/cli
-  type: CLI
-- url: https://github.com/daytonaio/homebrew-cli
-  type: CLI
-  name: Daytona Homebrew CLI Formula
-- url: https://github.com/daytonaio/helm-charts
-  type: Resources
-  name: Daytona Helm Charts
-- url: https://github.com/daytonaio/terraform-modules
-  type: Resources
-  name: Daytona Terraform Modules
-- url: rules/daytona-rules.yml
-  type: SpectralRules
-- url: vocabulary/daytona-io-vocabulary.yml
-  type: Vocabulary
-- url: json-ld/daytona-io-context.jsonld
-  type: JSONLD
-- url: plans/daytona-io-plans-pricing.yml
-  type: Plans
-- url: rate-limits/daytona-io-rate-limits.yml
-  type: RateLimits
-- url: finops/daytona-io-finops.yml
-  type: FinOps
-- name: Features
-  type: Features
-  data:
-  - name: Sub-90ms cold start
-    description: Sandboxes boot in under 90 milliseconds, enabling per-request isolation for agents at scale.
-  - name: Massive parallelism
-    description: Spin up thousands of concurrent sandboxes for parallel agent runs, evaluation harnesses, and batch code execution.
-  - name: Snapshots and volumes
-    description: Persist file system, process, and environment state via snapshots, and share data across sandboxes via volumes.
-  - name: Computer Use desktops
-    description: Programmatically drive Linux, Windows, and macOS GUI desktops via a built-in computer-use API for agent control.
-  - name: Multi-language runtimes
-    description: Native support for Python, TypeScript, Ruby, Go, and Java with built-in package management.
-  - name: Built-in LSP and Git
-    description: Language Server Protocol bridging and Git operations are first-class agent tools, not bolted-on shell calls.
-  - name: Open-source core
-    description: The Daytona platform is AGPL-3.0 open source and self-hostable on Kubernetes via official Helm charts.
-  - name: Customer-managed compute
-    description: Run the Daytona control plane against your own compute pools for data-residency and cost control.
-  - name: SSH and VS Code Browser
-    description: Humans can drop into any sandbox via SSH, web terminal, VNC, or VS Code Browser for debugging.
-  - name: Webhooks and OpenTelemetry
-    description: Subscribe to sandbox lifecycle events and emit OpenTelemetry traces for observability.
-- name: UseCases
-  type: UseCases
-  data:
-  - name: AI coding agents
-    description: Give every agent its own isolated computer to run, test, and iterate on generated code safely.
-  - name: Code interpreter for LLM apps
-    description: Back chatbot code-execution features (Python interpreter, data analysis, plotting) with disposable sandboxes.
-  - name: Computer-use agents
-    description: Drive headless and headed Linux/Windows/macOS desktops for browser automation and GUI-driven workflows.
-  - name: Evaluation harnesses
-    description: Run SWE-bench-style benchmarks and agent evaluations in massively parallel sandboxes with reproducible state.
-  - name: CI for AI-generated code
-    description: Execute untrusted PRs from autonomous agents in isolated environments without risking host infrastructure.
-  - name: Hosted developer environments
-    description: Provide cloud dev environments for engineers with persistent volumes, snapshots, and SSH/VS Code access.
-  - name: Sandboxed data analysis
-    description: Run user-uploaded notebooks and scripts safely with built-in Python and TypeScript interpreters.
-- name: Integrations
-  type: Integrations
-  data:
-  - name: LangChain
-    description: Daytona is integrated as a code execution tool in the LangChain ecosystem.
-  - name: Anthropic Claude Managed Agents
-    description: Daytona is supported as a sandbox host for Anthropic Claude Managed Agents.
-  - name: Google ADK
-    description: Daytona plugin for Google's Agent Development Kit enables ADK agents to run code in Daytona sandboxes.
-  - name: Inngest AgentKit
-    description: Coding agent reference powered by Daytona using Inngest AgentKit.
-  - name: VibeKit
-    description: Run Codex, Gemini CLI, and Claude Code in Daytona sandboxes via VibeKit.
-  - name: Stripe Projects
-    description: Daytona sandboxes are available through Stripe Projects.
-  - name: OpenHands
-    description: OpenHands open-source agent runtime uses Daytona for sandboxed code execution.
-  - name: SWE-ReX
-    description: Sandboxed code execution backend for SWE-agent powered in part by Daytona.
-  - name: Kubernetes
-    description: Self-host the Daytona control plane on Kubernetes via official Helm charts.
-  - name: Terraform
-    description: Provision Daytona infrastructure using official Terraform modules.
-  - name: MCP
-    description: Daytona exposes an MCP server so MCP-compatible agents and IDEs can invoke sandbox tools natively.
-  - name: VS Code
-    description: Connect to a running sandbox from VS Code via the VS Code Browser, SSH, or official extension.
-  - name: JetBrains
-    description: Connect to a running sandbox from JetBrains IDEs via the official JetBrains plugin.
-- name: Solutions
-  type: Solutions
-  data:
-  - name: Daytona Cloud
-    description: Fully managed sandbox infrastructure at app.daytona.io with pay-as-you-go pricing and $200 free credit.
-  - name: Customer-Managed Compute
-    description: Run Daytona's managed control plane against your own VPC/Kubernetes compute for residency and cost control.
-  - name: Self-Hosted Open Source
-    description: Deploy the full Daytona platform on your own Kubernetes via Helm for fully air-gapped deployments.
-  - name: Startups Program
-    description: Up to $50k in free Daytona compute credits for qualifying startups building agent infrastructure.
+    type: Authentication
+  - url: https://www.daytona.io/docs/en/account-management/limits
+    type: RateLimits
+  - url: https://www.daytona.io/docs/en/sandbox/regions
+    type: Regions
+  - url: https://www.daytona.io/dotfiles
+    type: Blog
+  - url: https://www.daytona.io/dotfiles
+    type: Newsletter
+  - url: https://youtube.com/@daytonaio
+    type: YouTube
+  - url: https://go.daytona.io/slack
+    type: Support
+  - url: https://www.daytona.io/contact
+    type: Contact
+  - url: https://status.app.daytona.io/
+    type: StatusPage
+  - url: https://trust.daytona.io/
+    type: TrustCenter
+  - url: https://www.daytona.io/terms-of-service
+    type: TermsOfService
+  - url: https://www.daytona.io/privacy-policy
+    type: PrivacyPolicy
+  - url: https://www.daytona.io/docs/en/security/security-exhibit
+    type: Security
+  - url: https://github.com/daytonaio
+    type: GitHubOrganization
+  - url: https://github.com/daytonaio/daytona
+    type: GitHubRepository
+  - url: https://twitter.com/daytonaio
+    type: X
+  - url: https://www.linkedin.com/company/daytonaio/
+    type: LinkedIn
+  - url: https://pypi.org/project/daytona/
+    type: SDK
+    name: Daytona Python SDK
+  - url: https://www.npmjs.com/package/@daytonaio/sdk
+    type: SDK
+    name: Daytona TypeScript SDK
+  - url: https://rubygems.org/gems/daytona
+    type: SDK
+    name: Daytona Ruby SDK
+  - url: https://pkg.go.dev/github.com/daytonaio/daytona
+    type: SDK
+    name: Daytona Go SDK
+  - url: https://central.sonatype.com/artifact/io.daytona/daytona-sdk
+    type: SDK
+    name: Daytona Java SDK
+  - url: https://www.daytona.io/docs/en/tools/cli
+    type: CLI
+  - url: https://github.com/daytonaio/homebrew-cli
+    type: CLI
+    name: Daytona Homebrew CLI Formula
+  - url: https://github.com/daytonaio/helm-charts
+    type: Resources
+    name: Daytona Helm Charts
+  - url: https://github.com/daytonaio/terraform-modules
+    type: Resources
+    name: Daytona Terraform Modules
+  - url: rules/daytona-rules.yml
+    type: SpectralRules
+  - url: vocabulary/daytona-io-vocabulary.yml
+    type: Vocabulary
+  - url: json-ld/daytona-io-context.jsonld
+    type: JSONLD
+  - url: plans/daytona-io-plans-pricing.yml
+    type: Plans
+  - url: rate-limits/daytona-io-rate-limits.yml
+    type: RateLimits
+  - url: finops/daytona-io-finops.yml
+    type: FinOps
+  - name: Features
+    type: Features
+    data:
+      - name: Sub-90ms cold start
+        description: Sandboxes boot in under 90 milliseconds, enabling per-request isolation for agents at scale.
+      - name: Massive parallelism
+        description: >-
+          Spin up thousands of concurrent sandboxes for parallel agent runs, evaluation harnesses, and batch code
+          execution.
+      - name: Snapshots and volumes
+        description: >-
+          Persist file system, process, and environment state via snapshots, and share data across sandboxes via
+          volumes.
+      - name: Computer Use desktops
+        description: >-
+          Programmatically drive Linux, Windows, and macOS GUI desktops via a built-in computer-use API for agent
+          control.
+      - name: Multi-language runtimes
+        description: Native support for Python, TypeScript, Ruby, Go, and Java with built-in package management.
+      - name: Built-in LSP and Git
+        description: Language Server Protocol bridging and Git operations are first-class agent tools, not bolted-on shell calls.
+      - name: Open-source core
+        description: The Daytona platform is AGPL-3.0 open source and self-hostable on Kubernetes via official Helm charts.
+      - name: Customer-managed compute
+        description: Run the Daytona control plane against your own compute pools for data-residency and cost control.
+      - name: SSH and VS Code Browser
+        description: Humans can drop into any sandbox via SSH, web terminal, VNC, or VS Code Browser for debugging.
+      - name: Webhooks and OpenTelemetry
+        description: Subscribe to sandbox lifecycle events and emit OpenTelemetry traces for observability.
+  - name: UseCases
+    type: UseCases
+    data:
+      - name: AI coding agents
+        description: Give every agent its own isolated computer to run, test, and iterate on generated code safely.
+      - name: Code interpreter for LLM apps
+        description: Back chatbot code-execution features (Python interpreter, data analysis, plotting) with disposable sandboxes.
+      - name: Computer-use agents
+        description: Drive headless and headed Linux/Windows/macOS desktops for browser automation and GUI-driven workflows.
+      - name: Evaluation harnesses
+        description: Run SWE-bench-style benchmarks and agent evaluations in massively parallel sandboxes with reproducible state.
+      - name: CI for AI-generated code
+        description: Execute untrusted PRs from autonomous agents in isolated environments without risking host infrastructure.
+      - name: Hosted developer environments
+        description: Provide cloud dev environments for engineers with persistent volumes, snapshots, and SSH/VS Code access.
+      - name: Sandboxed data analysis
+        description: Run user-uploaded notebooks and scripts safely with built-in Python and TypeScript interpreters.
+  - name: Integrations
+    type: Integrations
+    data:
+      - name: LangChain
+        description: Daytona is integrated as a code execution tool in the LangChain ecosystem.
+      - name: Anthropic Claude Managed Agents
+        description: Daytona is supported as a sandbox host for Anthropic Claude Managed Agents.
+      - name: Google ADK
+        description: Daytona plugin for Google's Agent Development Kit enables ADK agents to run code in Daytona sandboxes.
+      - name: Inngest AgentKit
+        description: Coding agent reference powered by Daytona using Inngest AgentKit.
+      - name: VibeKit
+        description: Run Codex, Gemini CLI, and Claude Code in Daytona sandboxes via VibeKit.
+      - name: Stripe Projects
+        description: Daytona sandboxes are available through Stripe Projects.
+      - name: OpenHands
+        description: OpenHands open-source agent runtime uses Daytona for sandboxed code execution.
+      - name: SWE-ReX
+        description: Sandboxed code execution backend for SWE-agent powered in part by Daytona.
+      - name: Kubernetes
+        description: Self-host the Daytona control plane on Kubernetes via official Helm charts.
+      - name: Terraform
+        description: Provision Daytona infrastructure using official Terraform modules.
+      - name: MCP
+        description: Daytona exposes an MCP server so MCP-compatible agents and IDEs can invoke sandbox tools natively.
+      - name: VS Code
+        description: Connect to a running sandbox from VS Code via the VS Code Browser, SSH, or official extension.
+      - name: JetBrains
+        description: Connect to a running sandbox from JetBrains IDEs via the official JetBrains plugin.
+  - name: Solutions
+    type: Solutions
+    data:
+      - name: Daytona Cloud
+        description: Fully managed sandbox infrastructure at app.daytona.io with pay-as-you-go pricing and $200 free credit.
+      - name: Customer-Managed Compute
+        description: Run Daytona's managed control plane against your own VPC/Kubernetes compute for residency and cost control.
+      - name: Self-Hosted Open Source
+        description: Deploy the full Daytona platform on your own Kubernetes via Helm for fully air-gapped deployments.
+      - name: Startups Program
+        description: Up to $50k in free Daytona compute credits for qualifying startups building agent infrastructure.
