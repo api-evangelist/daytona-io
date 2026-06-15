@@ -1,0 +1,487 @@
+{
+  "item": [
+    {
+      "id": "ac9dcdd9-6799-487d-9404-614c6cb873d0",
+      "name": "webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ece357a1-1761-453c-9aaa-4b357c2a67ec",
+          "name": "Get Svix Consumer App Portal access for an organization",
+          "request": {
+            "name": "Get Svix Consumer App Portal access for an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "app-portal-access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d1a55018-7245-43d9-974a-7d8432e484ab",
+              "name": "App Portal access generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "app-portal-access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"appsk_...\",\n  \"url\": \"https://app.svix.com/app_1234567890\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fce0135-4b5c-4656-be9a-89d2ffdf0501",
+          "name": "Get webhook initialization status for an organization",
+          "request": {
+            "name": "Get webhook initialization status for an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "initialization-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "68f2e9c2-f891-4292-ba44-03e5e71f5d9e",
+              "name": "Webhook initialization status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "initialization-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"organizationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"svixApplicationId\": \"app_1234567890\",\n  \"lastError\": \"Failed to create Svix application\",\n  \"retryCount\": 3,\n  \"createdAt\": \"2023-01-01T00:00:00.000Z\",\n  \"updatedAt\": \"2023-01-01T00:00:00.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca638823-76f6-4ea4-a6b6-0125671dfc0a",
+              "name": "Webhook initialization status not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "initialization-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36942cca-ffdc-4858-8f02-231e3ef83106",
+          "name": "Refresh cached endpoint presence flag for an organization",
+          "request": {
+            "name": "Refresh cached endpoint presence flag for an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "refresh-endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1b2be8d-6249-4cab-89f4-6ccbc1135460",
+              "name": "Endpoint flag refreshed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "refresh-endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "be0a896a-7d9e-4d62-962a-fa3bbd75efd7",
+              "name": "Webhook initialization status not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "refresh-endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a72e0a66-5b21-4eb0-988b-3440549e1805",
+    "name": "Daytona Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Webhooks API — webhooks operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

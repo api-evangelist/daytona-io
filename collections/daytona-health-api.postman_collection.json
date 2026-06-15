@@ -1,0 +1,215 @@
+{
+  "item": [
+    {
+      "id": "5e15f479-275a-476e-9b84-a4c089baa2c7",
+      "name": "Health",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6f0535a9-f802-4fe6-9a0a-b000689322cf",
+          "name": "Health Controller live",
+          "request": {
+            "name": "Health Controller live",
+            "description": {},
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "794b3671-4c16-4e83-9755-536ed73025cd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8153c98-f658-41e6-8880-4c38ee49a3a4",
+          "name": "Health Controller check",
+          "request": {
+            "name": "Health Controller check",
+            "description": {},
+            "url": {
+              "path": [
+                "health",
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2dd3e14d-1708-40b2-9557-0c2cbd3fdcfc",
+              "name": "The Health Check is successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"info\": {\n    \"database\": {\n      \"status\": \"up\"\n    }\n  },\n  \"error\": {},\n  \"details\": {\n    \"database\": {\n      \"status\": \"up\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d79057a6-fdc7-4078-ab0f-85c795d7ded8",
+              "name": "The Health Check is not successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"info\": {\n    \"database\": {\n      \"status\": \"up\"\n    }\n  },\n  \"error\": {\n    \"redis\": {\n      \"status\": \"down\",\n      \"message\": \"Could not connect\"\n    }\n  },\n  \"details\": {\n    \"database\": {\n      \"status\": \"up\"\n    },\n    \"redis\": {\n      \"status\": \"down\",\n      \"message\": \"Could not connect\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b071d0db-4f22-45fb-9f91-c8b8e4b7a32b",
+    "name": "Daytona Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Health API — Health operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

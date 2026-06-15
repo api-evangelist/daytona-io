@@ -1,0 +1,217 @@
+{
+  "info": {
+    "_postman_id": "bd50fee0-5daa-4fe1-8d20-e794883fe260",
+    "name": "Daytona Health API",
+    "description": "Daytona Health API \u2014 Health operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:15.000Z",
+    "updatedAt": "2026-06-05T15:08:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bd50fee0-5daa-4fe1-8d20-e794883fe260"
+  },
+  "item": [
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "ready",
+          "item": [
+            {
+              "name": "Health Controller check",
+              "id": "117d28ef-93e7-464f-9827-6552f5c54e0b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health/ready",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "ready"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "c1432e17-dcd0-43d8-b336-b638c89e4603",
+                  "name": "The Health Check is successful",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/health/ready",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "health",
+                        "ready"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"occaecat_02d\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"Ut_2e9\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"nisi258\": {\n      \"status\": \"<string>\"\n    },\n    \"magna5\": {\n      \"status\": \"<string>\"\n    },\n    \"ex_b_f\": {\n      \"status\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:08:15.000Z",
+                  "updatedAt": "2026-06-05T15:08:15.000Z",
+                  "uid": "35240-c1432e17-dcd0-43d8-b336-b638c89e4603"
+                },
+                {
+                  "id": "c2e79e6b-3609-4723-a62a-638863c29cae",
+                  "name": "The Health Check is not successful",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/health/ready",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "health",
+                        "ready"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"eiusmod41\": {\n      \"status\": \"<string>\"\n    },\n    \"aute4\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"pariatur__f9\": {\n      \"status\": \"<string>\"\n    },\n    \"magna_ea\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"minim_a5\": {\n      \"status\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:08:15.000Z",
+                  "updatedAt": "2026-06-05T15:08:15.000Z",
+                  "uid": "35240-c2e79e6b-3609-4723-a62a-638863c29cae"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:15.000Z",
+              "updatedAt": "2026-06-05T15:08:15.000Z",
+              "uid": "35240-117d28ef-93e7-464f-9827-6552f5c54e0b"
+            }
+          ],
+          "id": "cf3fb4b9-a428-4a9c-b5e8-b6806c5bc7d8",
+          "createdAt": "2026-06-05T15:08:15.000Z",
+          "updatedAt": "2026-06-05T15:08:15.000Z",
+          "uid": "35240-cf3fb4b9-a428-4a9c-b5e8-b6806c5bc7d8"
+        },
+        {
+          "name": "Health Controller live",
+          "id": "9de88d09-4ef4-486c-a03a-6d9f4c0c43f7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "88d0608a-6eda-438a-a964-f610299b491c",
+              "name": "response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:08:15.000Z",
+              "updatedAt": "2026-06-05T15:08:15.000Z",
+              "uid": "35240-88d0608a-6eda-438a-a964-f610299b491c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:08:15.000Z",
+          "updatedAt": "2026-06-05T15:08:15.000Z",
+          "uid": "35240-9de88d09-4ef4-486c-a03a-6d9f4c0c43f7"
+        }
+      ],
+      "id": "c9f3aaea-a8a2-4d57-97ab-1eadc1426eaa",
+      "createdAt": "2026-06-05T15:08:15.000Z",
+      "updatedAt": "2026-06-05T15:08:15.000Z",
+      "uid": "35240-c9f3aaea-a8a2-4d57-97ab-1eadc1426eaa"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.daytona.io/api"
+    }
+  ]
+}

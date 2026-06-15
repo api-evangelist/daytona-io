@@ -1,0 +1,4690 @@
+{
+  "item": [
+    {
+      "id": "70ab9424-01ce-4a36-a4c6-8174f3e60706",
+      "name": "config",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ce74404-d61b-45ae-8711-2b64cf2b36d6",
+          "name": "Get config",
+          "request": {
+            "name": "Get config",
+            "description": {},
+            "url": {
+              "path": [
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08b43044-a191-4700-a5b0-2e54e94d3aca",
+              "name": "Daytona configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"0.0.1\",\n  \"oidc\": {\n    \"issuer\": \"https://auth.example.com\",\n    \"clientId\": \"daytona-client\",\n    \"audience\": \"daytona-api\"\n  },\n  \"linkedAccountsEnabled\": true,\n  \"announcements\": {\n    \"feature-update\": {\n      \"text\": \"New feature available!\",\n      \"learnMoreUrl\": \"https://example.com\"\n    }\n  },\n  \"proxyTemplateUrl\": \"https://{{PORT}}-{{sandboxId}}.proxy.example.com\",\n  \"proxyToolboxUrl\": \"https://proxy.example.com/toolbox\",\n  \"defaultSnapshot\": \"ubuntu:22.04\",\n  \"dashboardUrl\": \"https://dashboard.example.com\",\n  \"maxAutoArchiveInterval\": 43200,\n  \"maintananceMode\": false,\n  \"environment\": \"production\",\n  \"posthog\": {\n    \"apiKey\": \"phc_abc123\",\n    \"host\": \"https://app.posthog.com\"\n  },\n  \"pylonAppId\": \"pylon-app-123\",\n  \"billingApiUrl\": \"https://billing.example.com\",\n  \"analyticsApiUrl\": \"https://analytics.example.com\",\n  \"sshGatewayCommand\": \"ssh -p 2222 {{TOKEN}}@localhost\",\n  \"sshGatewayPublicKey\": \"ssh-gateway-public-key\",\n  \"rateLimit\": {\n    \"failedAuth\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    },\n    \"authenticated\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    },\n    \"sandboxCreate\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    },\n    \"sandboxLifecycle\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d0871c72-0403-4f0d-810a-a0a7f47bb8d3",
+      "name": "regions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0bd0ed62-15a1-4004-90bf-ff923dd08a36",
+          "name": "List all shared regions",
+          "request": {
+            "name": "List all shared regions",
+            "description": {},
+            "url": {
+              "path": [
+                "shared-regions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5b0861b-e2bc-4fac-b482-15e1cf23f2e9",
+              "name": "List of all shared regions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shared-regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"123456789012\",\n    \"name\": \"us-east-1\",\n    \"regionType\": \"shared\",\n    \"createdAt\": \"2023-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2023-01-01T00:00:00.000Z\",\n    \"organizationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"proxyUrl\": \"https://proxy.example.com\",\n    \"sshGatewayUrl\": \"http://ssh-gateway.example.com\",\n    \"snapshotManagerUrl\": \"http://snapshot-manager.example.com\"\n  },\n  {\n    \"id\": \"123456789012\",\n    \"name\": \"us-east-1\",\n    \"regionType\": \"shared\",\n    \"createdAt\": \"2023-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2023-01-01T00:00:00.000Z\",\n    \"organizationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"proxyUrl\": \"https://proxy.example.com\",\n    \"sshGatewayUrl\": \"http://ssh-gateway.example.com\",\n    \"snapshotManagerUrl\": \"http://snapshot-manager.example.com\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5931c2ba-349f-4298-95be-eedd11a40475",
+      "name": "runners",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55ee8999-ff36-4b4a-bc16-dc1ac47c06a7",
+          "name": "Create runner",
+          "request": {
+            "name": "Create runner",
+            "description": {},
+            "url": {
+              "path": [
+                "runners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"regionId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69a335d7-fb80-4fa8-ada6-17effa50defc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"regionId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"apiKey\": \"dtn_1234567890\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46001645-5a3c-46e7-9d95-00a02f5024bc",
+          "name": "List all runners",
+          "request": {
+            "name": "List all runners",
+            "description": {},
+            "url": {
+              "path": [
+                "runners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "regionId",
+                  "value": "<string>",
+                  "description": "Filter runners by region ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3aecd8bc-6d94-4dca-860e-ed45faf9b203",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "regionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"runner123\",\n    \"cpu\": 8,\n    \"memory\": 16,\n    \"disk\": 100,\n    \"class\": \"small\",\n    \"region\": \"us\",\n    \"name\": \"runner1\",\n    \"state\": \"initializing\",\n    \"unschedulable\": false,\n    \"tags\": [\n      \"gpu\",\n      \"us-east\"\n    ],\n    \"createdAt\": \"2023-10-01T12:00:00Z\",\n    \"updatedAt\": \"2023-10-01T12:00:00Z\",\n    \"version\": \"0\",\n    \"apiVersion\": \"0\",\n    \"runnerClass\": \"container\",\n    \"domain\": \"runner1.example.com\",\n    \"apiUrl\": \"https://api.runner1.example.com\",\n    \"proxyUrl\": \"https://proxy.runner1.example.com\",\n    \"gpu\": 1,\n    \"gpuType\": \"string\",\n    \"currentCpuUsagePercentage\": 45.6,\n    \"currentMemoryUsagePercentage\": 68.2,\n    \"currentDiskUsagePercentage\": 33.8,\n    \"currentAllocatedCpu\": 4000,\n    \"currentAllocatedMemoryGiB\": 8000,\n    \"currentAllocatedDiskGiB\": 50000,\n    \"currentSnapshotCount\": 12,\n    \"currentStartedSandboxes\": 5,\n    \"availabilityScore\": 85,\n    \"lastChecked\": \"2024-10-01T12:00:00Z\",\n    \"appVersion\": \"v0.0.0-dev\"\n  },\n  {\n    \"id\": \"runner123\",\n    \"cpu\": 8,\n    \"memory\": 16,\n    \"disk\": 100,\n    \"class\": \"small\",\n    \"region\": \"us\",\n    \"name\": \"runner1\",\n    \"state\": \"initializing\",\n    \"unschedulable\": false,\n    \"tags\": [\n      \"gpu\",\n      \"us-east\"\n    ],\n    \"createdAt\": \"2023-10-01T12:00:00Z\",\n    \"updatedAt\": \"2023-10-01T12:00:00Z\",\n    \"version\": \"0\",\n    \"apiVersion\": \"0\",\n    \"runnerClass\": \"container\",\n    \"domain\": \"runner1.example.com\",\n    \"apiUrl\": \"https://api.runner1.example.com\",\n    \"proxyUrl\": \"https://proxy.runner1.example.com\",\n    \"gpu\": 1,\n    \"gpuType\": \"string\",\n    \"currentCpuUsagePercentage\": 45.6,\n    \"currentMemoryUsagePercentage\": 68.2,\n    \"currentDiskUsagePercentage\": 33.8,\n    \"currentAllocatedCpu\": 4000,\n    \"currentAllocatedMemoryGiB\": 8000,\n    \"currentAllocatedDiskGiB\": 50000,\n    \"currentSnapshotCount\": 12,\n    \"currentStartedSandboxes\": 5,\n    \"availabilityScore\": 85,\n    \"lastChecked\": \"2024-10-01T12:00:00Z\",\n    \"appVersion\": \"v0.0.0-dev\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcfcb4d9-8839-412f-a641-82ed82663046",
+          "name": "Get info for authenticated runner",
+          "request": {
+            "name": "Get info for authenticated runner",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "80836eb6-7e3a-42dc-b086-2fea155af9ca",
+              "name": "Runner info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"apiKey\": \"dtn_1234567890\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\",\n  \"regionType\": \"shared\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "345bd128-750a-4ab3-9f92-807900ab3a14",
+          "name": "Get runner by sandbox ID",
+          "request": {
+            "name": "Get runner by sandbox ID",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                "by-sandbox",
+                ":sandboxId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sandboxId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9574ee1d-117b-4627-9941-f5c227905e43",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    "by-sandbox",
+                    ":sandboxId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sandboxId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"apiKey\": \"dtn_1234567890\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\",\n  \"regionType\": \"shared\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb512643-3193-4eef-88d0-a6042bb8f890",
+          "name": "Get runners by snapshot ref",
+          "request": {
+            "name": "Get runners by snapshot ref",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                "by-snapshot-ref"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ref",
+                  "value": "<string>",
+                  "description": "(Required) Snapshot ref"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a1e8ce28-a1f0-4033-b805-543325d4dda6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    "by-snapshot-ref"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ref",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"runnerSnapshotId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"runnerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"runnerDomain\": \"runner.example.com\"\n  },\n  {\n    \"runnerSnapshotId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"runnerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"runnerDomain\": \"runner.example.com\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "999453f8-c0de-4891-942a-b4d7f6aba242",
+          "name": "Get runner by ID",
+          "request": {
+            "name": "Get runner by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3fa259a9-71a9-4afc-9e74-35650cb397ba",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa2f0801-52f5-46ad-ab51-7bd00318d4cb",
+          "name": "Delete runner",
+          "request": {
+            "name": "Delete runner",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "be498b25-37a2-4cf4-9574-b1397a2ca5c5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2a7571f-63b3-4037-a569-afdf1f35ccf2",
+          "name": "Get runner by ID",
+          "request": {
+            "name": "Get runner by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                ":id",
+                "full"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "00d712fb-f61e-432b-8970-925eb9163225",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    ":id",
+                    "full"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"apiKey\": \"dtn_1234567890\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\",\n  \"regionType\": \"shared\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "129ae504-7477-40e2-8126-34a8cee866ae",
+          "name": "Update runner scheduling status",
+          "request": {
+            "name": "Update runner scheduling status",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                ":id",
+                "scheduling"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ef834878-de7d-492f-978a-26f80b362445",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    ":id",
+                    "scheduling"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a5d0e2e-2493-4fbb-b3d5-6b1bc4ae147f",
+          "name": "Update runner draining status",
+          "request": {
+            "name": "Update runner draining status",
+            "description": {},
+            "url": {
+              "path": [
+                "runners",
+                ":id",
+                "draining"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "db88f3d3-eeea-463d-b48b-d2df86bceddd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    ":id",
+                    "draining"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb5db303-8ee7-472f-877f-30bf31038c80",
+          "name": "Runner healthcheck",
+          "request": {
+            "name": "Runner healthcheck",
+            "description": {
+              "content": "Endpoint for version 2 runners to send healthcheck and metrics. Updates lastChecked timestamp and runner metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runners",
+                "healthcheck"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appVersion\": \"<string>\",\n  \"metrics\": {\n    \"currentCpuLoadAverage\": \"<number>\",\n    \"currentCpuUsagePercentage\": \"<number>\",\n    \"currentMemoryUsagePercentage\": \"<number>\",\n    \"currentDiskUsagePercentage\": \"<number>\",\n    \"currentAllocatedCpu\": \"<number>\",\n    \"currentAllocatedMemoryGiB\": \"<number>\",\n    \"currentAllocatedDiskGiB\": \"<number>\",\n    \"currentSnapshotCount\": \"<number>\",\n    \"currentStartedSandboxes\": \"<number>\",\n    \"cpu\": \"<number>\",\n    \"memoryGiB\": \"<number>\",\n    \"diskGiB\": \"<number>\"\n  },\n  \"serviceHealth\": [\n    {\n      \"serviceName\": \"<string>\",\n      \"healthy\": \"<boolean>\",\n      \"errorReason\": \"<string>\"\n    },\n    {\n      \"serviceName\": \"<string>\",\n      \"healthy\": \"<boolean>\",\n      \"errorReason\": \"<string>\"\n    }\n  ],\n  \"domain\": \"<string>\",\n  \"proxyUrl\": \"<string>\",\n  \"apiUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3bfd3a78-2324-46d5-8179-a0b46ad83eea",
+              "name": "Healthcheck received",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runners",
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appVersion\": \"v0.0.0-dev\",\n  \"metrics\": {\n    \"currentCpuLoadAverage\": 0.98,\n    \"currentCpuUsagePercentage\": 45.5,\n    \"currentMemoryUsagePercentage\": 60.2,\n    \"currentDiskUsagePercentage\": 35.8,\n    \"currentAllocatedCpu\": 8,\n    \"currentAllocatedMemoryGiB\": 16,\n    \"currentAllocatedDiskGiB\": 100,\n    \"currentSnapshotCount\": 5,\n    \"currentStartedSandboxes\": 10,\n    \"cpu\": 8,\n    \"memoryGiB\": 16,\n    \"diskGiB\": 100\n  },\n  \"serviceHealth\": [\n    {\n      \"serviceName\": \"runner\",\n      \"healthy\": false,\n      \"errorReason\": \"Cannot connect to the runner\"\n    },\n    {\n      \"serviceName\": \"runner\",\n      \"healthy\": false,\n      \"errorReason\": \"Cannot connect to the runner\"\n    }\n  ],\n  \"domain\": \"runner-123.daytona.example.com\",\n  \"proxyUrl\": \"http://proxy.daytona.example.com:8080\",\n  \"apiUrl\": \"http://api.daytona.example.com:8080\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "70f21b4a-9edd-4e64-9b5f-a256168fb2b9",
+      "name": "jobs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa42bba6-6c05-474a-b892-f2fd772dd5c1",
+          "name": "List jobs for the runner",
+          "request": {
+            "name": "List jobs for the runner",
+            "description": {
+              "content": "Returns a paginated list of jobs for the runner, optionally filtered by status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of the results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of jobs to return (default: 100, max: 500)"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter jobs by status"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>",
+                  "description": "Number of jobs to skip for pagination (default: 0)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "24fb1085-72dd-49ae-9a03-8d8eeb31e78e",
+              "name": "List of jobs for the runner",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"job123\",\n      \"type\": \"CREATE_SANDBOX\",\n      \"status\": \"PENDING\",\n      \"resourceType\": \"SANDBOX\",\n      \"resourceId\": \"sandbox123\",\n      \"createdAt\": \"2024-10-01T12:00:00Z\",\n      \"payload\": \"string\",\n      \"traceContext\": {\n        \"traceparent\": \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\n      },\n      \"errorMessage\": \"Failed to create sandbox\",\n      \"updatedAt\": \"2024-10-01T12:00:00Z\"\n    },\n    {\n      \"id\": \"job123\",\n      \"type\": \"CREATE_SANDBOX\",\n      \"status\": \"PENDING\",\n      \"resourceType\": \"SANDBOX\",\n      \"resourceId\": \"sandbox123\",\n      \"createdAt\": \"2024-10-01T12:00:00Z\",\n      \"payload\": \"string\",\n      \"traceContext\": {\n        \"traceparent\": \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\n      },\n      \"errorMessage\": \"Failed to create sandbox\",\n      \"updatedAt\": \"2024-10-01T12:00:00Z\"\n    }\n  ],\n  \"total\": 4542.762745647766,\n  \"page\": 8981.555304240765,\n  \"totalPages\": 1803.9334006647566\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be664e14-5c4c-4635-8d18-9074c3029776",
+          "name": "Long poll for jobs",
+          "request": {
+            "name": "Long poll for jobs",
+            "description": {
+              "content": "Long poll endpoint for runners to fetch pending jobs. Returns immediately if jobs are available, otherwise waits up to timeout seconds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobs",
+                "poll"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeout",
+                  "value": "<number>",
+                  "description": "Timeout in seconds for long polling (default: 30, max: 60)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>",
+                  "description": "Maximum number of jobs to return (default: 10, max: 100)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bcffa692-d406-4dc5-a5a6-e89d87fe0021",
+              "name": "List of jobs for the runner",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    "poll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeout",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobs\": [\n    {\n      \"id\": \"job123\",\n      \"type\": \"CREATE_SANDBOX\",\n      \"status\": \"PENDING\",\n      \"resourceType\": \"SANDBOX\",\n      \"resourceId\": \"sandbox123\",\n      \"createdAt\": \"2024-10-01T12:00:00Z\",\n      \"payload\": \"string\",\n      \"traceContext\": {\n        \"traceparent\": \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\n      },\n      \"errorMessage\": \"Failed to create sandbox\",\n      \"updatedAt\": \"2024-10-01T12:00:00Z\"\n    },\n    {\n      \"id\": \"job123\",\n      \"type\": \"CREATE_SANDBOX\",\n      \"status\": \"PENDING\",\n      \"resourceType\": \"SANDBOX\",\n      \"resourceId\": \"sandbox123\",\n      \"createdAt\": \"2024-10-01T12:00:00Z\",\n      \"payload\": \"string\",\n      \"traceContext\": {\n        \"traceparent\": \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\n      },\n      \"errorMessage\": \"Failed to create sandbox\",\n      \"updatedAt\": \"2024-10-01T12:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcda5408-0bb1-4b1d-b5ea-3e5667d021e5",
+          "name": "Get job details",
+          "request": {
+            "name": "Get job details",
+            "description": {},
+            "url": {
+              "path": [
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) ID of the job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "084f6faf-b6f6-4cfb-9aff-750081707f1a",
+              "name": "Job details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"job123\",\n  \"type\": \"CREATE_SANDBOX\",\n  \"status\": \"PENDING\",\n  \"resourceType\": \"SANDBOX\",\n  \"resourceId\": \"sandbox123\",\n  \"createdAt\": \"2024-10-01T12:00:00Z\",\n  \"payload\": \"string\",\n  \"traceContext\": {\n    \"traceparent\": \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\n  },\n  \"errorMessage\": \"Failed to create sandbox\",\n  \"updatedAt\": \"2024-10-01T12:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed4b3d59-1417-4df8-8f6f-fa3936ebc9bb",
+          "name": "Update job status",
+          "request": {
+            "name": "Update job status",
+            "description": {},
+            "url": {
+              "path": [
+                "jobs",
+                ":jobId",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) ID of the job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"resultMetadata\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "059263bc-8b92-4de9-9be0-a4994f5874c1",
+              "name": "Job status updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobs",
+                    ":jobId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"IN_PROGRESS\",\n  \"errorMessage\": \"Failed to create sandbox\",\n  \"resultMetadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"job123\",\n  \"type\": \"CREATE_SANDBOX\",\n  \"status\": \"PENDING\",\n  \"resourceType\": \"SANDBOX\",\n  \"resourceId\": \"sandbox123\",\n  \"createdAt\": \"2024-10-01T12:00:00Z\",\n  \"payload\": \"string\",\n  \"traceContext\": {\n    \"traceparent\": \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01\"\n  },\n  \"errorMessage\": \"Failed to create sandbox\",\n  \"updatedAt\": \"2024-10-01T12:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "dc159abb-925a-4d54-95f5-bf3d99fbfa3d",
+      "name": "docker-registry",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fc0f2076-f857-48ca-863e-53fd13102272",
+          "name": "Create registry",
+          "request": {
+            "name": "Create registry",
+            "description": {},
+            "url": {
+              "path": [
+                "docker-registry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"project\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9eaef29-43fd-4fde-bae6-be1bbf3525d3",
+              "name": "The docker registry has been successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docker-registry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"project\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"name\": \"My Docker Hub\",\n  \"url\": \"https://registry.hub.docker.com\",\n  \"username\": \"username\",\n  \"project\": \"my-project\",\n  \"registryType\": \"internal\",\n  \"createdAt\": \"2024-01-31T12:00:00Z\",\n  \"updatedAt\": \"2024-01-31T12:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80c420d0-80c4-4857-9c06-d8eb98356ce1",
+          "name": "List registries",
+          "request": {
+            "name": "List registries",
+            "description": {},
+            "url": {
+              "path": [
+                "docker-registry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bcd4390d-01f5-4a10-99b1-b848d0dc5b5a",
+              "name": "List of all docker registries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docker-registry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"My Docker Hub\",\n    \"url\": \"https://registry.hub.docker.com\",\n    \"username\": \"username\",\n    \"project\": \"my-project\",\n    \"registryType\": \"internal\",\n    \"createdAt\": \"2024-01-31T12:00:00Z\",\n    \"updatedAt\": \"2024-01-31T12:00:00Z\"\n  },\n  {\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"My Docker Hub\",\n    \"url\": \"https://registry.hub.docker.com\",\n    \"username\": \"username\",\n    \"project\": \"my-project\",\n    \"registryType\": \"internal\",\n    \"createdAt\": \"2024-01-31T12:00:00Z\",\n    \"updatedAt\": \"2024-01-31T12:00:00Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ae7bf85-44f5-4ce3-aa13-05c890038ede",
+          "name": "Get temporary registry access for pushing snapshots",
+          "request": {
+            "name": "Get temporary registry access for pushing snapshots",
+            "description": {},
+            "url": {
+              "path": [
+                "docker-registry",
+                "registry-push-access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "regionId",
+                  "value": "<string>",
+                  "description": "ID of the region where the snapshot will be available (defaults to organization default region)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae10716d-eb6a-4e8e-970d-9071692cd03a",
+              "name": "Temporary registry access has been generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docker-registry",
+                    "registry-push-access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "regionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"username\": \"temp-user-123\",\n  \"secret\": \"eyJhbGciOiJIUzI1NiIs...\",\n  \"registryUrl\": \"registry.example.com\",\n  \"registryId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"project\": \"library\",\n  \"expiresAt\": \"2023-12-31T23:59:59Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0fb09623-6e5f-46c1-bcbf-098e223e824f",
+          "name": "Get registry",
+          "request": {
+            "name": "Get registry",
+            "description": {},
+            "url": {
+              "path": [
+                "docker-registry",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the docker registry"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1ef62146-3c76-4406-8d99-51e031c8735c",
+              "name": "The docker registry",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docker-registry",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the docker registry"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"name\": \"My Docker Hub\",\n  \"url\": \"https://registry.hub.docker.com\",\n  \"username\": \"username\",\n  \"project\": \"my-project\",\n  \"registryType\": \"internal\",\n  \"createdAt\": \"2024-01-31T12:00:00Z\",\n  \"updatedAt\": \"2024-01-31T12:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "879b5ed0-c9c6-45d4-a3b6-7bec265671e8",
+          "name": "Update registry",
+          "request": {
+            "name": "Update registry",
+            "description": {},
+            "url": {
+              "path": [
+                "docker-registry",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the docker registry"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"project\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7fc35744-0320-4db2-9a7c-5f1b984a5cfa",
+              "name": "The docker registry has been successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docker-registry",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the docker registry"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"project\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"name\": \"My Docker Hub\",\n  \"url\": \"https://registry.hub.docker.com\",\n  \"username\": \"username\",\n  \"project\": \"my-project\",\n  \"registryType\": \"internal\",\n  \"createdAt\": \"2024-01-31T12:00:00Z\",\n  \"updatedAt\": \"2024-01-31T12:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb773c01-1f7f-4fdb-9d3d-d3f7d810c892",
+          "name": "Delete registry",
+          "request": {
+            "name": "Delete registry",
+            "description": {},
+            "url": {
+              "path": [
+                "docker-registry",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the docker registry"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e2de2aab-64e3-4fa6-8039-771b7305fe91",
+              "name": "The docker registry has been successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docker-registry",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the docker registry"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "01acc25e-9208-4b5b-9bcd-a854c3023167",
+      "name": "admin",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "31b1296a-a4ab-451b-bf64-18800bca2987",
+          "name": "Create runner",
+          "request": {
+            "name": "Create runner",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"regionId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"apiVersion\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"domain\": \"<string>\",\n  \"apiUrl\": \"<string>\",\n  \"proxyUrl\": \"<string>\",\n  \"cpu\": \"<number>\",\n  \"memoryGiB\": \"<number>\",\n  \"diskGiB\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "107bd96b-91c4-48ed-99d5-60394dfb6ad9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"regionId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"apiVersion\": \"2\",\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"cpu\": 8,\n  \"memoryGiB\": 16,\n  \"diskGiB\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"apiKey\": \"dtn_1234567890\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fc302e7-6f87-4f51-bc70-7c0b4995cfac",
+          "name": "List all runners",
+          "request": {
+            "name": "List all runners",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "regionId",
+                  "value": "<string>",
+                  "description": "Filter runners by region ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "82b1ab90-22f9-432d-9efe-b4cf2919eec9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "regionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"runner123\",\n    \"cpu\": 8,\n    \"memory\": 16,\n    \"disk\": 100,\n    \"class\": \"small\",\n    \"region\": \"us\",\n    \"name\": \"runner1\",\n    \"state\": \"initializing\",\n    \"unschedulable\": false,\n    \"tags\": [\n      \"gpu\",\n      \"us-east\"\n    ],\n    \"createdAt\": \"2023-10-01T12:00:00Z\",\n    \"updatedAt\": \"2023-10-01T12:00:00Z\",\n    \"version\": \"0\",\n    \"apiVersion\": \"0\",\n    \"runnerClass\": \"container\",\n    \"apiKey\": \"dtn_1234567890\",\n    \"domain\": \"runner1.example.com\",\n    \"apiUrl\": \"https://api.runner1.example.com\",\n    \"proxyUrl\": \"https://proxy.runner1.example.com\",\n    \"gpu\": 1,\n    \"gpuType\": \"string\",\n    \"currentCpuUsagePercentage\": 45.6,\n    \"currentMemoryUsagePercentage\": 68.2,\n    \"currentDiskUsagePercentage\": 33.8,\n    \"currentAllocatedCpu\": 4000,\n    \"currentAllocatedMemoryGiB\": 8000,\n    \"currentAllocatedDiskGiB\": 50000,\n    \"currentSnapshotCount\": 12,\n    \"currentStartedSandboxes\": 5,\n    \"availabilityScore\": 85,\n    \"lastChecked\": \"2024-10-01T12:00:00Z\",\n    \"appVersion\": \"v0.0.0-dev\",\n    \"regionType\": \"shared\"\n  },\n  {\n    \"id\": \"runner123\",\n    \"cpu\": 8,\n    \"memory\": 16,\n    \"disk\": 100,\n    \"class\": \"small\",\n    \"region\": \"us\",\n    \"name\": \"runner1\",\n    \"state\": \"initializing\",\n    \"unschedulable\": false,\n    \"tags\": [\n      \"gpu\",\n      \"us-east\"\n    ],\n    \"createdAt\": \"2023-10-01T12:00:00Z\",\n    \"updatedAt\": \"2023-10-01T12:00:00Z\",\n    \"version\": \"0\",\n    \"apiVersion\": \"0\",\n    \"runnerClass\": \"container\",\n    \"apiKey\": \"dtn_1234567890\",\n    \"domain\": \"runner1.example.com\",\n    \"apiUrl\": \"https://api.runner1.example.com\",\n    \"proxyUrl\": \"https://proxy.runner1.example.com\",\n    \"gpu\": 1,\n    \"gpuType\": \"string\",\n    \"currentCpuUsagePercentage\": 45.6,\n    \"currentMemoryUsagePercentage\": 68.2,\n    \"currentDiskUsagePercentage\": 33.8,\n    \"currentAllocatedCpu\": 4000,\n    \"currentAllocatedMemoryGiB\": 8000,\n    \"currentAllocatedDiskGiB\": 50000,\n    \"currentSnapshotCount\": 12,\n    \"currentStartedSandboxes\": 5,\n    \"availabilityScore\": 85,\n    \"lastChecked\": \"2024-10-01T12:00:00Z\",\n    \"appVersion\": \"v0.0.0-dev\",\n    \"regionType\": \"shared\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e145e240-9de1-474c-bc58-63f33b250575",
+          "name": "Get runner by ID",
+          "request": {
+            "name": "Get runner by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5fa49922-d2f6-4108-9b04-70aa9b3f5776",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"apiKey\": \"dtn_1234567890\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\",\n  \"regionType\": \"shared\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14dddc31-de53-4cc9-81b9-2a87d8a6288f",
+          "name": "Delete runner",
+          "request": {
+            "name": "Delete runner",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "265e8cd0-73e0-4af4-9af9-995d372be386",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4787b020-6ee0-400e-bcdf-9a4a5e3bd552",
+          "name": "Update runner scheduling status",
+          "request": {
+            "name": "Update runner scheduling status",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners",
+                ":id",
+                "scheduling"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "599e7312-da73-4ff7-a881-e65565947c62",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners",
+                    ":id",
+                    "scheduling"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "956ddb50-7d7b-4ee7-9b93-6bd47dbd6c93",
+          "name": "Recover sandbox from error state as an admin",
+          "request": {
+            "name": "Recover sandbox from error state as an admin",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "sandbox",
+                ":sandboxId",
+                "recover"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sandboxId",
+                  "description": "(Required) ID of the sandbox"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "98c2970c-bb5f-49cf-abeb-87b6ec7cd117",
+              "name": "Recovery initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "sandbox",
+                    ":sandboxId",
+                    "recover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sandboxId",
+                      "description": "(Required) ID of the sandbox"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"sandbox123\",\n  \"organizationId\": \"organization123\",\n  \"name\": \"MySandbox\",\n  \"user\": \"daytona\",\n  \"env\": {\n    \"NODE_ENV\": \"production\"\n  },\n  \"labels\": {\n    \"daytona.io/public\": \"true\"\n  },\n  \"public\": false,\n  \"networkBlockAll\": false,\n  \"target\": \"local\",\n  \"cpu\": 2,\n  \"gpu\": 0,\n  \"memory\": 4,\n  \"disk\": 10,\n  \"toolboxProxyUrl\": \"https://proxy.app.daytona.io/toolbox\",\n  \"snapshot\": \"daytonaio/sandbox:latest\",\n  \"networkAllowList\": \"192.168.1.0/16,10.0.0.0/24\",\n  \"state\": \"creating\",\n  \"desiredState\": \"destroyed\",\n  \"errorReason\": \"The sandbox is not running\",\n  \"recoverable\": true,\n  \"backupState\": \"None\",\n  \"backupCreatedAt\": \"2024-10-01T12:00:00Z\",\n  \"autoStopInterval\": 30,\n  \"autoArchiveInterval\": 10080,\n  \"autoDeleteInterval\": 30,\n  \"volumes\": [\n    {\n      \"volumeId\": \"volume123\",\n      \"mountPath\": \"/data\",\n      \"subpath\": \"users/alice\"\n    },\n    {\n      \"volumeId\": \"volume123\",\n      \"mountPath\": \"/data\",\n      \"subpath\": \"users/alice\"\n    }\n  ],\n  \"buildInfo\": {\n    \"createdAt\": \"1979-11-28T00:41:02.279Z\",\n    \"updatedAt\": \"1947-08-27T06:21:27.727Z\",\n    \"snapshotRef\": \"daytonaio/sandbox:latest\",\n    \"dockerfileContent\": \"FROM node:14\\nWORKDIR /app\\nCOPY . .\\nRUN npm install\\nCMD [\\\"npm\\\", \\\"start\\\"]\",\n    \"contextHashes\": [\n      \"hash1\",\n      \"hash2\"\n    ]\n  },\n  \"createdAt\": \"2024-10-01T12:00:00Z\",\n  \"updatedAt\": \"2024-10-01T12:00:00Z\",\n  \"lastActivityAt\": \"2024-10-01T12:00:00Z\",\n  \"class\": \"small\",\n  \"daemonVersion\": \"1.0.0\",\n  \"runnerId\": \"runner123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7749aead-9a43-4aae-9a17-4e0cccfbec3c",
+          "name": "Create user",
+          "request": {
+            "name": "Create user",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"personalOrganizationQuota\": {\n    \"totalCpuQuota\": \"<number>\",\n    \"totalMemoryQuota\": \"<number>\",\n    \"totalDiskQuota\": \"<number>\",\n    \"maxCpuPerSandbox\": \"<number>\",\n    \"maxMemoryPerSandbox\": \"<number>\",\n    \"maxDiskPerSandbox\": \"<number>\",\n    \"snapshotQuota\": \"<number>\",\n    \"maxSnapshotSize\": \"<number>\",\n    \"volumeQuota\": \"<number>\"\n  },\n  \"personalOrganizationDefaultRegionId\": \"<string>\",\n  \"role\": \"<string>\",\n  \"emailVerified\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b65718e-d6d1-499f-a824-9ef64f91f719",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"personalOrganizationQuota\": {\n    \"totalCpuQuota\": 9388.175781350046,\n    \"totalMemoryQuota\": 1008.0457813308119,\n    \"totalDiskQuota\": 6046.411316747265,\n    \"maxCpuPerSandbox\": 7449.404712497292,\n    \"maxMemoryPerSandbox\": 5725.606417318816,\n    \"maxDiskPerSandbox\": 8791.618359965008,\n    \"snapshotQuota\": 4135.394926132878,\n    \"maxSnapshotSize\": 8491.562093878316,\n    \"volumeQuota\": 6525.646805674069\n  },\n  \"personalOrganizationDefaultRegionId\": \"<string>\",\n  \"role\": \"<string>\",\n  \"emailVerified\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d22ecae7-7de3-470f-baa8-7d4b7a6bb933",
+          "name": "List all users",
+          "request": {
+            "name": "List all users",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "afcbf83d-cf2e-4deb-8c64-02471e56e63b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df8c4e5c-6828-4d60-8ceb-ad37591e45e2",
+          "name": "Regenerate user key pair",
+          "request": {
+            "name": "Regenerate user key pair",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users",
+                ":id",
+                "regenerate-key-pair"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2ae4c317-cd7a-4858-9b1e-d44db6a92db6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users",
+                    ":id",
+                    "regenerate-key-pair"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fdffab43-9206-4759-9fcf-7b75a7446114",
+          "name": "Get user by ID",
+          "request": {
+            "name": "Get user by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6d90727-cd3f-43a1-a076-6817e864b784",
+              "name": "User details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"publicKeys\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"createdAt\": \"1964-09-08T23:40:27.694Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a16b4105-de0e-40c5-bf5e-91e8620b788c",
+          "name": "Send a webhook message to an organization",
+          "request": {
+            "name": "Send a webhook message to an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "send"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventType\": \"<string>\",\n  \"payload\": \"<object>\",\n  \"eventId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4524fed7-cfe5-4860-9409-55f1b5d9643c",
+              "name": "Webhook message sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"sandbox.created\",\n  \"payload\": {\n    \"name\": \"My Sandbox\"\n  },\n  \"eventId\": \"evt_1234567890abcdef\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab26d11c-0960-4803-a20b-f61f8f6aa1bb",
+          "name": "Get delivery attempts for a webhook message",
+          "request": {
+            "name": "Get delivery attempts for a webhook message",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "messages",
+                ":messageId",
+                "attempts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "messageId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fc3f26c-3239-47f7-8175-dce020a83b6c",
+              "name": "List of delivery attempts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "messages",
+                    ":messageId",
+                    "attempts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a41709c-9f19-484a-ac7d-5f5f403d7a85",
+          "name": "Get webhook service status",
+          "request": {
+            "name": "Get webhook service status",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2fd7a075-38ce-4ba6-9fcd-f808f5f2102e",
+              "name": "Webhook service status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enabled\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b704d3f-a4f5-4cd8-88cd-62b90c64d638",
+          "name": "Initialize webhooks for an organization",
+          "request": {
+            "name": "Initialize webhooks for an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "initialize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9686817e-dfa9-4a47-a7bc-fb0f90875f26",
+              "name": "Webhooks initialized successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "40613f80-9188-493a-bc4f-854a7b8b1bf0",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb09c4c3-969c-4136-9cf7-75b614ef84b8",
+          "name": "Set default registry",
+          "request": {
+            "name": "Set default registry",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "docker-registry",
+                ":id",
+                "set-default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the docker registry"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b4be2e2d-ba1c-4560-8aac-e501ce9477d0",
+              "name": "The docker registry has been set as default.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "docker-registry",
+                    ":id",
+                    "set-default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the docker registry"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"name\": \"My Docker Hub\",\n  \"url\": \"https://registry.hub.docker.com\",\n  \"username\": \"username\",\n  \"project\": \"my-project\",\n  \"registryType\": \"internal\",\n  \"createdAt\": \"2024-01-31T12:00:00Z\",\n  \"updatedAt\": \"2024-01-31T12:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06ac5d89-2535-48f6-92e0-c07e336595a6",
+          "name": "Check if an image can be cleaned up",
+          "request": {
+            "name": "Check if an image can be cleaned up",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "snapshots",
+                "can-cleanup-image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "imageName",
+                  "value": "<string>",
+                  "description": "(Required) Image name with tag to check"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "64f15f9c-f86b-40d0-8734-57169ae15c53",
+              "name": "Boolean indicating if image can be cleaned up",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "snapshots",
+                    "can-cleanup-image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "imageName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "false",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2659932-0784-43f1-b045-fd53ee7efd53",
+          "name": "Set snapshot general status",
+          "request": {
+            "name": "Set snapshot general status",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "snapshots",
+                ":id",
+                "general"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Snapshot ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"general\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb816eff-8739-4eb1-adbf-d347b1c26432",
+              "name": "Snapshot general status has been set",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "snapshots",
+                    ":id",
+                    "general"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Snapshot ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"general\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"general\": false,\n  \"name\": \"string\",\n  \"state\": \"building\",\n  \"size\": 2415.2760744448565,\n  \"entrypoint\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cpu\": 3598.880409998231,\n  \"gpu\": 2085.812268132903,\n  \"mem\": 8994.423728389045,\n  \"disk\": 6418.28392718807,\n  \"errorReason\": \"string\",\n  \"createdAt\": \"1994-10-10T15:42:43.280Z\",\n  \"updatedAt\": \"1954-11-18T08:34:33.365Z\",\n  \"lastUsedAt\": \"1960-08-06T05:20:25.804Z\",\n  \"organizationId\": \"string\",\n  \"imageName\": \"string\",\n  \"buildInfo\": {\n    \"createdAt\": \"2008-12-22T01:53:08.066Z\",\n    \"updatedAt\": \"1959-06-04T17:11:25.715Z\",\n    \"snapshotRef\": \"daytonaio/sandbox:latest\",\n    \"dockerfileContent\": \"FROM node:14\\nWORKDIR /app\\nCOPY . .\\nRUN npm install\\nCMD [\\\"npm\\\", \\\"start\\\"]\",\n    \"contextHashes\": [\n      \"hash1\",\n      \"hash2\"\n    ]\n  },\n  \"regionIds\": [\n    \"string\",\n    \"string\"\n  ],\n  \"initialRunnerId\": \"runner123\",\n  \"ref\": \"daytonaio/sandbox:latest\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57f758dc-7080-47c1-85bf-7d47bbb70ff6",
+          "name": "Get all audit logs",
+          "request": {
+            "name": "Get all audit logs",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "audit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of the results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<dateTime>",
+                  "description": "From date (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "To date (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "nextToken",
+                  "value": "<string>",
+                  "description": "Token for cursor-based pagination. When provided, takes precedence over page parameter."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6db17ead-3485-472f-99da-ecacb420c4b1",
+              "name": "Paginated list of all audit logs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "audit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"actorId\": \"string\",\n      \"actorEmail\": \"string\",\n      \"action\": \"string\",\n      \"createdAt\": \"2008-07-25T22:05:59.583Z\",\n      \"actorApiKeyPrefix\": \"string\",\n      \"actorApiKeySuffix\": \"string\",\n      \"organizationId\": \"string\",\n      \"targetType\": \"string\",\n      \"targetId\": \"string\",\n      \"statusCode\": 4047.135554509683,\n      \"errorMessage\": \"string\",\n      \"ipAddress\": \"string\",\n      \"userAgent\": \"string\",\n      \"source\": \"string\",\n      \"metadata\": {\n        \"key_0\": 6905,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"actorId\": \"string\",\n      \"actorEmail\": \"string\",\n      \"action\": \"string\",\n      \"createdAt\": \"1996-08-02T19:58:53.243Z\",\n      \"actorApiKeyPrefix\": \"string\",\n      \"actorApiKeySuffix\": \"string\",\n      \"organizationId\": \"string\",\n      \"targetType\": \"string\",\n      \"targetId\": \"string\",\n      \"statusCode\": 3750.534139170788,\n      \"errorMessage\": \"string\",\n      \"ipAddress\": \"string\",\n      \"userAgent\": \"string\",\n      \"source\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"total\": 4153.130777964221,\n  \"page\": 1611.2707267015269,\n  \"totalPages\": 8460.510727326882,\n  \"nextToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f5b97fcc-313b-4680-ad0e-34fefc8bf505",
+      "name": "audit",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7462e305-d42b-4c14-a23c-2aa74144eedd",
+          "name": "Get audit logs for organization",
+          "request": {
+            "name": "Get audit logs for organization",
+            "description": {},
+            "url": {
+              "path": [
+                "audit",
+                "organizations",
+                ":organizationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of the results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<dateTime>",
+                  "description": "From date (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "To date (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "nextToken",
+                  "value": "<string>",
+                  "description": "Token for cursor-based pagination. When provided, takes precedence over page parameter."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) Organization ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cba33cab-133a-4703-8843-5e47327d9310",
+              "name": "Paginated list of organization audit logs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit",
+                    "organizations",
+                    ":organizationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"actorId\": \"string\",\n      \"actorEmail\": \"string\",\n      \"action\": \"string\",\n      \"createdAt\": \"2008-07-25T22:05:59.583Z\",\n      \"actorApiKeyPrefix\": \"string\",\n      \"actorApiKeySuffix\": \"string\",\n      \"organizationId\": \"string\",\n      \"targetType\": \"string\",\n      \"targetId\": \"string\",\n      \"statusCode\": 4047.135554509683,\n      \"errorMessage\": \"string\",\n      \"ipAddress\": \"string\",\n      \"userAgent\": \"string\",\n      \"source\": \"string\",\n      \"metadata\": {\n        \"key_0\": 6905,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"actorId\": \"string\",\n      \"actorEmail\": \"string\",\n      \"action\": \"string\",\n      \"createdAt\": \"1996-08-02T19:58:53.243Z\",\n      \"actorApiKeyPrefix\": \"string\",\n      \"actorApiKeySuffix\": \"string\",\n      \"organizationId\": \"string\",\n      \"targetType\": \"string\",\n      \"targetId\": \"string\",\n      \"statusCode\": 3750.534139170788,\n      \"errorMessage\": \"string\",\n      \"ipAddress\": \"string\",\n      \"userAgent\": \"string\",\n      \"source\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"total\": 4153.130777964221,\n  \"page\": 1611.2707267015269,\n  \"totalPages\": 8460.510727326882,\n  \"nextToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "59f1eaaf-7587-4fc7-9483-a48ca3485508",
+      "name": "object-storage",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4a65755-5c27-4b03-90b1-43ebf222cedb",
+          "name": "Get temporary storage access for pushing objects",
+          "request": {
+            "name": "Get temporary storage access for pushing objects",
+            "description": {},
+            "url": {
+              "path": [
+                "object-storage",
+                "push-access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a57ddf4f-631b-4df7-919b-9b6ccaf4c2af",
+              "name": "Temporary storage access has been generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "object-storage",
+                    "push-access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accessKey\": \"temp-user-123\",\n  \"secret\": \"abchbGciOiJIUzI1NiIs...\",\n  \"sessionToken\": \"eyJhbGciOiJIUzI1NiIs...\",\n  \"storageUrl\": \"storage.example.com\",\n  \"organizationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"bucket\": \"daytona\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "48296bba-b5f7-449b-b38c-a3cc154b55a1",
+    "name": "Daytona Admin API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

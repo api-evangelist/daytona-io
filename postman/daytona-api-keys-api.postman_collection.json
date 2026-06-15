@@ -1,0 +1,715 @@
+{
+  "info": {
+    "_postman_id": "a1ca00c9-111b-4e0d-b22c-a686f27130d1",
+    "name": "Daytona Api Keys API",
+    "description": "Daytona Api Keys API \u2014 api-keys operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:07:58.000Z",
+    "updatedAt": "2026-06-05T15:07:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a1ca00c9-111b-4e0d-b22c-a686f27130d1"
+  },
+  "item": [
+    {
+      "name": "api-keys",
+      "item": [
+        {
+          "name": "current",
+          "item": [
+            {
+              "name": "Get current API key's details",
+              "id": "55964418-09b7-47eb-8f97-c20d7ba6a8dd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api-keys/current",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api-keys",
+                    "current"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "7b8fed66-c115-4cac-aba4-83db72df2bb9",
+                  "name": "API key retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api-keys/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api-keys",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"permissions\": [\n    \"write:regions\",\n    \"delete:regions\"\n  ],\n  \"lastUsedAt\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"userId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:59.000Z",
+                  "updatedAt": "2026-06-05T15:07:59.000Z",
+                  "uid": "35240-7b8fed66-c115-4cac-aba4-83db72df2bb9"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:58.000Z",
+              "updatedAt": "2026-06-05T15:07:58.000Z",
+              "uid": "35240-55964418-09b7-47eb-8f97-c20d7ba6a8dd"
+            }
+          ],
+          "id": "bcd05f01-f7a7-4a8d-bc82-74bfb23039cf",
+          "createdAt": "2026-06-05T15:07:58.000Z",
+          "updatedAt": "2026-06-05T15:07:58.000Z",
+          "uid": "35240-bcd05f01-f7a7-4a8d-bc82-74bfb23039cf"
+        },
+        {
+          "name": "{name}",
+          "item": [
+            {
+              "name": "Get API key",
+              "id": "152e3031-8a77-4b6c-afd5-e18a45341a27",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api-keys/:name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api-keys",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b535936f-b259-44be-ba7e-c37134e3051f",
+                      "key": "name",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "df14755a-2002-4f7c-881b-20b7ad6caee4",
+                  "name": "API key retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api-keys/:name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api-keys",
+                        ":name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"permissions\": [\n    \"write:regions\",\n    \"delete:regions\"\n  ],\n  \"lastUsedAt\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"userId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:59.000Z",
+                  "updatedAt": "2026-06-05T15:07:59.000Z",
+                  "uid": "35240-df14755a-2002-4f7c-881b-20b7ad6caee4"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:58.000Z",
+              "updatedAt": "2026-06-05T15:07:58.000Z",
+              "uid": "35240-152e3031-8a77-4b6c-afd5-e18a45341a27"
+            },
+            {
+              "name": "Delete API key",
+              "id": "0fbbff86-855b-4193-be9c-18d0e2b28c6f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api-keys/:name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api-keys",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "ef674d12-89e5-4569-a5ef-e53a09eb26c1",
+                      "key": "name",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "8c929a5a-2aa1-4898-85d7-5af868dc32d4",
+                  "name": "API key deleted successfully.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api-keys/:name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api-keys",
+                        ":name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:59.000Z",
+                  "updatedAt": "2026-06-05T15:07:59.000Z",
+                  "uid": "35240-8c929a5a-2aa1-4898-85d7-5af868dc32d4"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:58.000Z",
+              "updatedAt": "2026-06-05T15:07:58.000Z",
+              "uid": "35240-0fbbff86-855b-4193-be9c-18d0e2b28c6f"
+            }
+          ],
+          "id": "bd32436c-487e-455a-8a35-d1d4ccecaea1",
+          "createdAt": "2026-06-05T15:07:58.000Z",
+          "updatedAt": "2026-06-05T15:07:58.000Z",
+          "uid": "35240-bd32436c-487e-455a-8a35-d1d4ccecaea1"
+        },
+        {
+          "name": "{userId}",
+          "item": [
+            {
+              "name": "{name}",
+              "item": [
+                {
+                  "name": "Delete API key for user",
+                  "id": "e71848e0-e617-4c97-9cfa-418d61e03b8d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api-keys/:userId/:name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api-keys",
+                        ":userId",
+                        ":name"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4efffc57-b5a5-412e-9aba-40e5c6302215",
+                          "key": "userId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        },
+                        {
+                          "id": "57c985d6-aa9d-44a0-8a18-4aea047bb280",
+                          "key": "name",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "8ba9c3e9-3bb1-40b0-ab77-c09338d8a038",
+                      "name": "API key deleted successfully.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Use with JWT to specify the organization ID",
+                            "key": "X-Daytona-Organization-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api-keys/:userId/:name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api-keys",
+                            ":userId",
+                            ":name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "userId"
+                            },
+                            {
+                              "key": "name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:07:59.000Z",
+                      "updatedAt": "2026-06-05T15:07:59.000Z",
+                      "uid": "35240-8ba9c3e9-3bb1-40b0-ab77-c09338d8a038"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:07:58.000Z",
+                  "updatedAt": "2026-06-05T15:07:58.000Z",
+                  "uid": "35240-e71848e0-e617-4c97-9cfa-418d61e03b8d"
+                }
+              ],
+              "id": "eb2598c6-a645-4879-bdfa-188fc4e6b50c",
+              "createdAt": "2026-06-05T15:07:58.000Z",
+              "updatedAt": "2026-06-05T15:07:58.000Z",
+              "uid": "35240-eb2598c6-a645-4879-bdfa-188fc4e6b50c"
+            }
+          ],
+          "id": "0214bc0d-c4b6-492e-8471-e4532a0f42d7",
+          "createdAt": "2026-06-05T15:07:58.000Z",
+          "updatedAt": "2026-06-05T15:07:58.000Z",
+          "uid": "35240-0214bc0d-c4b6-492e-8471-e4532a0f42d7"
+        },
+        {
+          "name": "Create API key",
+          "id": "371b5f54-e710-400a-9030-6347ef67ca88",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"permissions\": [\n    \"read:volumes\",\n    \"delete:snapshots\"\n  ],\n  \"expiresAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api-keys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api-keys"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b3ac2a3c-f1de-4dc2-82a3-8023c576c427",
+              "name": "API key created successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"permissions\": [\n    \"read:volumes\",\n    \"delete:snapshots\"\n  ],\n  \"expiresAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api-keys",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api-keys"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"permissions\": [\n    \"delete:snapshots\",\n    \"delete:registries\"\n  ],\n  \"expiresAt\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:07:59.000Z",
+              "updatedAt": "2026-06-05T15:07:59.000Z",
+              "uid": "35240-b3ac2a3c-f1de-4dc2-82a3-8023c576c427"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:58.000Z",
+          "updatedAt": "2026-06-05T15:07:58.000Z",
+          "uid": "35240-371b5f54-e710-400a-9030-6347ef67ca88"
+        },
+        {
+          "name": "List API keys",
+          "id": "742105e9-017d-4c20-a99a-8cb52e6d797f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api-keys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api-keys"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "99e46a91-fa5d-4ecf-a315-797f7079ecd7",
+              "name": "API keys retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api-keys",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api-keys"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"name\": \"<string>\",\n    \"value\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"permissions\": [\n      \"delete:snapshots\",\n      \"read:volumes\"\n    ],\n    \"lastUsedAt\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"userId\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"value\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"permissions\": [\n      \"write:runners\",\n      \"delete:volumes\"\n    ],\n    \"lastUsedAt\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"userId\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:07:59.000Z",
+              "updatedAt": "2026-06-05T15:07:59.000Z",
+              "uid": "35240-99e46a91-fa5d-4ecf-a315-797f7079ecd7"
+            },
+            {
+              "id": "e98c2609-418f-444c-bb93-6e22a9748552",
+              "name": "Error fetching API keys.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api-keys",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api-keys"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:07:59.000Z",
+              "updatedAt": "2026-06-05T15:07:59.000Z",
+              "uid": "35240-e98c2609-418f-444c-bb93-6e22a9748552"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:58.000Z",
+          "updatedAt": "2026-06-05T15:07:58.000Z",
+          "uid": "35240-742105e9-017d-4c20-a99a-8cb52e6d797f"
+        }
+      ],
+      "id": "d43bb15a-dfcc-4a58-b605-6698f2c8c778",
+      "createdAt": "2026-06-05T15:07:58.000Z",
+      "updatedAt": "2026-06-05T15:07:58.000Z",
+      "uid": "35240-d43bb15a-dfcc-4a58-b605-6698f2c8c778"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.daytona.io/api"
+    }
+  ]
+}

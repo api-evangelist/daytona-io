@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona Health API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HealthController_live",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/health"
+          }
+        },
+        {
+          "info": {
+            "name": "HealthController_check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/health/ready",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,636 @@
+{
+  "info": {
+    "_postman_id": "f94fb730-7d50-4302-a77c-db46f48706e3",
+    "name": "Daytona Volumes API",
+    "description": "Daytona Volumes API \u2014 volumes operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:07:44.000Z",
+    "updatedAt": "2026-06-05T15:07:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f94fb730-7d50-4302-a77c-db46f48706e3"
+  },
+  "item": [
+    {
+      "name": "volumes",
+      "item": [
+        {
+          "name": "{volumeId}",
+          "item": [
+            {
+              "name": "Get volume details",
+              "id": "4da57005-de66-4f2e-b192-61868b30e28d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/volumes/:volumeId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "volumes",
+                    ":volumeId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2edf447f-d934-433f-ad38-70f5af591802",
+                      "key": "volumeId",
+                      "value": "<string>",
+                      "description": "(Required) ID of the volume"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "78307325-b956-44af-b6e8-2f058da17e6e",
+                  "name": "Volume details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/volumes/:volumeId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "volumes",
+                        ":volumeId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "volumeId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"state\": \"error\",\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"errorReason\": \"<string>\",\n  \"lastUsedAt\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:45.000Z",
+                  "updatedAt": "2026-06-05T15:07:45.000Z",
+                  "uid": "35240-78307325-b956-44af-b6e8-2f058da17e6e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:45.000Z",
+              "updatedAt": "2026-06-05T15:07:45.000Z",
+              "uid": "35240-4da57005-de66-4f2e-b192-61868b30e28d"
+            },
+            {
+              "name": "Delete volume",
+              "id": "ae9420f2-83de-4a35-a4b6-a54fdb612fe2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/volumes/:volumeId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "volumes",
+                    ":volumeId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "fc472101-6281-4b50-9958-0a62e53a7778",
+                      "key": "volumeId",
+                      "value": "<string>",
+                      "description": "(Required) ID of the volume"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "ad2576f7-5e3d-4202-8a07-47d2796dd9de",
+                  "name": "Volume has been marked for deletion",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/volumes/:volumeId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "volumes",
+                        ":volumeId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "volumeId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:45.000Z",
+                  "updatedAt": "2026-06-05T15:07:45.000Z",
+                  "uid": "35240-ad2576f7-5e3d-4202-8a07-47d2796dd9de"
+                },
+                {
+                  "id": "11a80906-5376-4f4a-bc59-35d1f5273a43",
+                  "name": "Volume is in use by one or more sandboxes",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/volumes/:volumeId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "volumes",
+                        ":volumeId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "volumeId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:45.000Z",
+                  "updatedAt": "2026-06-05T15:07:45.000Z",
+                  "uid": "35240-11a80906-5376-4f4a-bc59-35d1f5273a43"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:45.000Z",
+              "updatedAt": "2026-06-05T15:07:45.000Z",
+              "uid": "35240-ae9420f2-83de-4a35-a4b6-a54fdb612fe2"
+            }
+          ],
+          "id": "057636f0-77c9-4fc0-9d02-0068812dce10",
+          "createdAt": "2026-06-05T15:07:45.000Z",
+          "updatedAt": "2026-06-05T15:07:45.000Z",
+          "uid": "35240-057636f0-77c9-4fc0-9d02-0068812dce10"
+        },
+        {
+          "name": "by-name",
+          "item": [
+            {
+              "name": "{name}",
+              "item": [
+                {
+                  "name": "Get volume details by name",
+                  "id": "49f452ef-e993-4704-b060-566a1122882c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Use with JWT to specify the organization ID",
+                        "key": "X-Daytona-Organization-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/volumes/by-name/:name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "volumes",
+                        "by-name",
+                        ":name"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8096cedb-fc3b-4965-84d5-39e876ae2e53",
+                          "key": "name",
+                          "value": "<string>",
+                          "description": "(Required) Name of the volume"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "e9db6dce-04b8-4f10-aa6c-cfdd5250fd8f",
+                      "name": "Volume details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Use with JWT to specify the organization ID",
+                            "key": "X-Daytona-Organization-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/volumes/by-name/:name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "volumes",
+                            "by-name",
+                            ":name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"state\": \"error\",\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"errorReason\": \"<string>\",\n  \"lastUsedAt\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:07:45.000Z",
+                      "updatedAt": "2026-06-05T15:07:45.000Z",
+                      "uid": "35240-e9db6dce-04b8-4f10-aa6c-cfdd5250fd8f"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:07:45.000Z",
+                  "updatedAt": "2026-06-05T15:07:45.000Z",
+                  "uid": "35240-49f452ef-e993-4704-b060-566a1122882c"
+                }
+              ],
+              "id": "75927c10-7663-43e5-ad14-93c13c34a911",
+              "createdAt": "2026-06-05T15:07:45.000Z",
+              "updatedAt": "2026-06-05T15:07:45.000Z",
+              "uid": "35240-75927c10-7663-43e5-ad14-93c13c34a911"
+            }
+          ],
+          "id": "bca4609a-ba54-401c-b56f-1f11f62ccfdc",
+          "createdAt": "2026-06-05T15:07:45.000Z",
+          "updatedAt": "2026-06-05T15:07:45.000Z",
+          "uid": "35240-bca4609a-ba54-401c-b56f-1f11f62ccfdc"
+        },
+        {
+          "name": "List all volumes",
+          "id": "0678fca3-5fc1-447a-9253-a0d5878c7a84",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/volumes?includeDeleted=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "volumes"
+              ],
+              "query": [
+                {
+                  "description": "Include deleted volumes in the response",
+                  "key": "includeDeleted",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d9c3a1c5-43ac-4c44-beca-b53bd5b5e231",
+              "name": "List of all volumes",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/volumes?includeDeleted=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "volumes"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include deleted volumes in the response",
+                      "key": "includeDeleted",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"organizationId\": \"<string>\",\n    \"state\": \"creating\",\n    \"createdAt\": \"<string>\",\n    \"updatedAt\": \"<string>\",\n    \"errorReason\": \"<string>\",\n    \"lastUsedAt\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"organizationId\": \"<string>\",\n    \"state\": \"creating\",\n    \"createdAt\": \"<string>\",\n    \"updatedAt\": \"<string>\",\n    \"errorReason\": \"<string>\",\n    \"lastUsedAt\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:07:45.000Z",
+              "updatedAt": "2026-06-05T15:07:45.000Z",
+              "uid": "35240-d9c3a1c5-43ac-4c44-beca-b53bd5b5e231"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:45.000Z",
+          "updatedAt": "2026-06-05T15:07:45.000Z",
+          "uid": "35240-0678fca3-5fc1-447a-9253-a0d5878c7a84"
+        },
+        {
+          "name": "Create a new volume",
+          "id": "d647a821-a9c7-4ebc-9596-84caf0583415",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "Use with JWT to specify the organization ID",
+                "key": "X-Daytona-Organization-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/volumes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "volumes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1283884f-f7bb-41e9-8801-3dcbb5b5ed66",
+              "name": "The volume has been successfully created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Use with JWT to specify the organization ID",
+                    "key": "X-Daytona-Organization-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/volumes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "volumes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"state\": \"error\",\n  \"createdAt\": \"<string>\",\n  \"updatedAt\": \"<string>\",\n  \"errorReason\": \"<string>\",\n  \"lastUsedAt\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:07:45.000Z",
+              "updatedAt": "2026-06-05T15:07:45.000Z",
+              "uid": "35240-1283884f-f7bb-41e9-8801-3dcbb5b5ed66"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:45.000Z",
+          "updatedAt": "2026-06-05T15:07:45.000Z",
+          "uid": "35240-d647a821-a9c7-4ebc-9596-84caf0583415"
+        }
+      ],
+      "id": "718f9f1d-569b-417e-a84b-77adb042a0ad",
+      "createdAt": "2026-06-05T15:07:45.000Z",
+      "updatedAt": "2026-06-05T15:07:45.000Z",
+      "uid": "35240-718f9f1d-569b-417e-a84b-77adb042a0ad"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.daytona.io/api"
+    }
+  ]
+}

@@ -1,0 +1,519 @@
+{
+  "info": {
+    "_postman_id": "b65a41f6-e35f-4275-abca-edb33b375b77",
+    "name": "Daytona Preview API",
+    "description": "Daytona Preview API \u2014 preview operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:07:52.000Z",
+    "updatedAt": "2026-06-05T15:07:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b65a41f6-e35f-4275-abca-edb33b375b77"
+  },
+  "item": [
+    {
+      "name": "preview",
+      "item": [
+        {
+          "name": "{sandboxId}",
+          "item": [
+            {
+              "name": "public",
+              "item": [
+                {
+                  "name": "Check if sandbox is public",
+                  "id": "f8b8dfc7-848f-49be-b13f-ef9c566461c1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/preview/:sandboxId/public",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "preview",
+                        ":sandboxId",
+                        "public"
+                      ],
+                      "variable": [
+                        {
+                          "id": "19fed58f-3a57-4593-ac00-be5ec5d67463",
+                          "key": "sandboxId",
+                          "value": "<string>",
+                          "description": "(Required) ID of the sandbox"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "bdf52b26-768a-4c3b-854b-33cfdfc48ce6",
+                      "name": "Public status of the sandbox",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/preview/:sandboxId/public",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "preview",
+                            ":sandboxId",
+                            "public"
+                          ],
+                          "variable": [
+                            {
+                              "key": "sandboxId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<boolean>",
+                      "createdAt": "2026-06-05T15:07:53.000Z",
+                      "updatedAt": "2026-06-05T15:07:53.000Z",
+                      "uid": "35240-bdf52b26-768a-4c3b-854b-33cfdfc48ce6"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:07:52.000Z",
+                  "updatedAt": "2026-06-05T15:07:52.000Z",
+                  "uid": "35240-f8b8dfc7-848f-49be-b13f-ef9c566461c1"
+                }
+              ],
+              "id": "6df2e5a3-4ba3-4ceb-a981-5aaa832a897e",
+              "createdAt": "2026-06-05T15:07:52.000Z",
+              "updatedAt": "2026-06-05T15:07:52.000Z",
+              "uid": "35240-6df2e5a3-4ba3-4ceb-a981-5aaa832a897e"
+            },
+            {
+              "name": "validate",
+              "item": [
+                {
+                  "name": "{authToken}",
+                  "item": [
+                    {
+                      "name": "Check if sandbox auth token is valid",
+                      "id": "bdcf62b4-3b56-40b8-88c9-70194d45e058",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/preview/:sandboxId/validate/:authToken",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "preview",
+                            ":sandboxId",
+                            "validate",
+                            ":authToken"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0b37a841-f6ac-4ec0-baaf-205492fea914",
+                              "key": "sandboxId",
+                              "value": "<string>",
+                              "description": "(Required) ID of the sandbox"
+                            },
+                            {
+                              "id": "8f389906-b3c1-4e1d-b2ed-9864668688de",
+                              "key": "authToken",
+                              "value": "<string>",
+                              "description": "(Required) Auth token of the sandbox"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "693ad812-3ac8-442b-b74e-2df352c005df",
+                          "name": "Sandbox auth token validation status",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/preview/:sandboxId/validate/:authToken",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "preview",
+                                ":sandboxId",
+                                "validate",
+                                ":authToken"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "sandboxId"
+                                },
+                                {
+                                  "key": "authToken"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<boolean>",
+                          "createdAt": "2026-06-05T15:07:53.000Z",
+                          "updatedAt": "2026-06-05T15:07:53.000Z",
+                          "uid": "35240-693ad812-3ac8-442b-b74e-2df352c005df"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:07:52.000Z",
+                      "updatedAt": "2026-06-05T15:07:52.000Z",
+                      "uid": "35240-bdcf62b4-3b56-40b8-88c9-70194d45e058"
+                    }
+                  ],
+                  "id": "400fb897-0f03-4c7b-8d34-d687a2f8034e",
+                  "createdAt": "2026-06-05T15:07:52.000Z",
+                  "updatedAt": "2026-06-05T15:07:52.000Z",
+                  "uid": "35240-400fb897-0f03-4c7b-8d34-d687a2f8034e"
+                }
+              ],
+              "id": "5329bdd4-2f91-48d6-a806-60209945eeb7",
+              "createdAt": "2026-06-05T15:07:52.000Z",
+              "updatedAt": "2026-06-05T15:07:52.000Z",
+              "uid": "35240-5329bdd4-2f91-48d6-a806-60209945eeb7"
+            },
+            {
+              "name": "access",
+              "item": [
+                {
+                  "name": "Check if user has access to the sandbox",
+                  "id": "590a0900-b449-424c-a06e-245657505f15",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/preview/:sandboxId/access",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "preview",
+                        ":sandboxId",
+                        "access"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4a1afdac-432e-4720-8bd2-a85c18dfc5ba",
+                          "key": "sandboxId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "829c3a71-ee3e-4fce-8ce4-5af6aec9c0fa",
+                      "name": "User access status to the sandbox",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/preview/:sandboxId/access",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "preview",
+                            ":sandboxId",
+                            "access"
+                          ],
+                          "variable": [
+                            {
+                              "key": "sandboxId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<boolean>",
+                      "createdAt": "2026-06-05T15:07:53.000Z",
+                      "updatedAt": "2026-06-05T15:07:53.000Z",
+                      "uid": "35240-829c3a71-ee3e-4fce-8ce4-5af6aec9c0fa"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:07:52.000Z",
+                  "updatedAt": "2026-06-05T15:07:52.000Z",
+                  "uid": "35240-590a0900-b449-424c-a06e-245657505f15"
+                }
+              ],
+              "id": "5a448df4-1dab-4d6e-b9c3-b093730b2232",
+              "createdAt": "2026-06-05T15:07:52.000Z",
+              "updatedAt": "2026-06-05T15:07:52.000Z",
+              "uid": "35240-5a448df4-1dab-4d6e-b9c3-b093730b2232"
+            }
+          ],
+          "id": "5ec80cad-6d44-48a9-be81-5c1f279903e7",
+          "createdAt": "2026-06-05T15:07:52.000Z",
+          "updatedAt": "2026-06-05T15:07:52.000Z",
+          "uid": "35240-5ec80cad-6d44-48a9-be81-5c1f279903e7"
+        },
+        {
+          "name": "{signedPreviewToken}",
+          "item": [
+            {
+              "name": "{port}",
+              "item": [
+                {
+                  "name": "sandbox-id",
+                  "item": [
+                    {
+                      "name": "Get sandbox ID from signed preview URL token",
+                      "id": "5de5e5c3-31a7-474f-927d-3a59edca99ce",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/preview/:signedPreviewToken/:port/sandbox-id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "preview",
+                            ":signedPreviewToken",
+                            ":port",
+                            "sandbox-id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ede8028d-a2b4-4128-a6df-20d2e849bec7",
+                              "key": "signedPreviewToken",
+                              "value": "<string>",
+                              "description": "(Required) Signed preview URL token"
+                            },
+                            {
+                              "id": "8a370765-3bae-405f-b940-87ea25c84b13",
+                              "key": "port",
+                              "value": "<number>",
+                              "description": "(Required) Port number to get sandbox ID from signed preview URL token"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "9ab58d95-730e-4603-aaac-4f83b80bd4c7",
+                          "name": "Sandbox ID from signed preview URL token",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/preview/:signedPreviewToken/:port/sandbox-id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "preview",
+                                ":signedPreviewToken",
+                                ":port",
+                                "sandbox-id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "signedPreviewToken"
+                                },
+                                {
+                                  "key": "port"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:07:53.000Z",
+                          "updatedAt": "2026-06-05T15:07:53.000Z",
+                          "uid": "35240-9ab58d95-730e-4603-aaac-4f83b80bd4c7"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:07:52.000Z",
+                      "updatedAt": "2026-06-05T15:07:52.000Z",
+                      "uid": "35240-5de5e5c3-31a7-474f-927d-3a59edca99ce"
+                    }
+                  ],
+                  "id": "2e365141-304a-4d7a-af9a-751416b4d218",
+                  "createdAt": "2026-06-05T15:07:52.000Z",
+                  "updatedAt": "2026-06-05T15:07:52.000Z",
+                  "uid": "35240-2e365141-304a-4d7a-af9a-751416b4d218"
+                }
+              ],
+              "id": "38413bc8-4b18-458b-9be4-5c9826b0496a",
+              "createdAt": "2026-06-05T15:07:52.000Z",
+              "updatedAt": "2026-06-05T15:07:52.000Z",
+              "uid": "35240-38413bc8-4b18-458b-9be4-5c9826b0496a"
+            }
+          ],
+          "id": "a2d0dd1c-870d-4b73-bdd1-4b035407c723",
+          "createdAt": "2026-06-05T15:07:52.000Z",
+          "updatedAt": "2026-06-05T15:07:52.000Z",
+          "uid": "35240-a2d0dd1c-870d-4b73-bdd1-4b035407c723"
+        }
+      ],
+      "id": "ae23536a-ccf9-41ff-a215-1df11ad2c38b",
+      "createdAt": "2026-06-05T15:07:52.000Z",
+      "updatedAt": "2026-06-05T15:07:52.000Z",
+      "uid": "35240-ae23536a-ccf9-41ff-a215-1df11ad2c38b"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.daytona.io/api"
+    }
+  ]
+}

@@ -1,0 +1,552 @@
+{
+  "info": {
+    "_postman_id": "df28c356-a4ab-4452-9c4f-b618dd5aee8e",
+    "name": "Daytona Users API",
+    "description": "Daytona Users API \u2014 users operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:08:00.000Z",
+    "updatedAt": "2026-06-05T15:08:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-df28c356-a4ab-4452-9c4f-b618dd5aee8e"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "me",
+          "item": [
+            {
+              "name": "Get authenticated user",
+              "id": "870b6395-a53d-43d1-b778-f56f8c92e599",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "5fce62d8-3f18-4968-9e1a-872edb8ed32f",
+                  "name": "User details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"publicKeys\": [\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"createdAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:08:00.000Z",
+                  "updatedAt": "2026-06-05T15:08:00.000Z",
+                  "uid": "35240-5fce62d8-3f18-4968-9e1a-872edb8ed32f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:00.000Z",
+              "updatedAt": "2026-06-05T15:08:00.000Z",
+              "uid": "35240-870b6395-a53d-43d1-b778-f56f8c92e599"
+            }
+          ],
+          "id": "c045212d-6aa6-4ead-be65-d7edbaad814c",
+          "createdAt": "2026-06-05T15:08:00.000Z",
+          "updatedAt": "2026-06-05T15:08:00.000Z",
+          "uid": "35240-c045212d-6aa6-4ead-be65-d7edbaad814c"
+        },
+        {
+          "name": "account-providers",
+          "item": [
+            {
+              "name": "Get available account providers",
+              "id": "181a3528-f39f-4438-a8cc-86af3e04a55c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/account-providers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "account-providers"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "e2bcab9d-defb-40fa-accc-8d6637913fbc",
+                  "name": "Available account providers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/account-providers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "account-providers"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"name\": \"<string>\",\n    \"displayName\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"displayName\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:08:00.000Z",
+                  "updatedAt": "2026-06-05T15:08:00.000Z",
+                  "uid": "35240-e2bcab9d-defb-40fa-accc-8d6637913fbc"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:00.000Z",
+              "updatedAt": "2026-06-05T15:08:00.000Z",
+              "uid": "35240-181a3528-f39f-4438-a8cc-86af3e04a55c"
+            }
+          ],
+          "id": "9ec97493-a293-4eff-ac73-ca2cfe69a4e0",
+          "createdAt": "2026-06-05T15:08:00.000Z",
+          "updatedAt": "2026-06-05T15:08:00.000Z",
+          "uid": "35240-9ec97493-a293-4eff-ac73-ca2cfe69a4e0"
+        },
+        {
+          "name": "linked-accounts",
+          "item": [
+            {
+              "name": "{provider}",
+              "item": [
+                {
+                  "name": "{providerUserId}",
+                  "item": [
+                    {
+                      "name": "Unlink account",
+                      "id": "be0f3c2d-e9c1-4878-8bf9-a3b116d93878",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/linked-accounts/:provider/:providerUserId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            "linked-accounts",
+                            ":provider",
+                            ":providerUserId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e7f5bd51-e006-45c1-a04f-5fc45146a701",
+                              "key": "provider",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "50c1c1e7-b081-4f94-ae4b-8480e363ba00",
+                              "key": "providerUserId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "01b64004-a7d6-412c-b5df-49124b0974c9",
+                          "name": "Account unlinked successfully",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/users/linked-accounts/:provider/:providerUserId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                "linked-accounts",
+                                ":provider",
+                                ":providerUserId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "provider"
+                                },
+                                {
+                                  "key": "providerUserId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:08:00.000Z",
+                          "updatedAt": "2026-06-05T15:08:00.000Z",
+                          "uid": "35240-01b64004-a7d6-412c-b5df-49124b0974c9"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:00.000Z",
+                      "updatedAt": "2026-06-05T15:08:00.000Z",
+                      "uid": "35240-be0f3c2d-e9c1-4878-8bf9-a3b116d93878"
+                    }
+                  ],
+                  "id": "279232e9-e136-4c36-b844-e3ea7c001be1",
+                  "createdAt": "2026-06-05T15:08:00.000Z",
+                  "updatedAt": "2026-06-05T15:08:00.000Z",
+                  "uid": "35240-279232e9-e136-4c36-b844-e3ea7c001be1"
+                }
+              ],
+              "id": "47161ff9-f78e-494e-abaf-f5597d0922db",
+              "createdAt": "2026-06-05T15:08:00.000Z",
+              "updatedAt": "2026-06-05T15:08:00.000Z",
+              "uid": "35240-47161ff9-f78e-494e-abaf-f5597d0922db"
+            },
+            {
+              "name": "Link account",
+              "id": "a897b992-6763-46b4-b90f-840ef9e3d6b9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"<string>\",\n  \"userId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/linked-accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "linked-accounts"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "c72719e9-df69-4279-9186-7507ded8ca62",
+                  "name": "Account linked successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"provider\": \"<string>\",\n  \"userId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/linked-accounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "linked-accounts"
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:08:00.000Z",
+                  "updatedAt": "2026-06-05T15:08:00.000Z",
+                  "uid": "35240-c72719e9-df69-4279-9186-7507ded8ca62"
+                }
+              ],
+              "createdAt": "2026-06-05T15:08:00.000Z",
+              "updatedAt": "2026-06-05T15:08:00.000Z",
+              "uid": "35240-a897b992-6763-46b4-b90f-840ef9e3d6b9"
+            }
+          ],
+          "id": "fff75f72-3e90-4c77-b27f-5d9311ed9366",
+          "createdAt": "2026-06-05T15:08:00.000Z",
+          "updatedAt": "2026-06-05T15:08:00.000Z",
+          "uid": "35240-fff75f72-3e90-4c77-b27f-5d9311ed9366"
+        },
+        {
+          "name": "mfa",
+          "item": [
+            {
+              "name": "sms",
+              "item": [
+                {
+                  "name": "enroll",
+                  "item": [
+                    {
+                      "name": "Enroll in SMS MFA",
+                      "id": "1bf38d1f-156c-4827-ac05-9e2a34f87dd2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/mfa/sms/enroll",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            "mfa",
+                            "sms",
+                            "enroll"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "c552cde0-aed0-4ed7-8a69-7094f7ead03a",
+                          "name": "SMS MFA enrollment URL",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/users/mfa/sms/enroll",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                "mfa",
+                                "sms",
+                                "enroll"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:08:00.000Z",
+                          "updatedAt": "2026-06-05T15:08:00.000Z",
+                          "uid": "35240-c552cde0-aed0-4ed7-8a69-7094f7ead03a"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:08:00.000Z",
+                      "updatedAt": "2026-06-05T15:08:00.000Z",
+                      "uid": "35240-1bf38d1f-156c-4827-ac05-9e2a34f87dd2"
+                    }
+                  ],
+                  "id": "aedfc1d8-4c5f-4e47-bf8e-e18710a6b363",
+                  "createdAt": "2026-06-05T15:08:00.000Z",
+                  "updatedAt": "2026-06-05T15:08:00.000Z",
+                  "uid": "35240-aedfc1d8-4c5f-4e47-bf8e-e18710a6b363"
+                }
+              ],
+              "id": "8d526f90-9962-4f35-9e16-4bbdc6730bad",
+              "createdAt": "2026-06-05T15:08:00.000Z",
+              "updatedAt": "2026-06-05T15:08:00.000Z",
+              "uid": "35240-8d526f90-9962-4f35-9e16-4bbdc6730bad"
+            }
+          ],
+          "id": "9dda5119-e935-4892-9317-74db62506768",
+          "createdAt": "2026-06-05T15:08:00.000Z",
+          "updatedAt": "2026-06-05T15:08:00.000Z",
+          "uid": "35240-9dda5119-e935-4892-9317-74db62506768"
+        }
+      ],
+      "id": "d5099e66-1768-4bfa-bfeb-fdab55e37f35",
+      "createdAt": "2026-06-05T15:08:00.000Z",
+      "updatedAt": "2026-06-05T15:08:00.000Z",
+      "uid": "35240-d5099e66-1768-4bfa-bfeb-fdab55e37f35"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.daytona.io/api"
+    }
+  ]
+}

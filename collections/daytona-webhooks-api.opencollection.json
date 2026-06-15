@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona Webhooks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Svix Consumer App Portal access for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/webhooks/organizations/:organizationId/app-portal-access",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Svix Consumer App Portal access for an organization"
+        },
+        {
+          "info": {
+            "name": "Get webhook initialization status for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/webhooks/organizations/:organizationId/initialization-status",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get webhook initialization status for an organization"
+        },
+        {
+          "info": {
+            "name": "Refresh cached endpoint presence flag for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/webhooks/organizations/:organizationId/refresh-endpoints",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Refresh cached endpoint presence flag for an organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

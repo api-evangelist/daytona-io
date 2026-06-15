@@ -1,0 +1,1606 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona Sandbox Toolbox API",
+    "version": "v0.0.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "computer-use",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find accessibility nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/a11y/find"
+          },
+          "docs": "Search the AT-SPI tree for nodes matching a role/name/state filter and return a flat list."
+        },
+        {
+          "info": {
+            "name": "Focus an accessibility node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/a11y/node/focus"
+          },
+          "docs": "Move keyboard focus to the AT-SPI node identified by id (bus-name:object-path)."
+        },
+        {
+          "info": {
+            "name": "Invoke an action on an accessibility node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/a11y/node/invoke"
+          },
+          "docs": "Call an AT-SPI Action on the node. Leave action empty to invoke the node's primary (first) action."
+        },
+        {
+          "info": {
+            "name": "Set the value of an accessibility node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/a11y/node/value"
+          },
+          "docs": "Write the given value to the node via EditableText.SetTextContents or, for numeric controls, Value.CurrentValue."
+        },
+        {
+          "info": {
+            "name": "Get accessibility tree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/a11y/tree",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope: focused | pid | all (default: focused)"
+              },
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Process ID when scope=pid"
+              },
+              {
+                "name": "maxDepth",
+                "value": "",
+                "type": "query",
+                "description": "Max tree depth (-1 unbounded, 0 root only; default -1)"
+              }
+            ]
+          },
+          "docs": "Fetch the AT-SPI accessibility tree for the focused application, a specific PID, or all registered applications."
+        },
+        {
+          "info": {
+            "name": "Get display information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/display/info"
+          },
+          "docs": "Get information about all available displays"
+        },
+        {
+          "info": {
+            "name": "Get windows information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/display/windows"
+          },
+          "docs": "Get information about all open windows"
+        },
+        {
+          "info": {
+            "name": "Press hotkey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/keyboard/hotkey"
+          },
+          "docs": "Press a hotkey combination (e.g., ctrl+c, cmd+v)"
+        },
+        {
+          "info": {
+            "name": "Press key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/keyboard/key"
+          },
+          "docs": "Press a key with optional modifiers"
+        },
+        {
+          "info": {
+            "name": "Type text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/keyboard/type"
+          },
+          "docs": "Type text with optional delay between keystrokes"
+        },
+        {
+          "info": {
+            "name": "Click mouse button",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/mouse/click"
+          },
+          "docs": "Click the mouse button at the specified coordinates"
+        },
+        {
+          "info": {
+            "name": "Drag mouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/mouse/drag"
+          },
+          "docs": "Drag the mouse from start to end coordinates"
+        },
+        {
+          "info": {
+            "name": "Move mouse cursor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/mouse/move"
+          },
+          "docs": "Move the mouse cursor to the specified coordinates"
+        },
+        {
+          "info": {
+            "name": "Get mouse position",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/mouse/position"
+          },
+          "docs": "Get the current mouse cursor position"
+        },
+        {
+          "info": {
+            "name": "Scroll mouse wheel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/mouse/scroll"
+          },
+          "docs": "Scroll the mouse wheel at the specified coordinates"
+        },
+        {
+          "info": {
+            "name": "Get computer use process status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/process-status"
+          },
+          "docs": "Get the status of all computer use processes"
+        },
+        {
+          "info": {
+            "name": "Get process errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/process/:processName/errors",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to get errors for"
+              }
+            ]
+          },
+          "docs": "Get errors for a specific computer use process"
+        },
+        {
+          "info": {
+            "name": "Get process logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/process/:processName/logs",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to get logs for"
+              }
+            ]
+          },
+          "docs": "Get logs for a specific computer use process"
+        },
+        {
+          "info": {
+            "name": "Restart specific process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/process/:processName/restart",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to restart"
+              }
+            ]
+          },
+          "docs": "Restart a specific computer use process"
+        },
+        {
+          "info": {
+            "name": "Get specific process status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/process/:processName/status",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to check"
+              }
+            ]
+          },
+          "docs": "Check if a specific computer use process is running"
+        },
+        {
+          "info": {
+            "name": "List all recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/recordings"
+          },
+          "docs": "Get a list of all recordings (active and completed)"
+        },
+        {
+          "info": {
+            "name": "Start a new recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/recordings/start"
+          },
+          "docs": "Start a new screen recording session"
+        },
+        {
+          "info": {
+            "name": "Stop a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/recordings/stop"
+          },
+          "docs": "Stop an active screen recording session"
+        },
+        {
+          "info": {
+            "name": "Get recording details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/recordings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Recording ID"
+              }
+            ]
+          },
+          "docs": "Get details of a specific recording by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/recordings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Recording ID"
+              }
+            ]
+          },
+          "docs": "Delete a recording file by ID"
+        },
+        {
+          "info": {
+            "name": "Download a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/recordings/:id/download",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Recording ID"
+              }
+            ]
+          },
+          "docs": "Download a recording by providing its ID"
+        },
+        {
+          "info": {
+            "name": "Take a screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/screenshot",
+            "params": [
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              }
+            ]
+          },
+          "docs": "Take a screenshot of the entire screen"
+        },
+        {
+          "info": {
+            "name": "Take a compressed screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/screenshot/compressed",
+            "params": [
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Image format (png or jpeg)"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "JPEG quality (1-100)"
+              },
+              {
+                "name": "scale",
+                "value": "",
+                "type": "query",
+                "description": "Scale factor (0.1-1.0)"
+              }
+            ]
+          },
+          "docs": "Take a compressed screenshot of the entire screen"
+        },
+        {
+          "info": {
+            "name": "Take a region screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/screenshot/region",
+            "params": [
+              {
+                "name": "x",
+                "value": "",
+                "type": "query",
+                "description": "X coordinate of the region"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query",
+                "description": "Y coordinate of the region"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Width of the region"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Height of the region"
+              },
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              }
+            ]
+          },
+          "docs": "Take a screenshot of a specific region of the screen"
+        },
+        {
+          "info": {
+            "name": "Take a compressed region screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/screenshot/region/compressed",
+            "params": [
+              {
+                "name": "x",
+                "value": "",
+                "type": "query",
+                "description": "X coordinate of the region"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query",
+                "description": "Y coordinate of the region"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Width of the region"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Height of the region"
+              },
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Image format (png or jpeg)"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "JPEG quality (1-100)"
+              },
+              {
+                "name": "scale",
+                "value": "",
+                "type": "query",
+                "description": "Scale factor (0.1-1.0)"
+              }
+            ]
+          },
+          "docs": "Take a compressed screenshot of a specific region of the screen"
+        },
+        {
+          "info": {
+            "name": "Start computer use processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/start"
+          },
+          "docs": "Start all computer use processes and return their status"
+        },
+        {
+          "info": {
+            "name": "Get computer use status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/status"
+          },
+          "docs": "Get the current status of the computer use system"
+        },
+        {
+          "info": {
+            "name": "Stop computer use processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/computeruse/stop"
+          },
+          "docs": "Stop all computer use processes and return their status"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "file-system",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List files and directories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/files",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Directory path to list (defaults to working directory)"
+              }
+            ]
+          },
+          "docs": "List files and directories in the specified path"
+        },
+        {
+          "info": {
+            "name": "Delete a file or directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://proxy.app.daytona.io/toolbox/files",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File or directory path to delete"
+              },
+              {
+                "name": "recursive",
+                "value": "",
+                "type": "query",
+                "description": "Enable recursive deletion for directories"
+              }
+            ]
+          },
+          "docs": "Delete a file or directory at the specified path"
+        },
+        {
+          "info": {
+            "name": "Download multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/files/bulk-download"
+          },
+          "docs": "Download multiple files by providing their paths. Successful files are returned as multipart parts named `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shaped like ErrorResponse."
+        },
+        {
+          "info": {
+            "name": "Upload multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/files/bulk-upload"
+          },
+          "docs": "Upload multiple files with their destination paths"
+        },
+        {
+          "info": {
+            "name": "Download a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/files/download",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File path to download"
+              }
+            ]
+          },
+          "docs": "Download a file by providing its path"
+        },
+        {
+          "info": {
+            "name": "Find text in files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/files/find",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Directory path to search in"
+              },
+              {
+                "name": "pattern",
+                "value": "",
+                "type": "query",
+                "description": "Text pattern to search for"
+              }
+            ]
+          },
+          "docs": "Search for text pattern within files in a directory"
+        },
+        {
+          "info": {
+            "name": "Create a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/files/folder",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Folder path to create"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "Octal permission mode (default: 0755)"
+              }
+            ]
+          },
+          "docs": "Create a folder with the specified path and optional permissions"
+        },
+        {
+          "info": {
+            "name": "Get file information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/files/info",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File or directory path"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a file or directory"
+        },
+        {
+          "info": {
+            "name": "Move or rename file/directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/files/move",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Source file or directory path"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query",
+                "description": "Destination file or directory path"
+              }
+            ]
+          },
+          "docs": "Move or rename a file or directory from source to destination"
+        },
+        {
+          "info": {
+            "name": "Set file permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/files/permissions",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File or directory path"
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Owner (username or UID)"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Group (group name or GID)"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "File mode in octal format (e.g., 0755)"
+              }
+            ]
+          },
+          "docs": "Set file permissions, ownership, and group for a file or directory"
+        },
+        {
+          "info": {
+            "name": "Replace text in files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/files/replace"
+          },
+          "docs": "Replace text pattern with new value in multiple files"
+        },
+        {
+          "info": {
+            "name": "Search files by pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/files/search",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Directory path to search in"
+              },
+              {
+                "name": "pattern",
+                "value": "",
+                "type": "query",
+                "description": "File pattern to match (e.g., *.txt, *.go)"
+              }
+            ]
+          },
+          "docs": "Search for files matching a specific pattern in a directory"
+        },
+        {
+          "info": {
+            "name": "Upload a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/files/upload",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Destination path for the uploaded file"
+              }
+            ]
+          },
+          "docs": "Upload a file to the specified path"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "git",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add files to Git staging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/git/add"
+          },
+          "docs": "Add files to the Git staging area"
+        },
+        {
+          "info": {
+            "name": "List branches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/git/branches",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Repository path"
+              }
+            ]
+          },
+          "docs": "Get a list of all branches in the Git repository"
+        },
+        {
+          "info": {
+            "name": "Create a new branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/git/branches"
+          },
+          "docs": "Create a new branch in the Git repository"
+        },
+        {
+          "info": {
+            "name": "Delete a branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://proxy.app.daytona.io/toolbox/git/branches"
+          },
+          "docs": "Delete a branch from the Git repository"
+        },
+        {
+          "info": {
+            "name": "Checkout branch or commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/git/checkout"
+          },
+          "docs": "Switch to a different branch or commit in the Git repository"
+        },
+        {
+          "info": {
+            "name": "Clone a Git repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/git/clone"
+          },
+          "docs": "Clone a Git repository to the specified path"
+        },
+        {
+          "info": {
+            "name": "Commit changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/git/commit"
+          },
+          "docs": "Commit staged changes to the Git repository"
+        },
+        {
+          "info": {
+            "name": "Get commit history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/git/history",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Repository path"
+              }
+            ]
+          },
+          "docs": "Get the commit history of the Git repository"
+        },
+        {
+          "info": {
+            "name": "Pull changes from remote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/git/pull"
+          },
+          "docs": "Pull changes from the remote Git repository"
+        },
+        {
+          "info": {
+            "name": "Push changes to remote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/git/push"
+          },
+          "docs": "Push local changes to the remote Git repository"
+        },
+        {
+          "info": {
+            "name": "Get Git status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/git/status",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Repository path"
+              }
+            ]
+          },
+          "docs": "Get the Git status of the repository at the specified path"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "server",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initialize toolbox server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/init"
+          },
+          "docs": "Set the auth token and initialize telemetry for the toolbox server"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "lsp",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get code completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/lsp/completions"
+          },
+          "docs": "Get code completion suggestions from the LSP server"
+        },
+        {
+          "info": {
+            "name": "Notify document closed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/lsp/did-close"
+          },
+          "docs": "Notify the LSP server that a document has been closed"
+        },
+        {
+          "info": {
+            "name": "Notify document opened",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/lsp/did-open"
+          },
+          "docs": "Notify the LSP server that a document has been opened"
+        },
+        {
+          "info": {
+            "name": "Get document symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/lsp/document-symbols",
+            "params": [
+              {
+                "name": "languageId",
+                "value": "",
+                "type": "query",
+                "description": "Language ID (e.g., python, typescript)"
+              },
+              {
+                "name": "pathToProject",
+                "value": "",
+                "type": "query",
+                "description": "Path to project"
+              },
+              {
+                "name": "uri",
+                "value": "",
+                "type": "query",
+                "description": "Document URI"
+              }
+            ]
+          },
+          "docs": "Get symbols (functions, classes, etc.) from a document"
+        },
+        {
+          "info": {
+            "name": "Start LSP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/lsp/start"
+          },
+          "docs": "Start a Language Server Protocol server for the specified language"
+        },
+        {
+          "info": {
+            "name": "Stop LSP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/lsp/stop"
+          },
+          "docs": "Stop a Language Server Protocol server"
+        },
+        {
+          "info": {
+            "name": "Get workspace symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/lsp/workspacesymbols",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query"
+              },
+              {
+                "name": "languageId",
+                "value": "",
+                "type": "query",
+                "description": "Language ID (e.g., python, typescript)"
+              },
+              {
+                "name": "pathToProject",
+                "value": "",
+                "type": "query",
+                "description": "Path to project"
+              }
+            ]
+          },
+          "docs": "Search for symbols across the entire workspace"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "port",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get active ports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/port"
+          },
+          "docs": "Get a list of all currently active ports"
+        },
+        {
+          "info": {
+            "name": "Check if port is in use",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/port/:port/in-use",
+            "params": [
+              {
+                "name": "port",
+                "value": "",
+                "type": "path",
+                "description": "Port number (3000-9999)"
+              }
+            ]
+          },
+          "docs": "Check if a specific port is currently in use"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "process",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/code-run"
+          },
+          "docs": "Execute Python, JavaScript, or TypeScript code and return output, exit code, and artifacts"
+        },
+        {
+          "info": {
+            "name": "Execute a command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/execute"
+          },
+          "docs": "Execute a shell command and return the output and exit code"
+        },
+        {
+          "info": {
+            "name": "List all PTY sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/pty"
+          },
+          "docs": "Get a list of all active pseudo-terminal sessions"
+        },
+        {
+          "info": {
+            "name": "Create a new PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/pty"
+          },
+          "docs": "Create a new pseudo-terminal session with specified configuration"
+        },
+        {
+          "info": {
+            "name": "Get PTY session information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/pty/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific pseudo-terminal session"
+        },
+        {
+          "info": {
+            "name": "Delete a PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://proxy.app.daytona.io/toolbox/process/pty/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Delete a pseudo-terminal session and terminate its process"
+        },
+        {
+          "info": {
+            "name": "Connect to PTY session via WebSocket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/pty/:sessionId/connect",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Establish a WebSocket connection to interact with a pseudo-terminal session"
+        },
+        {
+          "info": {
+            "name": "Resize a PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/pty/:sessionId/resize",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Resize the terminal dimensions of a pseudo-terminal session"
+        },
+        {
+          "info": {
+            "name": "List all sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session"
+          },
+          "docs": "Get a list of all active shell sessions"
+        },
+        {
+          "info": {
+            "name": "Create a new session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session"
+          },
+          "docs": "Create a new shell session for command execution"
+        },
+        {
+          "info": {
+            "name": "Get entrypoint session details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/entrypoint"
+          },
+          "docs": "Get details of an entrypoint session including its commands"
+        },
+        {
+          "info": {
+            "name": "Get entrypoint logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/entrypoint/logs",
+            "params": [
+              {
+                "name": "follow",
+                "value": "",
+                "type": "query",
+                "description": "Follow logs in real-time (WebSocket only)"
+              }
+            ]
+          },
+          "docs": "Get logs for a sandbox entrypoint session. Returns JSON with separated stdout/stderr for SDK >= 0.161.0, plain text otherwise. Supports WebSocket streaming."
+        },
+        {
+          "info": {
+            "name": "Get session details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              }
+            ]
+          },
+          "docs": "Get details of a specific session including its commands"
+        },
+        {
+          "info": {
+            "name": "Delete a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              }
+            ]
+          },
+          "docs": "Delete an existing shell session"
+        },
+        {
+          "info": {
+            "name": "Get session command details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/:sessionId/command/:commandId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path",
+                "description": "Command ID"
+              }
+            ]
+          },
+          "docs": "Get details of a specific command within a session"
+        },
+        {
+          "info": {
+            "name": "Send input to command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/:sessionId/command/:commandId/input",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path",
+                "description": "Command ID"
+              }
+            ]
+          },
+          "docs": "Send input data to a running command in a session for interactive execution"
+        },
+        {
+          "info": {
+            "name": "Get session command logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/:sessionId/command/:commandId/logs",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path",
+                "description": "Command ID"
+              },
+              {
+                "name": "follow",
+                "value": "",
+                "type": "query",
+                "description": "Follow logs in real-time (WebSocket only)"
+              }
+            ]
+          },
+          "docs": "Get logs for a specific command within a session. Returns JSON with separated stdout/stderr for SDK >= 0.167.0, plain text otherwise. Supports WebSocket streaming."
+        },
+        {
+          "info": {
+            "name": "Execute command in session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/session/:sessionId/exec",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              }
+            ]
+          },
+          "docs": "Execute a command within an existing shell session"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "interpreter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all user-created interpreter contexts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/interpreter/context"
+          },
+          "docs": "Returns information about all user-created interpreter contexts (excludes default context)"
+        },
+        {
+          "info": {
+            "name": "Create a new interpreter context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://proxy.app.daytona.io/toolbox/process/interpreter/context"
+          },
+          "docs": "Creates a new isolated interpreter context with optional working directory and language"
+        },
+        {
+          "info": {
+            "name": "Delete an interpreter context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://proxy.app.daytona.io/toolbox/process/interpreter/context/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Context ID"
+              }
+            ]
+          },
+          "docs": "Deletes an interpreter context and shuts down its worker process"
+        },
+        {
+          "info": {
+            "name": "Execute code in an interpreter context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/process/interpreter/execute"
+          },
+          "docs": "Executes code in a specified context (or default context if not specified) via WebSocket streaming"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user home directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/user-home-dir"
+          },
+          "docs": "Get the current user home directory path."
+        },
+        {
+          "info": {
+            "name": "Get version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/version"
+          },
+          "docs": "Get the current daemon version"
+        },
+        {
+          "info": {
+            "name": "Get working directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://proxy.app.daytona.io/toolbox/work-dir"
+          },
+          "docs": "Get the current working directory path. This is default directory used for running commands."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
