@@ -46,7 +46,7 @@ apis:
       - url: json-structure/daytona-sandbox-structure.json
         type: JSONStructure
       - url: examples/daytona-sandbox-create-example.json
-        type: Example
+        type: Examples
     description: >-
       Create, start, stop, archive, resize, and destroy isolated sandboxes that boot in under 90 milliseconds. The
       Sandbox API manages the full sandbox lifecycle, exposes labels and metadata, and provides operations for network
@@ -256,33 +256,30 @@ maintainers:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/daytona/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/daytona-io-build-and-activate-snapshot-workflow.yml
-        name: Daytona Build and Activate a Snapshot
-        summary: Register a snapshot from a container image, poll until it builds, and activate it if it lands inactive.
-      - url: arazzo/daytona-io-capture-sandbox-snapshot-workflow.yml
-        name: Daytona Capture a Sandbox as a Snapshot
-        summary: Snapshot a live sandbox into a reusable image and wait for the sandbox to return to running.
-      - url: arazzo/daytona-io-fork-sandbox-workflow.yml
-        name: Daytona Fork a Sandbox
-        summary: Fork an existing sandbox into a new independent copy and wait until the fork is running.
-      - url: arazzo/daytona-io-image-to-running-sandbox-workflow.yml
-        name: Daytona From Container Image to Running Sandbox
-        summary: Build a snapshot from an image, wait for it to build, then launch and run a sandbox from it.
-      - url: arazzo/daytona-io-provision-sandbox-workflow.yml
-        name: Daytona Provision a Sandbox
-        summary: Create a sandbox from a snapshot, poll until it reaches the started state, then read its details.
-      - url: arazzo/daytona-io-provision-volume-and-sandbox-workflow.yml
-        name: Daytona Provision a Volume and Attach It to a New Sandbox
-        summary: Create a persistent volume, wait until it is ready, then launch a sandbox with the volume mounted.
-      - url: arazzo/daytona-io-restore-archived-sandbox-workflow.yml
-        name: Daytona Restore an Archived Sandbox
-        summary: Start an archived or stopped sandbox and wait until it is running again.
-      - url: arazzo/daytona-io-stop-and-archive-sandbox-workflow.yml
-        name: Daytona Stop and Archive a Sandbox
-        summary: Stop a running sandbox, wait until it is fully stopped, then archive it to cold storage.
+  - type: Arazzo
+    url: arazzo/daytona-io-build-and-activate-snapshot-workflow.yml
+    name: Daytona Build and Activate a Snapshot
+  - type: Arazzo
+    url: arazzo/daytona-io-capture-sandbox-snapshot-workflow.yml
+    name: Daytona Capture a Sandbox as a Snapshot
+  - type: Arazzo
+    url: arazzo/daytona-io-fork-sandbox-workflow.yml
+    name: Daytona Fork a Sandbox
+  - type: Arazzo
+    url: arazzo/daytona-io-image-to-running-sandbox-workflow.yml
+    name: Daytona From Container Image to Running Sandbox
+  - type: Arazzo
+    url: arazzo/daytona-io-provision-sandbox-workflow.yml
+    name: Daytona Provision a Sandbox
+  - type: Arazzo
+    url: arazzo/daytona-io-provision-volume-and-sandbox-workflow.yml
+    name: Daytona Provision a Volume and Attach It to a New Sandbox
+  - type: Arazzo
+    url: arazzo/daytona-io-restore-archived-sandbox-workflow.yml
+    name: Daytona Restore an Archived Sandbox
+  - type: Arazzo
+    url: arazzo/daytona-io-stop-and-archive-sandbox-workflow.yml
+    name: Daytona Stop and Archive a Sandbox
   - url: https://www.daytona.io/
     type: DeveloperPortal
   - url: https://www.daytona.io/docs
@@ -290,13 +287,13 @@ common:
   - url: https://www.daytona.io/docs/en/getting-started
     type: GettingStarted
   - url: https://www.daytona.io/docs/en
-    type: Quickstart
+    type: GettingStarted
   - url: https://www.daytona.io/docs/en/tools/api/
     type: APIReference
   - url: https://app.daytona.io/
     type: Console
   - url: https://app.daytona.io/
-    type: SignUp
+    type: Signup
   - url: https://app.daytona.io/
     type: Login
   - url: https://www.daytona.io/docs/en/account-management/api-keys
@@ -334,19 +331,19 @@ common:
   - url: https://www.linkedin.com/company/daytonaio/
     type: LinkedIn
   - url: https://pypi.org/project/daytona/
-    type: SDK
+    type: SDKs
     name: Daytona Python SDK
   - url: https://www.npmjs.com/package/@daytonaio/sdk
-    type: SDK
+    type: SDKs
     name: Daytona TypeScript SDK
   - url: https://rubygems.org/gems/daytona
-    type: SDK
+    type: SDKs
     name: Daytona Ruby SDK
   - url: https://pkg.go.dev/github.com/daytonaio/daytona
-    type: SDK
+    type: SDKs
     name: Daytona Go SDK
   - url: https://central.sonatype.com/artifact/io.daytona/daytona-sdk
-    type: SDK
+    type: SDKs
     name: Daytona Java SDK
   - url: https://www.daytona.io/docs/en/tools/cli
     type: CLI
