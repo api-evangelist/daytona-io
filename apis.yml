@@ -254,6 +254,12 @@ maintainers:
     email: kin@apievangelist.com
     url: https://kinlane.com
 common:
+  - type: TrustCenter
+    url: security/daytona-io-trust-center.yml
+  - type: DomainSecurity
+    url: security/daytona-io-domain-security.yml
+  - type: Authentication
+    url: authentication/daytona-io-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/daytona/overview
   - type: Arazzo

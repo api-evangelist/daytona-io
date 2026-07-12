@@ -1,0 +1,43 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/daytona-admin-api-openapi.yml, openapi/daytona-api-keys-api-openapi.yml, openapi/daytona-health-api-openapi.yml,
+  openapi/daytona-organizations-api-openapi.yml, openapi/daytona-preview-api-openapi.yml, openapi/daytona-sandbox-api-openapi.yml,
+  openapi/daytona-snapshots-api-openapi.yml, openapi/daytona-toolbox-api-openapi.yml, openapi/daytona-users-api-openapi.yml,
+  openapi/daytona-volumes-api-openapi.yml, openapi/daytona-webhooks-api-openapi.yml
+summary:
+  types:
+  - http
+  - openIdConnect
+schemes:
+- name: bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: API Key access
+  sources:
+  - openapi/daytona-admin-api-openapi.yml
+  - openapi/daytona-api-keys-api-openapi.yml
+  - openapi/daytona-health-api-openapi.yml
+  - openapi/daytona-organizations-api-openapi.yml
+  - openapi/daytona-preview-api-openapi.yml
+  - openapi/daytona-sandbox-api-openapi.yml
+  - openapi/daytona-snapshots-api-openapi.yml
+  - openapi/daytona-toolbox-api-openapi.yml
+  - openapi/daytona-users-api-openapi.yml
+  - openapi/daytona-volumes-api-openapi.yml
+  - openapi/daytona-webhooks-api-openapi.yml
+- name: oauth2
+  type: openIdConnect
+  openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+  sources:
+  - openapi/daytona-admin-api-openapi.yml
+  - openapi/daytona-api-keys-api-openapi.yml
+  - openapi/daytona-health-api-openapi.yml
+  - openapi/daytona-organizations-api-openapi.yml
+  - openapi/daytona-preview-api-openapi.yml
+  - openapi/daytona-sandbox-api-openapi.yml
+  - openapi/daytona-snapshots-api-openapi.yml
+  - openapi/daytona-toolbox-api-openapi.yml
+  - openapi/daytona-users-api-openapi.yml
+  - openapi/daytona-volumes-api-openapi.yml
+  - openapi/daytona-webhooks-api-openapi.yml
