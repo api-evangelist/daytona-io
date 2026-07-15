@@ -254,6 +254,8 @@ maintainers:
     email: kin@apievangelist.com
     url: https://kinlane.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/daytona-io-agentic-access.yml
   - type: TrustCenter
     url: security/daytona-io-trust-center.yml
   - type: DomainSecurity
