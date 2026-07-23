@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin server API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: server
+paths:
+  /init:
+    post:
+      description: Set the auth token and initialize telemetry for the toolbox server
+      produces:
+      - application/json
+      tags:
+      - server
+      summary: Initialize toolbox server
+      operationId: Initialize
+      parameters:
+      - description: Initialization request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/InitializeRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+definitions:
+  InitializeRequest:
+    type: object
+    required:
+    - token
+    properties:
+      token:
+        type: string

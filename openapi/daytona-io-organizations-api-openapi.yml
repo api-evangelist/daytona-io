@@ -1,0 +1,1929 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin organizations API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: organizations
+paths:
+  /organizations/invitations:
+    get:
+      operationId: listOrganizationInvitationsForAuthenticatedUser
+      parameters: []
+      responses:
+        '200':
+          description: List of organization invitations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationInvitation'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List organization invitations for authenticated user
+      tags:
+      - organizations
+  /organizations/invitations/count:
+    get:
+      operationId: getOrganizationInvitationsCountForAuthenticatedUser
+      parameters: []
+      responses:
+        '200':
+          description: Count of organization invitations
+          content:
+            application/json:
+              schema:
+                type: number
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get count of organization invitations for authenticated user
+      tags:
+      - organizations
+  /organizations/invitations/{invitationId}/accept:
+    post:
+      operationId: acceptOrganizationInvitation
+      parameters:
+      - name: invitationId
+        required: true
+        in: path
+        description: Invitation ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Organization invitation accepted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationInvitation'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Accept organization invitation
+      tags:
+      - organizations
+  /organizations/invitations/{invitationId}/decline:
+    post:
+      operationId: declineOrganizationInvitation
+      parameters:
+      - name: invitationId
+        required: true
+        in: path
+        description: Invitation ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Organization invitation declined successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Decline organization invitation
+      tags:
+      - organizations
+  /organizations:
+    post:
+      operationId: createOrganization
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrganization'
+      responses:
+        '201':
+          description: Organization created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create organization
+      tags:
+      - organizations
+    get:
+      operationId: listOrganizations
+      parameters: []
+      responses:
+        '200':
+          description: List of organizations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List organizations
+      tags:
+      - organizations
+  /organizations/{organizationId}/default-region:
+    patch:
+      operationId: setOrganizationDefaultRegion
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationDefaultRegion'
+      responses:
+        '204':
+          description: Default region set successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Set default region for organization
+      tags:
+      - organizations
+  /organizations/{organizationId}:
+    get:
+      operationId: getOrganization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Organization details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get organization by ID
+      tags:
+      - organizations
+    delete:
+      operationId: deleteOrganization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Organization deleted successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete organization
+      tags:
+      - organizations
+  /organizations/{organizationId}/usage:
+    get:
+      operationId: getOrganizationUsageOverview
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Current usage overview
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationUsageOverview'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get organization current usage overview
+      tags:
+      - organizations
+  /organizations/{organizationId}/quota:
+    patch:
+      operationId: updateOrganizationQuota
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationQuota'
+      responses:
+        '204':
+          description: Organization quota updated successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update organization quota
+      tags:
+      - organizations
+  /organizations/{organizationId}/quota/{regionId}:
+    patch:
+      operationId: updateOrganizationRegionQuota
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: regionId
+        required: true
+        in: path
+        description: ID of the region where the updated quota will be applied
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationRegionQuota'
+      responses:
+        '204':
+          description: Region quota updated successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update organization region quota
+      tags:
+      - organizations
+  /organizations/{organizationId}/leave:
+    post:
+      operationId: leaveOrganization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Organization left successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Leave organization
+      tags:
+      - organizations
+  /organizations/{organizationId}/suspend:
+    post:
+      operationId: suspendOrganization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationSuspension'
+      responses:
+        '204':
+          description: Organization suspended successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Suspend organization
+      tags:
+      - organizations
+  /organizations/{organizationId}/unsuspend:
+    post:
+      operationId: unsuspendOrganization
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Organization unsuspended successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Unsuspend organization
+      tags:
+      - organizations
+  /organizations/otel-config/by-sandbox-auth-token/{authToken}:
+    get:
+      operationId: getOrganizationOtelConfigBySandboxAuthToken
+      parameters:
+      - name: authToken
+        required: true
+        in: path
+        description: Sandbox Auth Token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OTEL Config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtelConfig'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get organization OTEL config by sandbox auth token
+      tags:
+      - organizations
+  /organizations/{organizationId}/otel-config:
+    get:
+      operationId: getOrganizationOtelConfig
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OTEL Config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtelConfig'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get organization OTEL config by organization ID
+      tags:
+      - organizations
+    put:
+      operationId: updateOrganizationOtelConfig
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtelConfig'
+      responses:
+        '204':
+          description: OpenTelemetry configuration updated successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update organization OpenTelemetry configuration
+      tags:
+      - organizations
+    delete:
+      operationId: deleteOrganizationOtelConfig
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: OpenTelemetry configuration deleted successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete organization OpenTelemetry configuration
+      tags:
+      - organizations
+  /organizations/{organizationId}/sandbox-default-limited-network-egress:
+    post:
+      operationId: updateSandboxDefaultLimitedNetworkEgress
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationSandboxDefaultLimitedNetworkEgress'
+      responses:
+        '204':
+          description: Sandbox default limited network egress updated successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update sandbox default limited network egress
+      tags:
+      - organizations
+  /organizations/{organizationId}/experimental-config:
+    put:
+      operationId: updateExperimentalConfig
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: false
+        description: Experimental configuration as a JSON object. Set to null to clear the configuration.
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              example:
+                otel:
+                  endpoint: http://otel-collector:4317
+                  headers:
+                    api-key: XXX
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update experimental configuration
+      tags:
+      - organizations
+  /organizations/{organizationId}/roles:
+    post:
+      operationId: createOrganizationRole
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrganizationRole'
+      responses:
+        '201':
+          description: Organization role created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationRole'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create organization role
+      tags:
+      - organizations
+    get:
+      operationId: listOrganizationRoles
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of organization roles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationRole'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List organization roles
+      tags:
+      - organizations
+  /organizations/{organizationId}/roles/{roleId}:
+    put:
+      operationId: updateOrganizationRole
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: roleId
+        required: true
+        in: path
+        description: Role ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationRole'
+      responses:
+        '200':
+          description: Role updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationRole'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update organization role
+      tags:
+      - organizations
+    delete:
+      operationId: deleteOrganizationRole
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: roleId
+        required: true
+        in: path
+        description: Role ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Organization role deleted successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete organization role
+      tags:
+      - organizations
+  /organizations/{organizationId}/users:
+    get:
+      operationId: listOrganizationMembers
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of organization members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationUser'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List organization members
+      tags:
+      - organizations
+  /organizations/{organizationId}/users/{userId}/access:
+    post:
+      operationId: updateAccessForOrganizationMember
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: User ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationMemberAccess'
+      responses:
+        '200':
+          description: Access updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationUser'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update access for organization member
+      tags:
+      - organizations
+  /organizations/{organizationId}/users/{userId}:
+    delete:
+      operationId: deleteOrganizationMember
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: userId
+        required: true
+        in: path
+        description: User ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: User removed from organization successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete organization member
+      tags:
+      - organizations
+  /organizations/{organizationId}/invitations:
+    post:
+      operationId: createOrganizationInvitation
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrganizationInvitation'
+      responses:
+        '201':
+          description: Organization invitation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationInvitation'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create organization invitation
+      tags:
+      - organizations
+    get:
+      operationId: listOrganizationInvitations
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of pending organization invitations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationInvitation'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List pending organization invitations
+      tags:
+      - organizations
+  /organizations/{organizationId}/invitations/{invitationId}:
+    put:
+      operationId: updateOrganizationInvitation
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: invitationId
+        required: true
+        in: path
+        description: Invitation ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationInvitation'
+      responses:
+        '200':
+          description: Organization invitation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationInvitation'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update organization invitation
+      tags:
+      - organizations
+  /organizations/{organizationId}/invitations/{invitationId}/cancel:
+    post:
+      operationId: cancelOrganizationInvitation
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: invitationId
+        required: true
+        in: path
+        description: Invitation ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Organization invitation cancelled successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Cancel organization invitation
+      tags:
+      - organizations
+  /regions:
+    get:
+      operationId: listAvailableRegions
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of all available regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Region'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List all available regions for the organization
+      tags:
+      - organizations
+    post:
+      operationId: createRegion
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRegion'
+      responses:
+        '201':
+          description: The region has been successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRegionResponse'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create a new region
+      tags:
+      - organizations
+  /regions/{id}:
+    get:
+      operationId: getRegionById
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Region ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Region'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get region by ID
+      tags:
+      - organizations
+    delete:
+      operationId: deleteRegion
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Region ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The region has been successfully deleted.
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete a region
+      tags:
+      - organizations
+    patch:
+      operationId: updateRegion
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Region ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRegion'
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update region configuration
+      tags:
+      - organizations
+  /regions/{id}/regenerate-proxy-api-key:
+    post:
+      operationId: regenerateProxyApiKey
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Region ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The proxy API key has been successfully regenerated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegenerateApiKeyResponse'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Regenerate proxy API key for a region
+      tags:
+      - organizations
+  /regions/{id}/regenerate-ssh-gateway-api-key:
+    post:
+      operationId: regenerateSshGatewayApiKey
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Region ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The SSH gateway API key has been successfully regenerated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegenerateApiKeyResponse'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Regenerate SSH gateway API key for a region
+      tags:
+      - organizations
+  /regions/{id}/regenerate-snapshot-manager-credentials:
+    post:
+      operationId: regenerateSnapshotManagerCredentials
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Region ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The snapshot manager credentials have been successfully regenerated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotManagerCredentials'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Regenerate snapshot manager credentials for a region
+      tags:
+      - organizations
+components:
+  schemas:
+    OrganizationInvitation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Invitation ID
+        email:
+          type: string
+          description: Email address of the invitee
+        invitedBy:
+          type: string
+          description: Email address of the inviter
+        organizationId:
+          type: string
+          description: Organization ID
+        organizationName:
+          type: string
+          description: Organization name
+        expiresAt:
+          format: date-time
+          type: string
+          description: Expiration date of the invitation
+        status:
+          type: string
+          description: Invitation status
+          enum:
+          - pending
+          - accepted
+          - declined
+          - cancelled
+        role:
+          type: string
+          description: Member role
+          enum:
+          - owner
+          - member
+        assignedRoles:
+          description: Assigned roles
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationRole'
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+      required:
+      - id
+      - email
+      - invitedBy
+      - organizationId
+      - organizationName
+      - expiresAt
+      - status
+      - role
+      - assignedRoles
+      - createdAt
+      - updatedAt
+    OrganizationRole:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Role ID
+        name:
+          type: string
+          description: Role name
+        description:
+          type: string
+          description: Role description
+        permissions:
+          type: array
+          description: Roles assigned to the user
+          items:
+            type: string
+            enum:
+            - write:registries
+            - delete:registries
+            - write:snapshots
+            - delete:snapshots
+            - write:sandboxes
+            - delete:sandboxes
+            - read:volumes
+            - write:volumes
+            - delete:volumes
+            - write:regions
+            - delete:regions
+            - read:runners
+            - write:runners
+            - delete:runners
+            - read:audit_logs
+        isGlobal:
+          type: boolean
+          description: Global role flag
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+      required:
+      - id
+      - name
+      - description
+      - permissions
+      - isGlobal
+      - createdAt
+      - updatedAt
+    CreateOrganizationInvitation:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address of the invitee
+          example: mail@example.com
+        role:
+          type: string
+          description: Organization member role for the invitee
+          enum:
+          - owner
+          - member
+          default: member
+        assignedRoleIds:
+          description: Array of assigned role IDs for the invitee
+          default:
+          - 00000000-0000-0000-0000-000000000001
+          type: array
+          items:
+            type: string
+        expiresAt:
+          format: date-time
+          type: string
+          description: Expiration date of the invitation
+          example: '2021-12-31T23:59:59Z'
+      required:
+      - email
+      - role
+      - assignedRoleIds
+    OrganizationUsageOverview:
+      type: object
+      properties:
+        regionUsage:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionUsageOverview'
+        totalSnapshotQuota:
+          type: number
+        currentSnapshotUsage:
+          type: number
+        totalVolumeQuota:
+          type: number
+        currentVolumeUsage:
+          type: number
+      required:
+      - regionUsage
+      - totalSnapshotQuota
+      - currentSnapshotUsage
+      - totalVolumeQuota
+      - currentVolumeUsage
+    OrganizationSandboxDefaultLimitedNetworkEgress:
+      type: object
+      properties:
+        sandboxDefaultLimitedNetworkEgress:
+          type: boolean
+          description: Sandbox default limited network egress
+      required:
+      - sandboxDefaultLimitedNetworkEgress
+    OrganizationUser:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: User ID
+        organizationId:
+          type: string
+          description: Organization ID
+        name:
+          type: string
+          description: User name
+        email:
+          type: string
+          description: User email
+        role:
+          type: string
+          description: Member role
+          enum:
+          - owner
+          - member
+        assignedRoles:
+          description: Roles assigned to the user
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationRole'
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+      required:
+      - userId
+      - organizationId
+      - name
+      - email
+      - role
+      - assignedRoles
+      - createdAt
+      - updatedAt
+    UpdateRegion:
+      type: object
+      properties:
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: ssh://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: https://snapshot-manager.example.com
+          nullable: true
+    UpdateOrganizationQuota:
+      type: object
+      properties:
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        snapshotQuota:
+          type: number
+          nullable: true
+        maxSnapshotSize:
+          type: number
+          nullable: true
+        volumeQuota:
+          type: number
+          nullable: true
+        authenticatedRateLimit:
+          type: number
+          nullable: true
+        sandboxCreateRateLimit:
+          type: number
+          nullable: true
+        sandboxLifecycleRateLimit:
+          type: number
+          nullable: true
+        authenticatedRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        sandboxCreateRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        sandboxLifecycleRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        snapshotDeactivationTimeoutMinutes:
+          type: number
+          nullable: true
+          description: Time in minutes before an unused snapshot is deactivated
+      required:
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - snapshotQuota
+      - maxSnapshotSize
+      - volumeQuota
+      - authenticatedRateLimit
+      - sandboxCreateRateLimit
+      - sandboxLifecycleRateLimit
+      - authenticatedRateLimitTtlSeconds
+      - sandboxCreateRateLimitTtlSeconds
+      - sandboxLifecycleRateLimitTtlSeconds
+      - snapshotDeactivationTimeoutMinutes
+    SnapshotManagerCredentials:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Snapshot Manager username for the region
+          example: daytona
+        password:
+          type: string
+          description: Snapshot Manager password for the region
+      required:
+      - username
+      - password
+    OtelConfig:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          description: Endpoint
+        headers:
+          type: object
+          description: Headers
+          example:
+            x-api-key: my-api-key
+          nullable: true
+          additionalProperties:
+            type: string
+      required:
+      - endpoint
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
+    UpdateOrganizationDefaultRegion:
+      type: object
+      properties:
+        defaultRegionId:
+          type: string
+          description: The ID of the default region for the organization
+          example: us
+      required:
+      - defaultRegionId
+    CreateRegion:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Region name
+          example: us-east-1
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: ssh://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: https://snapshot-manager.example.com
+          nullable: true
+      required:
+      - name
+    CreateRegionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the created region
+          example: region_12345
+        proxyApiKey:
+          type: string
+          description: Proxy API key for the region
+          example: proxy-api-key-xyz
+          nullable: true
+        sshGatewayApiKey:
+          type: string
+          description: SSH Gateway API key for the region
+          example: ssh-gateway-api-key-abc
+          nullable: true
+        snapshotManagerUsername:
+          type: string
+          description: Snapshot Manager username for the region
+          example: daytona
+          nullable: true
+        snapshotManagerPassword:
+          type: string
+          description: Snapshot Manager password for the region
+          nullable: true
+      required:
+      - id
+    UpdateOrganizationRegionQuota:
+      type: object
+      properties:
+        totalCpuQuota:
+          type: number
+          nullable: true
+        totalMemoryQuota:
+          type: number
+          nullable: true
+        totalDiskQuota:
+          type: number
+          nullable: true
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerNonEphemeralSandbox:
+          type: number
+          nullable: true
+      required:
+      - totalCpuQuota
+      - totalMemoryQuota
+      - totalDiskQuota
+    UpdateOrganizationInvitation:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Organization member role
+          enum:
+          - owner
+          - member
+        assignedRoleIds:
+          description: Array of role IDs
+          type: array
+          items:
+            type: string
+        expiresAt:
+          format: date-time
+          type: string
+          description: Expiration date of the invitation
+          example: '2021-12-31T23:59:59Z'
+      required:
+      - role
+      - assignedRoleIds
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Organization ID
+        name:
+          type: string
+          description: Organization name
+        createdBy:
+          type: string
+          description: User ID of the organization creator
+        personal:
+          type: boolean
+          description: Personal organization flag
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+        suspended:
+          type: boolean
+          description: Suspended flag
+        suspendedAt:
+          format: date-time
+          type: string
+          description: Suspended at
+        suspensionReason:
+          type: string
+          description: Suspended reason
+        suspendedUntil:
+          format: date-time
+          type: string
+          description: Suspended until
+        suspensionCleanupGracePeriodHours:
+          type: number
+          description: Suspension cleanup grace period hours
+        maxCpuPerSandbox:
+          type: number
+          description: Max CPU per sandbox
+        maxMemoryPerSandbox:
+          type: number
+          description: Max memory per sandbox
+        maxDiskPerSandbox:
+          type: number
+          description: Max disk per sandbox
+        snapshotDeactivationTimeoutMinutes:
+          type: number
+          description: Time in minutes before an unused snapshot is deactivated
+          default: 20160
+        sandboxLimitedNetworkEgress:
+          type: boolean
+          description: Sandbox default network block all
+        defaultRegionId:
+          type: string
+          description: Default region ID
+        authenticatedRateLimit:
+          type: number
+          description: Authenticated rate limit per minute
+          nullable: true
+        sandboxCreateRateLimit:
+          type: number
+          description: Sandbox create rate limit per minute
+          nullable: true
+        sandboxLifecycleRateLimit:
+          type: number
+          description: Sandbox lifecycle rate limit per minute
+          nullable: true
+        experimentalConfig:
+          type: object
+          description: Experimental configuration
+        otelConfig:
+          description: OpenTelemetry collection configuration
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/OtelConfig'
+        authenticatedRateLimitTtlSeconds:
+          type: number
+          description: Authenticated rate limit TTL in seconds
+          nullable: true
+        sandboxCreateRateLimitTtlSeconds:
+          type: number
+          description: Sandbox create rate limit TTL in seconds
+          nullable: true
+        sandboxLifecycleRateLimitTtlSeconds:
+          type: number
+          description: Sandbox lifecycle rate limit TTL in seconds
+          nullable: true
+      required:
+      - id
+      - name
+      - createdBy
+      - personal
+      - createdAt
+      - updatedAt
+      - suspended
+      - suspendedAt
+      - suspensionReason
+      - suspendedUntil
+      - suspensionCleanupGracePeriodHours
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - snapshotDeactivationTimeoutMinutes
+      - sandboxLimitedNetworkEgress
+      - authenticatedRateLimit
+      - sandboxCreateRateLimit
+      - sandboxLifecycleRateLimit
+      - experimentalConfig
+      - otelConfig
+      - authenticatedRateLimitTtlSeconds
+      - sandboxCreateRateLimitTtlSeconds
+      - sandboxLifecycleRateLimitTtlSeconds
+    RegionUsageOverview:
+      type: object
+      properties:
+        regionId:
+          type: string
+        totalCpuQuota:
+          type: number
+        currentCpuUsage:
+          type: number
+        totalMemoryQuota:
+          type: number
+        currentMemoryUsage:
+          type: number
+        totalDiskQuota:
+          type: number
+        currentDiskUsage:
+          type: number
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerNonEphemeralSandbox:
+          type: number
+          nullable: true
+      required:
+      - regionId
+      - totalCpuQuota
+      - currentCpuUsage
+      - totalMemoryQuota
+      - currentMemoryUsage
+      - totalDiskQuota
+      - currentDiskUsage
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - maxDiskPerNonEphemeralSandbox
+    Region:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Region ID
+          example: '123456789012'
+        name:
+          type: string
+          description: Region name
+          example: us-east-1
+        organizationId:
+          type: string
+          description: Organization ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+          nullable: true
+        regionType:
+          description: The type of the region
+          example: shared
+          allOf:
+          - $ref: '#/components/schemas/RegionType'
+        createdAt:
+          type: string
+          description: Creation timestamp
+          example: '2023-01-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          description: Last update timestamp
+          example: '2023-01-01T00:00:00.000Z'
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: http://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: http://snapshot-manager.example.com
+          nullable: true
+      required:
+      - id
+      - name
+      - regionType
+      - createdAt
+      - updatedAt
+    CreateOrganization:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of organization
+          example: My Organization
+        defaultRegionId:
+          type: string
+          description: The ID of the default region for the organization
+          example: us
+      required:
+      - name
+      - defaultRegionId
+    UpdateOrganizationMemberAccess:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Organization member role
+          enum:
+          - owner
+          - member
+          default: member
+        assignedRoleIds:
+          description: Array of assigned role IDs
+          default:
+          - 00000000-0000-0000-0000-000000000001
+          type: array
+          items:
+            type: string
+      required:
+      - role
+      - assignedRoleIds
+    OrganizationSuspension:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Suspension reason
+        until:
+          format: date-time
+          type: string
+          description: Suspension until
+        suspensionCleanupGracePeriodHours:
+          type: number
+          description: Suspension cleanup grace period hours
+          minimum: 0
+      required:
+      - reason
+      - until
+    UpdateOrganizationRole:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the role
+          example: Maintainer
+        description:
+          type: string
+          description: The description of the role
+          example: Can manage all resources
+        permissions:
+          type: array
+          description: The list of permissions assigned to the role
+          items:
+            type: string
+            enum:
+            - write:registries
+            - delete:registries
+            - write:snapshots
+            - delete:snapshots
+            - write:sandboxes
+            - delete:sandboxes
+            - read:volumes
+            - write:volumes
+            - delete:volumes
+            - write:regions
+            - delete:regions
+            - read:runners
+            - write:runners
+            - delete:runners
+            - read:audit_logs
+      required:
+      - name
+      - description
+      - permissions
+    CreateOrganizationRole:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the role
+          example: Maintainer
+        description:
+          type: string
+          description: The description of the role
+          example: Can manage all resources
+        permissions:
+          type: array
+          description: The list of permissions assigned to the role
+          items:
+            type: string
+            enum:
+            - write:registries
+            - delete:registries
+            - write:snapshots
+            - delete:snapshots
+            - write:sandboxes
+            - delete:sandboxes
+            - read:volumes
+            - write:volumes
+            - delete:volumes
+            - write:regions
+            - delete:regions
+            - read:runners
+            - write:runners
+            - delete:runners
+            - read:audit_logs
+      required:
+      - name
+      - description
+      - permissions
+    RegenerateApiKeyResponse:
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: The newly generated API key
+          example: api-key-xyz123
+      required:
+      - apiKey
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

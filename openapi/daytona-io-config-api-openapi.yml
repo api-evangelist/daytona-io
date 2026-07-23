@@ -1,0 +1,211 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin config API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: config
+paths:
+  /config:
+    get:
+      operationId: ConfigController_getConfig
+      parameters: []
+      responses:
+        '200':
+          description: Daytona configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DaytonaConfiguration'
+      summary: Get config
+      tags:
+      - config
+components:
+  schemas:
+    PosthogConfig:
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: PostHog API key
+          example: phc_abc123
+        host:
+          type: string
+          description: PostHog host URL
+          example: https://app.posthog.com
+      required:
+      - apiKey
+      - host
+    OidcConfig:
+      type: object
+      properties:
+        issuer:
+          type: string
+          description: OIDC issuer
+          example: https://auth.example.com
+        clientId:
+          type: string
+          description: OIDC client ID
+          example: daytona-client
+        audience:
+          type: string
+          description: OIDC audience
+          example: daytona-api
+      required:
+      - issuer
+      - clientId
+      - audience
+    Announcement:
+      type: object
+      properties:
+        text:
+          type: string
+          description: The announcement text
+          example: New feature available!
+        learnMoreUrl:
+          type: string
+          description: URL to learn more about the announcement
+          example: https://example.com/learn-more
+      required:
+      - text
+    RateLimitConfig:
+      type: object
+      properties:
+        failedAuth:
+          description: Failed authentication rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        authenticated:
+          description: Authenticated rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxCreate:
+          description: Sandbox create rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxLifecycle:
+          description: Sandbox lifecycle rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+    RateLimitEntry:
+      type: object
+      properties:
+        ttl:
+          type: number
+          description: Rate limit TTL in seconds
+          example: 60
+        limit:
+          type: number
+          description: Rate limit max requests
+          example: 100
+    DaytonaConfiguration:
+      type: object
+      properties:
+        version:
+          type: string
+          description: Daytona version
+          example: 0.0.1
+        posthog:
+          description: PostHog configuration
+          allOf:
+          - $ref: '#/components/schemas/PosthogConfig'
+        oidc:
+          description: OIDC configuration
+          allOf:
+          - $ref: '#/components/schemas/OidcConfig'
+        linkedAccountsEnabled:
+          type: boolean
+          description: Whether linked accounts are enabled
+          example: true
+        announcements:
+          type: object
+          description: System announcements
+          additionalProperties:
+            $ref: '#/components/schemas/Announcement'
+          example:
+            feature-update:
+              text: New feature available!
+              learnMoreUrl: https://example.com
+        pylonAppId:
+          type: string
+          description: Pylon application ID
+          example: pylon-app-123
+        proxyTemplateUrl:
+          type: string
+          description: Proxy template URL
+          example: https://{{PORT}}-{{sandboxId}}.proxy.example.com
+        proxyToolboxUrl:
+          type: string
+          description: Toolbox template URL
+          example: https://proxy.example.com/toolbox
+        defaultSnapshot:
+          type: string
+          description: Default snapshot for sandboxes
+          example: ubuntu:22.04
+        dashboardUrl:
+          type: string
+          description: Dashboard URL
+          example: https://dashboard.example.com
+        maxAutoArchiveInterval:
+          type: number
+          description: Maximum auto-archive interval in minutes
+          example: 43200
+        maintananceMode:
+          type: boolean
+          description: Whether maintenance mode is enabled
+          example: false
+        environment:
+          type: string
+          description: Current environment
+          example: production
+        billingApiUrl:
+          type: string
+          description: Billing API URL
+          example: https://billing.example.com
+        analyticsApiUrl:
+          type: string
+          description: Analytics API URL
+          example: https://analytics.example.com
+        sshGatewayCommand:
+          type: string
+          description: SSH Gateway command
+          example: ssh -p 2222 {{TOKEN}}@localhost
+        sshGatewayPublicKey:
+          type: string
+          description: Base64 encoded SSH Gateway public key
+          example: ssh-gateway-public-key
+        rateLimit:
+          description: Rate limit configuration
+          allOf:
+          - $ref: '#/components/schemas/RateLimitConfig'
+      required:
+      - version
+      - oidc
+      - linkedAccountsEnabled
+      - announcements
+      - proxyTemplateUrl
+      - proxyToolboxUrl
+      - defaultSnapshot
+      - dashboardUrl
+      - maxAutoArchiveInterval
+      - maintananceMode
+      - environment
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

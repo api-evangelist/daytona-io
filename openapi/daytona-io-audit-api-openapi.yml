@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin audit API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: audit
+paths:
+  /audit/organizations/{organizationId}:
+    get:
+      operationId: getOrganizationAuditLogs
+      parameters:
+      - name: organizationId
+        required: true
+        in: path
+        description: Organization ID
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Page number of the results
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Number of results per page
+        schema:
+          minimum: 1
+          maximum: 200
+          default: 100
+          type: number
+      - name: from
+        required: false
+        in: query
+        description: From date (ISO 8601 format)
+        schema:
+          format: date-time
+          type: string
+      - name: to
+        required: false
+        in: query
+        description: To date (ISO 8601 format)
+        schema:
+          format: date-time
+          type: string
+      - name: nextToken
+        required: false
+        in: query
+        description: Token for cursor-based pagination. When provided, takes precedence over page parameter.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated list of organization audit logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAuditLogs'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get audit logs for organization
+      tags:
+      - audit
+components:
+  schemas:
+    PaginatedAuditLogs:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
+        nextToken:
+          type: string
+          description: Token for next page in cursor-based pagination
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    AuditLog:
+      type: object
+      properties:
+        id:
+          type: string
+        actorId:
+          type: string
+        actorEmail:
+          type: string
+        actorApiKeyPrefix:
+          type: string
+        actorApiKeySuffix:
+          type: string
+        organizationId:
+          type: string
+        action:
+          type: string
+        targetType:
+          type: string
+        targetId:
+          type: string
+        statusCode:
+          type: number
+        errorMessage:
+          type: string
+        ipAddress:
+          type: string
+        userAgent:
+          type: string
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        createdAt:
+          format: date-time
+          type: string
+      required:
+      - id
+      - actorId
+      - actorEmail
+      - action
+      - createdAt
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

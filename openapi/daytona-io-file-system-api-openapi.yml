@@ -1,0 +1,404 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin file-system API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: file-system
+paths:
+  /files:
+    get:
+      description: List files and directories in the specified path
+      produces:
+      - application/json
+      tags:
+      - file-system
+      summary: List files and directories
+      operationId: ListFiles
+      parameters:
+      - type: string
+        description: Directory path to list (defaults to working directory)
+        name: path
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FileInfo'
+    delete:
+      description: Delete a file or directory at the specified path
+      tags:
+      - file-system
+      summary: Delete a file or directory
+      operationId: DeleteFile
+      parameters:
+      - type: string
+        description: File or directory path to delete
+        name: path
+        in: query
+        required: true
+      - type: boolean
+        description: Enable recursive deletion for directories
+        name: recursive
+        in: query
+      responses:
+        '204':
+          description: No Content
+  /files/bulk-download:
+    post:
+      description: Download multiple files by providing their paths. Successful files are returned as multipart parts named `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shaped like ErrorResponse.
+      consumes:
+      - application/json
+      produces:
+      - multipart/form-data
+      tags:
+      - file-system
+      summary: Download multiple files
+      operationId: DownloadFiles
+      parameters:
+      - description: Paths of files to download
+        name: downloadFiles
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/FilesDownloadRequest'
+      responses:
+        '200':
+          description: Multipart response with file parts and JSON error parts
+          schema:
+            $ref: '#/definitions/gin.H'
+  /files/bulk-upload:
+    post:
+      description: Upload multiple files with their destination paths
+      consumes:
+      - multipart/form-data
+      tags:
+      - file-system
+      summary: Upload multiple files
+      operationId: UploadFiles
+      responses:
+        '200':
+          description: OK
+  /files/download:
+    get:
+      description: Download a file by providing its path
+      produces:
+      - application/octet-stream
+      tags:
+      - file-system
+      summary: Download a file
+      operationId: DownloadFile
+      parameters:
+      - type: string
+        description: File path to download
+        name: path
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: file
+  /files/find:
+    get:
+      description: Search for text pattern within files in a directory
+      produces:
+      - application/json
+      tags:
+      - file-system
+      summary: Find text in files
+      operationId: FindInFiles
+      parameters:
+      - type: string
+        description: Directory path to search in
+        name: path
+        in: query
+        required: true
+      - type: string
+        description: Text pattern to search for
+        name: pattern
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Match'
+  /files/folder:
+    post:
+      description: Create a folder with the specified path and optional permissions
+      consumes:
+      - application/json
+      tags:
+      - file-system
+      summary: Create a folder
+      operationId: CreateFolder
+      parameters:
+      - type: string
+        description: Folder path to create
+        name: path
+        in: query
+        required: true
+      - type: string
+        description: 'Octal permission mode (default: 0755)'
+        name: mode
+        in: query
+        required: true
+      responses:
+        '201':
+          description: Created
+  /files/info:
+    get:
+      description: Get detailed information about a file or directory
+      produces:
+      - application/json
+      tags:
+      - file-system
+      summary: Get file information
+      operationId: GetFileInfo
+      parameters:
+      - type: string
+        description: File or directory path
+        name: path
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/FileInfo'
+  /files/move:
+    post:
+      description: Move or rename a file or directory from source to destination
+      tags:
+      - file-system
+      summary: Move or rename file/directory
+      operationId: MoveFile
+      parameters:
+      - type: string
+        description: Source file or directory path
+        name: source
+        in: query
+        required: true
+      - type: string
+        description: Destination file or directory path
+        name: destination
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+  /files/permissions:
+    post:
+      description: Set file permissions, ownership, and group for a file or directory
+      tags:
+      - file-system
+      summary: Set file permissions
+      operationId: SetFilePermissions
+      parameters:
+      - type: string
+        description: File or directory path
+        name: path
+        in: query
+        required: true
+      - type: string
+        description: Owner (username or UID)
+        name: owner
+        in: query
+      - type: string
+        description: Group (group name or GID)
+        name: group
+        in: query
+      - type: string
+        description: File mode in octal format (e.g., 0755)
+        name: mode
+        in: query
+      responses:
+        '200':
+          description: OK
+  /files/replace:
+    post:
+      description: Replace text pattern with new value in multiple files
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - file-system
+      summary: Replace text in files
+      operationId: ReplaceInFiles
+      parameters:
+      - description: Replace request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ReplaceRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReplaceResult'
+  /files/search:
+    get:
+      description: Search for files matching a specific pattern in a directory
+      produces:
+      - application/json
+      tags:
+      - file-system
+      summary: Search files by pattern
+      operationId: SearchFiles
+      parameters:
+      - type: string
+        description: Directory path to search in
+        name: path
+        in: query
+        required: true
+      - type: string
+        description: File pattern to match (e.g., *.txt, *.go)
+        name: pattern
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SearchFilesResponse'
+  /files/upload:
+    post:
+      description: Upload a file to the specified path
+      consumes:
+      - multipart/form-data
+      tags:
+      - file-system
+      summary: Upload a file
+      operationId: UploadFile
+      parameters:
+      - type: string
+        description: Destination path for the uploaded file
+        name: path
+        in: query
+        required: true
+      - type: file
+        description: File to upload
+        name: file
+        in: formData
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+definitions:
+  FileInfo:
+    type: object
+    required:
+    - group
+    - isDir
+    - modTime
+    - mode
+    - name
+    - owner
+    - permissions
+    - size
+    properties:
+      group:
+        type: string
+      isDir:
+        type: boolean
+      modTime:
+        type: string
+      mode:
+        type: string
+      name:
+        type: string
+      owner:
+        type: string
+      permissions:
+        type: string
+      size:
+        type: integer
+  gin.H:
+    type: object
+    additionalProperties: {}
+  SearchFilesResponse:
+    type: object
+    required:
+    - files
+    properties:
+      files:
+        type: array
+        items:
+          type: string
+  FilesDownloadRequest:
+    type: object
+    required:
+    - paths
+    properties:
+      paths:
+        type: array
+        items:
+          type: string
+  Match:
+    type: object
+    required:
+    - content
+    - file
+    - line
+    properties:
+      content:
+        type: string
+      file:
+        type: string
+      line:
+        type: integer
+  ReplaceResult:
+    type: object
+    properties:
+      error:
+        type: string
+      file:
+        type: string
+      success:
+        type: boolean
+  ReplaceRequest:
+    type: object
+    required:
+    - files
+    - newValue
+    - pattern
+    properties:
+      files:
+        type: array
+        items:
+          type: string
+      newValue:
+        type: string
+      pattern:
+        type: string

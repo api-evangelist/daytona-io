@@ -1,0 +1,547 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin snapshots API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: snapshots
+paths:
+  /snapshots:
+    post:
+      operationId: createSnapshot
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSnapshot'
+      responses:
+        '200':
+          description: The snapshot has been successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotDto'
+        '400':
+          description: Bad request - Snapshots with tag ":latest" are not allowed
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create a new snapshot
+      tags:
+      - snapshots
+    get:
+      operationId: getAllSnapshots
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Page number of the results
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Number of results per page
+        schema:
+          minimum: 1
+          maximum: 200
+          default: 100
+          type: number
+      - name: name
+        required: false
+        in: query
+        description: Filter by partial name match
+        schema:
+          example: abc123
+          type: string
+      - name: sort
+        required: false
+        in: query
+        description: Field to sort by
+        schema:
+          default: lastUsedAt
+          type: string
+          enum:
+          - name
+          - state
+          - lastUsedAt
+          - createdAt
+      - name: order
+        required: false
+        in: query
+        description: Direction to sort by
+        schema:
+          default: desc
+          type: string
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: Paginated list of all snapshots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSnapshots'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List all snapshots
+      tags:
+      - snapshots
+  /snapshots/{id}:
+    get:
+      operationId: getSnapshot
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Snapshot ID or name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotDto'
+        '404':
+          description: Snapshot not found
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get snapshot by ID or name
+      tags:
+      - snapshots
+    delete:
+      operationId: removeSnapshot
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Snapshot ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Snapshot has been deleted
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete snapshot
+      tags:
+      - snapshots
+  /snapshots/{id}/build-logs:
+    get:
+      deprecated: true
+      description: This endpoint is deprecated. Use `getSnapshotBuildLogsUrl` instead.
+      operationId: getSnapshotBuildLogs
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Snapshot ID
+        schema:
+          type: string
+      - name: follow
+        required: false
+        in: query
+        description: Whether to follow the logs stream
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get snapshot build logs
+      tags:
+      - snapshots
+  /snapshots/{id}/build-logs-url:
+    get:
+      operationId: getSnapshotBuildLogsUrl
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Snapshot ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The snapshot build logs URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get snapshot build logs URL
+      tags:
+      - snapshots
+  /snapshots/{id}/activate:
+    post:
+      operationId: activateSnapshot
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Snapshot ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The snapshot has been successfully activated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotDto'
+        '400':
+          description: Bad request - Snapshot is already active, not in inactive state, or has associated snapshot runners
+        '404':
+          description: Snapshot not found
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Activate a snapshot
+      tags:
+      - snapshots
+  /snapshots/{id}/deactivate:
+    post:
+      operationId: deactivateSnapshot
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: id
+        required: true
+        in: path
+        description: Snapshot ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The snapshot has been successfully deactivated.
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Deactivate a snapshot
+      tags:
+      - snapshots
+components:
+  schemas:
+    SnapshotDto:
+      type: object
+      properties:
+        id:
+          type: string
+        organizationId:
+          type: string
+        general:
+          type: boolean
+        name:
+          type: string
+        imageName:
+          type: string
+        state:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotState'
+        size:
+          type: number
+          nullable: true
+        entrypoint:
+          nullable: true
+          type: array
+          items:
+            type: string
+        cpu:
+          type: number
+        gpu:
+          type: number
+        mem:
+          type: number
+        disk:
+          type: number
+        errorReason:
+          type: string
+          nullable: true
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        lastUsedAt:
+          format: date-time
+          type: string
+          nullable: true
+        buildInfo:
+          description: Build information for the snapshot
+          allOf:
+          - $ref: '#/components/schemas/BuildInfo'
+        regionIds:
+          description: IDs of regions where the snapshot is available
+          type: array
+          items:
+            type: string
+        initialRunnerId:
+          type: string
+          description: The initial runner ID of the snapshot
+          example: runner123
+        ref:
+          type: string
+          description: The snapshot reference
+          example: daytonaio/sandbox:latest
+      required:
+      - id
+      - general
+      - name
+      - state
+      - size
+      - entrypoint
+      - cpu
+      - gpu
+      - mem
+      - disk
+      - errorReason
+      - createdAt
+      - updatedAt
+      - lastUsedAt
+    CreateSnapshot:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the snapshot
+          example: ubuntu-4vcpu-8ram-100gb
+        imageName:
+          type: string
+          description: The image name of the snapshot
+          example: ubuntu:22.04
+        entrypoint:
+          description: The entrypoint command for the snapshot
+          example: sleep infinity
+          type: array
+          items:
+            type: string
+        cpu:
+          type: integer
+          description: CPU cores allocated to the resulting sandbox
+          example: 1
+        gpu:
+          type: integer
+          description: GPU units allocated to the resulting sandbox
+          example: 0
+        memory:
+          type: integer
+          description: Memory allocated to the resulting sandbox in GB
+          example: 1
+        disk:
+          type: integer
+          description: Disk space allocated to the sandbox in GB
+          example: 3
+        buildInfo:
+          description: Build information for the snapshot
+          allOf:
+          - $ref: '#/components/schemas/CreateBuildInfo'
+        regionId:
+          type: string
+          description: ID of the region where the snapshot will be available. Defaults to organization default region if not specified.
+      required:
+      - name
+    BuildInfo:
+      type: object
+      properties:
+        dockerfileContent:
+          type: string
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
+        createdAt:
+          format: date-time
+          type: string
+          description: The creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: The last update timestamp
+        snapshotRef:
+          type: string
+          description: The snapshot reference
+          example: daytonaio/sandbox:latest
+      required:
+      - createdAt
+      - updatedAt
+      - snapshotRef
+    PaginatedSnapshots:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SnapshotDto'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    CreateBuildInfo:
+      type: object
+      properties:
+        dockerfileContent:
+          type: string
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
+      required:
+      - dockerfileContent
+    SnapshotState:
+      type: string
+      enum:
+      - building
+      - pending
+      - pulling
+      - active
+      - inactive
+      - error
+      - build_failed
+      - removing
+    Url:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL response
+      required:
+      - url
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

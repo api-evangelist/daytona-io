@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin interpreter API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: interpreter
+paths:
+  /process/interpreter/context:
+    get:
+      description: Returns information about all user-created interpreter contexts (excludes default context)
+      produces:
+      - application/json
+      tags:
+      - interpreter
+      summary: List all user-created interpreter contexts
+      operationId: ListInterpreterContexts
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ListContextsResponse'
+    post:
+      description: Creates a new isolated interpreter context with optional working directory and language
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - interpreter
+      summary: Create a new interpreter context
+      operationId: CreateInterpreterContext
+      parameters:
+      - description: Context configuration
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateContextRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/InterpreterContext'
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Internal Server Error
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+  /process/interpreter/context/{id}:
+    delete:
+      description: Deletes an interpreter context and shuts down its worker process
+      produces:
+      - application/json
+      tags:
+      - interpreter
+      summary: Delete an interpreter context
+      operationId: DeleteInterpreterContext
+      parameters:
+      - type: string
+        description: Context ID
+        name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: Not Found
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+  /process/interpreter/execute:
+    get:
+      description: Executes code in a specified context (or default context if not specified) via WebSocket streaming
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - interpreter
+      summary: Execute code in an interpreter context
+      operationId: ExecuteInterpreterCode
+      responses:
+        '101':
+          description: Switching Protocols
+          schema:
+            type: string
+          headers:
+            Connection:
+              type: string
+              description: Upgrade
+            Upgrade:
+              type: string
+              description: websocket
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+definitions:
+  InterpreterContext:
+    type: object
+    required:
+    - active
+    - createdAt
+    - cwd
+    - id
+    - language
+    properties:
+      active:
+        type: boolean
+      createdAt:
+        type: string
+      cwd:
+        type: string
+      id:
+        type: string
+      language:
+        type: string
+  ListContextsResponse:
+    type: object
+    required:
+    - contexts
+    properties:
+      contexts:
+        type: array
+        items:
+          $ref: '#/definitions/InterpreterContext'
+  CreateContextRequest:
+    type: object
+    properties:
+      cwd:
+        type: string
+      language:
+        type: string

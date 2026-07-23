@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin info API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: info
+paths:
+  /user-home-dir:
+    get:
+      description: Get the current user home directory path.
+      produces:
+      - application/json
+      tags:
+      - info
+      summary: Get user home directory
+      operationId: GetUserHomeDir
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserHomeDirResponse'
+  /version:
+    get:
+      description: Get the current daemon version
+      produces:
+      - application/json
+      tags:
+      - info
+      summary: Get version
+      operationId: GetVersion
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+  /work-dir:
+    get:
+      description: Get the current working directory path. This is default directory used for running commands.
+      produces:
+      - application/json
+      tags:
+      - info
+      summary: Get working directory
+      operationId: GetWorkDir
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/WorkDirResponse'
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+definitions:
+  WorkDirResponse:
+    type: object
+    required:
+    - dir
+    properties:
+      dir:
+        type: string
+  UserHomeDirResponse:
+    type: object
+    required:
+    - dir
+    properties:
+      dir:
+        type: string

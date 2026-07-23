@@ -1,0 +1,844 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin runners API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: runners
+paths:
+  /runners:
+    post:
+      operationId: createRunner
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRunner'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRunnerResponse'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create runner
+      tags:
+      - runners
+    get:
+      operationId: listRunners
+      parameters:
+      - name: regionId
+        required: false
+        in: query
+        description: Filter runners by region ID
+        schema:
+          type: string
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Runner'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List all runners
+      tags:
+      - runners
+  /runners/me:
+    get:
+      operationId: getInfoForAuthenticatedRunner
+      parameters: []
+      responses:
+        '200':
+          description: Runner info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunnerFull'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get info for authenticated runner
+      tags:
+      - runners
+  /runners/by-sandbox/{sandboxId}:
+    get:
+      operationId: getRunnerBySandboxId
+      parameters:
+      - name: sandboxId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunnerFull'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get runner by sandbox ID
+      tags:
+      - runners
+  /runners/by-snapshot-ref:
+    get:
+      operationId: getRunnersBySnapshotRef
+      parameters:
+      - name: ref
+        required: true
+        in: query
+        description: Snapshot ref
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RunnerSnapshotDto'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get runners by snapshot ref
+      tags:
+      - runners
+  /runners/{id}:
+    get:
+      operationId: getRunnerById
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Runner ID
+        schema:
+          type: string
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Runner'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get runner by ID
+      tags:
+      - runners
+    delete:
+      operationId: deleteRunner
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Runner ID
+        schema:
+          type: string
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete runner
+      tags:
+      - runners
+  /runners/{id}/full:
+    get:
+      operationId: getRunnerFullById
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Runner ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunnerFull'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get runner by ID
+      tags:
+      - runners
+  /runners/{id}/scheduling:
+    patch:
+      operationId: updateRunnerScheduling
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Runner ID
+        schema:
+          type: string
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Runner'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update runner scheduling status
+      tags:
+      - runners
+  /runners/{id}/draining:
+    patch:
+      operationId: updateRunnerDraining
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Runner ID
+        schema:
+          type: string
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Runner'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update runner draining status
+      tags:
+      - runners
+  /runners/healthcheck:
+    post:
+      description: Endpoint for version 2 runners to send healthcheck and metrics. Updates lastChecked timestamp and runner metrics.
+      operationId: runnerHealthcheck
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunnerHealthcheck'
+      responses:
+        '200':
+          description: Healthcheck received
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Runner healthcheck
+      tags:
+      - runners
+components:
+  schemas:
+    CreateRunner:
+      type: object
+      properties:
+        regionId:
+          type: string
+        name:
+          type: string
+        tags:
+          description: Tags to associate with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+      required:
+      - regionId
+      - name
+    RunnerHealthcheck:
+      type: object
+      properties:
+        metrics:
+          description: Runner metrics
+          allOf:
+          - $ref: '#/components/schemas/RunnerHealthMetrics'
+        serviceHealth:
+          description: Health status of individual services on the runner
+          type: array
+          items:
+            $ref: '#/components/schemas/RunnerServiceHealth'
+        domain:
+          type: string
+          description: Runner domain
+          example: runner-123.daytona.example.com
+        proxyUrl:
+          type: string
+          description: Runner proxy URL
+          example: http://proxy.daytona.example.com:8080
+        apiUrl:
+          type: string
+          description: Runner API URL
+          example: http://api.daytona.example.com:8080
+        appVersion:
+          type: string
+          description: Runner app version
+          example: v0.0.0-dev
+      required:
+      - appVersion
+    CreateRunnerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the runner
+          example: runner123
+        apiKey:
+          type: string
+          description: The API key for the runner
+          example: dtn_1234567890
+      required:
+      - id
+      - apiKey
+    RunnerState:
+      type: string
+      enum:
+      - initializing
+      - ready
+      - disabled
+      - decommissioned
+      - unresponsive
+      description: The state of the runner
+    RunnerClass:
+      type: string
+      enum:
+      - container
+      - vm
+      description: The class of the runner
+    RunnerServiceHealth:
+      type: object
+      properties:
+        serviceName:
+          type: string
+          description: Name of the service being checked
+          example: runner
+        healthy:
+          type: boolean
+          description: Whether the service is healthy
+          example: false
+        errorReason:
+          type: string
+          description: Error reason if the service is unhealthy
+          example: Cannot connect to the runner
+      required:
+      - serviceName
+      - healthy
+    SandboxClass:
+      type: string
+      enum:
+      - small
+      - medium
+      - large
+      description: The class of the runner
+    RunnerSnapshotDto:
+      type: object
+      properties:
+        runnerSnapshotId:
+          type: string
+          description: Runner snapshot ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        runnerId:
+          type: string
+          description: Runner ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        runnerDomain:
+          type: string
+          description: Runner domain
+          example: runner.example.com
+      required:
+      - runnerSnapshotId
+      - runnerId
+    RunnerFull:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the runner
+          example: runner123
+        domain:
+          type: string
+          description: The domain of the runner
+          example: runner1.example.com
+        apiUrl:
+          type: string
+          description: The API URL of the runner
+          example: https://api.runner1.example.com
+        proxyUrl:
+          type: string
+          description: The proxy URL of the runner
+          example: https://proxy.runner1.example.com
+        cpu:
+          type: number
+          description: The CPU capacity of the runner
+          example: 8
+        memory:
+          type: number
+          description: The memory capacity of the runner in GiB
+          example: 16
+        disk:
+          type: number
+          description: The disk capacity of the runner in GiB
+          example: 100
+        gpu:
+          type: number
+          description: The GPU capacity of the runner
+          example: 1
+        gpuType:
+          type: string
+          description: The type of GPU
+        class:
+          description: The class of the runner
+          example: small
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+        currentCpuUsagePercentage:
+          type: number
+          description: Current CPU usage percentage
+          example: 45.6
+        currentMemoryUsagePercentage:
+          type: number
+          description: Current RAM usage percentage
+          example: 68.2
+        currentDiskUsagePercentage:
+          type: number
+          description: Current disk usage percentage
+          example: 33.8
+        currentAllocatedCpu:
+          type: number
+          description: Current allocated CPU
+          example: 4000
+        currentAllocatedMemoryGiB:
+          type: number
+          description: Current allocated memory in GiB
+          example: 8000
+        currentAllocatedDiskGiB:
+          type: number
+          description: Current allocated disk in GiB
+          example: 50000
+        currentSnapshotCount:
+          type: number
+          description: Current snapshot count
+          example: 12
+        currentStartedSandboxes:
+          type: number
+          description: Current number of started sandboxes
+          example: 5
+        availabilityScore:
+          type: number
+          description: Runner availability score
+          example: 85
+        region:
+          type: string
+          description: The region of the runner
+          example: us
+        name:
+          type: string
+          description: The name of the runner
+          example: runner1
+        state:
+          description: The state of the runner
+          example: initializing
+          allOf:
+          - $ref: '#/components/schemas/RunnerState'
+        lastChecked:
+          type: string
+          description: The last time the runner was checked
+          example: '2024-10-01T12:00:00Z'
+        unschedulable:
+          type: boolean
+          description: Whether the runner is unschedulable
+          example: false
+        tags:
+          description: Tags associated with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          description: The creation timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        updatedAt:
+          type: string
+          description: The last update timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        version:
+          type: string
+          description: The version of the runner (deprecated in favor of apiVersion)
+          example: '0'
+          deprecated: true
+        apiVersion:
+          type: string
+          description: The api version of the runner
+          example: '0'
+          deprecated: true
+        runnerClass:
+          description: The class of the runner
+          example: container
+          allOf:
+          - $ref: '#/components/schemas/RunnerClass'
+        appVersion:
+          type: string
+          description: The app version of the runner
+          example: v0.0.0-dev
+          deprecated: true
+        apiKey:
+          type: string
+          description: The API key for the runner
+          example: dtn_1234567890
+        regionType:
+          description: The region type of the runner
+          example: shared
+          allOf:
+          - $ref: '#/components/schemas/RegionType'
+      required:
+      - id
+      - cpu
+      - memory
+      - disk
+      - class
+      - region
+      - name
+      - state
+      - unschedulable
+      - tags
+      - createdAt
+      - updatedAt
+      - version
+      - apiVersion
+      - runnerClass
+      - apiKey
+    RunnerHealthMetrics:
+      type: object
+      properties:
+        currentCpuLoadAverage:
+          type: number
+          description: Current CPU load average
+          example: 0.98
+        currentCpuUsagePercentage:
+          type: number
+          description: Current CPU usage percentage
+          example: 45.5
+        currentMemoryUsagePercentage:
+          type: number
+          description: Current memory usage percentage
+          example: 60.2
+        currentDiskUsagePercentage:
+          type: number
+          description: Current disk usage percentage
+          example: 35.8
+        currentAllocatedCpu:
+          type: number
+          description: Currently allocated CPU cores
+          example: 8
+        currentAllocatedMemoryGiB:
+          type: number
+          description: Currently allocated memory in GiB
+          example: 16
+        currentAllocatedDiskGiB:
+          type: number
+          description: Currently allocated disk in GiB
+          example: 100
+        currentSnapshotCount:
+          type: number
+          description: Number of snapshots currently stored
+          example: 5
+        currentStartedSandboxes:
+          type: number
+          description: Number of started sandboxes
+          example: 10
+        cpu:
+          type: number
+          description: Total CPU cores on the runner
+          example: 8
+        memoryGiB:
+          type: number
+          description: Total RAM in GiB on the runner
+          example: 16
+        diskGiB:
+          type: number
+          description: Total disk space in GiB on the runner
+          example: 100
+      required:
+      - currentCpuLoadAverage
+      - currentCpuUsagePercentage
+      - currentMemoryUsagePercentage
+      - currentDiskUsagePercentage
+      - currentAllocatedCpu
+      - currentAllocatedMemoryGiB
+      - currentAllocatedDiskGiB
+      - currentSnapshotCount
+      - currentStartedSandboxes
+      - cpu
+      - memoryGiB
+      - diskGiB
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
+    Runner:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the runner
+          example: runner123
+        domain:
+          type: string
+          description: The domain of the runner
+          example: runner1.example.com
+        apiUrl:
+          type: string
+          description: The API URL of the runner
+          example: https://api.runner1.example.com
+        proxyUrl:
+          type: string
+          description: The proxy URL of the runner
+          example: https://proxy.runner1.example.com
+        cpu:
+          type: number
+          description: The CPU capacity of the runner
+          example: 8
+        memory:
+          type: number
+          description: The memory capacity of the runner in GiB
+          example: 16
+        disk:
+          type: number
+          description: The disk capacity of the runner in GiB
+          example: 100
+        gpu:
+          type: number
+          description: The GPU capacity of the runner
+          example: 1
+        gpuType:
+          type: string
+          description: The type of GPU
+        class:
+          description: The class of the runner
+          example: small
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+        currentCpuUsagePercentage:
+          type: number
+          description: Current CPU usage percentage
+          example: 45.6
+        currentMemoryUsagePercentage:
+          type: number
+          description: Current RAM usage percentage
+          example: 68.2
+        currentDiskUsagePercentage:
+          type: number
+          description: Current disk usage percentage
+          example: 33.8
+        currentAllocatedCpu:
+          type: number
+          description: Current allocated CPU
+          example: 4000
+        currentAllocatedMemoryGiB:
+          type: number
+          description: Current allocated memory in GiB
+          example: 8000
+        currentAllocatedDiskGiB:
+          type: number
+          description: Current allocated disk in GiB
+          example: 50000
+        currentSnapshotCount:
+          type: number
+          description: Current snapshot count
+          example: 12
+        currentStartedSandboxes:
+          type: number
+          description: Current number of started sandboxes
+          example: 5
+        availabilityScore:
+          type: number
+          description: Runner availability score
+          example: 85
+        region:
+          type: string
+          description: The region of the runner
+          example: us
+        name:
+          type: string
+          description: The name of the runner
+          example: runner1
+        state:
+          description: The state of the runner
+          example: initializing
+          allOf:
+          - $ref: '#/components/schemas/RunnerState'
+        lastChecked:
+          type: string
+          description: The last time the runner was checked
+          example: '2024-10-01T12:00:00Z'
+        unschedulable:
+          type: boolean
+          description: Whether the runner is unschedulable
+          example: false
+        tags:
+          description: Tags associated with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          description: The creation timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        updatedAt:
+          type: string
+          description: The last update timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        version:
+          type: string
+          description: The version of the runner (deprecated in favor of apiVersion)
+          example: '0'
+          deprecated: true
+        apiVersion:
+          type: string
+          description: The api version of the runner
+          example: '0'
+          deprecated: true
+        runnerClass:
+          description: The class of the runner
+          example: container
+          allOf:
+          - $ref: '#/components/schemas/RunnerClass'
+        appVersion:
+          type: string
+          description: The app version of the runner
+          example: v0.0.0-dev
+          deprecated: true
+      required:
+      - id
+      - cpu
+      - memory
+      - disk
+      - class
+      - region
+      - name
+      - state
+      - unschedulable
+      - tags
+      - createdAt
+      - updatedAt
+      - version
+      - apiVersion
+      - runnerClass
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

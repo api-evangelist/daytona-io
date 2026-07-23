@@ -1,0 +1,720 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin process API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: process
+paths:
+  /process/code-run:
+    post:
+      description: Execute Python, JavaScript, or TypeScript code and return output, exit code, and artifacts
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Execute code
+      operationId: CodeRun
+      parameters:
+      - description: Code execution request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CodeRunRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CodeRunResponse'
+  /process/execute:
+    post:
+      description: Execute a shell command and return the output and exit code
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Execute a command
+      operationId: ExecuteCommand
+      parameters:
+      - description: Command execution request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ExecuteRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ExecuteResponse'
+  /process/pty:
+    get:
+      description: Get a list of all active pseudo-terminal sessions
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: List all PTY sessions
+      operationId: ListPtySessions
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PtyListResponse'
+    post:
+      description: Create a new pseudo-terminal session with specified configuration
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Create a new PTY session
+      operationId: CreatePtySession
+      parameters:
+      - description: PTY session creation request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PtyCreateRequest'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/PtyCreateResponse'
+  /process/pty/{sessionId}:
+    get:
+      description: Get detailed information about a specific pseudo-terminal session
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Get PTY session information
+      operationId: GetPtySession
+      parameters:
+      - type: string
+        description: PTY session ID
+        name: sessionId
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PtySessionInfo'
+    delete:
+      description: Delete a pseudo-terminal session and terminate its process
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Delete a PTY session
+      operationId: DeletePtySession
+      parameters:
+      - type: string
+        description: PTY session ID
+        name: sessionId
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+  /process/pty/{sessionId}/connect:
+    get:
+      description: Establish a WebSocket connection to interact with a pseudo-terminal session
+      tags:
+      - process
+      summary: Connect to PTY session via WebSocket
+      operationId: ConnectPtySession
+      parameters:
+      - type: string
+        description: PTY session ID
+        name: sessionId
+        in: path
+        required: true
+      responses:
+        '101':
+          description: Switching Protocols - WebSocket connection established
+  /process/pty/{sessionId}/resize:
+    post:
+      description: Resize the terminal dimensions of a pseudo-terminal session
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Resize a PTY session
+      operationId: ResizePtySession
+      parameters:
+      - type: string
+        description: PTY session ID
+        name: sessionId
+        in: path
+        required: true
+      - description: Resize request with new dimensions
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PtyResizeRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PtySessionInfo'
+  /process/session:
+    get:
+      description: Get a list of all active shell sessions
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: List all sessions
+      operationId: ListSessions
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Session'
+    post:
+      description: Create a new shell session for command execution
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Create a new session
+      operationId: CreateSession
+      parameters:
+      - description: Session creation request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateSessionRequest'
+      responses:
+        '201':
+          description: Created
+  /process/session/entrypoint:
+    get:
+      description: Get details of an entrypoint session including its commands
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Get entrypoint session details
+      operationId: GetEntrypointSession
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Session'
+  /process/session/entrypoint/logs:
+    get:
+      description: Get logs for a sandbox entrypoint session. Returns JSON with separated stdout/stderr for SDK >= 0.161.0, plain text otherwise. Supports WebSocket streaming.
+      produces:
+      - application/json
+      - text/plain
+      tags:
+      - process
+      summary: Get entrypoint logs
+      operationId: GetEntrypointLogs
+      parameters:
+      - type: boolean
+        description: Follow logs in real-time (WebSocket only)
+        name: follow
+        in: query
+      responses:
+        '200':
+          description: Entrypoint log content
+          schema:
+            $ref: '#/definitions/SessionCommandLogsResponse'
+  /process/session/{sessionId}:
+    get:
+      description: Get details of a specific session including its commands
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Get session details
+      operationId: GetSession
+      parameters:
+      - type: string
+        description: Session ID
+        name: sessionId
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Session'
+    delete:
+      description: Delete an existing shell session
+      tags:
+      - process
+      summary: Delete a session
+      operationId: DeleteSession
+      parameters:
+      - type: string
+        description: Session ID
+        name: sessionId
+        in: path
+        required: true
+      responses:
+        '204':
+          description: No Content
+  /process/session/{sessionId}/command/{commandId}:
+    get:
+      description: Get details of a specific command within a session
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Get session command details
+      operationId: GetSessionCommand
+      parameters:
+      - type: string
+        description: Session ID
+        name: sessionId
+        in: path
+        required: true
+      - type: string
+        description: Command ID
+        name: commandId
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Command'
+  /process/session/{sessionId}/command/{commandId}/input:
+    post:
+      description: Send input data to a running command in a session for interactive execution
+      consumes:
+      - application/json
+      tags:
+      - process
+      summary: Send input to command
+      operationId: SendInput
+      parameters:
+      - type: string
+        description: Session ID
+        name: sessionId
+        in: path
+        required: true
+      - type: string
+        description: Command ID
+        name: commandId
+        in: path
+        required: true
+      - description: Input send request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SessionSendInputRequest'
+      responses:
+        '204':
+          description: No Content
+  /process/session/{sessionId}/command/{commandId}/logs:
+    get:
+      description: Get logs for a specific command within a session. Returns JSON with separated stdout/stderr for SDK >= 0.167.0, plain text otherwise. Supports WebSocket streaming.
+      produces:
+      - application/json
+      - text/plain
+      tags:
+      - process
+      summary: Get session command logs
+      operationId: GetSessionCommandLogs
+      parameters:
+      - type: string
+        description: Session ID
+        name: sessionId
+        in: path
+        required: true
+      - type: string
+        description: Command ID
+        name: commandId
+        in: path
+        required: true
+      - type: boolean
+        description: Follow logs in real-time (WebSocket only)
+        name: follow
+        in: query
+      responses:
+        '200':
+          description: Log content (JSON for new SDKs, plain text for old SDKs)
+          schema:
+            $ref: '#/definitions/SessionCommandLogsResponse'
+  /process/session/{sessionId}/exec:
+    post:
+      description: Execute a command within an existing shell session
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - process
+      summary: Execute command in session
+      operationId: SessionExecuteCommand
+      parameters:
+      - type: string
+        description: Session ID
+        name: sessionId
+        in: path
+        required: true
+      - description: Command execution request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SessionExecuteRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SessionExecuteResponse'
+        '202':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/SessionExecuteResponse'
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+definitions:
+  PtyListResponse:
+    type: object
+    required:
+    - sessions
+    properties:
+      sessions:
+        type: array
+        items:
+          $ref: '#/definitions/PtySessionInfo'
+  SessionSendInputRequest:
+    type: object
+    required:
+    - data
+    properties:
+      data:
+        type: string
+  PtyResizeRequest:
+    type: object
+    required:
+    - cols
+    - rows
+    properties:
+      cols:
+        type: integer
+        maximum: 1000
+        minimum: 1
+      rows:
+        type: integer
+        maximum: 1000
+        minimum: 1
+  PtySessionInfo:
+    type: object
+    required:
+    - active
+    - cols
+    - createdAt
+    - cwd
+    - envs
+    - id
+    - lazyStart
+    - rows
+    properties:
+      active:
+        type: boolean
+      cols:
+        type: integer
+      createdAt:
+        type: string
+      cwd:
+        type: string
+      envs:
+        type: object
+        additionalProperties:
+          type: string
+      id:
+        type: string
+      lazyStart:
+        description: Whether this session uses lazy start
+        type: boolean
+      rows:
+        type: integer
+  gin.H:
+    type: object
+    additionalProperties: {}
+  ExecuteRequest:
+    type: object
+    required:
+    - command
+    properties:
+      command:
+        type: string
+      cwd:
+        description: Current working directory
+        type: string
+      envs:
+        description: Environment variables to set for the command
+        type: object
+        additionalProperties:
+          type: string
+      timeout:
+        description: Timeout in seconds, defaults to 10 seconds
+        type: integer
+  PtyCreateRequest:
+    type: object
+    properties:
+      cols:
+        type: integer
+      cwd:
+        type: string
+      envs:
+        type: object
+        additionalProperties:
+          type: string
+      id:
+        type: string
+      lazyStart:
+        description: Don't start PTY until first client connects
+        type: boolean
+      rows:
+        type: integer
+  SessionCommandLogsResponse:
+    type: object
+    required:
+    - output
+    - stderr
+    - stdout
+    properties:
+      output:
+        type: string
+      stderr:
+        type: string
+      stdout:
+        type: string
+  CodeRunRequest:
+    type: object
+    required:
+    - code
+    - language
+    properties:
+      argv:
+        type: array
+        items:
+          type: string
+      code:
+        type: string
+      envs:
+        type: object
+        additionalProperties:
+          type: string
+      language:
+        description: python, javascript, typescript
+        type: string
+      timeout:
+        type: integer
+  SessionExecuteResponse:
+    type: object
+    required:
+    - cmdId
+    properties:
+      cmdId:
+        type: string
+      exitCode:
+        type: integer
+      output:
+        type: string
+      stderr:
+        type: string
+      stdout:
+        type: string
+  ExecuteResponse:
+    type: object
+    required:
+    - result
+    properties:
+      exitCode:
+        type: integer
+      result:
+        type: string
+  SessionExecuteRequest:
+    type: object
+    required:
+    - command
+    properties:
+      async:
+        type: boolean
+      command:
+        type: string
+      runAsync:
+        type: boolean
+      suppressInputEcho:
+        type: boolean
+  Chart:
+    type: object
+    properties:
+      elements:
+        type: array
+        items:
+          $ref: '#/definitions/ChartElement'
+      png:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+      x_label:
+        type: string
+      x_scale:
+        type: string
+      x_tick_labels:
+        type: array
+        items:
+          type: string
+      x_ticks:
+        type: array
+        items:
+          type: number
+      y_label:
+        type: string
+      y_scale:
+        type: string
+      y_tick_labels:
+        type: array
+        items:
+          type: string
+      y_ticks:
+        type: array
+        items:
+          type: number
+  Session:
+    type: object
+    required:
+    - commands
+    - sessionId
+    properties:
+      commands:
+        type: array
+        items:
+          $ref: '#/definitions/Command'
+      sessionId:
+        type: string
+  Command:
+    type: object
+    required:
+    - command
+    - id
+    properties:
+      command:
+        type: string
+      exitCode:
+        type: integer
+      id:
+        type: string
+  CodeRunResponse:
+    type: object
+    properties:
+      artifacts:
+        $ref: '#/definitions/CodeRunArtifacts'
+      exitCode:
+        type: integer
+      result:
+        type: string
+  CreateSessionRequest:
+    type: object
+    required:
+    - sessionId
+    properties:
+      sessionId:
+        type: string
+  CodeRunArtifacts:
+    type: object
+    properties:
+      charts:
+        type: array
+        items:
+          $ref: '#/definitions/Chart'
+  PtyCreateResponse:
+    type: object
+    required:
+    - sessionId
+    properties:
+      sessionId:
+        type: string
+  ChartElement:
+    type: object
+    properties:
+      angle:
+        type: number
+      first_quartile:
+        type: number
+      group:
+        type: string
+      label:
+        type: string
+      max:
+        type: number
+      median:
+        type: number
+      min:
+        type: number
+      outliers:
+        type: array
+        items:
+          type: number
+      png:
+        type: string
+      points:
+        type: array
+        items:
+          type: array
+          items:
+            type: number
+      radius:
+        type: number
+      third_quartile:
+        type: number
+      title:
+        type: string
+      type:
+        type: string
+      value:
+        type: string
+      x_label:
+        type: string
+      y_label:
+        type: string

@@ -1,0 +1,251 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin volumes API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: volumes
+paths:
+  /volumes:
+    get:
+      operationId: listVolumes
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: includeDeleted
+        required: false
+        in: query
+        description: Include deleted volumes in the response
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: List of all volumes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VolumeDto'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List all volumes
+      tags:
+      - volumes
+    post:
+      operationId: createVolume
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVolume'
+      responses:
+        '200':
+          description: The volume has been successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolumeDto'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create a new volume
+      tags:
+      - volumes
+  /volumes/{volumeId}:
+    get:
+      operationId: getVolume
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: volumeId
+        required: true
+        in: path
+        description: ID of the volume
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Volume details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolumeDto'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get volume details
+      tags:
+      - volumes
+    delete:
+      operationId: deleteVolume
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: volumeId
+        required: true
+        in: path
+        description: ID of the volume
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Volume has been marked for deletion
+        '409':
+          description: Volume is in use by one or more sandboxes
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete volume
+      tags:
+      - volumes
+  /volumes/by-name/{name}:
+    get:
+      operationId: getVolumeByName
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      - name: name
+        required: true
+        in: path
+        description: Name of the volume
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Volume details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolumeDto'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get volume details by name
+      tags:
+      - volumes
+components:
+  schemas:
+    VolumeState:
+      type: string
+      enum:
+      - creating
+      - ready
+      - pending_create
+      - pending_delete
+      - deleting
+      - deleted
+      - error
+      description: Volume state
+    CreateVolume:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    VolumeDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Volume ID
+          example: vol-12345678
+        name:
+          type: string
+          description: Volume name
+          example: my-volume
+        organizationId:
+          type: string
+          description: Organization ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        state:
+          description: Volume state
+          example: ready
+          allOf:
+          - $ref: '#/components/schemas/VolumeState'
+        createdAt:
+          type: string
+          description: Creation timestamp
+          example: '2023-01-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          description: Last update timestamp
+          example: '2023-01-01T00:00:00.000Z'
+        lastUsedAt:
+          type: string
+          description: Last used timestamp
+          example: '2023-01-01T00:00:00.000Z'
+          nullable: true
+        errorReason:
+          type: string
+          description: The error reason of the volume
+          example: Error processing volume
+          nullable: true
+      required:
+      - id
+      - name
+      - organizationId
+      - state
+      - createdAt
+      - updatedAt
+      - errorReason
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

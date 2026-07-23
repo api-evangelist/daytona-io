@@ -1,0 +1,102 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin regions API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: regions
+paths:
+  /shared-regions:
+    get:
+      operationId: listSharedRegions
+      parameters: []
+      responses:
+        '200':
+          description: List of all shared regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Region'
+      summary: List all shared regions
+      tags:
+      - regions
+components:
+  schemas:
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
+    Region:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Region ID
+          example: '123456789012'
+        name:
+          type: string
+          description: Region name
+          example: us-east-1
+        organizationId:
+          type: string
+          description: Organization ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+          nullable: true
+        regionType:
+          description: The type of the region
+          example: shared
+          allOf:
+          - $ref: '#/components/schemas/RegionType'
+        createdAt:
+          type: string
+          description: Creation timestamp
+          example: '2023-01-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          description: Last update timestamp
+          example: '2023-01-01T00:00:00.000Z'
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: http://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: http://snapshot-manager.example.com
+          nullable: true
+      required:
+      - id
+      - name
+      - regionType
+      - createdAt
+      - updatedAt
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: Daytona admin object-storage API
+  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: object-storage
+paths:
+  /object-storage/push-access:
+    get:
+      operationId: getPushAccess
+      parameters:
+      - name: X-Daytona-Organization-ID
+        in: header
+        description: Use with JWT to specify the organization ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Temporary storage access has been generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageAccessDto'
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get temporary storage access for pushing objects
+      tags:
+      - object-storage
+components:
+  schemas:
+    StorageAccessDto:
+      type: object
+      properties:
+        accessKey:
+          type: string
+          description: Access key for storage authentication
+          example: temp-user-123
+        secret:
+          type: string
+          description: Secret key for storage authentication
+          example: abchbGciOiJIUzI1NiIs...
+        sessionToken:
+          type: string
+          description: Session token for storage authentication
+          example: eyJhbGciOiJIUzI1NiIs...
+        storageUrl:
+          type: string
+          description: Storage URL
+          example: storage.example.com
+        organizationId:
+          type: string
+          description: Organization ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        bucket:
+          type: string
+          description: S3 bucket name
+          example: daytona
+      required:
+      - accessKey
+      - secret
+      - sessionToken
+      - storageUrl
+      - organizationId
+      - bucket
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
