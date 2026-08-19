@@ -1,0 +1,439 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all runners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/runners",
+            "params": [
+              {
+                "name": "regionId",
+                "value": "",
+                "type": "query",
+                "description": "Filter runners by region ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all runners"
+        },
+        {
+          "info": {
+            "name": "Create runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/admin/runners",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create runner"
+        },
+        {
+          "info": {
+            "name": "Get runner by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/runners/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Runner ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get runner by ID"
+        },
+        {
+          "info": {
+            "name": "Delete runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/admin/runners/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Runner ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete runner"
+        },
+        {
+          "info": {
+            "name": "Update runner scheduling status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.daytona.io/api/admin/runners/:id/scheduling",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update runner scheduling status"
+        },
+        {
+          "info": {
+            "name": "Recover sandbox from error state as an admin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/admin/sandbox/:sandboxId/recover",
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Recover sandbox from error state as an admin"
+        },
+        {
+          "info": {
+            "name": "List all users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/users",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all users"
+        },
+        {
+          "info": {
+            "name": "Create user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/admin/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create user"
+        },
+        {
+          "info": {
+            "name": "Regenerate user key pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/admin/users/:id/regenerate-key-pair",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Regenerate user key pair"
+        },
+        {
+          "info": {
+            "name": "Get user by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get user by ID"
+        },
+        {
+          "info": {
+            "name": "Send a webhook message to an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/admin/webhooks/organizations/:organizationId/send",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a webhook message to an organization"
+        },
+        {
+          "info": {
+            "name": "Get delivery attempts for a webhook message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/webhooks/organizations/:organizationId/messages/:messageId/attempts",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get delivery attempts for a webhook message"
+        },
+        {
+          "info": {
+            "name": "Get webhook service status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/webhooks/status",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get webhook service status"
+        },
+        {
+          "info": {
+            "name": "Initialize webhooks for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/admin/webhooks/organizations/:organizationId/initialize",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initialize webhooks for an organization"
+        },
+        {
+          "info": {
+            "name": "Set default registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/admin/docker-registry/:id/set-default",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the docker registry"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set default registry"
+        },
+        {
+          "info": {
+            "name": "Check if an image can be cleaned up",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/snapshots/can-cleanup-image",
+            "params": [
+              {
+                "name": "imageName",
+                "value": "",
+                "type": "query",
+                "description": "Image name with tag to check"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check if an image can be cleaned up"
+        },
+        {
+          "info": {
+            "name": "Set snapshot general status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.daytona.io/api/admin/snapshots/:id/general",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Snapshot ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set snapshot general status"
+        },
+        {
+          "info": {
+            "name": "Get all audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/admin/audit",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From date (ISO 8601 format)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To date (ISO 8601 format)"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for cursor-based pagination. When provided, takes precedence over page parameter."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all audit logs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

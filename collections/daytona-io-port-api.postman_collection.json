@@ -1,0 +1,168 @@
+{
+  "item": [
+    {
+      "id": "b5920621-6bcd-45ea-8b01-68109e6a77cb",
+      "name": "port",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e7157910-dcda-4d43-a7c3-588eed5b5e61",
+          "name": "Get active ports",
+          "request": {
+            "name": "Get active ports",
+            "description": {
+              "content": "Get a list of all currently active ports",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1071a517-4e53-470e-97e8-50391f87c515",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef719e05-221b-45d7-917f-da4f46c7393d",
+          "name": "Check if port is in use",
+          "request": {
+            "name": "Check if port is in use",
+            "description": {
+              "content": "Check if a specific port is currently in use",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port",
+                ":port",
+                "in-use"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "port",
+                  "description": "(Required) Port number (3000-9999)"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "942773df-09a0-421e-84a3-5f86a99c9802",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port",
+                    ":port",
+                    "in-use"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "port",
+                      "description": "(Required) Port number (3000-9999)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8190a0f1-e70c-48f0-8aba-02f41af5f80b",
+    "name": "Daytona admin port API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

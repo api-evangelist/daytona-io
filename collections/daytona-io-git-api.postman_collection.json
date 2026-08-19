@@ -1,0 +1,734 @@
+{
+  "item": [
+    {
+      "id": "a4a01e0f-0657-48a7-9783-9c844ef54f45",
+      "name": "git",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4fd3e70-6222-4c02-a4c1-4a8ffaa35743",
+          "name": "Add files to Git staging",
+          "request": {
+            "name": "Add files to Git staging",
+            "description": {
+              "content": "Add files to the Git staging area",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a5e0a74-335d-4082-bd75-32f2239796bf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9fe09a2f-d1d4-4d3a-8de1-06cf2f79e792",
+          "name": "List branches",
+          "request": {
+            "name": "List branches",
+            "description": {
+              "content": "Get a list of all branches in the Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "branches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Repository path",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c88a2cc-8c01-49ed-a599-bc9a32dbb96c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c87ac598-f020-43e6-b3a6-31fc4c075200",
+          "name": "Create a new branch",
+          "request": {
+            "name": "Create a new branch",
+            "description": {
+              "content": "Create a new branch in the Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "branches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d43d1222-ee86-4ab7-9f7f-df75944cb011",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d715eda-7832-4a2e-b8b8-05bdc1c263b4",
+          "name": "Delete a branch",
+          "request": {
+            "name": "Delete a branch",
+            "description": {
+              "content": "Delete a branch from the Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "branches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edb9809f-4aa5-48bc-a26e-0453935ff87b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06a9d61e-d010-4ff5-8d49-1a49e4dddf18",
+          "name": "Checkout branch or commit",
+          "request": {
+            "name": "Checkout branch or commit",
+            "description": {
+              "content": "Switch to a different branch or commit in the Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "checkout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc1d9a4e-a372-42cb-851b-830e5626ebbb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9af769cb-81c3-4787-ac7f-5dcb889ccf55",
+          "name": "Clone a Git repository",
+          "request": {
+            "name": "Clone a Git repository",
+            "description": {
+              "content": "Clone a Git repository to the specified path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "clone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5b5a92a-5dee-499d-9f1f-c6272df5e6e0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "078c796f-081c-4a08-a61a-d69a699ee87f",
+          "name": "Commit changes",
+          "request": {
+            "name": "Commit changes",
+            "description": {
+              "content": "Commit staged changes to the Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "commit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "13406573-1d34-46a2-bf26-72d375112eec",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "commit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75168e21-3823-46e8-96f2-ffeeec80ca6f",
+          "name": "Get commit history",
+          "request": {
+            "name": "Get commit history",
+            "description": {
+              "content": "Get the commit history of the Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Repository path",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c524e3aa-2d9a-4e7c-a7e7-b138bd25b343",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65a552c6-13ed-4111-8dde-dbf0b44ebcbc",
+          "name": "Pull changes from remote",
+          "request": {
+            "name": "Pull changes from remote",
+            "description": {
+              "content": "Pull changes from the remote Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "pull"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dacc6df8-c49e-4044-a805-ab3c8f77958a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "pull"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c84d2fa-2625-4e0d-a25d-20676a0aa036",
+          "name": "Push changes to remote",
+          "request": {
+            "name": "Push changes to remote",
+            "description": {
+              "content": "Push local changes to the remote Git repository",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "push"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10c5f8db-77e0-4d63-a19e-fbd35ca7377e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2de0c796-d005-4fda-ba92-54636d6d05ea",
+          "name": "Get Git status",
+          "request": {
+            "name": "Get Git status",
+            "description": {
+              "content": "Get the Git status of the repository at the specified path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "git",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Repository path",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c948de8f-05d4-4acc-8cde-828d177237d5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "git",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6fae5a08-ba5e-4bdd-add0-fb744e501564",
+    "name": "Daytona admin git API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

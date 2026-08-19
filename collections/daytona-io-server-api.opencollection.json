@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin server API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "server",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initialize toolbox server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/init"
+          },
+          "docs": "Set the auth token and initialize telemetry for the toolbox server"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

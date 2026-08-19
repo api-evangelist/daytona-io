@@ -1,0 +1,3571 @@
+{
+  "item": [
+    {
+      "id": "b1f3eba6-679c-4a38-9ee7-3f453848939d",
+      "name": "computer-use",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95cab98e-9b29-4d17-95b3-a37d4e8c6e57",
+          "name": "Find accessibility nodes",
+          "request": {
+            "name": "Find accessibility nodes",
+            "description": {
+              "content": "Search the AT-SPI tree for nodes matching a role/name/state filter and return a flat list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "a11y",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54fd0f91-c784-4cd7-a829-a33b7729e77b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fdf35d88-7d4b-4710-9053-e3c73ac54304",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e7bbec95-ea56-436b-9335-830be113abbe",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5e0f01c6-fb15-4b40-acd8-7998af7a1819",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f3db629-1936-45ff-83d9-a391bdcb9291",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba132498-a732-44aa-94b2-cffa8865ee10",
+          "name": "Focus an accessibility node",
+          "request": {
+            "name": "Focus an accessibility node",
+            "description": {
+              "content": "Move keyboard focus to the AT-SPI node identified by id (bus-name:object-path).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "a11y",
+                "node",
+                "focus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54332103-7c82-4f6b-899e-d71b214dbcdd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a09477f-1792-4827-bd07-60801a0709e9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "38dd4956-0d3a-4449-92c6-e335ab91c1e9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "627ec68e-1ee6-4ca9-8692-e00c0ee5b415",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1c6ba025-d18f-4869-b884-836c3452880d",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a82beb7-d8bf-45dd-a2b1-a1c010dae62e",
+          "name": "Invoke an action on an accessibility node",
+          "request": {
+            "name": "Invoke an action on an accessibility node",
+            "description": {
+              "content": "Call an AT-SPI Action on the node. Leave action empty to invoke the node's primary (first) action.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "a11y",
+                "node",
+                "invoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e484caa5-8743-48a5-bc55-bb7c25f613b0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "invoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "73a8ede6-315b-43c8-85af-f547da18783d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "invoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8668cc3a-025e-4eac-b759-76765967ff1c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "invoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "64b0ba10-98de-4ef5-97bd-84fc8bbe84ef",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "invoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "744a3b42-d612-4e38-a91d-d707fcbc3e9c",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "invoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e730df61-1b61-4408-a0bb-090f03b14e03",
+          "name": "Set the value of an accessibility node",
+          "request": {
+            "name": "Set the value of an accessibility node",
+            "description": {
+              "content": "Write the given value to the node via EditableText.SetTextContents or, for numeric controls, Value.CurrentValue.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "a11y",
+                "node",
+                "value"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e937f13-f6bb-4ea8-8cdc-8b948eb496f7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a1685358-58e2-4783-8517-1cc862d4c899",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cf7db869-33d5-4928-8cf7-2bd6701785c9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "90ed6897-d715-43be-b8aa-161b4d4e2a68",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f4768d08-fa33-42ac-9417-40a56b780f27",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "node",
+                    "value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b9cf625-5b73-4d28-9b6e-7ed644cf3878",
+          "name": "Get accessibility tree",
+          "request": {
+            "name": "Get accessibility tree",
+            "description": {
+              "content": "Fetch the AT-SPI accessibility tree for the focused application, a specific PID, or all registered applications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "a11y",
+                "tree"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "Scope: focused | pid | all (default: focused)",
+                    "type": "text/plain"
+                  },
+                  "key": "scope",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Process ID when scope=pid",
+                    "type": "text/plain"
+                  },
+                  "key": "pid",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Max tree depth (-1 unbounded, 0 root only; default -1)",
+                    "type": "text/plain"
+                  },
+                  "key": "maxDepth",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "712d76ff-ec64-4180-ac39-5de6f6dd6260",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "tree"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "pid",
+                      "value": ""
+                    },
+                    {
+                      "key": "maxDepth",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "428bf5be-9cfb-4453-a3d3-2ebbfa8e8e0b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "tree"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "pid",
+                      "value": ""
+                    },
+                    {
+                      "key": "maxDepth",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5fb62c0c-75d3-4374-a856-2d4541d9d0c3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "tree"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "pid",
+                      "value": ""
+                    },
+                    {
+                      "key": "maxDepth",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd0de197-74ad-418c-9e1a-b3d9aebf0b0a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "tree"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "pid",
+                      "value": ""
+                    },
+                    {
+                      "key": "maxDepth",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb85417a-c3e8-407a-9d81-611655dca2e7",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "a11y",
+                    "tree"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "pid",
+                      "value": ""
+                    },
+                    {
+                      "key": "maxDepth",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a46bf3c-9762-4d93-b158-69cbb51500c2",
+          "name": "Get display information",
+          "request": {
+            "name": "Get display information",
+            "description": {
+              "content": "Get information about all available displays",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "display",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ddbb8bf-4d8c-4a58-b7bf-0bf9ac8769a4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "display",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2e0ec84-6050-4e16-aa80-207c5cd4de60",
+          "name": "Get windows information",
+          "request": {
+            "name": "Get windows information",
+            "description": {
+              "content": "Get information about all open windows",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "display",
+                "windows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1dfb339-927c-4648-9d68-15785f55179c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "display",
+                    "windows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfba26f8-00f1-43f6-ab1d-9b144a97eddf",
+          "name": "Press hotkey",
+          "request": {
+            "name": "Press hotkey",
+            "description": {
+              "content": "Press a hotkey combination (e.g., ctrl+c, cmd+v)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "keyboard",
+                "hotkey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38c3945a-3b74-4e09-a7a0-e401cd3a4cdc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "keyboard",
+                    "hotkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1b69e77-ce79-4c2a-b4bc-186ee31920b6",
+          "name": "Press key",
+          "request": {
+            "name": "Press key",
+            "description": {
+              "content": "Press a key with optional modifiers",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "keyboard",
+                "key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c009d6bf-9421-4605-89c0-5e58414cbb41",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "keyboard",
+                    "key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "143b95a3-091a-4830-9d82-167452a41c62",
+          "name": "Type text",
+          "request": {
+            "name": "Type text",
+            "description": {
+              "content": "Type text with optional delay between keystrokes",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "keyboard",
+                "type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d50e09d7-24ec-4e18-90da-f8bf3511e10a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "keyboard",
+                    "type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "465d0764-47ed-4521-b200-d2485023fda6",
+          "name": "Click mouse button",
+          "request": {
+            "name": "Click mouse button",
+            "description": {
+              "content": "Click the mouse button at the specified coordinates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "mouse",
+                "click"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76f88338-57d3-4665-adc8-ba9633346db9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "mouse",
+                    "click"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b16ac33-a832-4bb3-8959-29e10c6b4b58",
+          "name": "Drag mouse",
+          "request": {
+            "name": "Drag mouse",
+            "description": {
+              "content": "Drag the mouse from start to end coordinates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "mouse",
+                "drag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b047584b-9599-4a59-9d0b-b1541d9976c1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "mouse",
+                    "drag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8c147ba-d5e1-4e4d-af3b-24c9baa5b114",
+          "name": "Move mouse cursor",
+          "request": {
+            "name": "Move mouse cursor",
+            "description": {
+              "content": "Move the mouse cursor to the specified coordinates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "mouse",
+                "move"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32046fcf-cf3c-487c-a156-9f456d67e115",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "mouse",
+                    "move"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2be91791-b78b-46e4-96f4-43f2c4934c1b",
+          "name": "Get mouse position",
+          "request": {
+            "name": "Get mouse position",
+            "description": {
+              "content": "Get the current mouse cursor position",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "mouse",
+                "position"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de0bd931-6463-47da-a0c7-f6c112353046",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "mouse",
+                    "position"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e16a6011-de58-4dfe-8bb3-1d4521aa371d",
+          "name": "Scroll mouse wheel",
+          "request": {
+            "name": "Scroll mouse wheel",
+            "description": {
+              "content": "Scroll the mouse wheel at the specified coordinates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "mouse",
+                "scroll"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "169fe831-f374-4352-a5a7-fe090919596d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "mouse",
+                    "scroll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8576bf0d-65dc-41fa-94a9-071e801129d8",
+          "name": "Get computer use process status",
+          "request": {
+            "name": "Get computer use process status",
+            "description": {
+              "content": "Get the status of all computer use processes",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "process-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d5c9a10-c081-40e2-9223-5fb517de8942",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "process-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "560b5035-11b8-4722-a70f-7860c6934829",
+          "name": "Get process errors",
+          "request": {
+            "name": "Get process errors",
+            "description": {
+              "content": "Get errors for a specific computer use process",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "process",
+                ":processName",
+                "errors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "processName",
+                  "description": "(Required) Process name to get errors for"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7702e27a-5676-467b-b674-5890209db235",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "process",
+                    ":processName",
+                    "errors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "processName",
+                      "description": "(Required) Process name to get errors for"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e469a77-81cf-44cc-9a81-8885c59f3253",
+          "name": "Get process logs",
+          "request": {
+            "name": "Get process logs",
+            "description": {
+              "content": "Get logs for a specific computer use process",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "process",
+                ":processName",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "processName",
+                  "description": "(Required) Process name to get logs for"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08134f64-bf87-4359-b395-b103abfc5fbf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "process",
+                    ":processName",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "processName",
+                      "description": "(Required) Process name to get logs for"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bbad09dd-14bd-4adc-8aa4-d1a18bb3ee07",
+          "name": "Restart specific process",
+          "request": {
+            "name": "Restart specific process",
+            "description": {
+              "content": "Restart a specific computer use process",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "process",
+                ":processName",
+                "restart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "processName",
+                  "description": "(Required) Process name to restart"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e48e1eb-778d-4707-bf5f-b417a1acca2f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "process",
+                    ":processName",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "processName",
+                      "description": "(Required) Process name to restart"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26bd2b4c-7d7b-48f3-bdbc-dae24922e9ac",
+          "name": "Get specific process status",
+          "request": {
+            "name": "Get specific process status",
+            "description": {
+              "content": "Check if a specific computer use process is running",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "process",
+                ":processName",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "processName",
+                  "description": "(Required) Process name to check"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1b08bc0-ec44-41ed-90c0-456c38dd2635",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "process",
+                    ":processName",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "processName",
+                      "description": "(Required) Process name to check"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05dc88e3-e015-4bbc-8bdd-d102d84f8aec",
+          "name": "List all recordings",
+          "request": {
+            "name": "List all recordings",
+            "description": {
+              "content": "Get a list of all recordings (active and completed)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "recordings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd496d5f-908a-48eb-807f-dbd4bb89a16a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e7b7840d-8933-494b-a468-19aab5ab3ad0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ca9597e-9044-4996-968c-1ba8081f0db0",
+          "name": "Start a new recording",
+          "request": {
+            "name": "Start a new recording",
+            "description": {
+              "content": "Start a new screen recording session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "recordings",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0f8b33d-d201-4c2b-8178-845727b40bd3",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b49a559-7aca-4911-b9c7-ee1b6b50b833",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86e2c7c7-15a3-4a82-a7a0-252937fdb43f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdfcf0f2-b2ed-4bdf-a7dc-4b7ed9d26e79",
+          "name": "Stop a recording",
+          "request": {
+            "name": "Stop a recording",
+            "description": {
+              "content": "Stop an active screen recording session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "recordings",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c5b7893-7d66-4e37-9375-565aec99e617",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6bb025ce-e28b-49ce-bcd3-26bd0c1a304e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5cb139a-1a63-4205-9779-e86af9517515",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1739a19-1bb9-4a77-adcc-9c1471b9b2ac",
+          "name": "Get recording details",
+          "request": {
+            "name": "Get recording details",
+            "description": {
+              "content": "Get details of a specific recording by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "recordings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "id",
+                  "description": "(Required) Recording ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "14110c2e-cf4c-4a68-b095-48538d21a8b0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "93a801ef-02f9-4d7f-a8d7-c08c5bcfa1a2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e28de282-ffb4-45e2-8b30-7f779d2886f7",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37bf976a-7faa-4859-9edd-7a08ef68261e",
+          "name": "Delete a recording",
+          "request": {
+            "name": "Delete a recording",
+            "description": {
+              "content": "Delete a recording file by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "recordings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "id",
+                  "description": "(Required) Recording ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3465ebb9-7ca3-4590-8cab-c9f8b7f19673",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f4fbf8f-3fd9-4261-add4-5015c3afd3c7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a84de680-877a-4e89-81ae-497f946be43a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "540e23b1-d537-47f9-8426-05a4f279c503",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ba4064c-4459-47e3-86c5-e2cc6dbdb330",
+          "name": "Download a recording",
+          "request": {
+            "name": "Download a recording",
+            "description": {
+              "content": "Download a recording by providing its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "recordings",
+                ":id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "id",
+                  "description": "(Required) Recording ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2e248a3-b7e2-499e-8b63-0d496554eca5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "efa73aa2-5fed-4629-9e26-cf265dc5e11a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d656408-c2a0-4691-8e92-dc7cd94176a2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "recordings",
+                    ":id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Recording ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67e52362-73fe-4468-80fb-8e36cd7974d0",
+          "name": "Take a screenshot",
+          "request": {
+            "name": "Take a screenshot",
+            "description": {
+              "content": "Take a screenshot of the entire screen",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "screenshot"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "Whether to show cursor in screenshot",
+                    "type": "text/plain"
+                  },
+                  "key": "showCursor",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ef9c445-c3ce-428f-a0ba-a4e9f83d2e72",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "screenshot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "showCursor",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e24a425-47d7-462e-9583-411b1eae3ca1",
+          "name": "Take a compressed screenshot",
+          "request": {
+            "name": "Take a compressed screenshot",
+            "description": {
+              "content": "Take a compressed screenshot of the entire screen",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "screenshot",
+                "compressed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "Whether to show cursor in screenshot",
+                    "type": "text/plain"
+                  },
+                  "key": "showCursor",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Image format (png or jpeg)",
+                    "type": "text/plain"
+                  },
+                  "key": "format",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "JPEG quality (1-100)",
+                    "type": "text/plain"
+                  },
+                  "key": "quality",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Scale factor (0.1-1.0)",
+                    "type": "text/plain"
+                  },
+                  "key": "scale",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e16e844c-b106-4abe-b622-2e6ba2a59328",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "screenshot",
+                    "compressed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "showCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "format",
+                      "value": ""
+                    },
+                    {
+                      "key": "quality",
+                      "value": ""
+                    },
+                    {
+                      "key": "scale",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8c82454-4a30-4a41-a721-8c15dc52b1dd",
+          "name": "Take a region screenshot",
+          "request": {
+            "name": "Take a region screenshot",
+            "description": {
+              "content": "Take a screenshot of a specific region of the screen",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "screenshot",
+                "region"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) X coordinate of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "x",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Y coordinate of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "y",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Width of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "width",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Height of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "height",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Whether to show cursor in screenshot",
+                    "type": "text/plain"
+                  },
+                  "key": "showCursor",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1279cab-8e7f-431f-b767-542f81fc29ee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "screenshot",
+                    "region"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "x",
+                      "value": ""
+                    },
+                    {
+                      "key": "y",
+                      "value": ""
+                    },
+                    {
+                      "key": "width",
+                      "value": ""
+                    },
+                    {
+                      "key": "height",
+                      "value": ""
+                    },
+                    {
+                      "key": "showCursor",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ccb1e98-d818-4976-8d9e-00290592e71d",
+          "name": "Take a compressed region screenshot",
+          "request": {
+            "name": "Take a compressed region screenshot",
+            "description": {
+              "content": "Take a compressed screenshot of a specific region of the screen",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "screenshot",
+                "region",
+                "compressed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) X coordinate of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "x",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Y coordinate of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "y",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Width of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "width",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Height of the region",
+                    "type": "text/plain"
+                  },
+                  "key": "height",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Whether to show cursor in screenshot",
+                    "type": "text/plain"
+                  },
+                  "key": "showCursor",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Image format (png or jpeg)",
+                    "type": "text/plain"
+                  },
+                  "key": "format",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "JPEG quality (1-100)",
+                    "type": "text/plain"
+                  },
+                  "key": "quality",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Scale factor (0.1-1.0)",
+                    "type": "text/plain"
+                  },
+                  "key": "scale",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b6462b9-1191-4e35-8810-4c3a98250701",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "screenshot",
+                    "region",
+                    "compressed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "x",
+                      "value": ""
+                    },
+                    {
+                      "key": "y",
+                      "value": ""
+                    },
+                    {
+                      "key": "width",
+                      "value": ""
+                    },
+                    {
+                      "key": "height",
+                      "value": ""
+                    },
+                    {
+                      "key": "showCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "format",
+                      "value": ""
+                    },
+                    {
+                      "key": "quality",
+                      "value": ""
+                    },
+                    {
+                      "key": "scale",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5435dad2-272d-4b91-b453-27788801e1f2",
+          "name": "Start computer use processes",
+          "request": {
+            "name": "Start computer use processes",
+            "description": {
+              "content": "Start all computer use processes and return their status",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccf696b6-7cc7-47a0-9fe8-c7a41010c40d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83225045-2030-40d8-98ff-43628e3787c4",
+          "name": "Get computer use status",
+          "request": {
+            "name": "Get computer use status",
+            "description": {
+              "content": "Get the current status of the computer use system",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8af36b19-db84-40fe-b393-4000583d22e2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7247209-765c-4ef5-982e-a2636943e13d",
+          "name": "Stop computer use processes",
+          "request": {
+            "name": "Stop computer use processes",
+            "description": {
+              "content": "Stop all computer use processes and return their status",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "computeruse",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e138ab8f-59d1-4cca-b013-803f76d9126b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "computeruse",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3a32b103-2043-456f-91e9-7c7886781de5",
+    "name": "Daytona admin computer-use API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

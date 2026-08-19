@@ -1,0 +1,2345 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin toolbox API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "toolbox",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "[DEPRECATED] Get sandbox project dir",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/project-dir",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "[DEPRECATED] Get sandbox project dir"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get sandbox user home dir",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/user-home-dir",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "[DEPRECATED] Get sandbox user home dir"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get sandbox work-dir",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/work-dir",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "[DEPRECATED] Get sandbox work-dir"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] List files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "[DEPRECATED] List files"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Delete file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recursive",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete file inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Download file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/download",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download file from sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Download multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/bulk-download",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Streams back a multipart/form-data bundle of the requested paths"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Search for text/pattern in files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/find",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pattern",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for text/pattern inside sandbox files"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Create folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/folder",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create folder inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get file info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/info",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get file info inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Move file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/move",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Move file inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Set file permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/permissions",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set file owner/group/permissions inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Replace in files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/replace",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Replace text/pattern in multiple files inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Search files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/search",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pattern",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for files inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Upload file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/upload",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload file inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Upload multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/files/bulk-upload",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload multiple files inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Add files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/add",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add files to git commit"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get branch list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/branches",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get branch list from git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Create branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/branches",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create branch on git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Delete branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/branches",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete branch on git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Clone repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/clone",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Clone git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Commit changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/commit",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Commit changes to git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get commit history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/history",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get commit history from git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Pull changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/pull",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pull changes from remote"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Push changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/push",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Push changes to remote"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Checkout branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/checkout",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Checkout branch or commit in git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get git status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/git/status",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get status from git repository"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Execute command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/execute",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Execute command synchronously inside sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] List sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/session",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all active sessions in the sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Create session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/session",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new session in the sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/session/:sessionId",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get session by ID"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Delete session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/session/:sessionId",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a specific session"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Execute command in session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/session/:sessionId/exec",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Execute a command in a specific session"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get session command",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/session/:sessionId/command/:commandId",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get session command by ID"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get command logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/session/:sessionId/command/:commandId/logs",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "follow",
+                "value": "",
+                "type": "query",
+                "description": "Whether to stream the logs"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get logs for a specific command in a session"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] List PTY sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/pty",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all active PTY sessions in the sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Create PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/pty",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new PTY session in the sandbox"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/pty/:sessionId",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get PTY session information by ID"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Delete PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/pty/:sessionId",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a PTY session and terminate the associated process"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Resize PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/process/pty/:sessionId/resize",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Resize a PTY session"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get Lsp Completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/lsp/completions",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The Completion request is sent from the client to the server to compute completion items at a given cursor position."
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Call Lsp DidClose",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/lsp/did-close",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The document close notification is sent from the client to the server when the document got closed in the client."
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Call Lsp DidOpen",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/lsp/did-open",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The document open notification is sent from the client to the server to signal newly opened text documents."
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Call Lsp DocumentSymbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/lsp/document-symbols",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languageId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pathToProject",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "uri",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The document symbol request is sent from the client to the server."
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Start Lsp server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/lsp/start",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Start Lsp server process inside sandbox project"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Stop Lsp server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/lsp/stop",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Stop Lsp server process inside sandbox project"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Call Lsp WorkspaceSymbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/lsp/workspace-symbols",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languageId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pathToProject",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The workspace symbol request is sent from the client to the server to list project-wide symbols matching the query string."
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Start computer use processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/start",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Start all VNC desktop processes (Xvfb, xfce4, x11vnc, novnc)"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Stop computer use processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/stop",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Stop all VNC desktop processes (Xvfb, xfce4, x11vnc, novnc)"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get computer use status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/status",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get status of all VNC desktop processes"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get process status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/process/:processName/status",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get status of a specific VNC process"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Restart process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/process/:processName/restart",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Restart a specific VNC process"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get process logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/process/:processName/logs",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get logs for a specific VNC process"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get process errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/process/:processName/errors",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get error logs for a specific VNC process"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get mouse position",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/mouse/position",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get current mouse cursor position"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Move mouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/mouse/move",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Move mouse cursor to specified coordinates"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Click mouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/mouse/click",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Click mouse at specified coordinates"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Drag mouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/mouse/drag",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Drag mouse from start to end coordinates"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Scroll mouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/mouse/scroll",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Scroll mouse at specified coordinates"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Type text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/keyboard/type",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Type text using keyboard"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Press key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/keyboard/key",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Press a key with optional modifiers"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Press hotkey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/keyboard/hotkey",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Press a hotkey combination"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Take screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/screenshot",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "show_cursor",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Take a screenshot of the entire screen"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Take region screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/screenshot/region",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "show_cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "x",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Take a screenshot of a specific region"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Take compressed screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/screenshot/compressed",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scale",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_cursor",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Take a compressed screenshot with format, quality, and scale options"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Take compressed region screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/screenshot/region/compressed",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scale",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "x",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Take a compressed screenshot of a specific region"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get display info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/display/info",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information about displays"
+        },
+        {
+          "info": {
+            "name": "[DEPRECATED] Get windows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/toolbox/:sandboxId/toolbox/computeruse/display/windows",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get list of open windows"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,289 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin file-system API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "file-system",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List files and directories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/files",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Directory path to list (defaults to working directory)"
+              }
+            ]
+          },
+          "docs": "List files and directories in the specified path"
+        },
+        {
+          "info": {
+            "name": "Delete a file or directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/files",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File or directory path to delete"
+              },
+              {
+                "name": "recursive",
+                "value": "",
+                "type": "query",
+                "description": "Enable recursive deletion for directories"
+              }
+            ]
+          },
+          "docs": "Delete a file or directory at the specified path"
+        },
+        {
+          "info": {
+            "name": "Download multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/files/bulk-download"
+          },
+          "docs": "Download multiple files by providing their paths. Successful files are returned as multipart parts named `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shaped like ErrorResponse."
+        },
+        {
+          "info": {
+            "name": "Upload multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/files/bulk-upload"
+          },
+          "docs": "Upload multiple files with their destination paths"
+        },
+        {
+          "info": {
+            "name": "Download a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/files/download",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File path to download"
+              }
+            ]
+          },
+          "docs": "Download a file by providing its path"
+        },
+        {
+          "info": {
+            "name": "Find text in files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/files/find",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Directory path to search in"
+              },
+              {
+                "name": "pattern",
+                "value": "",
+                "type": "query",
+                "description": "Text pattern to search for"
+              }
+            ]
+          },
+          "docs": "Search for text pattern within files in a directory"
+        },
+        {
+          "info": {
+            "name": "Create a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/files/folder",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Folder path to create"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "Octal permission mode (default: 0755)"
+              }
+            ]
+          },
+          "docs": "Create a folder with the specified path and optional permissions"
+        },
+        {
+          "info": {
+            "name": "Get file information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/files/info",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File or directory path"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a file or directory"
+        },
+        {
+          "info": {
+            "name": "Move or rename file/directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/files/move",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Source file or directory path"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query",
+                "description": "Destination file or directory path"
+              }
+            ]
+          },
+          "docs": "Move or rename a file or directory from source to destination"
+        },
+        {
+          "info": {
+            "name": "Set file permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/files/permissions",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "File or directory path"
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Owner (username or UID)"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Group (group name or GID)"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "File mode in octal format (e.g., 0755)"
+              }
+            ]
+          },
+          "docs": "Set file permissions, ownership, and group for a file or directory"
+        },
+        {
+          "info": {
+            "name": "Replace text in files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/files/replace"
+          },
+          "docs": "Replace text pattern with new value in multiple files"
+        },
+        {
+          "info": {
+            "name": "Search files by pattern",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/files/search",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Directory path to search in"
+              },
+              {
+                "name": "pattern",
+                "value": "",
+                "type": "query",
+                "description": "File pattern to match (e.g., *.txt, *.go)"
+              }
+            ]
+          },
+          "docs": "Search for files matching a specific pattern in a directory"
+        },
+        {
+          "info": {
+            "name": "Upload a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/files/upload",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Destination path for the uploaded file"
+              }
+            ]
+          },
+          "docs": "Upload a file to the specified path"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

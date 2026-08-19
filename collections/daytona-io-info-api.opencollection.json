@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin info API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user home directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/user-home-dir"
+          },
+          "docs": "Get the current user home directory path."
+        },
+        {
+          "info": {
+            "name": "Get version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/version"
+          },
+          "docs": "Get the current daemon version"
+        },
+        {
+          "info": {
+            "name": "Get working directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/work-dir"
+          },
+          "docs": "Get the current working directory path. This is default directory used for running commands."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

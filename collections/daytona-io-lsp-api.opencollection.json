@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin lsp API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "lsp",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get code completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/lsp/completions"
+          },
+          "docs": "Get code completion suggestions from the LSP server"
+        },
+        {
+          "info": {
+            "name": "Notify document closed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/lsp/did-close"
+          },
+          "docs": "Notify the LSP server that a document has been closed"
+        },
+        {
+          "info": {
+            "name": "Notify document opened",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/lsp/did-open"
+          },
+          "docs": "Notify the LSP server that a document has been opened"
+        },
+        {
+          "info": {
+            "name": "Get document symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/lsp/document-symbols",
+            "params": [
+              {
+                "name": "languageId",
+                "value": "",
+                "type": "query",
+                "description": "Language ID (e.g., python, typescript)"
+              },
+              {
+                "name": "pathToProject",
+                "value": "",
+                "type": "query",
+                "description": "Path to project"
+              },
+              {
+                "name": "uri",
+                "value": "",
+                "type": "query",
+                "description": "Document URI"
+              }
+            ]
+          },
+          "docs": "Get symbols (functions, classes, etc.) from a document"
+        },
+        {
+          "info": {
+            "name": "Start LSP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/lsp/start"
+          },
+          "docs": "Start a Language Server Protocol server for the specified language"
+        },
+        {
+          "info": {
+            "name": "Stop LSP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/lsp/stop"
+          },
+          "docs": "Stop a Language Server Protocol server"
+        },
+        {
+          "info": {
+            "name": "Get workspace symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/lsp/workspacesymbols",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query"
+              },
+              {
+                "name": "languageId",
+                "value": "",
+                "type": "query",
+                "description": "Language ID (e.g., python, typescript)"
+              },
+              {
+                "name": "pathToProject",
+                "value": "",
+                "type": "query",
+                "description": "Path to project"
+              }
+            ]
+          },
+          "docs": "Search for symbols across the entire workspace"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

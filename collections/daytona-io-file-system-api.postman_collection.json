@@ -1,0 +1,1044 @@
+{
+  "item": [
+    {
+      "id": "7f270f8a-de86-471a-b762-03a48578d2c9",
+      "name": "file-system",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a987aadc-58d5-4556-b3da-24717e18feb1",
+          "name": "List files and directories",
+          "request": {
+            "name": "List files and directories",
+            "description": {
+              "content": "List files and directories in the specified path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "Directory path to list (defaults to working directory)",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19c936c7-dff7-4e3d-b251-4428b1e83345",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f1e59af-7817-4f73-83c9-f4d27c567d6e",
+          "name": "Delete a file or directory",
+          "request": {
+            "name": "Delete a file or directory",
+            "description": {
+              "content": "Delete a file or directory at the specified path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) File or directory path to delete",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Enable recursive deletion for directories",
+                    "type": "text/plain"
+                  },
+                  "key": "recursive",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94061745-3952-4a2a-ba88-7e953bb55293",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    },
+                    {
+                      "key": "recursive",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79d07da8-6d41-4476-a873-e73fc261aa27",
+          "name": "Download multiple files",
+          "request": {
+            "name": "Download multiple files",
+            "description": {
+              "content": "Download multiple files by providing their paths. Successful files are returned as multipart parts named `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shaped like ErrorResponse.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "bulk-download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b68f792-2da7-446b-bc7b-d25f6ec8ee2d",
+              "name": "Multipart response with file parts and JSON error parts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "bulk-download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e47fe5f-84ca-440d-99c2-2ce8a908f570",
+          "name": "Upload multiple files",
+          "request": {
+            "name": "Upload multiple files",
+            "description": {
+              "content": "Upload multiple files with their destination paths",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "bulk-upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04cca58c-569d-4e14-9c0b-50b64e11dcaa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "bulk-upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66e3e56d-3a8e-4955-8b4f-228b9955e1bb",
+          "name": "Download a file",
+          "request": {
+            "name": "Download a file",
+            "description": {
+              "content": "Download a file by providing its path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) File path to download",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "784ae330-09e0-47db-acf3-773c90bb4c59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69725db2-050d-4ada-a4ed-315b6d3b68e1",
+          "name": "Find text in files",
+          "request": {
+            "name": "Find text in files",
+            "description": {
+              "content": "Search for text pattern within files in a directory",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Directory path to search in",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Text pattern to search for",
+                    "type": "text/plain"
+                  },
+                  "key": "pattern",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "87068e2c-9453-4bec-a1d0-f451fd541c5c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    },
+                    {
+                      "key": "pattern",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "739c3f1d-d959-45f1-b78d-26f6380600db",
+          "name": "Create a folder",
+          "request": {
+            "name": "Create a folder",
+            "description": {
+              "content": "Create a folder with the specified path and optional permissions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "folder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Folder path to create",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Octal permission mode (default: 0755)",
+                    "type": "text/plain"
+                  },
+                  "key": "mode",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c0d353d-5f3f-4878-bf03-87683829a641",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "folder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    },
+                    {
+                      "key": "mode",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a08869d-82bb-4fb3-afdc-2059ea540aab",
+          "name": "Get file information",
+          "request": {
+            "name": "Get file information",
+            "description": {
+              "content": "Get detailed information about a file or directory",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) File or directory path",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5b68e9e-4255-44f7-b8ac-16232b3d56b4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "507f3751-8b50-4ab9-bdd5-68432cf8bc5b",
+          "name": "Move or rename file/directory",
+          "request": {
+            "name": "Move or rename file/directory",
+            "description": {
+              "content": "Move or rename a file or directory from source to destination",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "move"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Source file or directory path",
+                    "type": "text/plain"
+                  },
+                  "key": "source",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Destination file or directory path",
+                    "type": "text/plain"
+                  },
+                  "key": "destination",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15a99426-3f2d-441c-8419-16312898580b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "move"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": ""
+                    },
+                    {
+                      "key": "destination",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d5fb38c-80cb-47cd-9c57-a920e37397f9",
+          "name": "Set file permissions",
+          "request": {
+            "name": "Set file permissions",
+            "description": {
+              "content": "Set file permissions, ownership, and group for a file or directory",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "permissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) File or directory path",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Owner (username or UID)",
+                    "type": "text/plain"
+                  },
+                  "key": "owner",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Group (group name or GID)",
+                    "type": "text/plain"
+                  },
+                  "key": "group",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "File mode in octal format (e.g., 0755)",
+                    "type": "text/plain"
+                  },
+                  "key": "mode",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c3600fa9-7e38-410c-aca6-4b98efbd6e9b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    },
+                    {
+                      "key": "owner",
+                      "value": ""
+                    },
+                    {
+                      "key": "group",
+                      "value": ""
+                    },
+                    {
+                      "key": "mode",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a25996e6-aaa8-4e5e-9e8a-c37e24a99865",
+          "name": "Replace text in files",
+          "request": {
+            "name": "Replace text in files",
+            "description": {
+              "content": "Replace text pattern with new value in multiple files",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "replace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f676e1f-e182-4079-ba0e-b0f0ee257112",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "replace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70fc6c0f-e8c1-4457-8d99-b8d65d754879",
+          "name": "Search files by pattern",
+          "request": {
+            "name": "Search files by pattern",
+            "description": {
+              "content": "Search for files matching a specific pattern in a directory",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Directory path to search in",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) File pattern to match (e.g., *.txt, *.go)",
+                    "type": "text/plain"
+                  },
+                  "key": "pattern",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f1a4553e-3487-436b-8993-8d2cb5e6e626",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    },
+                    {
+                      "key": "pattern",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bb60bb1-1e40-4449-b900-c8f3d86ad86e",
+          "name": "Upload a file",
+          "request": {
+            "name": "Upload a file",
+            "description": {
+              "content": "Upload a file to the specified path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Destination path for the uploaded file",
+                    "type": "text/plain"
+                  },
+                  "key": "path",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c090a551-8c4b-45e2-8e9b-683a435d3648",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "path",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e58dd2ed-c5fa-478a-9f3b-80d9d08dfcc5",
+    "name": "Daytona admin file-system API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

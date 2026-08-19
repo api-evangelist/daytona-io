@@ -1,0 +1,573 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin computer-use API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "computer-use",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find accessibility nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/a11y/find"
+          },
+          "docs": "Search the AT-SPI tree for nodes matching a role/name/state filter and return a flat list."
+        },
+        {
+          "info": {
+            "name": "Focus an accessibility node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/a11y/node/focus"
+          },
+          "docs": "Move keyboard focus to the AT-SPI node identified by id (bus-name:object-path)."
+        },
+        {
+          "info": {
+            "name": "Invoke an action on an accessibility node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/a11y/node/invoke"
+          },
+          "docs": "Call an AT-SPI Action on the node. Leave action empty to invoke the node's primary (first) action."
+        },
+        {
+          "info": {
+            "name": "Set the value of an accessibility node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/a11y/node/value"
+          },
+          "docs": "Write the given value to the node via EditableText.SetTextContents or, for numeric controls, Value.CurrentValue."
+        },
+        {
+          "info": {
+            "name": "Get accessibility tree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/a11y/tree",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope: focused | pid | all (default: focused)"
+              },
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Process ID when scope=pid"
+              },
+              {
+                "name": "maxDepth",
+                "value": "",
+                "type": "query",
+                "description": "Max tree depth (-1 unbounded, 0 root only; default -1)"
+              }
+            ]
+          },
+          "docs": "Fetch the AT-SPI accessibility tree for the focused application, a specific PID, or all registered applications."
+        },
+        {
+          "info": {
+            "name": "Get display information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/display/info"
+          },
+          "docs": "Get information about all available displays"
+        },
+        {
+          "info": {
+            "name": "Get windows information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/display/windows"
+          },
+          "docs": "Get information about all open windows"
+        },
+        {
+          "info": {
+            "name": "Press hotkey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/keyboard/hotkey"
+          },
+          "docs": "Press a hotkey combination (e.g., ctrl+c, cmd+v)"
+        },
+        {
+          "info": {
+            "name": "Press key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/keyboard/key"
+          },
+          "docs": "Press a key with optional modifiers"
+        },
+        {
+          "info": {
+            "name": "Type text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/keyboard/type"
+          },
+          "docs": "Type text with optional delay between keystrokes"
+        },
+        {
+          "info": {
+            "name": "Click mouse button",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/mouse/click"
+          },
+          "docs": "Click the mouse button at the specified coordinates"
+        },
+        {
+          "info": {
+            "name": "Drag mouse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/mouse/drag"
+          },
+          "docs": "Drag the mouse from start to end coordinates"
+        },
+        {
+          "info": {
+            "name": "Move mouse cursor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/mouse/move"
+          },
+          "docs": "Move the mouse cursor to the specified coordinates"
+        },
+        {
+          "info": {
+            "name": "Get mouse position",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/mouse/position"
+          },
+          "docs": "Get the current mouse cursor position"
+        },
+        {
+          "info": {
+            "name": "Scroll mouse wheel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/mouse/scroll"
+          },
+          "docs": "Scroll the mouse wheel at the specified coordinates"
+        },
+        {
+          "info": {
+            "name": "Get computer use process status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/process-status"
+          },
+          "docs": "Get the status of all computer use processes"
+        },
+        {
+          "info": {
+            "name": "Get process errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/process/:processName/errors",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to get errors for"
+              }
+            ]
+          },
+          "docs": "Get errors for a specific computer use process"
+        },
+        {
+          "info": {
+            "name": "Get process logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/process/:processName/logs",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to get logs for"
+              }
+            ]
+          },
+          "docs": "Get logs for a specific computer use process"
+        },
+        {
+          "info": {
+            "name": "Restart specific process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/process/:processName/restart",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to restart"
+              }
+            ]
+          },
+          "docs": "Restart a specific computer use process"
+        },
+        {
+          "info": {
+            "name": "Get specific process status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/process/:processName/status",
+            "params": [
+              {
+                "name": "processName",
+                "value": "",
+                "type": "path",
+                "description": "Process name to check"
+              }
+            ]
+          },
+          "docs": "Check if a specific computer use process is running"
+        },
+        {
+          "info": {
+            "name": "List all recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/recordings"
+          },
+          "docs": "Get a list of all recordings (active and completed)"
+        },
+        {
+          "info": {
+            "name": "Start a new recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/recordings/start"
+          },
+          "docs": "Start a new screen recording session"
+        },
+        {
+          "info": {
+            "name": "Stop a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/recordings/stop"
+          },
+          "docs": "Stop an active screen recording session"
+        },
+        {
+          "info": {
+            "name": "Get recording details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/recordings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Recording ID"
+              }
+            ]
+          },
+          "docs": "Get details of a specific recording by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/computeruse/recordings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Recording ID"
+              }
+            ]
+          },
+          "docs": "Delete a recording file by ID"
+        },
+        {
+          "info": {
+            "name": "Download a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/recordings/:id/download",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Recording ID"
+              }
+            ]
+          },
+          "docs": "Download a recording by providing its ID"
+        },
+        {
+          "info": {
+            "name": "Take a screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/screenshot",
+            "params": [
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              }
+            ]
+          },
+          "docs": "Take a screenshot of the entire screen"
+        },
+        {
+          "info": {
+            "name": "Take a compressed screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/screenshot/compressed",
+            "params": [
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Image format (png or jpeg)"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "JPEG quality (1-100)"
+              },
+              {
+                "name": "scale",
+                "value": "",
+                "type": "query",
+                "description": "Scale factor (0.1-1.0)"
+              }
+            ]
+          },
+          "docs": "Take a compressed screenshot of the entire screen"
+        },
+        {
+          "info": {
+            "name": "Take a region screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/screenshot/region",
+            "params": [
+              {
+                "name": "x",
+                "value": "",
+                "type": "query",
+                "description": "X coordinate of the region"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query",
+                "description": "Y coordinate of the region"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Width of the region"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Height of the region"
+              },
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              }
+            ]
+          },
+          "docs": "Take a screenshot of a specific region of the screen"
+        },
+        {
+          "info": {
+            "name": "Take a compressed region screenshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/screenshot/region/compressed",
+            "params": [
+              {
+                "name": "x",
+                "value": "",
+                "type": "query",
+                "description": "X coordinate of the region"
+              },
+              {
+                "name": "y",
+                "value": "",
+                "type": "query",
+                "description": "Y coordinate of the region"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Width of the region"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Height of the region"
+              },
+              {
+                "name": "showCursor",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show cursor in screenshot"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Image format (png or jpeg)"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "JPEG quality (1-100)"
+              },
+              {
+                "name": "scale",
+                "value": "",
+                "type": "query",
+                "description": "Scale factor (0.1-1.0)"
+              }
+            ]
+          },
+          "docs": "Take a compressed screenshot of a specific region of the screen"
+        },
+        {
+          "info": {
+            "name": "Start computer use processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/start"
+          },
+          "docs": "Start all computer use processes and return their status"
+        },
+        {
+          "info": {
+            "name": "Get computer use status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/computeruse/status"
+          },
+          "docs": "Get the current status of the computer use system"
+        },
+        {
+          "info": {
+            "name": "Stop computer use processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/computeruse/stop"
+          },
+          "docs": "Stop all computer use processes and return their status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

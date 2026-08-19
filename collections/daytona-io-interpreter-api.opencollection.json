@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin interpreter API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "interpreter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all user-created interpreter contexts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/interpreter/context"
+          },
+          "docs": "Returns information about all user-created interpreter contexts (excludes default context)"
+        },
+        {
+          "info": {
+            "name": "Create a new interpreter context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/interpreter/context"
+          },
+          "docs": "Creates a new isolated interpreter context with optional working directory and language"
+        },
+        {
+          "info": {
+            "name": "Delete an interpreter context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/process/interpreter/context/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Context ID"
+              }
+            ]
+          },
+          "docs": "Deletes an interpreter context and shuts down its worker process"
+        },
+        {
+          "info": {
+            "name": "Execute code in an interpreter context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/interpreter/execute"
+          },
+          "docs": "Executes code in a specified context (or default context if not specified) via WebSocket streaming"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin port API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "port",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get active ports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/port"
+          },
+          "docs": "Get a list of all currently active ports"
+        },
+        {
+          "info": {
+            "name": "Check if port is in use",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/port/:port/in-use",
+            "params": [
+              {
+                "name": "port",
+                "value": "",
+                "type": "path",
+                "description": "Port number (3000-9999)"
+              }
+            ]
+          },
+          "docs": "Check if a specific port is currently in use"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

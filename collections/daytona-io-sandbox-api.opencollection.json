@@ -1,0 +1,1497 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin sandbox API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "sandbox",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all sandboxes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "verbose",
+                "value": "",
+                "type": "query",
+                "description": "Include verbose output"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "JSON encoded labels to filter by"
+              },
+              {
+                "name": "includeErroredDeleted",
+                "value": "",
+                "type": "query",
+                "description": "Include errored and deleted sandboxes"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all sandboxes"
+        },
+        {
+          "info": {
+            "name": "Create a new sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new sandbox"
+        },
+        {
+          "info": {
+            "name": "List all sandboxes paginated",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/paginated",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by partial ID match"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by partial name match"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "JSON encoded labels to filter by"
+              },
+              {
+                "name": "includeErroredDeleted",
+                "value": "",
+                "type": "query",
+                "description": "Include results with errored state and deleted desired state"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "List of states to filter by"
+              },
+              {
+                "name": "snapshots",
+                "value": "",
+                "type": "query",
+                "description": "List of snapshot names to filter by"
+              },
+              {
+                "name": "regions",
+                "value": "",
+                "type": "query",
+                "description": "List of regions to filter by"
+              },
+              {
+                "name": "minCpu",
+                "value": "",
+                "type": "query",
+                "description": "Minimum CPU"
+              },
+              {
+                "name": "maxCpu",
+                "value": "",
+                "type": "query",
+                "description": "Maximum CPU"
+              },
+              {
+                "name": "minMemoryGiB",
+                "value": "",
+                "type": "query",
+                "description": "Minimum memory in GiB"
+              },
+              {
+                "name": "maxMemoryGiB",
+                "value": "",
+                "type": "query",
+                "description": "Maximum memory in GiB"
+              },
+              {
+                "name": "minDiskGiB",
+                "value": "",
+                "type": "query",
+                "description": "Minimum disk space in GiB"
+              },
+              {
+                "name": "maxDiskGiB",
+                "value": "",
+                "type": "query",
+                "description": "Maximum disk space in GiB"
+              },
+              {
+                "name": "lastEventAfter",
+                "value": "",
+                "type": "query",
+                "description": "Include items with last event after this timestamp"
+              },
+              {
+                "name": "lastEventBefore",
+                "value": "",
+                "type": "query",
+                "description": "Include items with last event before this timestamp"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Direction to sort by"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all sandboxes paginated"
+        },
+        {
+          "info": {
+            "name": "Get sandboxes for the authenticated runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/for-runner",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of sandbox states to filter by"
+              },
+              {
+                "name": "skipReconcilingSandboxes",
+                "value": "",
+                "type": "query",
+                "description": "Skip sandboxes where state differs from desired state"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get sandboxes for the authenticated runner"
+        },
+        {
+          "info": {
+            "name": "Get sandbox details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "verbose",
+                "value": "",
+                "type": "query",
+                "description": "Include verbose output"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get sandbox details"
+        },
+        {
+          "info": {
+            "name": "Delete sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete sandbox"
+        },
+        {
+          "info": {
+            "name": "Recover sandbox from error state",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/recover",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "skipStart",
+                "value": "",
+                "type": "query",
+                "description": "If true, the sandbox is left in STOPPED after recovery instead of being started."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Recover sandbox from error state"
+        },
+        {
+          "info": {
+            "name": "Start sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/start",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Start sandbox"
+        },
+        {
+          "info": {
+            "name": "Stop sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/stop",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Force stop the sandbox using SIGKILL instead of SIGTERM"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Stop sandbox"
+        },
+        {
+          "info": {
+            "name": "Resize sandbox resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/resize",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Resize sandbox resources"
+        },
+        {
+          "info": {
+            "name": "Replace sandbox labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/labels",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Replace sandbox labels"
+        },
+        {
+          "info": {
+            "name": "Update sandbox state",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/state",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update sandbox state"
+        },
+        {
+          "info": {
+            "name": "Create sandbox backup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/backup",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create sandbox backup"
+        },
+        {
+          "info": {
+            "name": "Create a snapshot from a sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/snapshot",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a snapshot from a sandbox"
+        },
+        {
+          "info": {
+            "name": "Fork a sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/fork",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fork a sandbox"
+        },
+        {
+          "info": {
+            "name": "Get sandbox fork children",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/forks",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "includeDestroyed",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get sandbox fork children"
+        },
+        {
+          "info": {
+            "name": "Get sandbox fork parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/parent",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get sandbox fork parent"
+        },
+        {
+          "info": {
+            "name": "Get sandbox fork ancestor chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/ancestors",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get sandbox fork ancestor chain"
+        },
+        {
+          "info": {
+            "name": "Update public status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/public/:isPublic",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "isPublic",
+                "value": "",
+                "type": "path",
+                "description": "Public status to set"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update public status"
+        },
+        {
+          "info": {
+            "name": "Update sandbox last activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/last-activity",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update sandbox last activity"
+        },
+        {
+          "info": {
+            "name": "Set sandbox auto-stop interval",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/autostop/:interval",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "path",
+                "description": "Auto-stop interval in minutes (0 to disable)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set sandbox auto-stop interval"
+        },
+        {
+          "info": {
+            "name": "Set sandbox auto-archive interval",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/autoarchive/:interval",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "path",
+                "description": "Auto-archive interval in minutes (0 means the maximum interval will be used)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set sandbox auto-archive interval"
+        },
+        {
+          "info": {
+            "name": "Set sandbox auto-delete interval",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/autodelete/:interval",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "path",
+                "description": "Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set sandbox auto-delete interval"
+        },
+        {
+          "info": {
+            "name": "Update sandbox network settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/network-settings",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Changes outbound network policy on the runner for a running sandbox (for example block all traffic, restore access, or set a CIDR allow list)."
+        },
+        {
+          "info": {
+            "name": "Archive sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/archive",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Archive sandbox"
+        },
+        {
+          "info": {
+            "name": "Get preview URL for a sandbox port",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/ports/:port/preview-url",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "path",
+                "description": "Port number to get preview URL for"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get preview URL for a sandbox port"
+        },
+        {
+          "info": {
+            "name": "Get signed preview URL for a sandbox port",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/ports/:port/signed-preview-url",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "path",
+                "description": "Port number to get signed preview URL for"
+              },
+              {
+                "name": "expiresInSeconds",
+                "value": "",
+                "type": "query",
+                "description": "Expiration time in seconds (default: 60 seconds)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get signed preview URL for a sandbox port"
+        },
+        {
+          "info": {
+            "name": "Expire signed preview URL for a sandbox port",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/ports/:port/signed-preview-url/:token/expire",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "path",
+                "description": "Port number to expire signed preview URL for"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "Token to expire signed preview URL for"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Expire signed preview URL for a sandbox port"
+        },
+        {
+          "info": {
+            "name": "Get build logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/build-logs",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "follow",
+                "value": "",
+                "type": "query",
+                "description": "Whether to follow the logs stream"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint is deprecated. Use `getBuildLogsUrl` instead."
+        },
+        {
+          "info": {
+            "name": "Get build logs URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/build-logs-url",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get build logs URL"
+        },
+        {
+          "info": {
+            "name": "Create SSH access for sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/ssh-access",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "expiresInMinutes",
+                "value": "",
+                "type": "query",
+                "description": "Expiration time in minutes (default: 60)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create SSH access for sandbox"
+        },
+        {
+          "info": {
+            "name": "Revoke SSH access for sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxIdOrName/ssh-access",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxIdOrName",
+                "value": "",
+                "type": "path",
+                "description": "ID or name of the sandbox"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "SSH access token to revoke. If not provided, all SSH access for the sandbox will be revoked."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Revoke SSH access for sandbox"
+        },
+        {
+          "info": {
+            "name": "Validate SSH access for sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/ssh-access/validate",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "SSH access token to validate"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Validate SSH access for sandbox"
+        },
+        {
+          "info": {
+            "name": "Get toolbox proxy URL for a sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/toolbox-proxy-url",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get toolbox proxy URL for a sandbox"
+        },
+        {
+          "info": {
+            "name": "Get organization by sandbox ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/organization",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get organization by sandbox ID"
+        },
+        {
+          "info": {
+            "name": "Get region quota by sandbox ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/region-quota",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get region quota by sandbox ID"
+        },
+        {
+          "info": {
+            "name": "Get sandbox logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/telemetry/logs",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range (ISO 8601)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of time range (ISO 8601)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-indexed)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "severities",
+                "value": "",
+                "type": "query",
+                "description": "Filter by severity levels (DEBUG, INFO, WARN, ERROR)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search in log body"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve OTEL logs for a sandbox within a time range"
+        },
+        {
+          "info": {
+            "name": "Get sandbox traces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/telemetry/traces",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range (ISO 8601)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of time range (ISO 8601)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-indexed)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve OTEL traces for a sandbox within a time range"
+        },
+        {
+          "info": {
+            "name": "Get trace spans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/telemetry/traces/:traceId",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              },
+              {
+                "name": "traceId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the trace"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve all spans for a specific trace"
+        },
+        {
+          "info": {
+            "name": "Get sandbox metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/sandbox/:sandboxId/telemetry/metrics",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "sandboxId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the sandbox"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range (ISO 8601)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of time range (ISO 8601)"
+              },
+              {
+                "name": "metricNames",
+                "value": "",
+                "type": "query",
+                "description": "Filter by metric names"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve OTEL metrics for a sandbox within a time range"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

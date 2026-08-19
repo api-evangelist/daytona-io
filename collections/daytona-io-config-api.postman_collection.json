@@ -1,0 +1,99 @@
+{
+  "item": [
+    {
+      "id": "cd0c7c1f-6574-4c5c-81b7-08f94c67136d",
+      "name": "config",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3371910a-d0ee-4052-abcd-f0ed41fcb07a",
+          "name": "Get config",
+          "request": {
+            "name": "Get config",
+            "description": {},
+            "url": {
+              "path": [
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "159a93be-5a1e-46d2-88c0-2b050b3bbe3d",
+              "name": "Daytona configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"0.0.1\",\n  \"oidc\": {\n    \"issuer\": \"https://auth.example.com\",\n    \"clientId\": \"daytona-client\",\n    \"audience\": \"daytona-api\"\n  },\n  \"linkedAccountsEnabled\": true,\n  \"announcements\": {\n    \"feature-update\": {\n      \"text\": \"New feature available!\",\n      \"learnMoreUrl\": \"https://example.com\"\n    }\n  },\n  \"proxyTemplateUrl\": \"https://{{PORT}}-{{sandboxId}}.proxy.example.com\",\n  \"proxyToolboxUrl\": \"https://proxy.example.com/toolbox\",\n  \"defaultSnapshot\": \"ubuntu:22.04\",\n  \"dashboardUrl\": \"https://dashboard.example.com\",\n  \"maxAutoArchiveInterval\": 43200,\n  \"maintananceMode\": false,\n  \"environment\": \"production\",\n  \"posthog\": {\n    \"apiKey\": \"phc_abc123\",\n    \"host\": \"https://app.posthog.com\"\n  },\n  \"pylonAppId\": \"pylon-app-123\",\n  \"billingApiUrl\": \"https://billing.example.com\",\n  \"analyticsApiUrl\": \"https://analytics.example.com\",\n  \"sshGatewayCommand\": \"ssh -p 2222 {{TOKEN}}@localhost\",\n  \"sshGatewayPublicKey\": \"ssh-gateway-public-key\",\n  \"rateLimit\": {\n    \"failedAuth\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    },\n    \"authenticated\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    },\n    \"sandboxCreate\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    },\n    \"sandboxLifecycle\": {\n      \"ttl\": 60,\n      \"limit\": 100\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ff0151fb-91bc-4397-9309-7ec483739a48",
+    "name": "Daytona admin config API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

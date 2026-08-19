@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin object-storage API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "object-storage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get temporary storage access for pushing objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/object-storage/push-access",
+            "headers": [
+              {
+                "name": "X-Daytona-Organization-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get temporary storage access for pushing objects"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

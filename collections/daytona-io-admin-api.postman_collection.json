@@ -1,0 +1,1941 @@
+{
+  "item": [
+    {
+      "id": "259478f1-7d40-40f1-851b-eb15ad11477c",
+      "name": "admin",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d4c7ce3b-90f6-4c10-9fea-6a76586ca86a",
+          "name": "Create runner",
+          "request": {
+            "name": "Create runner",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"regionId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"apiVersion\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"domain\": \"<string>\",\n  \"apiUrl\": \"<string>\",\n  \"proxyUrl\": \"<string>\",\n  \"cpu\": \"<number>\",\n  \"memoryGiB\": \"<number>\",\n  \"diskGiB\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27d0b83e-3bfc-419a-b3da-d9cf8320767d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"regionId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"apiKey\": \"<string>\",\n  \"apiVersion\": \"2\",\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"cpu\": 8,\n  \"memoryGiB\": 16,\n  \"diskGiB\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"apiKey\": \"dtn_1234567890\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84499e91-7303-4d95-9ac5-450412883096",
+          "name": "List all runners",
+          "request": {
+            "name": "List all runners",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "regionId",
+                  "value": "<string>",
+                  "description": "Filter runners by region ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc2e42d0-55c6-4b67-9496-5969e41d364c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "regionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"runner123\",\n    \"cpu\": 8,\n    \"memory\": 16,\n    \"disk\": 100,\n    \"class\": \"small\",\n    \"region\": \"us\",\n    \"name\": \"runner1\",\n    \"state\": \"initializing\",\n    \"unschedulable\": false,\n    \"tags\": [\n      \"gpu\",\n      \"us-east\"\n    ],\n    \"createdAt\": \"2023-10-01T12:00:00Z\",\n    \"updatedAt\": \"2023-10-01T12:00:00Z\",\n    \"version\": \"0\",\n    \"apiVersion\": \"0\",\n    \"runnerClass\": \"container\",\n    \"apiKey\": \"dtn_1234567890\",\n    \"domain\": \"runner1.example.com\",\n    \"apiUrl\": \"https://api.runner1.example.com\",\n    \"proxyUrl\": \"https://proxy.runner1.example.com\",\n    \"gpu\": 1,\n    \"gpuType\": \"string\",\n    \"currentCpuUsagePercentage\": 45.6,\n    \"currentMemoryUsagePercentage\": 68.2,\n    \"currentDiskUsagePercentage\": 33.8,\n    \"currentAllocatedCpu\": 4000,\n    \"currentAllocatedMemoryGiB\": 8000,\n    \"currentAllocatedDiskGiB\": 50000,\n    \"currentSnapshotCount\": 12,\n    \"currentStartedSandboxes\": 5,\n    \"availabilityScore\": 85,\n    \"lastChecked\": \"2024-10-01T12:00:00Z\",\n    \"appVersion\": \"v0.0.0-dev\",\n    \"regionType\": \"shared\"\n  },\n  {\n    \"id\": \"runner123\",\n    \"cpu\": 8,\n    \"memory\": 16,\n    \"disk\": 100,\n    \"class\": \"small\",\n    \"region\": \"us\",\n    \"name\": \"runner1\",\n    \"state\": \"initializing\",\n    \"unschedulable\": false,\n    \"tags\": [\n      \"gpu\",\n      \"us-east\"\n    ],\n    \"createdAt\": \"2023-10-01T12:00:00Z\",\n    \"updatedAt\": \"2023-10-01T12:00:00Z\",\n    \"version\": \"0\",\n    \"apiVersion\": \"0\",\n    \"runnerClass\": \"container\",\n    \"apiKey\": \"dtn_1234567890\",\n    \"domain\": \"runner1.example.com\",\n    \"apiUrl\": \"https://api.runner1.example.com\",\n    \"proxyUrl\": \"https://proxy.runner1.example.com\",\n    \"gpu\": 1,\n    \"gpuType\": \"string\",\n    \"currentCpuUsagePercentage\": 45.6,\n    \"currentMemoryUsagePercentage\": 68.2,\n    \"currentDiskUsagePercentage\": 33.8,\n    \"currentAllocatedCpu\": 4000,\n    \"currentAllocatedMemoryGiB\": 8000,\n    \"currentAllocatedDiskGiB\": 50000,\n    \"currentSnapshotCount\": 12,\n    \"currentStartedSandboxes\": 5,\n    \"availabilityScore\": 85,\n    \"lastChecked\": \"2024-10-01T12:00:00Z\",\n    \"appVersion\": \"v0.0.0-dev\",\n    \"regionType\": \"shared\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c4f14fd-d898-4ed3-9f61-a81c91f39050",
+          "name": "Get runner by ID",
+          "request": {
+            "name": "Get runner by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "109498d9-9236-49f9-b9df-dd2faf088950",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"runner123\",\n  \"cpu\": 8,\n  \"memory\": 16,\n  \"disk\": 100,\n  \"class\": \"small\",\n  \"region\": \"us\",\n  \"name\": \"runner1\",\n  \"state\": \"initializing\",\n  \"unschedulable\": false,\n  \"tags\": [\n    \"gpu\",\n    \"us-east\"\n  ],\n  \"createdAt\": \"2023-10-01T12:00:00Z\",\n  \"updatedAt\": \"2023-10-01T12:00:00Z\",\n  \"version\": \"0\",\n  \"apiVersion\": \"0\",\n  \"runnerClass\": \"container\",\n  \"apiKey\": \"dtn_1234567890\",\n  \"domain\": \"runner1.example.com\",\n  \"apiUrl\": \"https://api.runner1.example.com\",\n  \"proxyUrl\": \"https://proxy.runner1.example.com\",\n  \"gpu\": 1,\n  \"gpuType\": \"string\",\n  \"currentCpuUsagePercentage\": 45.6,\n  \"currentMemoryUsagePercentage\": 68.2,\n  \"currentDiskUsagePercentage\": 33.8,\n  \"currentAllocatedCpu\": 4000,\n  \"currentAllocatedMemoryGiB\": 8000,\n  \"currentAllocatedDiskGiB\": 50000,\n  \"currentSnapshotCount\": 12,\n  \"currentStartedSandboxes\": 5,\n  \"availabilityScore\": 85,\n  \"lastChecked\": \"2024-10-01T12:00:00Z\",\n  \"appVersion\": \"v0.0.0-dev\",\n  \"regionType\": \"shared\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb1ac538-18d9-4a07-9e00-da7dc0f59a73",
+          "name": "Delete runner",
+          "request": {
+            "name": "Delete runner",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Runner ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "942043db-5cfa-4015-ab55-ed0607b8cf26",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Runner ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ffb4a09-4bef-4361-9e67-7ad3d68029f1",
+          "name": "Update runner scheduling status",
+          "request": {
+            "name": "Update runner scheduling status",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "runners",
+                ":id",
+                "scheduling"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6ca4b208-1795-46ff-8906-ae3b249782f7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "runners",
+                    ":id",
+                    "scheduling"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ffdc4c4-3f6f-4c6e-9547-a79d5f50c6ac",
+          "name": "Recover sandbox from error state as an admin",
+          "request": {
+            "name": "Recover sandbox from error state as an admin",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "sandbox",
+                ":sandboxId",
+                "recover"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sandboxId",
+                  "description": "(Required) ID of the sandbox"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6cd28b4c-1915-43e5-b0ed-99243bf938b9",
+              "name": "Recovery initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "sandbox",
+                    ":sandboxId",
+                    "recover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sandboxId",
+                      "description": "(Required) ID of the sandbox"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"sandbox123\",\n  \"organizationId\": \"organization123\",\n  \"name\": \"MySandbox\",\n  \"user\": \"daytona\",\n  \"env\": {\n    \"NODE_ENV\": \"production\"\n  },\n  \"labels\": {\n    \"daytona.io/public\": \"true\"\n  },\n  \"public\": false,\n  \"networkBlockAll\": false,\n  \"target\": \"local\",\n  \"cpu\": 2,\n  \"gpu\": 0,\n  \"memory\": 4,\n  \"disk\": 10,\n  \"toolboxProxyUrl\": \"https://proxy.app.daytona.io/toolbox\",\n  \"snapshot\": \"daytonaio/sandbox:latest\",\n  \"networkAllowList\": \"192.168.1.0/16,10.0.0.0/24\",\n  \"state\": \"creating\",\n  \"desiredState\": \"destroyed\",\n  \"errorReason\": \"The sandbox is not running\",\n  \"recoverable\": true,\n  \"backupState\": \"None\",\n  \"backupCreatedAt\": \"2024-10-01T12:00:00Z\",\n  \"autoStopInterval\": 30,\n  \"autoArchiveInterval\": 10080,\n  \"autoDeleteInterval\": 30,\n  \"volumes\": [\n    {\n      \"volumeId\": \"volume123\",\n      \"mountPath\": \"/data\",\n      \"subpath\": \"users/alice\"\n    },\n    {\n      \"volumeId\": \"volume123\",\n      \"mountPath\": \"/data\",\n      \"subpath\": \"users/alice\"\n    }\n  ],\n  \"buildInfo\": {\n    \"createdAt\": \"2025-04-24T10:41:35.642Z\",\n    \"updatedAt\": \"1954-01-15T20:49:24.898Z\",\n    \"snapshotRef\": \"daytonaio/sandbox:latest\",\n    \"dockerfileContent\": \"FROM node:14\\nWORKDIR /app\\nCOPY . .\\nRUN npm install\\nCMD [\\\"npm\\\", \\\"start\\\"]\",\n    \"contextHashes\": [\n      \"hash1\",\n      \"hash2\"\n    ]\n  },\n  \"createdAt\": \"2024-10-01T12:00:00Z\",\n  \"updatedAt\": \"2024-10-01T12:00:00Z\",\n  \"lastActivityAt\": \"2024-10-01T12:00:00Z\",\n  \"class\": \"small\",\n  \"daemonVersion\": \"1.0.0\",\n  \"runnerId\": \"runner123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "996cdff1-26f3-425e-bb72-f8942c3a1a4b",
+          "name": "Create user",
+          "request": {
+            "name": "Create user",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"personalOrganizationQuota\": {\n    \"totalCpuQuota\": \"<number>\",\n    \"totalMemoryQuota\": \"<number>\",\n    \"totalDiskQuota\": \"<number>\",\n    \"maxCpuPerSandbox\": \"<number>\",\n    \"maxMemoryPerSandbox\": \"<number>\",\n    \"maxDiskPerSandbox\": \"<number>\",\n    \"snapshotQuota\": \"<number>\",\n    \"maxSnapshotSize\": \"<number>\",\n    \"volumeQuota\": \"<number>\"\n  },\n  \"personalOrganizationDefaultRegionId\": \"<string>\",\n  \"role\": \"<string>\",\n  \"emailVerified\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "532d94e6-a962-4d37-910b-443d9fffdc59",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"personalOrganizationQuota\": {\n    \"totalCpuQuota\": 1022.3208294578934,\n    \"totalMemoryQuota\": 1965.727477407251,\n    \"totalDiskQuota\": 736.9211499562999,\n    \"maxCpuPerSandbox\": 136.71277311857355,\n    \"maxMemoryPerSandbox\": 3920.5644191369424,\n    \"maxDiskPerSandbox\": 7625.7528913617325,\n    \"snapshotQuota\": 902.2687520140538,\n    \"maxSnapshotSize\": 1190.8914282660844,\n    \"volumeQuota\": 3152.080289810836\n  },\n  \"personalOrganizationDefaultRegionId\": \"<string>\",\n  \"role\": \"<string>\",\n  \"emailVerified\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f763df8-6008-493b-96a3-5f41f88688c7",
+          "name": "List all users",
+          "request": {
+            "name": "List all users",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5c807275-4355-4c08-a1e8-2fe2cf616f36",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8553e84f-c839-477e-ba62-27f6560c2a2e",
+          "name": "Regenerate user key pair",
+          "request": {
+            "name": "Regenerate user key pair",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users",
+                ":id",
+                "regenerate-key-pair"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cd534a4c-b7ff-4977-8c83-e488d0017378",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users",
+                    ":id",
+                    "regenerate-key-pair"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d58dc40-7fb3-43cd-8c5d-369e0711c351",
+          "name": "Get user by ID",
+          "request": {
+            "name": "Get user by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6f34e2a2-1493-4438-b3a3-38394929d346",
+              "name": "User details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"publicKeys\": [\n    {\n      \"key\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"createdAt\": \"2002-12-27T01:11:23.284Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf7b037a-6cb4-4c86-a8c9-d9ce8ac4692d",
+          "name": "Send a webhook message to an organization",
+          "request": {
+            "name": "Send a webhook message to an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "send"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventType\": \"<string>\",\n  \"payload\": \"<object>\",\n  \"eventId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81c921d7-0b6d-4845-b9cf-5f67bd07dd7e",
+              "name": "Webhook message sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"sandbox.created\",\n  \"payload\": {\n    \"name\": \"My Sandbox\"\n  },\n  \"eventId\": \"evt_1234567890abcdef\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df73a03a-743c-4426-8220-eb6c331c197f",
+          "name": "Get delivery attempts for a webhook message",
+          "request": {
+            "name": "Get delivery attempts for a webhook message",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "messages",
+                ":messageId",
+                "attempts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "messageId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4c216c1e-7357-4080-83db-4d6320567ce8",
+              "name": "List of delivery attempts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "messages",
+                    ":messageId",
+                    "attempts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7619b865-b838-4bff-acf1-d040c65deafe",
+          "name": "Get webhook service status",
+          "request": {
+            "name": "Get webhook service status",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f0e40421-d706-4eba-bd4e-2e3d9c8c895b",
+              "name": "Webhook service status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "381bcb8f-e556-43ec-88a2-b7be5ddf6b51",
+          "name": "Initialize webhooks for an organization",
+          "request": {
+            "name": "Initialize webhooks for an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "webhooks",
+                "organizations",
+                ":organizationId",
+                "initialize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "23c7bb8d-a527-4004-83ff-d4dcd80c1f4c",
+              "name": "Webhooks initialized successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f225fa2-1a38-48a9-abb2-6842df8ba536",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "webhooks",
+                    "organizations",
+                    ":organizationId",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08d9dfb2-0a95-46ac-b568-aac39d5d8aeb",
+          "name": "Set default registry",
+          "request": {
+            "name": "Set default registry",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "docker-registry",
+                ":id",
+                "set-default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the docker registry"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b54cf897-4d98-454c-b278-4a4306c9519f",
+              "name": "The docker registry has been set as default.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "docker-registry",
+                    ":id",
+                    "set-default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the docker registry"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"name\": \"My Docker Hub\",\n  \"url\": \"https://registry.hub.docker.com\",\n  \"username\": \"username\",\n  \"project\": \"my-project\",\n  \"registryType\": \"internal\",\n  \"createdAt\": \"2024-01-31T12:00:00Z\",\n  \"updatedAt\": \"2024-01-31T12:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f39b56a6-cbeb-471b-b67a-7755747635e2",
+          "name": "Check if an image can be cleaned up",
+          "request": {
+            "name": "Check if an image can be cleaned up",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "snapshots",
+                "can-cleanup-image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "imageName",
+                  "value": "<string>",
+                  "description": "(Required) Image name with tag to check"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b6286351-1f16-48bc-b56f-7c4ad0d43f11",
+              "name": "Boolean indicating if image can be cleaned up",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "snapshots",
+                    "can-cleanup-image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "imageName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "true",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e51fe40-7294-46bf-8c1a-be503b5eac2b",
+          "name": "Set snapshot general status",
+          "request": {
+            "name": "Set snapshot general status",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "snapshots",
+                ":id",
+                "general"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Snapshot ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"general\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ea307f5b-c8f4-4aa8-9e87-cdc740d0ed3d",
+              "name": "Snapshot general status has been set",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "snapshots",
+                    ":id",
+                    "general"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Snapshot ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"general\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"general\": true,\n  \"name\": \"string\",\n  \"state\": \"error\",\n  \"size\": 1988.9309197892846,\n  \"entrypoint\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cpu\": 8814.28796851006,\n  \"gpu\": 3914.318229012601,\n  \"mem\": 6424.917527634394,\n  \"disk\": 3237.0058092658614,\n  \"errorReason\": \"string\",\n  \"createdAt\": \"2024-05-07T16:25:22.109Z\",\n  \"updatedAt\": \"2008-03-17T11:00:20.364Z\",\n  \"lastUsedAt\": \"2023-06-06T07:08:53.471Z\",\n  \"organizationId\": \"string\",\n  \"imageName\": \"string\",\n  \"buildInfo\": {\n    \"createdAt\": \"1972-01-22T08:37:35.129Z\",\n    \"updatedAt\": \"1999-10-22T15:23:03.523Z\",\n    \"snapshotRef\": \"daytonaio/sandbox:latest\",\n    \"dockerfileContent\": \"FROM node:14\\nWORKDIR /app\\nCOPY . .\\nRUN npm install\\nCMD [\\\"npm\\\", \\\"start\\\"]\",\n    \"contextHashes\": [\n      \"hash1\",\n      \"hash2\"\n    ]\n  },\n  \"regionIds\": [\n    \"string\",\n    \"string\"\n  ],\n  \"initialRunnerId\": \"runner123\",\n  \"ref\": \"daytonaio/sandbox:latest\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2c0c78b-523d-4949-91be-1ef046d589a3",
+          "name": "Get all audit logs",
+          "request": {
+            "name": "Get all audit logs",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "audit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of the results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<dateTime>",
+                  "description": "From date (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "To date (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "nextToken",
+                  "value": "<string>",
+                  "description": "Token for cursor-based pagination. When provided, takes precedence over page parameter."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8205f57f-de26-4220-8d96-efe102dbcb21",
+              "name": "Paginated list of all audit logs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "audit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"actorId\": \"string\",\n      \"actorEmail\": \"string\",\n      \"action\": \"string\",\n      \"createdAt\": \"2010-06-25T16:27:56.625Z\",\n      \"actorApiKeyPrefix\": \"string\",\n      \"actorApiKeySuffix\": \"string\",\n      \"organizationId\": \"string\",\n      \"targetType\": \"string\",\n      \"targetId\": \"string\",\n      \"statusCode\": 6920.681234475764,\n      \"errorMessage\": \"string\",\n      \"ipAddress\": \"string\",\n      \"userAgent\": \"string\",\n      \"source\": \"string\",\n      \"metadata\": {\n        \"key_0\": 9550.490291564991,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"actorId\": \"string\",\n      \"actorEmail\": \"string\",\n      \"action\": \"string\",\n      \"createdAt\": \"1982-09-29T10:45:18.860Z\",\n      \"actorApiKeyPrefix\": \"string\",\n      \"actorApiKeySuffix\": \"string\",\n      \"organizationId\": \"string\",\n      \"targetType\": \"string\",\n      \"targetId\": \"string\",\n      \"statusCode\": 6824.887241060343,\n      \"errorMessage\": \"string\",\n      \"ipAddress\": \"string\",\n      \"userAgent\": \"string\",\n      \"source\": \"string\",\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": false\n      }\n    }\n  ],\n  \"total\": 4006.3038883593526,\n  \"page\": 2755.417507568151,\n  \"totalPages\": 7068.571688289077,\n  \"nextToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9d5a26f0-fc9b-46b9-983a-c0af6b686e6d",
+    "name": "Daytona admin API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

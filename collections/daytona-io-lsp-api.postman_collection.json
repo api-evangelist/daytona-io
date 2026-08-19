@@ -1,0 +1,528 @@
+{
+  "item": [
+    {
+      "id": "27d2a9a0-1e67-4e9c-a25b-0d1f04b8ec6d",
+      "name": "lsp",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "29b4f623-ad6d-4550-99ba-204d22c64b96",
+          "name": "Get code completions",
+          "request": {
+            "name": "Get code completions",
+            "description": {
+              "content": "Get code completion suggestions from the LSP server",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lsp",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f075c9e3-4fb3-4ae0-9dfa-851c237d8a0a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lsp",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c91b865c-cd39-4897-84ac-2f9ee7a3868d",
+          "name": "Notify document closed",
+          "request": {
+            "name": "Notify document closed",
+            "description": {
+              "content": "Notify the LSP server that a document has been closed",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lsp",
+                "did-close"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2783ff4a-a0ae-4910-b887-40b35a8717b0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lsp",
+                    "did-close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4d8fbc7-5ebf-4f84-800c-971670032fd5",
+          "name": "Notify document opened",
+          "request": {
+            "name": "Notify document opened",
+            "description": {
+              "content": "Notify the LSP server that a document has been opened",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lsp",
+                "did-open"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8479d7cf-9cc4-44ab-b91a-e2bb2c0a99b5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lsp",
+                    "did-open"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6bf78a7-0c11-444c-ada2-833f443f0dfb",
+          "name": "Get document symbols",
+          "request": {
+            "name": "Get document symbols",
+            "description": {
+              "content": "Get symbols (functions, classes, etc.) from a document",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lsp",
+                "document-symbols"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Language ID (e.g., python, typescript)",
+                    "type": "text/plain"
+                  },
+                  "key": "languageId",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Path to project",
+                    "type": "text/plain"
+                  },
+                  "key": "pathToProject",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Document URI",
+                    "type": "text/plain"
+                  },
+                  "key": "uri",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "456f3be6-550e-4d96-a3b5-a83dda5b6603",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lsp",
+                    "document-symbols"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "languageId",
+                      "value": ""
+                    },
+                    {
+                      "key": "pathToProject",
+                      "value": ""
+                    },
+                    {
+                      "key": "uri",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1834c0dc-84dc-47bf-8f0b-5deb7ddf6c53",
+          "name": "Start LSP server",
+          "request": {
+            "name": "Start LSP server",
+            "description": {
+              "content": "Start a Language Server Protocol server for the specified language",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lsp",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "407e0350-12a9-4a09-b5a8-79a25a7dbbe7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lsp",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b69e4b6-81c5-4614-987a-3a08e113cf88",
+          "name": "Stop LSP server",
+          "request": {
+            "name": "Stop LSP server",
+            "description": {
+              "content": "Stop a Language Server Protocol server",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lsp",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7060d123-6c8a-4047-a829-56347efaf069",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lsp",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e69e06a-f300-42b1-9cfd-7525586e8aec",
+          "name": "Get workspace symbols",
+          "request": {
+            "name": "Get workspace symbols",
+            "description": {
+              "content": "Search for symbols across the entire workspace",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lsp",
+                "workspacesymbols"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Search query",
+                    "type": "text/plain"
+                  },
+                  "key": "query",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Language ID (e.g., python, typescript)",
+                    "type": "text/plain"
+                  },
+                  "key": "languageId",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Path to project",
+                    "type": "text/plain"
+                  },
+                  "key": "pathToProject",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52f870ad-bbae-4589-bb62-089e38d9fcb0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lsp",
+                    "workspacesymbols"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": ""
+                    },
+                    {
+                      "key": "languageId",
+                      "value": ""
+                    },
+                    {
+                      "key": "pathToProject",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9a6a5307-ed79-46dd-8d1f-794771f7126b",
+    "name": "Daytona admin lsp API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

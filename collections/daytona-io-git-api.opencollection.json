@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin git API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "git",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add files to Git staging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/git/add"
+          },
+          "docs": "Add files to the Git staging area"
+        },
+        {
+          "info": {
+            "name": "List branches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/git/branches",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Repository path"
+              }
+            ]
+          },
+          "docs": "Get a list of all branches in the Git repository"
+        },
+        {
+          "info": {
+            "name": "Create a new branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/git/branches"
+          },
+          "docs": "Create a new branch in the Git repository"
+        },
+        {
+          "info": {
+            "name": "Delete a branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/git/branches"
+          },
+          "docs": "Delete a branch from the Git repository"
+        },
+        {
+          "info": {
+            "name": "Checkout branch or commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/git/checkout"
+          },
+          "docs": "Switch to a different branch or commit in the Git repository"
+        },
+        {
+          "info": {
+            "name": "Clone a Git repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/git/clone"
+          },
+          "docs": "Clone a Git repository to the specified path"
+        },
+        {
+          "info": {
+            "name": "Commit changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/git/commit"
+          },
+          "docs": "Commit staged changes to the Git repository"
+        },
+        {
+          "info": {
+            "name": "Get commit history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/git/history",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Repository path"
+              }
+            ]
+          },
+          "docs": "Get the commit history of the Git repository"
+        },
+        {
+          "info": {
+            "name": "Pull changes from remote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/git/pull"
+          },
+          "docs": "Pull changes from the remote Git repository"
+        },
+        {
+          "info": {
+            "name": "Push changes to remote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/git/push"
+          },
+          "docs": "Push local changes to the remote Git repository"
+        },
+        {
+          "info": {
+            "name": "Get Git status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/git/status",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "query",
+                "description": "Repository path"
+              }
+            ]
+          },
+          "docs": "Get the Git status of the repository at the specified path"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1430 @@
+{
+  "item": [
+    {
+      "id": "3d92a09d-6d23-41e5-84e6-acf5d1b9a610",
+      "name": "process",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "21f2c272-97b0-4d24-9b89-1e72ef15527c",
+          "name": "Execute code",
+          "request": {
+            "name": "Execute code",
+            "description": {
+              "content": "Execute Python, JavaScript, or TypeScript code and return output, exit code, and artifacts",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "code-run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05f1770c-5882-466f-b263-4c9e38da2619",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "code-run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a74e6aee-a0c9-455d-a1df-e305e8cab765",
+          "name": "Execute a command",
+          "request": {
+            "name": "Execute a command",
+            "description": {
+              "content": "Execute a shell command and return the output and exit code",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "execute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fa76c83-fce4-42e3-a572-8004dd6d2430",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "execute"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eeb8d7b7-5e6b-401c-84df-bce2de5dc267",
+          "name": "List all PTY sessions",
+          "request": {
+            "name": "List all PTY sessions",
+            "description": {
+              "content": "Get a list of all active pseudo-terminal sessions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "pty"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bba3f69-ebb9-4e9f-8e65-019e38f437a9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "pty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ce138c2-19a3-4578-822c-df2e7511a450",
+          "name": "Create a new PTY session",
+          "request": {
+            "name": "Create a new PTY session",
+            "description": {
+              "content": "Create a new pseudo-terminal session with specified configuration",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "pty"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40cab606-266a-4f54-8f7f-f568bfd8e70e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "pty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "def34e14-52ee-4123-a56c-0f763edfae48",
+          "name": "Get PTY session information",
+          "request": {
+            "name": "Get PTY session information",
+            "description": {
+              "content": "Get detailed information about a specific pseudo-terminal session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "pty",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) PTY session ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a422eb8-8f9e-4975-9a80-0dbb1f79e25e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "pty",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) PTY session ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcd8b667-ee6e-4866-a1b8-eeecddae367d",
+          "name": "Delete a PTY session",
+          "request": {
+            "name": "Delete a PTY session",
+            "description": {
+              "content": "Delete a pseudo-terminal session and terminate its process",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "pty",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) PTY session ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3288d40d-ed29-4c6b-bc09-217669e727ec",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "pty",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) PTY session ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c114bb14-57c5-41ae-b4ab-30a24ff9bb68",
+          "name": "Connect to PTY session via WebSocket",
+          "request": {
+            "name": "Connect to PTY session via WebSocket",
+            "description": {
+              "content": "Establish a WebSocket connection to interact with a pseudo-terminal session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "pty",
+                ":sessionId",
+                "connect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) PTY session ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "97b83812-1dc5-471b-adb6-1848fafde746",
+              "name": "Switching Protocols - WebSocket connection established",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "pty",
+                    ":sessionId",
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) PTY session ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0659a622-41ab-4d57-8b0c-ab5b5a0fedda",
+          "name": "Resize a PTY session",
+          "request": {
+            "name": "Resize a PTY session",
+            "description": {
+              "content": "Resize the terminal dimensions of a pseudo-terminal session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "pty",
+                ":sessionId",
+                "resize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) PTY session ID"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ebdd17f-d085-4a43-a7f0-034fae1a5126",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "pty",
+                    ":sessionId",
+                    "resize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) PTY session ID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1522fe7d-72a5-4b40-82ec-e955f494cba4",
+          "name": "List all sessions",
+          "request": {
+            "name": "List all sessions",
+            "description": {
+              "content": "Get a list of all active shell sessions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7191797e-6c24-42bc-81d6-ea8492e71d4b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f45a979-7d3a-4371-8f48-98b301b0f892",
+          "name": "Create a new session",
+          "request": {
+            "name": "Create a new session",
+            "description": {
+              "content": "Create a new shell session for command execution",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e596ecf-404e-4c9f-8392-828a6e782dc8",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "447373c9-460c-4bb0-aca4-93165fbd4b3f",
+          "name": "Get entrypoint session details",
+          "request": {
+            "name": "Get entrypoint session details",
+            "description": {
+              "content": "Get details of an entrypoint session including its commands",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                "entrypoint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a132678-93b8-46a7-b265-bcf05a7091e0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    "entrypoint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59a116d3-5193-4e35-b9f9-45365cb2e068",
+          "name": "Get entrypoint logs",
+          "request": {
+            "name": "Get entrypoint logs",
+            "description": {
+              "content": "Get logs for a sandbox entrypoint session. Returns JSON with separated stdout/stderr for SDK >= 0.161.0, plain text otherwise. Supports WebSocket streaming.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                "entrypoint",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "Follow logs in real-time (WebSocket only)",
+                    "type": "text/plain"
+                  },
+                  "key": "follow",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec82d562-23cc-45a8-a4f5-2ebf18383b4d",
+              "name": "Entrypoint log content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    "entrypoint",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "follow",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d76bf30-f37c-4a78-b1cb-35539b102d17",
+          "name": "Get session details",
+          "request": {
+            "name": "Get session details",
+            "description": {
+              "content": "Get details of a specific session including its commands",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) Session ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f89fc357-f88f-445e-8ad8-d53fbc949161",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8a1ced3-18de-40e2-bae5-9439ce886796",
+          "name": "Delete a session",
+          "request": {
+            "name": "Delete a session",
+            "description": {
+              "content": "Delete an existing shell session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) Session ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c0b5b47-fed7-455e-b83d-fb93e418a38d",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87c70a76-8f85-4524-811a-e125e6188496",
+          "name": "Get session command details",
+          "request": {
+            "name": "Get session command details",
+            "description": {
+              "content": "Get details of a specific command within a session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                ":sessionId",
+                "command",
+                ":commandId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) Session ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "commandId",
+                  "description": "(Required) Command ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63ce8c06-d295-4687-bb37-e9f32382d178",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    ":sessionId",
+                    "command",
+                    ":commandId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "commandId",
+                      "description": "(Required) Command ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98b0c719-88f1-4829-b976-7e32b720c981",
+          "name": "Send input to command",
+          "request": {
+            "name": "Send input to command",
+            "description": {
+              "content": "Send input data to a running command in a session for interactive execution",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                ":sessionId",
+                "command",
+                ":commandId",
+                "input"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) Session ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "commandId",
+                  "description": "(Required) Command ID"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fd0ecfa-ba3f-413b-a4df-713dc2cae4c9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    ":sessionId",
+                    "command",
+                    ":commandId",
+                    "input"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "commandId",
+                      "description": "(Required) Command ID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48c4009b-7ea1-478a-a530-42da65dfa80b",
+          "name": "Get session command logs",
+          "request": {
+            "name": "Get session command logs",
+            "description": {
+              "content": "Get logs for a specific command within a session. Returns JSON with separated stdout/stderr for SDK >= 0.167.0, plain text otherwise. Supports WebSocket streaming.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                ":sessionId",
+                "command",
+                ":commandId",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "Follow logs in real-time (WebSocket only)",
+                    "type": "text/plain"
+                  },
+                  "key": "follow",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) Session ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "commandId",
+                  "description": "(Required) Command ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff0635e2-a372-4679-8a98-a2e4724436ac",
+              "name": "Log content (JSON for new SDKs, plain text for old SDKs)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    ":sessionId",
+                    "command",
+                    ":commandId",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "follow",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "commandId",
+                      "description": "(Required) Command ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e49bbc37-e00b-4b2d-a96a-ac3288014b55",
+          "name": "Execute command in session",
+          "request": {
+            "name": "Execute command in session",
+            "description": {
+              "content": "Execute a command within an existing shell session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "process",
+                "session",
+                ":sessionId",
+                "exec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "sessionId",
+                  "description": "(Required) Session ID"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d20d499-aef0-4c6c-89e8-be9d4b0d9a83",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    ":sessionId",
+                    "exec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "826bbd46-4553-4752-a941-de2a7be1dd58",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process",
+                    "session",
+                    ":sessionId",
+                    "exec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "sessionId",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.daytona.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4c1fe10b-056c-4552-86da-95549b6f6db5",
+    "name": "Daytona admin process API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.\n\nContact Support:\n Name: Daytona Platforms Inc.\n Email: support@daytona.com",
+      "type": "text/plain"
+    }
+  }
+}

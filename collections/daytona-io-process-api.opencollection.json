@@ -1,0 +1,328 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Daytona admin process API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "process",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/code-run"
+          },
+          "docs": "Execute Python, JavaScript, or TypeScript code and return output, exit code, and artifacts"
+        },
+        {
+          "info": {
+            "name": "Execute a command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/execute"
+          },
+          "docs": "Execute a shell command and return the output and exit code"
+        },
+        {
+          "info": {
+            "name": "List all PTY sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/pty"
+          },
+          "docs": "Get a list of all active pseudo-terminal sessions"
+        },
+        {
+          "info": {
+            "name": "Create a new PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/pty"
+          },
+          "docs": "Create a new pseudo-terminal session with specified configuration"
+        },
+        {
+          "info": {
+            "name": "Get PTY session information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/pty/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific pseudo-terminal session"
+        },
+        {
+          "info": {
+            "name": "Delete a PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/process/pty/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Delete a pseudo-terminal session and terminate its process"
+        },
+        {
+          "info": {
+            "name": "Connect to PTY session via WebSocket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/pty/:sessionId/connect",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Establish a WebSocket connection to interact with a pseudo-terminal session"
+        },
+        {
+          "info": {
+            "name": "Resize a PTY session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/pty/:sessionId/resize",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "PTY session ID"
+              }
+            ]
+          },
+          "docs": "Resize the terminal dimensions of a pseudo-terminal session"
+        },
+        {
+          "info": {
+            "name": "List all sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/session"
+          },
+          "docs": "Get a list of all active shell sessions"
+        },
+        {
+          "info": {
+            "name": "Create a new session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/session"
+          },
+          "docs": "Create a new shell session for command execution"
+        },
+        {
+          "info": {
+            "name": "Get entrypoint session details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/session/entrypoint"
+          },
+          "docs": "Get details of an entrypoint session including its commands"
+        },
+        {
+          "info": {
+            "name": "Get entrypoint logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/session/entrypoint/logs",
+            "params": [
+              {
+                "name": "follow",
+                "value": "",
+                "type": "query",
+                "description": "Follow logs in real-time (WebSocket only)"
+              }
+            ]
+          },
+          "docs": "Get logs for a sandbox entrypoint session. Returns JSON with separated stdout/stderr for SDK >= 0.161.0, plain text otherwise. Supports WebSocket streaming."
+        },
+        {
+          "info": {
+            "name": "Get session details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/session/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              }
+            ]
+          },
+          "docs": "Get details of a specific session including its commands"
+        },
+        {
+          "info": {
+            "name": "Delete a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.daytona.io/api/process/session/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              }
+            ]
+          },
+          "docs": "Delete an existing shell session"
+        },
+        {
+          "info": {
+            "name": "Get session command details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/session/:sessionId/command/:commandId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path",
+                "description": "Command ID"
+              }
+            ]
+          },
+          "docs": "Get details of a specific command within a session"
+        },
+        {
+          "info": {
+            "name": "Send input to command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/session/:sessionId/command/:commandId/input",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path",
+                "description": "Command ID"
+              }
+            ]
+          },
+          "docs": "Send input data to a running command in a session for interactive execution"
+        },
+        {
+          "info": {
+            "name": "Get session command logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.daytona.io/api/process/session/:sessionId/command/:commandId/logs",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path",
+                "description": "Command ID"
+              },
+              {
+                "name": "follow",
+                "value": "",
+                "type": "query",
+                "description": "Follow logs in real-time (WebSocket only)"
+              }
+            ]
+          },
+          "docs": "Get logs for a specific command within a session. Returns JSON with separated stdout/stderr for SDK >= 0.167.0, plain text otherwise. Supports WebSocket streaming."
+        },
+        {
+          "info": {
+            "name": "Execute command in session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.daytona.io/api/process/session/:sessionId/exec",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              }
+            ]
+          },
+          "docs": "Execute a command within an existing shell session"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
