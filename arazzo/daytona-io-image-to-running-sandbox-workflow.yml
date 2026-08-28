@@ -12,11 +12,11 @@ info:
     without opening the underlying OpenAPI descriptions.
   version: 1.0.0
 sourceDescriptions:
-- name: snapshotsApi
-  url: ../openapi/daytona-snapshots-api-openapi.yml
-  type: openapi
 - name: sandboxApi
-  url: ../openapi/daytona-sandbox-api-openapi.yml
+  url: ../openapi/daytona-io-sandbox-api-openapi.yml
+  type: openapi
+- name: snapshotsApi
+  url: ../openapi/daytona-io-snapshots-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: image-to-running-sandbox

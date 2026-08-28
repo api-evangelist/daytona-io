@@ -12,11 +12,11 @@ info:
     executed without opening the underlying OpenAPI descriptions.
   version: 1.0.0
 sourceDescriptions:
-- name: volumesApi
-  url: ../openapi/daytona-volumes-api-openapi.yml
-  type: openapi
 - name: sandboxApi
-  url: ../openapi/daytona-sandbox-api-openapi.yml
+  url: ../openapi/daytona-io-sandbox-api-openapi.yml
+  type: openapi
+- name: volumesApi
+  url: ../openapi/daytona-io-volumes-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-volume-and-sandbox

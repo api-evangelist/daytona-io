@@ -13,7 +13,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: snapshotsApi
-  url: ../openapi/daytona-snapshots-api-openapi.yml
+  url: ../openapi/daytona-io-snapshots-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: build-and-activate-snapshot
