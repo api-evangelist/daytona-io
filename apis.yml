@@ -1515,6 +1515,117 @@ apis:
     url: https://www.daytona.io/docs/en/security/audit-logs
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
+- aid: daytona-io:daytona-io-daytona-admin-api-api
+  name: Daytona Daytona Admin API
+  description: The Daytona Admin API API from Daytona — 0 operation(s) for daytona admin api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Admin API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-admin-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-api-keys-api-api
+  name: Daytona Daytona Api Keys API
+  description: The Daytona Api Keys API API from Daytona — 0 operation(s) for daytona api keys api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Api Keys API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-api-keys-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-health-api-api
+  name: Daytona Daytona Health API
+  description: The Daytona Health API API from Daytona — 0 operation(s) for daytona health api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Health API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-health-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-organizations-api-api
+  name: Daytona Daytona Organizations API
+  description: >-
+    The Daytona Organizations API API from Daytona — 0 operation(s) for daytona organizations api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Organizations API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-organizations-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-preview-api-api
+  name: Daytona Daytona Preview API
+  description: The Daytona Preview API API from Daytona — 0 operation(s) for daytona preview api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Preview API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-preview-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-sandbox-api-api
+  name: Daytona Daytona Sandbox API
+  description: The Daytona Sandbox API API from Daytona — 0 operation(s) for daytona sandbox api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Sandbox API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-sandbox-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-snapshots-api-api
+  name: Daytona Daytona Snapshots API
+  description: The Daytona Snapshots API API from Daytona — 0 operation(s) for daytona snapshots api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Snapshots API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-snapshots-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-toolbox-api-api
+  name: Daytona Daytona Toolbox API
+  description: The Daytona Toolbox API API from Daytona — 0 operation(s) for daytona toolbox api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Toolbox API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-toolbox-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-users-api-api
+  name: Daytona Daytona Users API
+  description: The Daytona Users API API from Daytona — 0 operation(s) for daytona users api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Users API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-users-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-volumes-api-api
+  name: Daytona Daytona Volumes API
+  description: The Daytona Volumes API API from Daytona — 0 operation(s) for daytona volumes api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Volumes API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-volumes-api-api-openapi.yml
+- aid: daytona-io:daytona-io-daytona-webhooks-api-api
+  name: Daytona Daytona Webhooks API
+  description: The Daytona Webhooks API API from Daytona — 0 operation(s) for daytona webhooks api.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Daytona Webhooks API
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-daytona-webhooks-api-api-openapi.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

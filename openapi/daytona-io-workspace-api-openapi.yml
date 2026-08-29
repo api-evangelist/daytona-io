@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin workspace API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  title: Daytona Sandbox Workspace API
+  description: Daytona Sandbox API — sandbox, workspace operations on the Daytona AI platform.
   version: '1.0'
   contact:
     name: Daytona Platforms Inc.
@@ -579,6 +579,64 @@ components:
           description: Build information for the workspace
           allOf:
           - $ref: '#/components/schemas/CreateBuildInfo'
+    SandboxLabels:
+      type: object
+      properties:
+        labels:
+          type: object
+          description: Key-value pairs of labels
+          example:
+            environment: dev
+            team: backend
+          additionalProperties:
+            type: string
+      required:
+      - labels
+    SandboxInfo:
+      type: object
+      properties:
+        created:
+          type: string
+          description: The creation timestamp of the project
+          example: '2023-10-01T12:00:00Z'
+        name:
+          type: string
+          description: 'Deprecated: The name of the sandbox'
+          example: MySandbox
+          deprecated: true
+          default: ''
+        providerMetadata:
+          type: string
+          description: Additional metadata provided by the provider
+          example: '{"key": "value"}'
+      required:
+      - created
+      - name
+    CreateBuildInfo:
+      type: object
+      properties:
+        dockerfileContent:
+          type: string
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
+      required:
+      - dockerfileContent
     Workspace:
       type: object
       properties:
@@ -771,20 +829,6 @@ components:
       - memory
       - disk
       - toolboxProxyUrl
-    WorkspacePortPreviewUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          description: Preview url
-          example: https://123456-mysandbox.runner.com
-        token:
-          type: string
-          description: Access token
-          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
-      required:
-      - url
-      - token
     SandboxVolume:
       type: object
       properties:
@@ -803,76 +847,6 @@ components:
       required:
       - volumeId
       - mountPath
-    SandboxLabels:
-      type: object
-      properties:
-        labels:
-          type: object
-          description: Key-value pairs of labels
-          example:
-            environment: dev
-            team: backend
-          additionalProperties:
-            type: string
-      required:
-      - labels
-    SandboxState:
-      type: string
-      enum:
-      - creating
-      - restoring
-      - destroyed
-      - destroying
-      - started
-      - stopped
-      - starting
-      - stopping
-      - error
-      - build_failed
-      - pending_build
-      - building_snapshot
-      - unknown
-      - pulling_snapshot
-      - archived
-      - archiving
-      - resizing
-      - snapshotting
-      - forking
-      description: The state of the sandbox
-    SandboxDesiredState:
-      type: string
-      enum:
-      - destroyed
-      - started
-      - stopped
-      - resized
-      - archived
-      description: The desired state of the sandbox
-    CreateBuildInfo:
-      type: object
-      properties:
-        dockerfileContent:
-          type: string
-          description: The Dockerfile content used for the build
-          example: 'FROM node:14
-
-            WORKDIR /app
-
-            COPY . .
-
-            RUN npm install
-
-            CMD ["npm", "start"]'
-        contextHashes:
-          description: The context hashes used for the build
-          example:
-          - hash1
-          - hash2
-          type: array
-          items:
-            type: string
-      required:
-      - dockerfileContent
     BuildInfo:
       type: object
       properties:
@@ -912,26 +886,52 @@ components:
       - createdAt
       - updatedAt
       - snapshotRef
-    SandboxInfo:
+    WorkspacePortPreviewUrl:
       type: object
       properties:
-        created:
+        url:
           type: string
-          description: The creation timestamp of the project
-          example: '2023-10-01T12:00:00Z'
-        name:
+          description: Preview url
+          example: https://123456-mysandbox.runner.com
+        token:
           type: string
-          description: 'Deprecated: The name of the sandbox'
-          example: MySandbox
-          deprecated: true
-          default: ''
-        providerMetadata:
-          type: string
-          description: Additional metadata provided by the provider
-          example: '{"key": "value"}'
+          description: Access token
+          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
       required:
-      - created
-      - name
+      - url
+      - token
+    SandboxState:
+      type: string
+      enum:
+      - creating
+      - restoring
+      - destroyed
+      - destroying
+      - started
+      - stopped
+      - starting
+      - stopping
+      - error
+      - build_failed
+      - pending_build
+      - building_snapshot
+      - unknown
+      - pulling_snapshot
+      - archived
+      - archiving
+      - resizing
+      - snapshotting
+      - forking
+      description: The state of the sandbox
+    SandboxDesiredState:
+      type: string
+      enum:
+      - destroyed
+      - started
+      - stopped
+      - resized
+      - archived
+      description: The desired state of the sandbox
   securitySchemes:
     bearer:
       scheme: bearer

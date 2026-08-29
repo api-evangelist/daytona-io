@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin webhooks API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  title: Daytona Webhooks API
+  description: Daytona Webhooks API — webhooks operations on the Daytona AI platform.
   version: '1.0'
   contact:
     name: Daytona Platforms Inc.
@@ -111,6 +111,20 @@ paths:
       - webhooks
 components:
   schemas:
+    WebhookAppPortalAccess:
+      type: object
+      properties:
+        token:
+          type: string
+          description: The authentication token for the Svix consumer app portal
+          example: appsk_...
+        url:
+          type: string
+          description: The URL to the webhook app portal
+          example: https://app.svix.com/app_1234567890
+      required:
+      - token
+      - url
     WebhookInitializationStatus:
       type: object
       properties:
@@ -147,20 +161,6 @@ components:
       - retryCount
       - createdAt
       - updatedAt
-    WebhookAppPortalAccess:
-      type: object
-      properties:
-        token:
-          type: string
-          description: The authentication token for the Svix consumer app portal
-          example: appsk_...
-        url:
-          type: string
-          description: The URL to the webhook app portal
-          example: https://app.svix.com/app_1234567890
-      required:
-      - token
-      - url
   securitySchemes:
     bearer:
       scheme: bearer

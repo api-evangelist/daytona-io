@@ -1,59 +1,47 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin server API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
-  version: '1.0'
-  contact:
-    name: Daytona Platforms Inc.
-    url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona Toolbox API
+  title: Daytona Sandbox Toolbox Server API
+  contact: {}
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  version: v0.0.0-dev
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: https://proxy.app.daytona.io/toolbox
+  description: Daytona Sandbox Toolbox proxy
 tags:
 - name: server
 paths:
   /init:
     post:
       description: Set the auth token and initialize telemetry for the toolbox server
-      produces:
-      - application/json
       tags:
       - server
       summary: Initialize toolbox server
       operationId: Initialize
-      parameters:
-      - description: Initialization request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/InitializeRequest'
       responses:
         '200':
           description: OK
-          schema:
-            type: object
-            additionalProperties:
-              type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeRequest'
+        description: Initialization request
+        required: true
 components:
-  securitySchemes:
-    bearer:
-      scheme: bearer
-      bearerFormat: JWT
-      type: http
-      description: API Key access
-    oauth2:
-      type: openIdConnect
-      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
-definitions:
-  InitializeRequest:
-    type: object
-    required:
-    - token
-    properties:
-      token:
-        type: string
+  schemas:
+    InitializeRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string

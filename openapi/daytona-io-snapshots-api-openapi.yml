@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin snapshots API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  title: Daytona Snapshots API
+  description: Daytona Snapshots API — snapshots operations on the Daytona AI platform.
   version: '1.0'
   contact:
     name: Daytona Platforms Inc.
@@ -316,6 +316,59 @@ paths:
       - snapshots
 components:
   schemas:
+    CreateSnapshot:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the snapshot
+          example: ubuntu-4vcpu-8ram-100gb
+        imageName:
+          type: string
+          description: The image name of the snapshot
+          example: ubuntu:22.04
+        entrypoint:
+          description: The entrypoint command for the snapshot
+          example: sleep infinity
+          type: array
+          items:
+            type: string
+        cpu:
+          type: integer
+          description: CPU cores allocated to the resulting sandbox
+          example: 1
+        gpu:
+          type: integer
+          description: GPU units allocated to the resulting sandbox
+          example: 0
+        memory:
+          type: integer
+          description: Memory allocated to the resulting sandbox in GB
+          example: 1
+        disk:
+          type: integer
+          description: Disk space allocated to the sandbox in GB
+          example: 3
+        buildInfo:
+          description: Build information for the snapshot
+          allOf:
+          - $ref: '#/components/schemas/CreateBuildInfo'
+        regionId:
+          type: string
+          description: ID of the region where the snapshot will be available. Defaults to organization default region if not specified.
+      required:
+      - name
+    SnapshotState:
+      type: string
+      enum:
+      - building
+      - pending
+      - pulling
+      - active
+      - inactive
+      - error
+      - build_failed
+      - removing
     SnapshotDto:
       type: object
       properties:
@@ -393,48 +446,32 @@ components:
       - createdAt
       - updatedAt
       - lastUsedAt
-    CreateSnapshot:
+    PaginatedSnapshots:
       type: object
       properties:
-        name:
-          type: string
-          description: The name of the snapshot
-          example: ubuntu-4vcpu-8ram-100gb
-        imageName:
-          type: string
-          description: The image name of the snapshot
-          example: ubuntu:22.04
-        entrypoint:
-          description: The entrypoint command for the snapshot
-          example: sleep infinity
+        items:
           type: array
           items:
-            type: string
-        cpu:
-          type: integer
-          description: CPU cores allocated to the resulting sandbox
-          example: 1
-        gpu:
-          type: integer
-          description: GPU units allocated to the resulting sandbox
-          example: 0
-        memory:
-          type: integer
-          description: Memory allocated to the resulting sandbox in GB
-          example: 1
-        disk:
-          type: integer
-          description: Disk space allocated to the sandbox in GB
-          example: 3
-        buildInfo:
-          description: Build information for the snapshot
-          allOf:
-          - $ref: '#/components/schemas/CreateBuildInfo'
-        regionId:
-          type: string
-          description: ID of the region where the snapshot will be available. Defaults to organization default region if not specified.
+            $ref: '#/components/schemas/SnapshotDto'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
       required:
-      - name
+      - items
+      - total
+      - page
+      - totalPages
+    Url:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL response
+      required:
+      - url
     BuildInfo:
       type: object
       properties:
@@ -474,24 +511,6 @@ components:
       - createdAt
       - updatedAt
       - snapshotRef
-    PaginatedSnapshots:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SnapshotDto'
-        total:
-          type: number
-        page:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - items
-      - total
-      - page
-      - totalPages
     CreateBuildInfo:
       type: object
       properties:
@@ -517,25 +536,6 @@ components:
             type: string
       required:
       - dockerfileContent
-    SnapshotState:
-      type: string
-      enum:
-      - building
-      - pending
-      - pulling
-      - active
-      - inactive
-      - error
-      - build_failed
-      - removing
-    Url:
-      type: object
-      properties:
-        url:
-          type: string
-          description: URL response
-      required:
-      - url
   securitySchemes:
     bearer:
       scheme: bearer

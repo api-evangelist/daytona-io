@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin API
+  title: Daytona Admin API
   description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
   version: '1.0'
   contact:
@@ -494,6 +494,429 @@ paths:
       - admin
 components:
   schemas:
+    PaginatedAuditLogs:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
+        nextToken:
+          type: string
+          description: Token for next page in cursor-based pagination
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    AdminCreateRunner:
+      type: object
+      properties:
+        regionId:
+          type: string
+        name:
+          type: string
+        tags:
+          description: Tags to associate with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+        apiKey:
+          type: string
+        apiVersion:
+          type: string
+          description: The api version of the runner to create
+          pattern: ^(0|2)$
+          example: '2'
+        domain:
+          type: string
+          description: The domain of the runner
+          example: runner1.example.com
+        apiUrl:
+          type: string
+          description: The API URL of the runner
+          example: https://api.runner1.example.com
+        proxyUrl:
+          type: string
+          description: The proxy URL of the runner
+          example: https://proxy.runner1.example.com
+        cpu:
+          type: number
+          description: The CPU capacity of the runner
+          example: 8
+        memoryGiB:
+          type: number
+          description: The memory capacity of the runner in GiB
+          example: 16
+        diskGiB:
+          type: number
+          description: The disk capacity of the runner in GiB
+          example: 100
+      required:
+      - regionId
+      - name
+      - apiKey
+      - apiVersion
+    UserPublicKey:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Public key
+        name:
+          type: string
+          description: Key name
+      required:
+      - key
+      - name
+    DockerRegistry:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Registry ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        name:
+          type: string
+          description: Registry name
+          example: My Docker Hub
+        url:
+          type: string
+          description: Registry URL
+          example: https://registry.hub.docker.com
+        username:
+          type: string
+          description: Registry username
+          example: username
+        project:
+          type: string
+          description: Registry project
+          example: my-project
+        registryType:
+          type: string
+          description: Registry type
+          enum:
+          - internal
+          - organization
+          - transient
+          - backup
+          example: internal
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+          example: '2024-01-31T12:00:00Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+          example: '2024-01-31T12:00:00Z'
+      required:
+      - id
+      - name
+      - url
+      - username
+      - project
+      - registryType
+      - createdAt
+      - updatedAt
+    BuildInfo:
+      type: object
+      properties:
+        dockerfileContent:
+          type: string
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
+        createdAt:
+          format: date-time
+          type: string
+          description: The creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: The last update timestamp
+        snapshotRef:
+          type: string
+          description: The snapshot reference
+          example: daytonaio/sandbox:latest
+      required:
+      - createdAt
+      - updatedAt
+      - snapshotRef
+    SandboxVolume:
+      type: object
+      properties:
+        volumeId:
+          type: string
+          description: The ID of the volume
+          example: volume123
+        mountPath:
+          type: string
+          description: The mount path for the volume
+          example: /data
+        subpath:
+          type: string
+          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
+          example: users/alice
+      required:
+      - volumeId
+      - mountPath
+    RunnerFull:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the runner
+          example: runner123
+        domain:
+          type: string
+          description: The domain of the runner
+          example: runner1.example.com
+        apiUrl:
+          type: string
+          description: The API URL of the runner
+          example: https://api.runner1.example.com
+        proxyUrl:
+          type: string
+          description: The proxy URL of the runner
+          example: https://proxy.runner1.example.com
+        cpu:
+          type: number
+          description: The CPU capacity of the runner
+          example: 8
+        memory:
+          type: number
+          description: The memory capacity of the runner in GiB
+          example: 16
+        disk:
+          type: number
+          description: The disk capacity of the runner in GiB
+          example: 100
+        gpu:
+          type: number
+          description: The GPU capacity of the runner
+          example: 1
+        gpuType:
+          type: string
+          description: The type of GPU
+        class:
+          description: The class of the runner
+          example: small
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+        currentCpuUsagePercentage:
+          type: number
+          description: Current CPU usage percentage
+          example: 45.6
+        currentMemoryUsagePercentage:
+          type: number
+          description: Current RAM usage percentage
+          example: 68.2
+        currentDiskUsagePercentage:
+          type: number
+          description: Current disk usage percentage
+          example: 33.8
+        currentAllocatedCpu:
+          type: number
+          description: Current allocated CPU
+          example: 4000
+        currentAllocatedMemoryGiB:
+          type: number
+          description: Current allocated memory in GiB
+          example: 8000
+        currentAllocatedDiskGiB:
+          type: number
+          description: Current allocated disk in GiB
+          example: 50000
+        currentSnapshotCount:
+          type: number
+          description: Current snapshot count
+          example: 12
+        currentStartedSandboxes:
+          type: number
+          description: Current number of started sandboxes
+          example: 5
+        availabilityScore:
+          type: number
+          description: Runner availability score
+          example: 85
+        region:
+          type: string
+          description: The region of the runner
+          example: us
+        name:
+          type: string
+          description: The name of the runner
+          example: runner1
+        state:
+          description: The state of the runner
+          example: initializing
+          allOf:
+          - $ref: '#/components/schemas/RunnerState'
+        lastChecked:
+          type: string
+          description: The last time the runner was checked
+          example: '2024-10-01T12:00:00Z'
+        unschedulable:
+          type: boolean
+          description: Whether the runner is unschedulable
+          example: false
+        tags:
+          description: Tags associated with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          description: The creation timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        updatedAt:
+          type: string
+          description: The last update timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        version:
+          type: string
+          description: The version of the runner (deprecated in favor of apiVersion)
+          example: '0'
+          deprecated: true
+        apiVersion:
+          type: string
+          description: The api version of the runner
+          example: '0'
+          deprecated: true
+        runnerClass:
+          description: The class of the runner
+          example: container
+          allOf:
+          - $ref: '#/components/schemas/RunnerClass'
+        appVersion:
+          type: string
+          description: The app version of the runner
+          example: v0.0.0-dev
+          deprecated: true
+        apiKey:
+          type: string
+          description: The API key for the runner
+          example: dtn_1234567890
+        regionType:
+          description: The region type of the runner
+          example: shared
+          allOf:
+          - $ref: '#/components/schemas/RegionType'
+      required:
+      - id
+      - cpu
+      - memory
+      - disk
+      - class
+      - region
+      - name
+      - state
+      - unschedulable
+      - tags
+      - createdAt
+      - updatedAt
+      - version
+      - apiVersion
+      - runnerClass
+      - apiKey
+    SandboxDesiredState:
+      type: string
+      enum:
+      - destroyed
+      - started
+      - stopped
+      - resized
+      - archived
+      description: The desired state of the sandbox
+    SetSnapshotGeneralStatusDto:
+      type: object
+      properties:
+        general:
+          type: boolean
+          description: Whether the snapshot is general
+          example: true
+      required:
+      - general
+    CreateUser:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        personalOrganizationQuota:
+          $ref: '#/components/schemas/CreateOrganizationQuota'
+        personalOrganizationDefaultRegionId:
+          type: string
+        role:
+          type: string
+          enum:
+          - admin
+          - user
+        emailVerified:
+          type: boolean
+      required:
+      - id
+      - name
+    SendWebhookDto:
+      type: object
+      properties:
+        eventType:
+          description: The type of event being sent
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        payload:
+          type: object
+          description: The payload data to send
+          example:
+            id: sandbox-123
+            name: My Sandbox
+        eventId:
+          type: string
+          description: Optional event ID for idempotency
+          example: evt_1234567890abcdef
+      required:
+      - eventType
+      - payload
+    SandboxClass:
+      type: string
+      enum:
+      - small
+      - medium
+      - large
+      description: The class of the runner
     SnapshotDto:
       type: object
       properties:
@@ -571,17 +994,44 @@ components:
       - createdAt
       - updatedAt
       - lastUsedAt
-    WebhookEvent:
+    SandboxState:
       type: string
       enum:
-      - sandbox.created
-      - sandbox.state.updated
-      - snapshot.created
-      - snapshot.state.updated
-      - snapshot.removed
-      - volume.created
-      - volume.state.updated
-      description: The type of event being sent
+      - creating
+      - restoring
+      - destroyed
+      - destroying
+      - started
+      - stopped
+      - starting
+      - stopping
+      - error
+      - build_failed
+      - pending_build
+      - building_snapshot
+      - unknown
+      - pulling_snapshot
+      - archived
+      - archiving
+      - resizing
+      - snapshotting
+      - forking
+      description: The state of the sandbox
+    RunnerState:
+      type: string
+      enum:
+      - initializing
+      - ready
+      - disabled
+      - decommissioned
+      - unresponsive
+      description: The state of the runner
+    RunnerClass:
+      type: string
+      enum:
+      - container
+      - vm
+      description: The class of the runner
     CreateRunnerResponse:
       type: object
       properties:
@@ -596,66 +1046,108 @@ components:
       required:
       - id
       - apiKey
-    RunnerState:
-      type: string
-      enum:
-      - initializing
-      - ready
-      - disabled
-      - decommissioned
-      - unresponsive
-      description: The state of the runner
-    SendWebhookDto:
+    User:
       type: object
       properties:
-        eventType:
-          description: The type of event being sent
-          example: sandbox.created
-          allOf:
-          - $ref: '#/components/schemas/WebhookEvent'
-        payload:
-          type: object
-          description: The payload data to send
-          example:
-            id: sandbox-123
-            name: My Sandbox
-        eventId:
+        id:
           type: string
-          description: Optional event ID for idempotency
-          example: evt_1234567890abcdef
-      required:
-      - eventType
-      - payload
-    SandboxVolume:
-      type: object
-      properties:
-        volumeId:
-          type: string
-          description: The ID of the volume
-          example: volume123
-        mountPath:
-          type: string
-          description: The mount path for the volume
-          example: /data
-        subpath:
-          type: string
-          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
-          example: users/alice
-      required:
-      - volumeId
-      - mountPath
-    UserPublicKey:
-      type: object
-      properties:
-        key:
-          type: string
-          description: Public key
+          description: User ID
         name:
           type: string
-          description: Key name
+          description: User name
+        email:
+          type: string
+          description: User email
+        publicKeys:
+          description: User public keys
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPublicKey'
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
       required:
-      - key
+      - id
       - name
+      - email
+      - publicKeys
+      - createdAt
+    AuditLog:
+      type: object
+      properties:
+        id:
+          type: string
+        actorId:
+          type: string
+        actorEmail:
+          type: string
+        actorApiKeyPrefix:
+          type: string
+        actorApiKeySuffix:
+          type: string
+        organizationId:
+          type: string
+        action:
+          type: string
+        targetType:
+          type: string
+        targetId:
+          type: string
+        statusCode:
+          type: number
+        errorMessage:
+          type: string
+        ipAddress:
+          type: string
+        userAgent:
+          type: string
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        createdAt:
+          format: date-time
+          type: string
+      required:
+      - id
+      - actorId
+      - actorEmail
+      - action
+      - createdAt
+    SnapshotState:
+      type: string
+      enum:
+      - building
+      - pending
+      - pulling
+      - active
+      - inactive
+      - error
+      - build_failed
+      - removing
+    CreateOrganizationQuota:
+      type: object
+      properties:
+        totalCpuQuota:
+          type: number
+        totalMemoryQuota:
+          type: number
+        totalDiskQuota:
+          type: number
+        maxCpuPerSandbox:
+          type: number
+        maxMemoryPerSandbox:
+          type: number
+        maxDiskPerSandbox:
+          type: number
+        snapshotQuota:
+          type: number
+        maxSnapshotSize:
+          type: number
+        volumeQuota:
+          type: number
     Sandbox:
       type: object
       properties:
@@ -826,180 +1318,6 @@ components:
       - memory
       - disk
       - toolboxProxyUrl
-    PaginatedAuditLogs:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
-        total:
-          type: number
-        page:
-          type: number
-        totalPages:
-          type: number
-        nextToken:
-          type: string
-          description: Token for next page in cursor-based pagination
-      required:
-      - items
-      - total
-      - page
-      - totalPages
-    AuditLog:
-      type: object
-      properties:
-        id:
-          type: string
-        actorId:
-          type: string
-        actorEmail:
-          type: string
-        actorApiKeyPrefix:
-          type: string
-        actorApiKeySuffix:
-          type: string
-        organizationId:
-          type: string
-        action:
-          type: string
-        targetType:
-          type: string
-        targetId:
-          type: string
-        statusCode:
-          type: number
-        errorMessage:
-          type: string
-        ipAddress:
-          type: string
-        userAgent:
-          type: string
-        source:
-          type: string
-        metadata:
-          type: object
-          additionalProperties: true
-        createdAt:
-          format: date-time
-          type: string
-      required:
-      - id
-      - actorId
-      - actorEmail
-      - action
-      - createdAt
-    DockerRegistry:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Registry ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        name:
-          type: string
-          description: Registry name
-          example: My Docker Hub
-        url:
-          type: string
-          description: Registry URL
-          example: https://registry.hub.docker.com
-        username:
-          type: string
-          description: Registry username
-          example: username
-        project:
-          type: string
-          description: Registry project
-          example: my-project
-        registryType:
-          type: string
-          description: Registry type
-          enum:
-          - internal
-          - organization
-          - transient
-          - backup
-          example: internal
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-          example: '2024-01-31T12:00:00Z'
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
-          example: '2024-01-31T12:00:00Z'
-      required:
-      - id
-      - name
-      - url
-      - username
-      - project
-      - registryType
-      - createdAt
-      - updatedAt
-    CreateOrganizationQuota:
-      type: object
-      properties:
-        totalCpuQuota:
-          type: number
-        totalMemoryQuota:
-          type: number
-        totalDiskQuota:
-          type: number
-        maxCpuPerSandbox:
-          type: number
-        maxMemoryPerSandbox:
-          type: number
-        maxDiskPerSandbox:
-          type: number
-        snapshotQuota:
-          type: number
-        maxSnapshotSize:
-          type: number
-        volumeQuota:
-          type: number
-    RunnerClass:
-      type: string
-      enum:
-      - container
-      - vm
-      description: The class of the runner
-    SandboxState:
-      type: string
-      enum:
-      - creating
-      - restoring
-      - destroyed
-      - destroying
-      - started
-      - stopped
-      - starting
-      - stopping
-      - error
-      - build_failed
-      - pending_build
-      - building_snapshot
-      - unknown
-      - pulling_snapshot
-      - archived
-      - archiving
-      - resizing
-      - snapshotting
-      - forking
-      description: The state of the sandbox
-    SandboxDesiredState:
-      type: string
-      enum:
-      - destroyed
-      - started
-      - stopped
-      - resized
-      - archived
-      description: The desired state of the sandbox
     RegionType:
       type: string
       enum:
@@ -1007,335 +1325,17 @@ components:
       - dedicated
       - custom
       description: The type of the region
-    BuildInfo:
-      type: object
-      properties:
-        dockerfileContent:
-          type: string
-          description: The Dockerfile content used for the build
-          example: 'FROM node:14
-
-            WORKDIR /app
-
-            COPY . .
-
-            RUN npm install
-
-            CMD ["npm", "start"]'
-        contextHashes:
-          description: The context hashes used for the build
-          example:
-          - hash1
-          - hash2
-          type: array
-          items:
-            type: string
-        createdAt:
-          format: date-time
-          type: string
-          description: The creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: The last update timestamp
-        snapshotRef:
-          type: string
-          description: The snapshot reference
-          example: daytonaio/sandbox:latest
-      required:
-      - createdAt
-      - updatedAt
-      - snapshotRef
-    SetSnapshotGeneralStatusDto:
-      type: object
-      properties:
-        general:
-          type: boolean
-          description: Whether the snapshot is general
-          example: true
-      required:
-      - general
-    CreateUser:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        personalOrganizationQuota:
-          $ref: '#/components/schemas/CreateOrganizationQuota'
-        personalOrganizationDefaultRegionId:
-          type: string
-        role:
-          type: string
-          enum:
-          - admin
-          - user
-        emailVerified:
-          type: boolean
-      required:
-      - id
-      - name
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          description: User ID
-        name:
-          type: string
-          description: User name
-        email:
-          type: string
-          description: User email
-        publicKeys:
-          description: User public keys
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPublicKey'
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-      required:
-      - id
-      - name
-      - email
-      - publicKeys
-      - createdAt
-    RunnerFull:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the runner
-          example: runner123
-        domain:
-          type: string
-          description: The domain of the runner
-          example: runner1.example.com
-        apiUrl:
-          type: string
-          description: The API URL of the runner
-          example: https://api.runner1.example.com
-        proxyUrl:
-          type: string
-          description: The proxy URL of the runner
-          example: https://proxy.runner1.example.com
-        cpu:
-          type: number
-          description: The CPU capacity of the runner
-          example: 8
-        memory:
-          type: number
-          description: The memory capacity of the runner in GiB
-          example: 16
-        disk:
-          type: number
-          description: The disk capacity of the runner in GiB
-          example: 100
-        gpu:
-          type: number
-          description: The GPU capacity of the runner
-          example: 1
-        gpuType:
-          type: string
-          description: The type of GPU
-        class:
-          description: The class of the runner
-          example: small
-          allOf:
-          - $ref: '#/components/schemas/SandboxClass'
-        currentCpuUsagePercentage:
-          type: number
-          description: Current CPU usage percentage
-          example: 45.6
-        currentMemoryUsagePercentage:
-          type: number
-          description: Current RAM usage percentage
-          example: 68.2
-        currentDiskUsagePercentage:
-          type: number
-          description: Current disk usage percentage
-          example: 33.8
-        currentAllocatedCpu:
-          type: number
-          description: Current allocated CPU
-          example: 4000
-        currentAllocatedMemoryGiB:
-          type: number
-          description: Current allocated memory in GiB
-          example: 8000
-        currentAllocatedDiskGiB:
-          type: number
-          description: Current allocated disk in GiB
-          example: 50000
-        currentSnapshotCount:
-          type: number
-          description: Current snapshot count
-          example: 12
-        currentStartedSandboxes:
-          type: number
-          description: Current number of started sandboxes
-          example: 5
-        availabilityScore:
-          type: number
-          description: Runner availability score
-          example: 85
-        region:
-          type: string
-          description: The region of the runner
-          example: us
-        name:
-          type: string
-          description: The name of the runner
-          example: runner1
-        state:
-          description: The state of the runner
-          example: initializing
-          allOf:
-          - $ref: '#/components/schemas/RunnerState'
-        lastChecked:
-          type: string
-          description: The last time the runner was checked
-          example: '2024-10-01T12:00:00Z'
-        unschedulable:
-          type: boolean
-          description: Whether the runner is unschedulable
-          example: false
-        tags:
-          description: Tags associated with the runner
-          example:
-          - gpu
-          - us-east
-          type: array
-          items:
-            type: string
-        createdAt:
-          type: string
-          description: The creation timestamp of the runner
-          example: '2023-10-01T12:00:00Z'
-        updatedAt:
-          type: string
-          description: The last update timestamp of the runner
-          example: '2023-10-01T12:00:00Z'
-        version:
-          type: string
-          description: The version of the runner (deprecated in favor of apiVersion)
-          example: '0'
-          deprecated: true
-        apiVersion:
-          type: string
-          description: The api version of the runner
-          example: '0'
-          deprecated: true
-        runnerClass:
-          description: The class of the runner
-          example: container
-          allOf:
-          - $ref: '#/components/schemas/RunnerClass'
-        appVersion:
-          type: string
-          description: The app version of the runner
-          example: v0.0.0-dev
-          deprecated: true
-        apiKey:
-          type: string
-          description: The API key for the runner
-          example: dtn_1234567890
-        regionType:
-          description: The region type of the runner
-          example: shared
-          allOf:
-          - $ref: '#/components/schemas/RegionType'
-      required:
-      - id
-      - cpu
-      - memory
-      - disk
-      - class
-      - region
-      - name
-      - state
-      - unschedulable
-      - tags
-      - createdAt
-      - updatedAt
-      - version
-      - apiVersion
-      - runnerClass
-      - apiKey
-    SandboxClass:
+    WebhookEvent:
       type: string
       enum:
-      - small
-      - medium
-      - large
-      description: The class of the runner
-    AdminCreateRunner:
-      type: object
-      properties:
-        regionId:
-          type: string
-        name:
-          type: string
-        tags:
-          description: Tags to associate with the runner
-          example:
-          - gpu
-          - us-east
-          type: array
-          items:
-            type: string
-        apiKey:
-          type: string
-        apiVersion:
-          type: string
-          description: The api version of the runner to create
-          pattern: ^(0|2)$
-          example: '2'
-        domain:
-          type: string
-          description: The domain of the runner
-          example: runner1.example.com
-        apiUrl:
-          type: string
-          description: The API URL of the runner
-          example: https://api.runner1.example.com
-        proxyUrl:
-          type: string
-          description: The proxy URL of the runner
-          example: https://proxy.runner1.example.com
-        cpu:
-          type: number
-          description: The CPU capacity of the runner
-          example: 8
-        memoryGiB:
-          type: number
-          description: The memory capacity of the runner in GiB
-          example: 16
-        diskGiB:
-          type: number
-          description: The disk capacity of the runner in GiB
-          example: 100
-      required:
-      - regionId
-      - name
-      - apiKey
-      - apiVersion
-    SnapshotState:
-      type: string
-      enum:
-      - building
-      - pending
-      - pulling
-      - active
-      - inactive
-      - error
-      - build_failed
-      - removing
+      - sandbox.created
+      - sandbox.state.updated
+      - snapshot.created
+      - snapshot.state.updated
+      - snapshot.removed
+      - volume.created
+      - volume.state.updated
+      description: The type of event being sent
   securitySchemes:
     bearer:
       scheme: bearer

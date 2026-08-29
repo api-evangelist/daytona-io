@@ -1,0 +1,483 @@
+openapi: 3.2.0
+info:
+  title: Daytona Organizations API
+  description: Daytona Organizations API — organizations operations on the Daytona AI platform.
+  version: '1.0'
+  contact:
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+    email: support@daytona.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://app.daytona.io/api
+  description: Daytona Cloud production API
+tags:
+- name: Daytona Organizations API
+paths: {}
+webhooks:
+  sandbox.created:
+    post:
+      requestBody:
+        description: Sandbox created event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SandboxCreatedWebhook'
+      responses:
+        '200':
+          description: Webhook received successfully
+      tags:
+      - Daytona Organizations API
+  sandbox.state.updated:
+    post:
+      requestBody:
+        description: Sandbox state updated event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SandboxStateUpdatedWebhook'
+      responses:
+        '200':
+          description: Webhook received successfully
+      tags:
+      - Daytona Organizations API
+  snapshot.created:
+    post:
+      requestBody:
+        description: Snapshot created event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotCreatedWebhook'
+      responses:
+        '200':
+          description: Webhook received successfully
+      tags:
+      - Daytona Organizations API
+  snapshot.state.updated:
+    post:
+      requestBody:
+        description: Snapshot state updated event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotStateUpdatedWebhook'
+      responses:
+        '200':
+          description: Webhook received successfully
+      tags:
+      - Daytona Organizations API
+  snapshot.removed:
+    post:
+      requestBody:
+        description: Snapshot removed event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotRemovedWebhook'
+      responses:
+        '200':
+          description: Webhook received successfully
+      tags:
+      - Daytona Organizations API
+  volume.created:
+    post:
+      requestBody:
+        description: Volume created event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolumeCreatedWebhook'
+      responses:
+        '200':
+          description: Webhook received successfully
+      tags:
+      - Daytona Organizations API
+  volume.state.updated:
+    post:
+      requestBody:
+        description: Volume state updated event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VolumeStateUpdatedWebhook'
+      responses:
+        '200':
+          description: Webhook received successfully
+      tags:
+      - Daytona Organizations API
+components:
+  schemas:
+    VolumeStateUpdatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Volume ID
+          example: vol-12345678
+        name:
+          type: string
+          description: Volume name
+          example: my-volume
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        oldState:
+          description: Previous state
+          allOf:
+          - $ref: '#/components/schemas/VolumeState'
+        newState:
+          description: New state
+          allOf:
+          - $ref: '#/components/schemas/VolumeState'
+        updatedAt:
+          type: string
+          description: When the volume was last updated
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - name
+      - organizationId
+      - oldState
+      - newState
+      - updatedAt
+    SnapshotState:
+      type: string
+      enum:
+      - building
+      - pending
+      - pulling
+      - active
+      - inactive
+      - error
+      - build_failed
+      - removing
+    VolumeCreatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Volume ID
+          example: vol-12345678
+        name:
+          type: string
+          description: Volume name
+          example: my-volume
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        state:
+          description: Volume state
+          allOf:
+          - $ref: '#/components/schemas/VolumeState'
+        createdAt:
+          type: string
+          description: When the volume was created
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - name
+      - organizationId
+      - state
+      - createdAt
+    SandboxClass:
+      type: string
+      enum:
+      - small
+      - medium
+      - large
+      description: The class of the runner
+    SandboxCreatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Sandbox ID
+          example: sandbox123
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        state:
+          description: Sandbox state
+          allOf:
+          - $ref: '#/components/schemas/SandboxState'
+        class:
+          description: Sandbox class
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+        createdAt:
+          type: string
+          description: When the sandbox was created
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - organizationId
+      - state
+      - class
+      - createdAt
+    SnapshotRemovedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Snapshot ID
+          example: snapshot123
+        name:
+          type: string
+          description: Snapshot name
+          example: my-snapshot
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        removedAt:
+          type: string
+          description: When the snapshot was removed
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - name
+      - organizationId
+      - removedAt
+    SandboxStateUpdatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Sandbox ID
+          example: sandbox123
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        oldState:
+          description: Previous state
+          allOf:
+          - $ref: '#/components/schemas/SandboxState'
+        newState:
+          description: New state
+          allOf:
+          - $ref: '#/components/schemas/SandboxState'
+        updatedAt:
+          type: string
+          description: When the sandbox was last updated
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - organizationId
+      - oldState
+      - newState
+      - updatedAt
+    WebhookEvent:
+      type: string
+      enum:
+      - sandbox.created
+      - sandbox.state.updated
+      - snapshot.created
+      - snapshot.state.updated
+      - snapshot.removed
+      - volume.created
+      - volume.state.updated
+      description: The type of event being sent
+    SnapshotCreatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Snapshot ID
+          example: snapshot123
+        name:
+          type: string
+          description: Snapshot name
+          example: my-snapshot
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        state:
+          description: Snapshot state
+          allOf:
+          - $ref: '#/components/schemas/SnapshotState'
+        createdAt:
+          type: string
+          description: When the snapshot was created
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - name
+      - organizationId
+      - state
+      - createdAt
+    SnapshotStateUpdatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Snapshot ID
+          example: snapshot123
+        name:
+          type: string
+          description: Snapshot name
+          example: my-snapshot
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        oldState:
+          description: Previous state
+          allOf:
+          - $ref: '#/components/schemas/SnapshotState'
+        newState:
+          description: New state
+          allOf:
+          - $ref: '#/components/schemas/SnapshotState'
+        updatedAt:
+          type: string
+          description: When the snapshot was last updated
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - name
+      - organizationId
+      - oldState
+      - newState
+      - updatedAt
+    SandboxState:
+      type: string
+      enum:
+      - creating
+      - restoring
+      - destroyed
+      - destroying
+      - started
+      - stopped
+      - starting
+      - stopping
+      - error
+      - build_failed
+      - pending_build
+      - building_snapshot
+      - unknown
+      - pulling_snapshot
+      - archived
+      - archiving
+      - resizing
+      - snapshotting
+      - forking
+      description: The state of the sandbox
+    VolumeState:
+      type: string
+      enum:
+      - creating
+      - ready
+      - pending_create
+      - pending_delete
+      - deleting
+      - deleted
+      - error
+      description: Volume state
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: API Key access
+    oauth2:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration

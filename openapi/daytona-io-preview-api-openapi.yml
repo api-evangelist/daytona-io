@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin preview API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  title: Daytona Preview API
+  description: Daytona Preview API — preview operations on the Daytona AI platform.
   version: '1.0'
   contact:
     name: Daytona Platforms Inc.

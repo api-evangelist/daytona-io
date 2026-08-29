@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin api-keys API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  title: Daytona API Keys API
+  description: Daytona Api Keys API — api-keys operations on the Daytona AI platform.
   version: '1.0'
   contact:
     name: Daytona Platforms Inc.
@@ -243,6 +243,43 @@ components:
       - createdAt
       - permissions
       - expiresAt
+    CreateApiKey:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the API key
+          example: My API Key
+        permissions:
+          type: array
+          description: The list of organization resource permissions explicitly assigned to the API key
+          items:
+            type: string
+            enum:
+            - write:registries
+            - delete:registries
+            - write:snapshots
+            - delete:snapshots
+            - write:sandboxes
+            - delete:sandboxes
+            - read:volumes
+            - write:volumes
+            - delete:volumes
+            - write:regions
+            - delete:regions
+            - read:runners
+            - write:runners
+            - delete:runners
+            - read:audit_logs
+        expiresAt:
+          format: date-time
+          type: string
+          description: When the API key expires
+          example: '2025-06-09T12:00:00.000Z'
+          nullable: true
+      required:
+      - name
+      - permissions
     ApiKeyList:
       type: object
       properties:
@@ -304,43 +341,6 @@ components:
       - lastUsedAt
       - expiresAt
       - userId
-    CreateApiKey:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the API key
-          example: My API Key
-        permissions:
-          type: array
-          description: The list of organization resource permissions explicitly assigned to the API key
-          items:
-            type: string
-            enum:
-            - write:registries
-            - delete:registries
-            - write:snapshots
-            - delete:snapshots
-            - write:sandboxes
-            - delete:sandboxes
-            - read:volumes
-            - write:volumes
-            - delete:volumes
-            - write:regions
-            - delete:regions
-            - read:runners
-            - write:runners
-            - delete:runners
-            - read:audit_logs
-        expiresAt:
-          format: date-time
-          type: string
-          description: When the API key expires
-          example: '2025-06-09T12:00:00.000Z'
-          nullable: true
-      required:
-      - name
-      - permissions
   securitySchemes:
     bearer:
       scheme: bearer

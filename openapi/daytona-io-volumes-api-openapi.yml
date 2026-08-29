@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin volumes API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
+  title: Daytona Volumes API
+  description: Daytona Volumes API — volumes operations on the Daytona AI platform.
   version: '1.0'
   contact:
     name: Daytona Platforms Inc.
@@ -176,24 +176,6 @@ paths:
       - volumes
 components:
   schemas:
-    VolumeState:
-      type: string
-      enum:
-      - creating
-      - ready
-      - pending_create
-      - pending_delete
-      - deleting
-      - deleted
-      - error
-      description: Volume state
-    CreateVolume:
-      type: object
-      properties:
-        name:
-          type: string
-      required:
-      - name
     VolumeDto:
       type: object
       properties:
@@ -240,6 +222,24 @@ components:
       - createdAt
       - updatedAt
       - errorReason
+    CreateVolume:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    VolumeState:
+      type: string
+      enum:
+      - creating
+      - ready
+      - pending_create
+      - pending_delete
+      - deleting
+      - deleted
+      - error
+      description: Volume state
   securitySchemes:
     bearer:
       scheme: bearer

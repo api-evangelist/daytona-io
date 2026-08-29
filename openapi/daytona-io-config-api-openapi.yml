@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin config API
+  title: Daytona Admin Config API
   description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
   version: '1.0'
   contact:
@@ -78,36 +78,6 @@ components:
           example: https://example.com/learn-more
       required:
       - text
-    RateLimitConfig:
-      type: object
-      properties:
-        failedAuth:
-          description: Failed authentication rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        authenticated:
-          description: Authenticated rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        sandboxCreate:
-          description: Sandbox create rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        sandboxLifecycle:
-          description: Sandbox lifecycle rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-    RateLimitEntry:
-      type: object
-      properties:
-        ttl:
-          type: number
-          description: Rate limit TTL in seconds
-          example: 60
-        limit:
-          type: number
-          description: Rate limit max requests
-          example: 100
     DaytonaConfiguration:
       type: object
       properties:
@@ -200,6 +170,36 @@ components:
       - maxAutoArchiveInterval
       - maintananceMode
       - environment
+    RateLimitEntry:
+      type: object
+      properties:
+        ttl:
+          type: number
+          description: Rate limit TTL in seconds
+          example: 60
+        limit:
+          type: number
+          description: Rate limit max requests
+          example: 100
+    RateLimitConfig:
+      type: object
+      properties:
+        failedAuth:
+          description: Failed authentication rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        authenticated:
+          description: Authenticated rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxCreate:
+          description: Sandbox create rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxLifecycle:
+          description: Sandbox lifecycle rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
   securitySchemes:
     bearer:
       scheme: bearer

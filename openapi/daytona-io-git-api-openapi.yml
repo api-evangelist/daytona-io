@@ -1,438 +1,399 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Daytona admin git API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
-  version: '1.0'
-  contact:
-    name: Daytona Platforms Inc.
-    url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona Toolbox API
+  title: Daytona Sandbox Toolbox Git API
+  contact: {}
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  version: v0.0.0-dev
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: https://proxy.app.daytona.io/toolbox
+  description: Daytona Sandbox Toolbox proxy
 tags:
 - name: git
 paths:
   /git/add:
     post:
       description: Add files to the Git staging area
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Add files to Git staging
       operationId: AddFiles
-      parameters:
-      - description: Add files request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitAddRequest'
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitAddRequest'
+        description: Add files request
+        required: true
   /git/branches:
     get:
       description: Get a list of all branches in the Git repository
-      produces:
-      - application/json
       tags:
       - git
       summary: List branches
       operationId: ListBranches
       parameters:
-      - type: string
-        description: Repository path
+      - description: Repository path
         name: path
         in: query
         required: true
+        schema:
+          type: string
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/ListBranchResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBranchResponse'
     post:
       description: Create a new branch in the Git repository
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Create a new branch
       operationId: CreateBranch
-      parameters:
-      - description: Create branch request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitBranchRequest'
       responses:
         '201':
           description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitBranchRequest'
+        description: Create branch request
+        required: true
     delete:
       description: Delete a branch from the Git repository
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Delete a branch
       operationId: DeleteBranch
-      parameters:
-      - description: Delete branch request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitDeleteBranchRequest'
       responses:
         '204':
           description: No Content
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitDeleteBranchRequest'
+        description: Delete branch request
+        required: true
   /git/checkout:
     post:
       description: Switch to a different branch or commit in the Git repository
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Checkout branch or commit
       operationId: CheckoutBranch
-      parameters:
-      - description: Checkout request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitCheckoutRequest'
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitCheckoutRequest'
+        description: Checkout request
+        required: true
   /git/clone:
     post:
       description: Clone a Git repository to the specified path
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Clone a Git repository
       operationId: CloneRepository
-      parameters:
-      - description: Clone repository request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitCloneRequest'
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitCloneRequest'
+        description: Clone repository request
+        required: true
   /git/commit:
     post:
       description: Commit staged changes to the Git repository
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Commit changes
       operationId: CommitChanges
-      parameters:
-      - description: Commit request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitCommitRequest'
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/GitCommitResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitCommitResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitCommitRequest'
+        description: Commit request
+        required: true
   /git/history:
     get:
       description: Get the commit history of the Git repository
-      produces:
-      - application/json
       tags:
       - git
       summary: Get commit history
       operationId: GetCommitHistory
       parameters:
-      - type: string
-        description: Repository path
+      - description: Repository path
         name: path
         in: query
         required: true
+        schema:
+          type: string
       responses:
         '200':
           description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/GitCommitInfo'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GitCommitInfo'
   /git/pull:
     post:
       description: Pull changes from the remote Git repository
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Pull changes from remote
       operationId: PullChanges
-      parameters:
-      - description: Pull request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitRepoRequest'
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitRepoRequest'
+        description: Pull request
+        required: true
   /git/push:
     post:
       description: Push local changes to the remote Git repository
-      consumes:
-      - application/json
-      produces:
-      - application/json
       tags:
       - git
       summary: Push changes to remote
       operationId: PushChanges
-      parameters:
-      - description: Push request
-        name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/GitRepoRequest'
       responses:
         '200':
           description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitRepoRequest'
+        description: Push request
+        required: true
   /git/status:
     get:
       description: Get the Git status of the repository at the specified path
-      produces:
-      - application/json
       tags:
       - git
       summary: Get Git status
       operationId: GetStatus
       parameters:
-      - type: string
-        description: Repository path
+      - description: Repository path
         name: path
         in: query
         required: true
+        schema:
+          type: string
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/GitStatus'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitStatus'
 components:
-  securitySchemes:
-    bearer:
-      scheme: bearer
-      bearerFormat: JWT
-      type: http
-      description: API Key access
-    oauth2:
-      type: openIdConnect
-      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
-definitions:
-  GitDeleteBranchRequest:
-    type: object
-    required:
-    - name
-    - path
-    properties:
-      name:
-        type: string
-      path:
-        type: string
-  GitStatus:
-    type: object
-    required:
-    - currentBranch
-    - fileStatus
-    properties:
-      ahead:
-        type: integer
-      behind:
-        type: integer
-      branchPublished:
-        type: boolean
-      currentBranch:
-        type: string
-      fileStatus:
-        type: array
-        items:
-          $ref: '#/definitions/FileStatus'
-  ListBranchResponse:
-    type: object
-    required:
-    - branches
-    properties:
-      branches:
-        type: array
-        items:
+  schemas:
+    ListBranchResponse:
+      type: object
+      required:
+      - branches
+      properties:
+        branches:
+          type: array
+          items:
+            type: string
+    GitCommitRequest:
+      type: object
+      required:
+      - author
+      - email
+      - message
+      - path
+      properties:
+        allow_empty:
+          type: boolean
+        author:
           type: string
-  GitCommitResponse:
-    type: object
-    required:
-    - hash
-    properties:
-      hash:
-        type: string
-  GitRepoRequest:
-    type: object
-    required:
-    - path
-    properties:
-      password:
-        type: string
-      path:
-        type: string
-      username:
-        type: string
-  GitCommitInfo:
-    type: object
-    required:
-    - author
-    - email
-    - hash
-    - message
-    - timestamp
-    properties:
-      author:
-        type: string
-      email:
-        type: string
-      hash:
-        type: string
-      message:
-        type: string
-      timestamp:
-        type: string
-  GitCloneRequest:
-    type: object
-    required:
-    - path
-    - url
-    properties:
-      branch:
-        type: string
-      commit_id:
-        type: string
-      password:
-        type: string
-      path:
-        type: string
-      url:
-        type: string
-      username:
-        type: string
-  Status:
-    type: string
-    enum:
-    - Unmodified
-    - Untracked
-    - Modified
-    - Added
-    - Deleted
-    - Renamed
-    - Copied
-    - Updated but unmerged
-    x-enum-varnames:
-    - Unmodified
-    - Untracked
-    - Modified
-    - Added
-    - Deleted
-    - Renamed
-    - Copied
-    - UpdatedButUnmerged
-  GitCheckoutRequest:
-    type: object
-    required:
-    - branch
-    - path
-    properties:
-      branch:
-        type: string
-      path:
-        type: string
-  GitCommitRequest:
-    type: object
-    required:
-    - author
-    - email
-    - message
-    - path
-    properties:
-      allow_empty:
-        type: boolean
-      author:
-        type: string
-      email:
-        type: string
-      message:
-        type: string
-      path:
-        type: string
-  GitBranchRequest:
-    type: object
-    required:
-    - name
-    - path
-    properties:
-      name:
-        type: string
-      path:
-        type: string
-  FileStatus:
-    type: object
-    required:
-    - extra
-    - name
-    - staging
-    - worktree
-    properties:
-      extra:
-        type: string
-      name:
-        type: string
-      staging:
-        $ref: '#/definitions/Status'
-      worktree:
-        $ref: '#/definitions/Status'
-  GitAddRequest:
-    type: object
-    required:
-    - files
-    - path
-    properties:
-      files:
-        description: files to add (use . for all files)
-        type: array
-        items:
+        email:
           type: string
-      path:
-        type: string
+        message:
+          type: string
+        path:
+          type: string
+    GitCommitResponse:
+      type: object
+      required:
+      - hash
+      properties:
+        hash:
+          type: string
+    GitCloneRequest:
+      type: object
+      required:
+      - path
+      - url
+      properties:
+        branch:
+          type: string
+        commit_id:
+          type: string
+        password:
+          type: string
+        path:
+          type: string
+        url:
+          type: string
+        username:
+          type: string
+    GitStatus:
+      type: object
+      required:
+      - currentBranch
+      - fileStatus
+      properties:
+        ahead:
+          type: integer
+        behind:
+          type: integer
+        branchPublished:
+          type: boolean
+        currentBranch:
+          type: string
+        fileStatus:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileStatus'
+    GitBranchRequest:
+      type: object
+      required:
+      - name
+      - path
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+    FileStatus:
+      type: object
+      required:
+      - extra
+      - name
+      - staging
+      - worktree
+      properties:
+        extra:
+          type: string
+        name:
+          type: string
+        staging:
+          $ref: '#/components/schemas/Status'
+        worktree:
+          $ref: '#/components/schemas/Status'
+    GitCheckoutRequest:
+      type: object
+      required:
+      - branch
+      - path
+      properties:
+        branch:
+          type: string
+        path:
+          type: string
+    GitDeleteBranchRequest:
+      type: object
+      required:
+      - name
+      - path
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+    GitCommitInfo:
+      type: object
+      required:
+      - author
+      - email
+      - hash
+      - message
+      - timestamp
+      properties:
+        author:
+          type: string
+        email:
+          type: string
+        hash:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+    Status:
+      type: string
+      enum:
+      - Unmodified
+      - Untracked
+      - Modified
+      - Added
+      - Deleted
+      - Renamed
+      - Copied
+      - Updated but unmerged
+      x-enum-varnames:
+      - Unmodified
+      - Untracked
+      - Modified
+      - Added
+      - Deleted
+      - Renamed
+      - Copied
+      - UpdatedButUnmerged
+    GitAddRequest:
+      type: object
+      required:
+      - files
+      - path
+      properties:
+        files:
+          description: files to add (use . for all files)
+          type: array
+          items:
+            type: string
+        path:
+          type: string
+    GitRepoRequest:
+      type: object
+      required:
+      - path
+      properties:
+        password:
+          type: string
+        path:
+          type: string
+        username:
+          type: string
