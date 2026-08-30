@@ -225,7 +225,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Computer Use
+  - computer-use
   tags_raw:
   - computer-use
   properties:
@@ -379,7 +379,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Filesystem
+  - file-system
   tags_raw:
   - file-system
   properties:
@@ -431,7 +431,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Git
+  - git
   tags_raw:
   - git
   properties:
@@ -585,7 +585,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Interpreter
+  - interpreter
   tags_raw:
   - interpreter
   properties:
@@ -689,7 +689,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - LSP
+  - lsp
   tags_raw:
   - lsp
   properties:
@@ -741,7 +741,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Object Storage
+  - object-storage
   tags_raw:
   - object-storage
   properties:
@@ -897,7 +897,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Preview
+  - preview
   tags_raw:
   - preview
   properties:
@@ -1053,7 +1053,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Runners
+  - runners
   tags_raw:
   - runners
   properties:
@@ -1105,7 +1105,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Sandbox
+  - sandbox
   tags_raw:
   - sandbox
   properties:
@@ -1261,7 +1261,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Toolbox
+  - toolbox
   tags_raw:
   - toolbox
   properties:
@@ -1365,7 +1365,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Volumes
+  - volumes
   tags_raw:
   - volumes
   properties:
