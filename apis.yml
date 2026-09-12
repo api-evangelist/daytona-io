@@ -1631,6 +1631,8 @@ maintainers:
     email: kin@apievangelist.com
     url: https://kinlane.com
 common:
+  - type: Website
+    url: https://www.daytona.io/
   - type: CapabilityMap
     url: capabilities/daytona-io-capability-edges.yml
     name: Daytona Business Capability Map
