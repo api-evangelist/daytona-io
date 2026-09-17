@@ -373,58 +373,6 @@ apis:
     url: https://www.daytona.io/docs/en/security/audit-logs
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
-- aid: daytona-io:daytona-io-file-system-api
-  name: Daytona file-system API
-  description: The file-system API from Daytona — 12 operation(s) for file-system.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Filesystem
-  tags_raw:
-  - file-system
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-file-system-api-openapi.yml
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/sandboxes
-  - type: APIReference
-    url: https://www.daytona.io/docs/en/tools/api/
-  - type: JSONSchema
-    url: json-schema/daytona-sandbox-schema.json
-  - type: JSONStructure
-    url: json-structure/daytona-sandbox-structure.json
-  - type: Examples
-    url: examples/daytona-sandbox-create-example.json
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/file-system
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/git
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/language-server-protocol
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/process-execution
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/computer-use
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/snapshots
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/volumes
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/preview
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/webhooks
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/account-management/organizations
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/account-management/api-keys
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/account-management/linked-accounts
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/deployments/customer-managed-compute
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/security/audit-logs
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-git-api
   name: Daytona git API
   description: The git API from Daytona — 9 operation(s) for git.
@@ -1547,8 +1495,8 @@ apis:
     url: openapi/daytona-io-daytona-health-api-api-openapi.yml
 - aid: daytona-io:daytona-io-daytona-organizations-api-api
   name: Daytona Organizations API
-  description: The Daytona Organizations API API from Daytona — 0 operation(s) for daytona organizations
-    api.
+  description: >-
+    The Daytona Organizations API API from Daytona — 0 operation(s) for daytona organizations api.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
@@ -1626,6 +1574,56 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/daytona-io-daytona-webhooks-api-api-openapi.yml
+- aid: daytona-io:daytona-io-filesystem-api
+  name: Daytona Filesystem API
+  description: The Filesystem API from Daytona — 12 operation(s) for filesystem.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - Filesystem
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-filesystem-api-openapi.yml
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/sandboxes
+  - type: APIReference
+    url: https://www.daytona.io/docs/en/tools/api/
+  - type: JSONSchema
+    url: json-schema/daytona-sandbox-schema.json
+  - type: JSONStructure
+    url: json-structure/daytona-sandbox-structure.json
+  - type: Examples
+    url: examples/daytona-sandbox-create-example.json
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/file-system
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/git
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/language-server-protocol
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/process-execution
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/computer-use
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/snapshots
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/volumes
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/preview
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/webhooks
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/account-management/organizations
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/account-management/api-keys
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/account-management/linked-accounts
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/deployments/customer-managed-compute
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/security/audit-logs
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
