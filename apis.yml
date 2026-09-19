@@ -793,7 +793,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Port
+  - Ports
   tags_raw:
   - port
   properties:
@@ -1105,7 +1105,7 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Server
+  - Servers
   tags_raw:
   - server
   properties:
