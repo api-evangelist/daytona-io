@@ -184,25 +184,19 @@ components:
           type: string
         pathToProject:
           type: string
-    LspLocation:
+    LspSymbol:
       type: object
       required:
-      - range
-      - uri
+      - kind
+      - location
+      - name
       properties:
-        range:
-          $ref: '#/components/schemas/LspRange'
-        uri:
-          type: string
-    CompletionContext:
-      type: object
-      required:
-      - triggerKind
-      properties:
-        triggerCharacter:
-          type: string
-        triggerKind:
+        kind:
           type: integer
+        location:
+          $ref: '#/components/schemas/LspLocation'
+        name:
+          type: string
     LspRange:
       type: object
       required:
@@ -213,6 +207,16 @@ components:
           $ref: '#/components/schemas/LspPosition'
         start:
           $ref: '#/components/schemas/LspPosition'
+    LspLocation:
+      type: object
+      required:
+      - range
+      - uri
+      properties:
+        range:
+          $ref: '#/components/schemas/LspRange'
+        uri:
+          type: string
     CompletionItem:
       type: object
       required:
@@ -231,6 +235,18 @@ components:
           type: string
         sortText:
           type: string
+    CompletionList:
+      type: object
+      required:
+      - isIncomplete
+      - items
+      properties:
+        isIncomplete:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompletionItem'
     LspDocumentRequest:
       type: object
       required:
@@ -244,19 +260,6 @@ components:
           type: string
         uri:
           type: string
-    LspSymbol:
-      type: object
-      required:
-      - kind
-      - location
-      - name
-      properties:
-        kind:
-          type: integer
-        location:
-          $ref: '#/components/schemas/LspLocation'
-        name:
-          type: string
     LspPosition:
       type: object
       required:
@@ -267,18 +270,6 @@ components:
           type: integer
         line:
           type: integer
-    CompletionList:
-      type: object
-      required:
-      - isIncomplete
-      - items
-      properties:
-        isIncomplete:
-          type: boolean
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompletionItem'
     LspCompletionParams:
       type: object
       required:
@@ -297,3 +288,12 @@ components:
           $ref: '#/components/schemas/LspPosition'
         uri:
           type: string
+    CompletionContext:
+      type: object
+      required:
+      - triggerKind
+      properties:
+        triggerCharacter:
+          type: string
+        triggerKind:
+          type: integer

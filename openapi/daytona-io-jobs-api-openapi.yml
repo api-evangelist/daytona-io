@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: jobs
+- name: Jobs
 paths:
   /jobs:
     get:
@@ -65,7 +65,7 @@ paths:
         - email
       summary: List jobs for the runner
       tags:
-      - jobs
+      - Jobs
   /jobs/poll:
     get:
       description: Long poll endpoint for runners to fetch pending jobs. Returns immediately if jobs are available, otherwise waits up to timeout seconds.
@@ -98,7 +98,7 @@ paths:
         - email
       summary: Long poll for jobs
       tags:
-      - jobs
+      - Jobs
   /jobs/{jobId}:
     get:
       operationId: getJob
@@ -124,7 +124,7 @@ paths:
         - email
       summary: Get job details
       tags:
-      - jobs
+      - Jobs
   /jobs/{jobId}/status:
     post:
       operationId: updateJobStatus
@@ -156,7 +156,7 @@ paths:
         - email
       summary: Update job status
       tags:
-      - jobs
+      - Jobs
 components:
   schemas:
     UpdateJobStatus:
@@ -176,41 +176,6 @@ components:
           description: Result metadata for the job
       required:
       - status
-    PaginatedJobs:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-        total:
-          type: number
-        page:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - items
-      - total
-      - page
-      - totalPages
-    JobStatus:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - COMPLETED
-      - FAILED
-    PollJobsResponse:
-      type: object
-      properties:
-        jobs:
-          description: List of jobs
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-      required:
-      - jobs
     JobType:
       type: string
       enum:
@@ -229,6 +194,16 @@ components:
       - SNAPSHOT_SANDBOX
       - FORK_SANDBOX
       description: The type of the job
+    PollJobsResponse:
+      type: object
+      properties:
+        jobs:
+          description: List of jobs
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+      required:
+      - jobs
     Job:
       type: object
       properties:
@@ -286,6 +261,31 @@ components:
       - resourceType
       - resourceId
       - createdAt
+    PaginatedJobs:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    JobStatus:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - COMPLETED
+      - FAILED
   securitySchemes:
     bearer:
       scheme: bearer

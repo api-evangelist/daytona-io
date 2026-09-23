@@ -11,13 +11,13 @@ servers:
 - url: https://proxy.app.daytona.io/toolbox
   description: Daytona Sandbox Toolbox proxy
 tags:
-- name: interpreter
+- name: Interpreter
 paths:
   /process/interpreter/context:
     get:
       description: Returns information about all user-created interpreter contexts (excludes default context)
       tags:
-      - interpreter
+      - Interpreter
       summary: List all user-created interpreter contexts
       operationId: ListInterpreterContexts
       responses:
@@ -30,7 +30,7 @@ paths:
     post:
       description: Creates a new isolated interpreter context with optional working directory and language
       tags:
-      - interpreter
+      - Interpreter
       summary: Create a new interpreter context
       operationId: CreateInterpreterContext
       responses:
@@ -67,7 +67,7 @@ paths:
     delete:
       description: Deletes an interpreter context and shuts down its worker process
       tags:
-      - interpreter
+      - Interpreter
       summary: Delete an interpreter context
       operationId: DeleteInterpreterContext
       parameters:
@@ -106,7 +106,7 @@ paths:
     get:
       description: Executes code in a specified context (or default context if not specified) via WebSocket streaming
       tags:
-      - interpreter
+      - Interpreter
       summary: Execute code in an interpreter context
       operationId: ExecuteInterpreterCode
       responses:
@@ -127,15 +127,6 @@ paths:
                 type: string
 components:
   schemas:
-    ListContextsResponse:
-      type: object
-      required:
-      - contexts
-      properties:
-        contexts:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterpreterContext'
     InterpreterContext:
       type: object
       required:
@@ -155,6 +146,15 @@ components:
           type: string
         language:
           type: string
+    ListContextsResponse:
+      type: object
+      required:
+      - contexts
+      properties:
+        contexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterpreterContext'
     CreateContextRequest:
       type: object
       properties:

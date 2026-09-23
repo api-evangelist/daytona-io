@@ -11,13 +11,13 @@ servers:
 - url: https://proxy.app.daytona.io/toolbox
   description: Daytona Sandbox Toolbox proxy
 tags:
-- name: file-system
+- name: Filesystem
 paths:
   /files:
     get:
       description: List files and directories in the specified path
       tags:
-      - file-system
+      - Filesystem
       summary: List files and directories
       operationId: ListFiles
       parameters:
@@ -38,7 +38,7 @@ paths:
     delete:
       description: Delete a file or directory at the specified path
       tags:
-      - file-system
+      - Filesystem
       summary: Delete a file or directory
       operationId: DeleteFile
       parameters:
@@ -60,7 +60,7 @@ paths:
     post:
       description: Download multiple files by providing their paths. Successful files are returned as multipart parts named `file`. Per-file failures are returned as multipart parts named `error` with JSON payloads shaped like ErrorResponse.
       tags:
-      - file-system
+      - Filesystem
       summary: Download multiple files
       operationId: DownloadFiles
       responses:
@@ -81,7 +81,7 @@ paths:
     post:
       description: Upload multiple files with their destination paths
       tags:
-      - file-system
+      - Filesystem
       summary: Upload multiple files
       operationId: UploadFiles
       responses:
@@ -91,7 +91,7 @@ paths:
     get:
       description: Download a file by providing its path
       tags:
-      - file-system
+      - Filesystem
       summary: Download a file
       operationId: DownloadFile
       parameters:
@@ -113,7 +113,7 @@ paths:
     get:
       description: Search for text pattern within files in a directory
       tags:
-      - file-system
+      - Filesystem
       summary: Find text in files
       operationId: FindInFiles
       parameters:
@@ -142,7 +142,7 @@ paths:
     post:
       description: Create a folder with the specified path and optional permissions
       tags:
-      - file-system
+      - Filesystem
       summary: Create a folder
       operationId: CreateFolder
       parameters:
@@ -165,7 +165,7 @@ paths:
     get:
       description: Get detailed information about a file or directory
       tags:
-      - file-system
+      - Filesystem
       summary: Get file information
       operationId: GetFileInfo
       parameters:
@@ -186,7 +186,7 @@ paths:
     post:
       description: Move or rename a file or directory from source to destination
       tags:
-      - file-system
+      - Filesystem
       summary: Move or rename file/directory
       operationId: MoveFile
       parameters:
@@ -209,7 +209,7 @@ paths:
     post:
       description: Set file permissions, ownership, and group for a file or directory
       tags:
-      - file-system
+      - Filesystem
       summary: Set file permissions
       operationId: SetFilePermissions
       parameters:
@@ -241,7 +241,7 @@ paths:
     post:
       description: Replace text pattern with new value in multiple files
       tags:
-      - file-system
+      - Filesystem
       summary: Replace text in files
       operationId: ReplaceInFiles
       responses:
@@ -264,7 +264,7 @@ paths:
     get:
       description: Search for files matching a specific pattern in a directory
       tags:
-      - file-system
+      - Filesystem
       summary: Search files by pattern
       operationId: SearchFiles
       parameters:
@@ -291,7 +291,7 @@ paths:
     post:
       description: Upload a file to the specified path
       tags:
-      - file-system
+      - Filesystem
       summary: Upload a file
       operationId: UploadFile
       parameters:
@@ -322,24 +322,9 @@ paths:
               - file
 components:
   schemas:
-    FilesDownloadRequest:
+    gin.H:
       type: object
-      required:
-      - paths
-      properties:
-        paths:
-          type: array
-          items:
-            type: string
-    SearchFilesResponse:
-      type: object
-      required:
-      - files
-      properties:
-        files:
-          type: array
-          items:
-            type: string
+      additionalProperties: {}
     ReplaceResult:
       type: object
       properties:
@@ -377,6 +362,24 @@ components:
           type: string
         size:
           type: integer
+    SearchFilesResponse:
+      type: object
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+    FilesDownloadRequest:
+      type: object
+      required:
+      - paths
+      properties:
+        paths:
+          type: array
+          items:
+            type: string
     ReplaceRequest:
       type: object
       required:
@@ -392,9 +395,6 @@ components:
           type: string
         pattern:
           type: string
-    gin.H:
-      type: object
-      additionalProperties: {}
     Match:
       type: object
       required:

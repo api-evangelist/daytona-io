@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: object-storage
+- name: Object Storage
 paths:
   /object-storage/push-access:
     get:
@@ -41,7 +41,7 @@ paths:
         - email
       summary: Get temporary storage access for pushing objects
       tags:
-      - object-storage
+      - Object Storage
 components:
   schemas:
     StorageAccessDto:

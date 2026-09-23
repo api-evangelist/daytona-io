@@ -11,13 +11,13 @@ servers:
 - url: https://proxy.app.daytona.io/toolbox
   description: Daytona Sandbox Toolbox proxy
 tags:
-- name: info
+- name: Info
 paths:
   /user-home-dir:
     get:
       description: Get the current user home directory path.
       tags:
-      - info
+      - Info
       summary: Get user home directory
       operationId: GetUserHomeDir
       responses:
@@ -31,7 +31,7 @@ paths:
     get:
       description: Get the current daemon version
       tags:
-      - info
+      - Info
       summary: Get version
       operationId: GetVersion
       responses:
@@ -47,7 +47,7 @@ paths:
     get:
       description: Get the current working directory path. This is default directory used for running commands.
       tags:
-      - info
+      - Info
       summary: Get working directory
       operationId: GetWorkDir
       responses:
@@ -59,14 +59,14 @@ paths:
                 $ref: '#/components/schemas/WorkDirResponse'
 components:
   schemas:
-    WorkDirResponse:
+    UserHomeDirResponse:
       type: object
       required:
       - dir
       properties:
         dir:
           type: string
-    UserHomeDirResponse:
+    WorkDirResponse:
       type: object
       required:
       - dir

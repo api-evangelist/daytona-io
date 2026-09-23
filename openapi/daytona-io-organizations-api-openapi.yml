@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: organizations
+- name: Organizations
 paths:
   /organizations/invitations:
     get:
@@ -37,7 +37,7 @@ paths:
         - email
       summary: List organization invitations for authenticated user
       tags:
-      - organizations
+      - Organizations
   /organizations/invitations/count:
     get:
       operationId: getOrganizationInvitationsCountForAuthenticatedUser
@@ -57,7 +57,7 @@ paths:
         - email
       summary: Get count of organization invitations for authenticated user
       tags:
-      - organizations
+      - Organizations
   /organizations/invitations/{invitationId}/accept:
     post:
       operationId: acceptOrganizationInvitation
@@ -83,7 +83,7 @@ paths:
         - email
       summary: Accept organization invitation
       tags:
-      - organizations
+      - Organizations
   /organizations/invitations/{invitationId}/decline:
     post:
       operationId: declineOrganizationInvitation
@@ -105,7 +105,7 @@ paths:
         - email
       summary: Decline organization invitation
       tags:
-      - organizations
+      - Organizations
   /organizations:
     post:
       operationId: createOrganization
@@ -131,7 +131,7 @@ paths:
         - email
       summary: Create organization
       tags:
-      - organizations
+      - Organizations
     get:
       operationId: listOrganizations
       parameters: []
@@ -152,7 +152,7 @@ paths:
         - email
       summary: List organizations
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/default-region:
     patch:
       operationId: setOrganizationDefaultRegion
@@ -180,7 +180,7 @@ paths:
         - email
       summary: Set default region for organization
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}:
     get:
       operationId: getOrganization
@@ -206,7 +206,7 @@ paths:
         - email
       summary: Get organization by ID
       tags:
-      - organizations
+      - Organizations
     delete:
       operationId: deleteOrganization
       parameters:
@@ -227,7 +227,7 @@ paths:
         - email
       summary: Delete organization
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/usage:
     get:
       operationId: getOrganizationUsageOverview
@@ -253,7 +253,7 @@ paths:
         - email
       summary: Get organization current usage overview
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/quota:
     patch:
       operationId: updateOrganizationQuota
@@ -281,7 +281,7 @@ paths:
         - email
       summary: Update organization quota
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/quota/{regionId}:
     patch:
       operationId: updateOrganizationRegionQuota
@@ -315,7 +315,7 @@ paths:
         - email
       summary: Update organization region quota
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/leave:
     post:
       operationId: leaveOrganization
@@ -337,7 +337,7 @@ paths:
         - email
       summary: Leave organization
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/suspend:
     post:
       operationId: suspendOrganization
@@ -365,7 +365,7 @@ paths:
         - email
       summary: Suspend organization
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/unsuspend:
     post:
       operationId: unsuspendOrganization
@@ -387,7 +387,7 @@ paths:
         - email
       summary: Unsuspend organization
       tags:
-      - organizations
+      - Organizations
   /organizations/otel-config/by-sandbox-auth-token/{authToken}:
     get:
       operationId: getOrganizationOtelConfigBySandboxAuthToken
@@ -413,7 +413,7 @@ paths:
         - email
       summary: Get organization OTEL config by sandbox auth token
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/otel-config:
     get:
       operationId: getOrganizationOtelConfig
@@ -439,7 +439,7 @@ paths:
         - email
       summary: Get organization OTEL config by organization ID
       tags:
-      - organizations
+      - Organizations
     put:
       operationId: updateOrganizationOtelConfig
       parameters:
@@ -466,7 +466,7 @@ paths:
         - email
       summary: Update organization OpenTelemetry configuration
       tags:
-      - organizations
+      - Organizations
     delete:
       operationId: deleteOrganizationOtelConfig
       parameters:
@@ -487,7 +487,7 @@ paths:
         - email
       summary: Delete organization OpenTelemetry configuration
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/sandbox-default-limited-network-egress:
     post:
       operationId: updateSandboxDefaultLimitedNetworkEgress
@@ -515,7 +515,7 @@ paths:
         - email
       summary: Update sandbox default limited network egress
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/experimental-config:
     put:
       operationId: updateExperimentalConfig
@@ -549,7 +549,7 @@ paths:
         - email
       summary: Update experimental configuration
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/roles:
     post:
       operationId: createOrganizationRole
@@ -581,7 +581,7 @@ paths:
         - email
       summary: Create organization role
       tags:
-      - organizations
+      - Organizations
     get:
       operationId: listOrganizationRoles
       parameters:
@@ -608,7 +608,7 @@ paths:
         - email
       summary: List organization roles
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/roles/{roleId}:
     put:
       operationId: updateOrganizationRole
@@ -646,7 +646,7 @@ paths:
         - email
       summary: Update organization role
       tags:
-      - organizations
+      - Organizations
     delete:
       operationId: deleteOrganizationRole
       parameters:
@@ -673,7 +673,7 @@ paths:
         - email
       summary: Delete organization role
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/users:
     get:
       operationId: listOrganizationMembers
@@ -701,7 +701,7 @@ paths:
         - email
       summary: List organization members
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/users/{userId}/access:
     post:
       operationId: updateAccessForOrganizationMember
@@ -739,7 +739,7 @@ paths:
         - email
       summary: Update access for organization member
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/users/{userId}:
     delete:
       operationId: deleteOrganizationMember
@@ -767,7 +767,7 @@ paths:
         - email
       summary: Delete organization member
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/invitations:
     post:
       operationId: createOrganizationInvitation
@@ -799,7 +799,7 @@ paths:
         - email
       summary: Create organization invitation
       tags:
-      - organizations
+      - Organizations
     get:
       operationId: listOrganizationInvitations
       parameters:
@@ -826,7 +826,7 @@ paths:
         - email
       summary: List pending organization invitations
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/invitations/{invitationId}:
     put:
       operationId: updateOrganizationInvitation
@@ -864,7 +864,7 @@ paths:
         - email
       summary: Update organization invitation
       tags:
-      - organizations
+      - Organizations
   /organizations/{organizationId}/invitations/{invitationId}/cancel:
     post:
       operationId: cancelOrganizationInvitation
@@ -892,7 +892,7 @@ paths:
         - email
       summary: Cancel organization invitation
       tags:
-      - organizations
+      - Organizations
   /regions:
     get:
       operationId: listAvailableRegions
@@ -920,7 +920,7 @@ paths:
         - email
       summary: List all available regions for the organization
       tags:
-      - organizations
+      - Organizations
     post:
       operationId: createRegion
       parameters:
@@ -951,7 +951,7 @@ paths:
         - email
       summary: Create a new region
       tags:
-      - organizations
+      - Organizations
   /regions/{id}:
     get:
       operationId: getRegionById
@@ -983,7 +983,7 @@ paths:
         - email
       summary: Get region by ID
       tags:
-      - organizations
+      - Organizations
     delete:
       operationId: deleteRegion
       parameters:
@@ -1010,7 +1010,7 @@ paths:
         - email
       summary: Delete a region
       tags:
-      - organizations
+      - Organizations
     patch:
       operationId: updateRegion
       parameters:
@@ -1043,7 +1043,7 @@ paths:
         - email
       summary: Update region configuration
       tags:
-      - organizations
+      - Organizations
   /regions/{id}/regenerate-proxy-api-key:
     post:
       operationId: regenerateProxyApiKey
@@ -1075,7 +1075,7 @@ paths:
         - email
       summary: Regenerate proxy API key for a region
       tags:
-      - organizations
+      - Organizations
   /regions/{id}/regenerate-ssh-gateway-api-key:
     post:
       operationId: regenerateSshGatewayApiKey
@@ -1107,7 +1107,7 @@ paths:
         - email
       summary: Regenerate SSH gateway API key for a region
       tags:
-      - organizations
+      - Organizations
   /regions/{id}/regenerate-snapshot-manager-credentials:
     post:
       operationId: regenerateSnapshotManagerCredentials
@@ -1139,111 +1139,175 @@ paths:
         - email
       summary: Regenerate snapshot manager credentials for a region
       tags:
-      - organizations
+      - Organizations
 components:
   schemas:
-    UpdateOrganizationInvitation:
+    OrganizationInvitation:
       type: object
       properties:
-        role:
+        id:
           type: string
-          description: Organization member role
-          enum:
-          - owner
-          - member
-        assignedRoleIds:
-          description: Array of role IDs
-          type: array
-          items:
-            type: string
+          description: Invitation ID
+        email:
+          type: string
+          description: Email address of the invitee
+        invitedBy:
+          type: string
+          description: Email address of the inviter
+        organizationId:
+          type: string
+          description: Organization ID
+        organizationName:
+          type: string
+          description: Organization name
         expiresAt:
           format: date-time
           type: string
           description: Expiration date of the invitation
-          example: '2021-12-31T23:59:59Z'
-      required:
-      - role
-      - assignedRoleIds
-    CreateOrganizationRole:
-      type: object
-      properties:
-        name:
+        status:
           type: string
-          description: The name of the role
-          example: Maintainer
-        description:
-          type: string
-          description: The description of the role
-          example: Can manage all resources
-        permissions:
-          type: array
-          description: The list of permissions assigned to the role
-          items:
-            type: string
-            enum:
-            - write:registries
-            - delete:registries
-            - write:snapshots
-            - delete:snapshots
-            - write:sandboxes
-            - delete:sandboxes
-            - read:volumes
-            - write:volumes
-            - delete:volumes
-            - write:regions
-            - delete:regions
-            - read:runners
-            - write:runners
-            - delete:runners
-            - read:audit_logs
-      required:
-      - name
-      - description
-      - permissions
-    UpdateOrganizationMemberAccess:
-      type: object
-      properties:
+          description: Invitation status
+          enum:
+          - pending
+          - accepted
+          - declined
+          - cancelled
         role:
           type: string
-          description: Organization member role
+          description: Member role
           enum:
           - owner
           - member
-          default: member
-        assignedRoleIds:
-          description: Array of assigned role IDs
-          default:
-          - 00000000-0000-0000-0000-000000000001
+        assignedRoles:
+          description: Assigned roles
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/OrganizationRole'
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
       required:
+      - id
+      - email
+      - invitedBy
+      - organizationId
+      - organizationName
+      - expiresAt
+      - status
       - role
-      - assignedRoleIds
-    CreateRegion:
+      - assignedRoles
+      - createdAt
+      - updatedAt
+    CreateRegionResponse:
       type: object
       properties:
-        name:
+        id:
           type: string
-          description: Region name
-          example: us-east-1
-        proxyUrl:
+          description: ID of the created region
+          example: region_12345
+        proxyApiKey:
           type: string
-          description: Proxy URL for the region
-          example: https://proxy.example.com
+          description: Proxy API key for the region
+          example: proxy-api-key-xyz
           nullable: true
-        sshGatewayUrl:
+        sshGatewayApiKey:
           type: string
-          description: SSH Gateway URL for the region
-          example: ssh://ssh-gateway.example.com
+          description: SSH Gateway API key for the region
+          example: ssh-gateway-api-key-abc
           nullable: true
-        snapshotManagerUrl:
+        snapshotManagerUsername:
           type: string
-          description: Snapshot Manager URL for the region
-          example: https://snapshot-manager.example.com
+          description: Snapshot Manager username for the region
+          example: daytona
+          nullable: true
+        snapshotManagerPassword:
+          type: string
+          description: Snapshot Manager password for the region
           nullable: true
       required:
-      - name
+      - id
+    OrganizationSandboxDefaultLimitedNetworkEgress:
+      type: object
+      properties:
+        sandboxDefaultLimitedNetworkEgress:
+          type: boolean
+          description: Sandbox default limited network egress
+      required:
+      - sandboxDefaultLimitedNetworkEgress
+    RegionUsageOverview:
+      type: object
+      properties:
+        regionId:
+          type: string
+        totalCpuQuota:
+          type: number
+        currentCpuUsage:
+          type: number
+        totalMemoryQuota:
+          type: number
+        currentMemoryUsage:
+          type: number
+        totalDiskQuota:
+          type: number
+        currentDiskUsage:
+          type: number
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerNonEphemeralSandbox:
+          type: number
+          nullable: true
+      required:
+      - regionId
+      - totalCpuQuota
+      - currentCpuUsage
+      - totalMemoryQuota
+      - currentMemoryUsage
+      - totalDiskQuota
+      - currentDiskUsage
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - maxDiskPerNonEphemeralSandbox
+    UpdateOrganizationRegionQuota:
+      type: object
+      properties:
+        totalCpuQuota:
+          type: number
+          nullable: true
+        totalMemoryQuota:
+          type: number
+          nullable: true
+        totalDiskQuota:
+          type: number
+          nullable: true
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerNonEphemeralSandbox:
+          type: number
+          nullable: true
+      required:
+      - totalCpuQuota
+      - totalMemoryQuota
+      - totalDiskQuota
     Region:
       type: object
       properties:
@@ -1294,27 +1358,9 @@ components:
       - regionType
       - createdAt
       - updatedAt
-    UpdateOrganizationDefaultRegion:
+    UpdateOrganizationQuota:
       type: object
       properties:
-        defaultRegionId:
-          type: string
-          description: The ID of the default region for the organization
-          example: us
-      required:
-      - defaultRegionId
-    UpdateOrganizationRegionQuota:
-      type: object
-      properties:
-        totalCpuQuota:
-          type: number
-          nullable: true
-        totalMemoryQuota:
-          type: number
-          nullable: true
-        totalDiskQuota:
-          type: number
-          nullable: true
         maxCpuPerSandbox:
           type: number
           nullable: true
@@ -1324,13 +1370,197 @@ components:
         maxDiskPerSandbox:
           type: number
           nullable: true
-        maxDiskPerNonEphemeralSandbox:
+        snapshotQuota:
           type: number
           nullable: true
+        maxSnapshotSize:
+          type: number
+          nullable: true
+        volumeQuota:
+          type: number
+          nullable: true
+        authenticatedRateLimit:
+          type: number
+          nullable: true
+        sandboxCreateRateLimit:
+          type: number
+          nullable: true
+        sandboxLifecycleRateLimit:
+          type: number
+          nullable: true
+        authenticatedRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        sandboxCreateRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        sandboxLifecycleRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        snapshotDeactivationTimeoutMinutes:
+          type: number
+          nullable: true
+          description: Time in minutes before an unused snapshot is deactivated
       required:
-      - totalCpuQuota
-      - totalMemoryQuota
-      - totalDiskQuota
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - snapshotQuota
+      - maxSnapshotSize
+      - volumeQuota
+      - authenticatedRateLimit
+      - sandboxCreateRateLimit
+      - sandboxLifecycleRateLimit
+      - authenticatedRateLimitTtlSeconds
+      - sandboxCreateRateLimitTtlSeconds
+      - sandboxLifecycleRateLimitTtlSeconds
+      - snapshotDeactivationTimeoutMinutes
+    UpdateOrganizationRole:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the role
+          example: Maintainer
+        description:
+          type: string
+          description: The description of the role
+          example: Can manage all resources
+        permissions:
+          type: array
+          description: The list of permissions assigned to the role
+          items:
+            type: string
+            enum:
+            - write:registries
+            - delete:registries
+            - write:snapshots
+            - delete:snapshots
+            - write:sandboxes
+            - delete:sandboxes
+            - read:volumes
+            - write:volumes
+            - delete:volumes
+            - write:regions
+            - delete:regions
+            - read:runners
+            - write:runners
+            - delete:runners
+            - read:audit_logs
+      required:
+      - name
+      - description
+      - permissions
+    OrganizationSuspension:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Suspension reason
+        until:
+          format: date-time
+          type: string
+          description: Suspension until
+        suspensionCleanupGracePeriodHours:
+          type: number
+          description: Suspension cleanup grace period hours
+          minimum: 0
+      required:
+      - reason
+      - until
+    RegenerateApiKeyResponse:
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: The newly generated API key
+          example: api-key-xyz123
+      required:
+      - apiKey
+    UpdateOrganizationDefaultRegion:
+      type: object
+      properties:
+        defaultRegionId:
+          type: string
+          description: The ID of the default region for the organization
+          example: us
+      required:
+      - defaultRegionId
+    OrganizationUser:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: User ID
+        organizationId:
+          type: string
+          description: Organization ID
+        name:
+          type: string
+          description: User name
+        email:
+          type: string
+          description: User email
+        role:
+          type: string
+          description: Member role
+          enum:
+          - owner
+          - member
+        assignedRoles:
+          description: Roles assigned to the user
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationRole'
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+      required:
+      - userId
+      - organizationId
+      - name
+      - email
+      - role
+      - assignedRoles
+      - createdAt
+      - updatedAt
+    UpdateRegion:
+      type: object
+      properties:
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: ssh://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: https://snapshot-manager.example.com
+          nullable: true
+    CreateOrganization:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of organization
+          example: My Organization
+        defaultRegionId:
+          type: string
+          description: The ID of the default region for the organization
+          example: us
+      required:
+      - name
+      - defaultRegionId
     Organization:
       type: object
       properties:
@@ -1447,81 +1677,29 @@ components:
       - authenticatedRateLimitTtlSeconds
       - sandboxCreateRateLimitTtlSeconds
       - sandboxLifecycleRateLimitTtlSeconds
-    CreateOrganization:
+    OtelConfig:
       type: object
       properties:
-        name:
+        endpoint:
           type: string
-          description: The name of organization
-          example: My Organization
-        defaultRegionId:
-          type: string
-          description: The ID of the default region for the organization
-          example: us
-      required:
-      - name
-      - defaultRegionId
-    RegenerateApiKeyResponse:
-      type: object
-      properties:
-        apiKey:
-          type: string
-          description: The newly generated API key
-          example: api-key-xyz123
-      required:
-      - apiKey
-    SnapshotManagerCredentials:
-      type: object
-      properties:
-        username:
-          type: string
-          description: Snapshot Manager username for the region
-          example: daytona
-        password:
-          type: string
-          description: Snapshot Manager password for the region
-      required:
-      - username
-      - password
-    UpdateRegion:
-      type: object
-      properties:
-        proxyUrl:
-          type: string
-          description: Proxy URL for the region
-          example: https://proxy.example.com
+          description: Endpoint
+        headers:
+          type: object
+          description: Headers
+          example:
+            x-api-key: my-api-key
           nullable: true
-        sshGatewayUrl:
-          type: string
-          description: SSH Gateway URL for the region
-          example: ssh://ssh-gateway.example.com
-          nullable: true
-        snapshotManagerUrl:
-          type: string
-          description: Snapshot Manager URL for the region
-          example: https://snapshot-manager.example.com
-          nullable: true
-    OrganizationUsageOverview:
-      type: object
-      properties:
-        regionUsage:
-          type: array
-          items:
-            $ref: '#/components/schemas/RegionUsageOverview'
-        totalSnapshotQuota:
-          type: number
-        currentSnapshotUsage:
-          type: number
-        totalVolumeQuota:
-          type: number
-        currentVolumeUsage:
-          type: number
+          additionalProperties:
+            type: string
       required:
-      - regionUsage
-      - totalSnapshotQuota
-      - currentSnapshotUsage
-      - totalVolumeQuota
-      - currentVolumeUsage
+      - endpoint
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
     CreateOrganizationInvitation:
       type: object
       properties:
@@ -1552,7 +1730,7 @@ components:
       - email
       - role
       - assignedRoleIds
-    UpdateOrganizationRole:
+    CreateOrganizationRole:
       type: object
       properties:
         name:
@@ -1588,6 +1766,106 @@ components:
       - name
       - description
       - permissions
+    UpdateOrganizationInvitation:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Organization member role
+          enum:
+          - owner
+          - member
+        assignedRoleIds:
+          description: Array of role IDs
+          type: array
+          items:
+            type: string
+        expiresAt:
+          format: date-time
+          type: string
+          description: Expiration date of the invitation
+          example: '2021-12-31T23:59:59Z'
+      required:
+      - role
+      - assignedRoleIds
+    UpdateOrganizationMemberAccess:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Organization member role
+          enum:
+          - owner
+          - member
+          default: member
+        assignedRoleIds:
+          description: Array of assigned role IDs
+          default:
+          - 00000000-0000-0000-0000-000000000001
+          type: array
+          items:
+            type: string
+      required:
+      - role
+      - assignedRoleIds
+    SnapshotManagerCredentials:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Snapshot Manager username for the region
+          example: daytona
+        password:
+          type: string
+          description: Snapshot Manager password for the region
+      required:
+      - username
+      - password
+    OrganizationUsageOverview:
+      type: object
+      properties:
+        regionUsage:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionUsageOverview'
+        totalSnapshotQuota:
+          type: number
+        currentSnapshotUsage:
+          type: number
+        totalVolumeQuota:
+          type: number
+        currentVolumeUsage:
+          type: number
+      required:
+      - regionUsage
+      - totalSnapshotQuota
+      - currentSnapshotUsage
+      - totalVolumeQuota
+      - currentVolumeUsage
+    CreateRegion:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Region name
+          example: us-east-1
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: ssh://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: https://snapshot-manager.example.com
+          nullable: true
+      required:
+      - name
     OrganizationRole:
       type: object
       properties:
@@ -1640,284 +1918,6 @@ components:
       - isGlobal
       - createdAt
       - updatedAt
-    CreateRegionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of the created region
-          example: region_12345
-        proxyApiKey:
-          type: string
-          description: Proxy API key for the region
-          example: proxy-api-key-xyz
-          nullable: true
-        sshGatewayApiKey:
-          type: string
-          description: SSH Gateway API key for the region
-          example: ssh-gateway-api-key-abc
-          nullable: true
-        snapshotManagerUsername:
-          type: string
-          description: Snapshot Manager username for the region
-          example: daytona
-          nullable: true
-        snapshotManagerPassword:
-          type: string
-          description: Snapshot Manager password for the region
-          nullable: true
-      required:
-      - id
-    OrganizationInvitation:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Invitation ID
-        email:
-          type: string
-          description: Email address of the invitee
-        invitedBy:
-          type: string
-          description: Email address of the inviter
-        organizationId:
-          type: string
-          description: Organization ID
-        organizationName:
-          type: string
-          description: Organization name
-        expiresAt:
-          format: date-time
-          type: string
-          description: Expiration date of the invitation
-        status:
-          type: string
-          description: Invitation status
-          enum:
-          - pending
-          - accepted
-          - declined
-          - cancelled
-        role:
-          type: string
-          description: Member role
-          enum:
-          - owner
-          - member
-        assignedRoles:
-          description: Assigned roles
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationRole'
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
-      required:
-      - id
-      - email
-      - invitedBy
-      - organizationId
-      - organizationName
-      - expiresAt
-      - status
-      - role
-      - assignedRoles
-      - createdAt
-      - updatedAt
-    RegionType:
-      type: string
-      enum:
-      - shared
-      - dedicated
-      - custom
-      description: The type of the region
-    OrganizationUser:
-      type: object
-      properties:
-        userId:
-          type: string
-          description: User ID
-        organizationId:
-          type: string
-          description: Organization ID
-        name:
-          type: string
-          description: User name
-        email:
-          type: string
-          description: User email
-        role:
-          type: string
-          description: Member role
-          enum:
-          - owner
-          - member
-        assignedRoles:
-          description: Roles assigned to the user
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationRole'
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
-      required:
-      - userId
-      - organizationId
-      - name
-      - email
-      - role
-      - assignedRoles
-      - createdAt
-      - updatedAt
-    UpdateOrganizationQuota:
-      type: object
-      properties:
-        maxCpuPerSandbox:
-          type: number
-          nullable: true
-        maxMemoryPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerSandbox:
-          type: number
-          nullable: true
-        snapshotQuota:
-          type: number
-          nullable: true
-        maxSnapshotSize:
-          type: number
-          nullable: true
-        volumeQuota:
-          type: number
-          nullable: true
-        authenticatedRateLimit:
-          type: number
-          nullable: true
-        sandboxCreateRateLimit:
-          type: number
-          nullable: true
-        sandboxLifecycleRateLimit:
-          type: number
-          nullable: true
-        authenticatedRateLimitTtlSeconds:
-          type: number
-          nullable: true
-        sandboxCreateRateLimitTtlSeconds:
-          type: number
-          nullable: true
-        sandboxLifecycleRateLimitTtlSeconds:
-          type: number
-          nullable: true
-        snapshotDeactivationTimeoutMinutes:
-          type: number
-          nullable: true
-          description: Time in minutes before an unused snapshot is deactivated
-      required:
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - snapshotQuota
-      - maxSnapshotSize
-      - volumeQuota
-      - authenticatedRateLimit
-      - sandboxCreateRateLimit
-      - sandboxLifecycleRateLimit
-      - authenticatedRateLimitTtlSeconds
-      - sandboxCreateRateLimitTtlSeconds
-      - sandboxLifecycleRateLimitTtlSeconds
-      - snapshotDeactivationTimeoutMinutes
-    RegionUsageOverview:
-      type: object
-      properties:
-        regionId:
-          type: string
-        totalCpuQuota:
-          type: number
-        currentCpuUsage:
-          type: number
-        totalMemoryQuota:
-          type: number
-        currentMemoryUsage:
-          type: number
-        totalDiskQuota:
-          type: number
-        currentDiskUsage:
-          type: number
-        maxCpuPerSandbox:
-          type: number
-          nullable: true
-        maxMemoryPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerNonEphemeralSandbox:
-          type: number
-          nullable: true
-      required:
-      - regionId
-      - totalCpuQuota
-      - currentCpuUsage
-      - totalMemoryQuota
-      - currentMemoryUsage
-      - totalDiskQuota
-      - currentDiskUsage
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - maxDiskPerNonEphemeralSandbox
-    OrganizationSandboxDefaultLimitedNetworkEgress:
-      type: object
-      properties:
-        sandboxDefaultLimitedNetworkEgress:
-          type: boolean
-          description: Sandbox default limited network egress
-      required:
-      - sandboxDefaultLimitedNetworkEgress
-    OtelConfig:
-      type: object
-      properties:
-        endpoint:
-          type: string
-          description: Endpoint
-        headers:
-          type: object
-          description: Headers
-          example:
-            x-api-key: my-api-key
-          nullable: true
-          additionalProperties:
-            type: string
-      required:
-      - endpoint
-    OrganizationSuspension:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Suspension reason
-        until:
-          format: date-time
-          type: string
-          description: Suspension until
-        suspensionCleanupGracePeriodHours:
-          type: number
-          description: Suspension cleanup grace period hours
-          minimum: 0
-      required:
-      - reason
-      - until
   securitySchemes:
     bearer:
       scheme: bearer

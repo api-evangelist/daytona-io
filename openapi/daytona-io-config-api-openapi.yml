@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: config
+- name: Config
 paths:
   /config:
     get:
@@ -29,23 +29,28 @@ paths:
                 $ref: '#/components/schemas/DaytonaConfiguration'
       summary: Get config
       tags:
-      - config
+      - Config
 components:
   schemas:
-    PosthogConfig:
+    RateLimitConfig:
       type: object
       properties:
-        apiKey:
-          type: string
-          description: PostHog API key
-          example: phc_abc123
-        host:
-          type: string
-          description: PostHog host URL
-          example: https://app.posthog.com
-      required:
-      - apiKey
-      - host
+        failedAuth:
+          description: Failed authentication rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        authenticated:
+          description: Authenticated rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxCreate:
+          description: Sandbox create rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxLifecycle:
+          description: Sandbox lifecycle rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
     OidcConfig:
       type: object
       properties:
@@ -65,19 +70,6 @@ components:
       - issuer
       - clientId
       - audience
-    Announcement:
-      type: object
-      properties:
-        text:
-          type: string
-          description: The announcement text
-          example: New feature available!
-        learnMoreUrl:
-          type: string
-          description: URL to learn more about the announcement
-          example: https://example.com/learn-more
-      required:
-      - text
     DaytonaConfiguration:
       type: object
       properties:
@@ -181,25 +173,33 @@ components:
           type: number
           description: Rate limit max requests
           example: 100
-    RateLimitConfig:
+    PosthogConfig:
       type: object
       properties:
-        failedAuth:
-          description: Failed authentication rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        authenticated:
-          description: Authenticated rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        sandboxCreate:
-          description: Sandbox create rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        sandboxLifecycle:
-          description: Sandbox lifecycle rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
+        apiKey:
+          type: string
+          description: PostHog API key
+          example: phc_abc123
+        host:
+          type: string
+          description: PostHog host URL
+          example: https://app.posthog.com
+      required:
+      - apiKey
+      - host
+    Announcement:
+      type: object
+      properties:
+        text:
+          type: string
+          description: The announcement text
+          example: New feature available!
+        learnMoreUrl:
+          type: string
+          description: URL to learn more about the announcement
+          example: https://example.com/learn-more
+      required:
+      - text
   securitySchemes:
     bearer:
       scheme: bearer

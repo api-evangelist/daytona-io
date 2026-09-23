@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: workspace
+- name: Workspace
 paths:
   /workspace:
     get:
@@ -57,7 +57,7 @@ paths:
         - email
       summary: '[DEPRECATED] List all workspaces'
       tags:
-      - workspace
+      - Workspace
     post:
       deprecated: true
       operationId: createWorkspace_deprecated
@@ -89,7 +89,7 @@ paths:
         - email
       summary: '[DEPRECATED] Create a new workspace'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}:
     get:
       deprecated: true
@@ -128,7 +128,7 @@ paths:
         - email
       summary: '[DEPRECATED] Get workspace details'
       tags:
-      - workspace
+      - Workspace
     delete:
       deprecated: true
       operationId: deleteWorkspace_deprecated
@@ -161,7 +161,7 @@ paths:
         - email
       summary: '[DEPRECATED] Delete workspace'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/start:
     post:
       deprecated: true
@@ -190,7 +190,7 @@ paths:
         - email
       summary: '[DEPRECATED] Start workspace'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/stop:
     post:
       deprecated: true
@@ -219,7 +219,7 @@ paths:
         - email
       summary: '[DEPRECATED] Stop workspace'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/labels:
     put:
       deprecated: true
@@ -258,7 +258,7 @@ paths:
         - email
       summary: '[DEPRECATED] Replace workspace labels'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/backup:
     post:
       deprecated: true
@@ -291,7 +291,7 @@ paths:
         - email
       summary: '[DEPRECATED] Create workspace backup'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/public/{isPublic}:
     post:
       deprecated: true
@@ -326,7 +326,7 @@ paths:
         - email
       summary: '[DEPRECATED] Update public status'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/autostop/{interval}:
     post:
       deprecated: true
@@ -361,7 +361,7 @@ paths:
         - email
       summary: '[DEPRECATED] Set workspace auto-stop interval'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/autoarchive/{interval}:
     post:
       deprecated: true
@@ -396,7 +396,7 @@ paths:
         - email
       summary: '[DEPRECATED] Set workspace auto-archive interval'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/archive:
     post:
       deprecated: true
@@ -424,7 +424,7 @@ paths:
         - email
       summary: '[DEPRECATED] Archive workspace'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/ports/{port}/preview-url:
     get:
       deprecated: true
@@ -463,7 +463,7 @@ paths:
         - email
       summary: '[DEPRECATED] Get preview URL for a workspace port'
       tags:
-      - workspace
+      - Workspace
   /workspace/{workspaceId}/build-logs:
     get:
       deprecated: true
@@ -498,9 +498,102 @@ paths:
         - email
       summary: '[DEPRECATED] Get build logs'
       tags:
-      - workspace
+      - Workspace
 components:
   schemas:
+    BuildInfo:
+      type: object
+      properties:
+        dockerfileContent:
+          type: string
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
+        createdAt:
+          format: date-time
+          type: string
+          description: The creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: The last update timestamp
+        snapshotRef:
+          type: string
+          description: The snapshot reference
+          example: daytonaio/sandbox:latest
+      required:
+      - createdAt
+      - updatedAt
+      - snapshotRef
+    CreateBuildInfo:
+      type: object
+      properties:
+        dockerfileContent:
+          type: string
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
+      required:
+      - dockerfileContent
+    SandboxInfo:
+      type: object
+      properties:
+        created:
+          type: string
+          description: The creation timestamp of the project
+          example: '2023-10-01T12:00:00Z'
+        name:
+          type: string
+          description: 'Deprecated: The name of the sandbox'
+          example: MySandbox
+          deprecated: true
+          default: ''
+        providerMetadata:
+          type: string
+          description: Additional metadata provided by the provider
+          example: '{"key": "value"}'
+      required:
+      - created
+      - name
+    SandboxDesiredState:
+      type: string
+      enum:
+      - destroyed
+      - started
+      - stopped
+      - resized
+      - archived
+      description: The desired state of the sandbox
     CreateWorkspace:
       type: object
       properties:
@@ -579,64 +672,6 @@ components:
           description: Build information for the workspace
           allOf:
           - $ref: '#/components/schemas/CreateBuildInfo'
-    SandboxLabels:
-      type: object
-      properties:
-        labels:
-          type: object
-          description: Key-value pairs of labels
-          example:
-            environment: dev
-            team: backend
-          additionalProperties:
-            type: string
-      required:
-      - labels
-    SandboxInfo:
-      type: object
-      properties:
-        created:
-          type: string
-          description: The creation timestamp of the project
-          example: '2023-10-01T12:00:00Z'
-        name:
-          type: string
-          description: 'Deprecated: The name of the sandbox'
-          example: MySandbox
-          deprecated: true
-          default: ''
-        providerMetadata:
-          type: string
-          description: Additional metadata provided by the provider
-          example: '{"key": "value"}'
-      required:
-      - created
-      - name
-    CreateBuildInfo:
-      type: object
-      properties:
-        dockerfileContent:
-          type: string
-          description: The Dockerfile content used for the build
-          example: 'FROM node:14
-
-            WORKDIR /app
-
-            COPY . .
-
-            RUN npm install
-
-            CMD ["npm", "start"]'
-        contextHashes:
-          description: The context hashes used for the build
-          example:
-          - hash1
-          - hash2
-          type: array
-          items:
-            type: string
-      required:
-      - dockerfileContent
     Workspace:
       type: object
       properties:
@@ -829,77 +864,6 @@ components:
       - memory
       - disk
       - toolboxProxyUrl
-    SandboxVolume:
-      type: object
-      properties:
-        volumeId:
-          type: string
-          description: The ID of the volume
-          example: volume123
-        mountPath:
-          type: string
-          description: The mount path for the volume
-          example: /data
-        subpath:
-          type: string
-          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
-          example: users/alice
-      required:
-      - volumeId
-      - mountPath
-    BuildInfo:
-      type: object
-      properties:
-        dockerfileContent:
-          type: string
-          description: The Dockerfile content used for the build
-          example: 'FROM node:14
-
-            WORKDIR /app
-
-            COPY . .
-
-            RUN npm install
-
-            CMD ["npm", "start"]'
-        contextHashes:
-          description: The context hashes used for the build
-          example:
-          - hash1
-          - hash2
-          type: array
-          items:
-            type: string
-        createdAt:
-          format: date-time
-          type: string
-          description: The creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: The last update timestamp
-        snapshotRef:
-          type: string
-          description: The snapshot reference
-          example: daytonaio/sandbox:latest
-      required:
-      - createdAt
-      - updatedAt
-      - snapshotRef
-    WorkspacePortPreviewUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          description: Preview url
-          example: https://123456-mysandbox.runner.com
-        token:
-          type: string
-          description: Access token
-          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
-      required:
-      - url
-      - token
     SandboxState:
       type: string
       enum:
@@ -923,15 +887,51 @@ components:
       - snapshotting
       - forking
       description: The state of the sandbox
-    SandboxDesiredState:
-      type: string
-      enum:
-      - destroyed
-      - started
-      - stopped
-      - resized
-      - archived
-      description: The desired state of the sandbox
+    WorkspacePortPreviewUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Preview url
+          example: https://123456-mysandbox.runner.com
+        token:
+          type: string
+          description: Access token
+          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
+      required:
+      - url
+      - token
+    SandboxLabels:
+      type: object
+      properties:
+        labels:
+          type: object
+          description: Key-value pairs of labels
+          example:
+            environment: dev
+            team: backend
+          additionalProperties:
+            type: string
+      required:
+      - labels
+    SandboxVolume:
+      type: object
+      properties:
+        volumeId:
+          type: string
+          description: The ID of the volume
+          example: volume123
+        mountPath:
+          type: string
+          description: The mount path for the volume
+          example: /data
+        subpath:
+          type: string
+          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
+          example: users/alice
+      required:
+      - volumeId
+      - mountPath
   securitySchemes:
     bearer:
       scheme: bearer

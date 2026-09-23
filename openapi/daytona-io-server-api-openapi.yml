@@ -11,13 +11,13 @@ servers:
 - url: https://proxy.app.daytona.io/toolbox
   description: Daytona Sandbox Toolbox proxy
 tags:
-- name: server
+- name: Server
 paths:
   /init:
     post:
       description: Set the auth token and initialize telemetry for the toolbox server
       tags:
-      - server
+      - Server
       summary: Initialize toolbox server
       operationId: Initialize
       responses:

@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: audit
+- name: Audit
 paths:
   /audit/organizations/{organizationId}:
     get:
@@ -78,7 +78,7 @@ paths:
         - email
       summary: Get audit logs for organization
       tags:
-      - audit
+      - Audit
 components:
   schemas:
     AuditLog:

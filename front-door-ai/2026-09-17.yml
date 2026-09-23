@@ -1,0 +1,32 @@
+# Front Door AI Index — daytona-io — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: daytona-io
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.daytona.io
+  final_host: www.daytona.io
+  ownership: shared
+  owner: daytona
+  shares_host_with:
+  - daytona
+  inherited_from: null
+  verdict: scored
+  score: null
+  host_score: 116
+  density: null
+  words: 5088
+  tiers:
+    agentic: 27
+    core: 86
+    model: 3
+  ambiguous: 67
+  top_terms:
+    AI: 85
+    agent: 63
+    AI agent: 26
+    automation: 4
+    GPT: 3
+    LLMs: 1
+    agentic: 1

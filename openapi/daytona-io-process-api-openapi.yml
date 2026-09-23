@@ -11,13 +11,13 @@ servers:
 - url: https://proxy.app.daytona.io/toolbox
   description: Daytona Sandbox Toolbox proxy
 tags:
-- name: process
+- name: Process
 paths:
   /process/code-run:
     post:
       description: Execute Python, JavaScript, or TypeScript code and return output, exit code, and artifacts
       tags:
-      - process
+      - Process
       summary: Execute code
       operationId: CodeRun
       responses:
@@ -38,7 +38,7 @@ paths:
     post:
       description: Execute a shell command and return the output and exit code
       tags:
-      - process
+      - Process
       summary: Execute a command
       operationId: ExecuteCommand
       responses:
@@ -59,7 +59,7 @@ paths:
     get:
       description: Get a list of all active pseudo-terminal sessions
       tags:
-      - process
+      - Process
       summary: List all PTY sessions
       operationId: ListPtySessions
       responses:
@@ -72,7 +72,7 @@ paths:
     post:
       description: Create a new pseudo-terminal session with specified configuration
       tags:
-      - process
+      - Process
       summary: Create a new PTY session
       operationId: CreatePtySession
       responses:
@@ -93,7 +93,7 @@ paths:
     get:
       description: Get detailed information about a specific pseudo-terminal session
       tags:
-      - process
+      - Process
       summary: Get PTY session information
       operationId: GetPtySession
       parameters:
@@ -113,7 +113,7 @@ paths:
     delete:
       description: Delete a pseudo-terminal session and terminate its process
       tags:
-      - process
+      - Process
       summary: Delete a PTY session
       operationId: DeletePtySession
       parameters:
@@ -134,7 +134,7 @@ paths:
     get:
       description: Establish a WebSocket connection to interact with a pseudo-terminal session
       tags:
-      - process
+      - Process
       summary: Connect to PTY session via WebSocket
       operationId: ConnectPtySession
       parameters:
@@ -151,7 +151,7 @@ paths:
     post:
       description: Resize the terminal dimensions of a pseudo-terminal session
       tags:
-      - process
+      - Process
       summary: Resize a PTY session
       operationId: ResizePtySession
       parameters:
@@ -179,7 +179,7 @@ paths:
     get:
       description: Get a list of all active shell sessions
       tags:
-      - process
+      - Process
       summary: List all sessions
       operationId: ListSessions
       responses:
@@ -194,7 +194,7 @@ paths:
     post:
       description: Create a new shell session for command execution
       tags:
-      - process
+      - Process
       summary: Create a new session
       operationId: CreateSession
       responses:
@@ -211,7 +211,7 @@ paths:
     get:
       description: Get details of an entrypoint session including its commands
       tags:
-      - process
+      - Process
       summary: Get entrypoint session details
       operationId: GetEntrypointSession
       responses:
@@ -225,7 +225,7 @@ paths:
     get:
       description: Get logs for a sandbox entrypoint session. Returns JSON with separated stdout/stderr for SDK >= 0.161.0, plain text otherwise. Supports WebSocket streaming.
       tags:
-      - process
+      - Process
       summary: Get entrypoint logs
       operationId: GetEntrypointLogs
       parameters:
@@ -248,7 +248,7 @@ paths:
     get:
       description: Get details of a specific session including its commands
       tags:
-      - process
+      - Process
       summary: Get session details
       operationId: GetSession
       parameters:
@@ -268,7 +268,7 @@ paths:
     delete:
       description: Delete an existing shell session
       tags:
-      - process
+      - Process
       summary: Delete a session
       operationId: DeleteSession
       parameters:
@@ -285,7 +285,7 @@ paths:
     get:
       description: Get details of a specific command within a session
       tags:
-      - process
+      - Process
       summary: Get session command details
       operationId: GetSessionCommand
       parameters:
@@ -312,7 +312,7 @@ paths:
     post:
       description: Send input data to a running command in a session for interactive execution
       tags:
-      - process
+      - Process
       summary: Send input to command
       operationId: SendInput
       parameters:
@@ -342,7 +342,7 @@ paths:
     get:
       description: Get logs for a specific command within a session. Returns JSON with separated stdout/stderr for SDK >= 0.167.0, plain text otherwise. Supports WebSocket streaming.
       tags:
-      - process
+      - Process
       summary: Get session command logs
       operationId: GetSessionCommandLogs
       parameters:
@@ -377,7 +377,7 @@ paths:
     post:
       description: Execute a command within an existing shell session
       tags:
-      - process
+      - Process
       summary: Execute command in session
       operationId: SessionExecuteCommand
       parameters:
@@ -440,6 +440,27 @@ components:
           type: boolean
         rows:
           type: integer
+    CodeRunRequest:
+      type: object
+      required:
+      - code
+      - language
+      properties:
+        argv:
+          type: array
+          items:
+            type: string
+        code:
+          type: string
+        envs:
+          type: object
+          additionalProperties:
+            type: string
+        language:
+          description: python, javascript, typescript
+          type: string
+        timeout:
+          type: integer
     PtyResizeRequest:
       type: object
       required:
@@ -454,45 +475,19 @@ components:
           type: integer
           maximum: 1000
           minimum: 1
-    gin.H:
-      type: object
-      additionalProperties: {}
-    CodeRunResponse:
-      type: object
-      properties:
-        artifacts:
-          $ref: '#/components/schemas/CodeRunArtifacts'
-        exitCode:
-          type: integer
-        result:
-          type: string
-    CreateSessionRequest:
+    SessionCommandLogsResponse:
       type: object
       required:
-      - sessionId
+      - output
+      - stderr
+      - stdout
       properties:
-        sessionId:
+        output:
           type: string
-    SessionExecuteRequest:
-      type: object
-      required:
-      - command
-      properties:
-        async:
-          type: boolean
-        command:
+        stderr:
           type: string
-        runAsync:
-          type: boolean
-        suppressInputEcho:
-          type: boolean
-    CodeRunArtifacts:
-      type: object
-      properties:
-        charts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Chart'
+        stdout:
+          type: string
     Chart:
       type: object
       properties:
@@ -530,6 +525,24 @@ components:
           type: array
           items:
             type: number
+    PtyCreateRequest:
+      type: object
+      properties:
+        cols:
+          type: integer
+        cwd:
+          type: string
+        envs:
+          type: object
+          additionalProperties:
+            type: string
+        id:
+          type: string
+        lazyStart:
+          description: Don't start PTY until first client connects
+          type: boolean
+        rows:
+          type: integer
     Session:
       type: object
       required:
@@ -542,22 +555,35 @@ components:
             $ref: '#/components/schemas/Command'
         sessionId:
           type: string
-    PtyCreateResponse:
+    CreateSessionRequest:
       type: object
       required:
       - sessionId
       properties:
         sessionId:
           type: string
-    PtyListResponse:
+    SessionSendInputRequest:
       type: object
       required:
-      - sessions
+      - data
       properties:
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PtySessionInfo'
+        data:
+          type: string
+    SessionExecuteResponse:
+      type: object
+      required:
+      - cmdId
+      properties:
+        cmdId:
+          type: string
+        exitCode:
+          type: integer
+        output:
+          type: string
+        stderr:
+          type: string
+        stdout:
+          type: string
     Command:
       type: object
       required:
@@ -570,6 +596,22 @@ components:
           type: integer
         id:
           type: string
+    SessionExecuteRequest:
+      type: object
+      required:
+      - command
+      properties:
+        async:
+          type: boolean
+        command:
+          type: string
+        runAsync:
+          type: boolean
+        suppressInputEcho:
+          type: boolean
+    gin.H:
+      type: object
+      additionalProperties: {}
     ChartElement:
       type: object
       properties:
@@ -613,6 +655,38 @@ components:
           type: string
         y_label:
           type: string
+    CodeRunResponse:
+      type: object
+      properties:
+        artifacts:
+          $ref: '#/components/schemas/CodeRunArtifacts'
+        exitCode:
+          type: integer
+        result:
+          type: string
+    PtyListResponse:
+      type: object
+      required:
+      - sessions
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PtySessionInfo'
+    PtyCreateResponse:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+    CodeRunArtifacts:
+      type: object
+      properties:
+        charts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart'
     ExecuteResponse:
       type: object
       required:
@@ -621,73 +695,6 @@ components:
         exitCode:
           type: integer
         result:
-          type: string
-    SessionExecuteResponse:
-      type: object
-      required:
-      - cmdId
-      properties:
-        cmdId:
-          type: string
-        exitCode:
-          type: integer
-        output:
-          type: string
-        stderr:
-          type: string
-        stdout:
-          type: string
-    PtyCreateRequest:
-      type: object
-      properties:
-        cols:
-          type: integer
-        cwd:
-          type: string
-        envs:
-          type: object
-          additionalProperties:
-            type: string
-        id:
-          type: string
-        lazyStart:
-          description: Don't start PTY until first client connects
-          type: boolean
-        rows:
-          type: integer
-    CodeRunRequest:
-      type: object
-      required:
-      - code
-      - language
-      properties:
-        argv:
-          type: array
-          items:
-            type: string
-        code:
-          type: string
-        envs:
-          type: object
-          additionalProperties:
-            type: string
-        language:
-          description: python, javascript, typescript
-          type: string
-        timeout:
-          type: integer
-    SessionCommandLogsResponse:
-      type: object
-      required:
-      - output
-      - stderr
-      - stdout
-      properties:
-        output:
-          type: string
-        stderr:
-          type: string
-        stdout:
           type: string
     ExecuteRequest:
       type: object
@@ -707,10 +714,3 @@ components:
         timeout:
           description: Timeout in seconds, defaults to 10 seconds
           type: integer
-    SessionSendInputRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: string

@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: regions
+- name: Regions
 paths:
   /shared-regions:
     get:
@@ -31,7 +31,7 @@ paths:
                   $ref: '#/components/schemas/Region'
       summary: List all shared regions
       tags:
-      - regions
+      - Regions
 components:
   schemas:
     RegionType:

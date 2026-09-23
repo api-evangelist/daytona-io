@@ -11,13 +11,13 @@ servers:
 - url: https://proxy.app.daytona.io/toolbox
   description: Daytona Sandbox Toolbox proxy
 tags:
-- name: port
+- name: Port
 paths:
   /port:
     get:
       description: Get a list of all currently active ports
       tags:
-      - port
+      - Port
       summary: Get active ports
       operationId: GetPorts
       responses:
@@ -31,7 +31,7 @@ paths:
     get:
       description: Check if a specific port is currently in use
       tags:
-      - port
+      - Port
       summary: Check if port is in use
       operationId: IsPortInUse
       parameters:
@@ -50,11 +50,6 @@ paths:
                 $ref: '#/components/schemas/IsPortInUseResponse'
 components:
   schemas:
-    IsPortInUseResponse:
-      type: object
-      properties:
-        isInUse:
-          type: boolean
     PortList:
       type: object
       properties:
@@ -62,3 +57,8 @@ components:
           type: array
           items:
             type: integer
+    IsPortInUseResponse:
+      type: object
+      properties:
+        isInUse:
+          type: boolean

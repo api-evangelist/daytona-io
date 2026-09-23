@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: preview
+- name: Preview
 paths:
   /preview/{sandboxId}/public:
     get:
@@ -41,7 +41,7 @@ paths:
         - email
       summary: Check if sandbox is public
       tags:
-      - preview
+      - Preview
   /preview/{sandboxId}/validate/{authToken}:
     get:
       operationId: isValidAuthToken
@@ -73,7 +73,7 @@ paths:
         - email
       summary: Check if sandbox auth token is valid
       tags:
-      - preview
+      - Preview
   /preview/{sandboxId}/access:
     get:
       operationId: hasSandboxAccess
@@ -98,7 +98,7 @@ paths:
         - email
       summary: Check if user has access to the sandbox
       tags:
-      - preview
+      - Preview
   /preview/{signedPreviewToken}/{port}/sandbox-id:
     get:
       operationId: getSandboxIdFromSignedPreviewUrlToken
@@ -130,7 +130,7 @@ paths:
         - email
       summary: Get sandbox ID from signed preview URL token
       tags:
-      - preview
+      - Preview
 components:
   securitySchemes:
     bearer:

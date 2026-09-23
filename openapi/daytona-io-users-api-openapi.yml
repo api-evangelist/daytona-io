@@ -14,7 +14,7 @@ servers:
 - url: https://app.daytona.io/api
   description: Daytona Cloud production API
 tags:
-- name: users
+- name: Users
 paths:
   /users/me:
     get:
@@ -35,7 +35,7 @@ paths:
         - email
       summary: Get authenticated user
       tags:
-      - users
+      - Users
   /users/account-providers:
     get:
       operationId: getAvailableAccountProviders
@@ -57,7 +57,7 @@ paths:
         - email
       summary: Get available account providers
       tags:
-      - users
+      - Users
   /users/linked-accounts:
     post:
       operationId: linkAccount
@@ -79,7 +79,7 @@ paths:
         - email
       summary: Link account
       tags:
-      - users
+      - Users
   /users/linked-accounts/{provider}/{providerUserId}:
     delete:
       operationId: unlinkAccount
@@ -105,7 +105,7 @@ paths:
         - email
       summary: Unlink account
       tags:
-      - users
+      - Users
   /users/mfa/sms/enroll:
     post:
       operationId: enrollInSmsMfa
@@ -125,9 +125,31 @@ paths:
         - email
       summary: Enroll in SMS MFA
       tags:
-      - users
+      - Users
 components:
   schemas:
+    AccountProvider:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+      required:
+      - name
+      - displayName
+    CreateLinkedAccount:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: The authentication provider of the secondary account
+        userId:
+          type: string
+          description: The user ID of the secondary account
+      required:
+      - provider
+      - userId
     User:
       type: object
       properties:
@@ -155,28 +177,6 @@ components:
       - email
       - publicKeys
       - createdAt
-    AccountProvider:
-      type: object
-      properties:
-        name:
-          type: string
-        displayName:
-          type: string
-      required:
-      - name
-      - displayName
-    CreateLinkedAccount:
-      type: object
-      properties:
-        provider:
-          type: string
-          description: The authentication provider of the secondary account
-        userId:
-          type: string
-          description: The user ID of the secondary account
-      required:
-      - provider
-      - userId
     UserPublicKey:
       type: object
       properties:

@@ -55,7 +55,9 @@
     "daytona-io-daytona-webhooks-api-api-openapi.yml",
     "daytona-io-webhooks-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -187,7 +189,9 @@
     "daytona-webhooks-api-openapi.yml: tagged webhooks POST volume.created -> Daytona Webhooks API",
     "daytona-webhooks-api-openapi.yml: tagged webhooks POST volume.state.updated -> Daytona Webhooks API",
     "daytona-webhooks-api-openapi.yml: declared missing tag: Daytona Webhooks API",
-    "daytona-webhooks-api-openapi.yml: declared missing tag: webhooks"
+    "daytona-webhooks-api-openapi.yml: declared missing tag: webhooks",
+    "superseded outputs removed: daytona-io-filesystem-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 39 total)"
   ],
   "skipped": [
     "daytona-io-admin-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -195,8 +199,19 @@
     "daytona-io-audit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "daytona-io-computer-use-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "daytona-io-config-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-admin-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-api-keys-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-health-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-organizations-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-preview-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-sandbox-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-snapshots-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-toolbox-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-users-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-volumes-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-daytona-webhooks-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "daytona-io-docker-registry-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "daytona-io-file-system-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "daytona-io-filesystem-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "daytona-io-git-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "daytona-io-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "daytona-io-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
