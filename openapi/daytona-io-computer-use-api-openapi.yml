@@ -986,122 +986,15 @@ paths:
                 $ref: '#/components/schemas/ComputerUseStopResponse'
 components:
   schemas:
-    MouseDragResponse:
+    ComputerUseStopResponse:
       type: object
       properties:
-        x:
-          type: integer
-        y:
-          type: integer
-    MouseDragRequest:
-      type: object
-      properties:
-        button:
+        message:
           type: string
-        endX:
-          type: integer
-        endY:
-          type: integer
-        startX:
-          type: integer
-        startY:
-          type: integer
-    MouseClickResponse:
-      type: object
-      properties:
-        x:
-          type: integer
-        y:
-          type: integer
-    MouseClickRequest:
-      type: object
-      properties:
-        button:
-          description: left, right, middle
-          type: string
-        double:
-          type: boolean
-        x:
-          type: integer
-        y:
-          type: integer
-    MouseMoveRequest:
-      type: object
-      properties:
-        x:
-          type: integer
-        y:
-          type: integer
-    WindowsResponse:
-      type: object
-      properties:
-        windows:
-          type: array
-          items:
-            $ref: '#/components/schemas/WindowInfo'
-    KeyboardHotkeyRequest:
-      type: object
-      properties:
-        keys:
-          description: e.g., "ctrl+c", "cmd+v"
-          type: string
-    KeyboardTypeRequest:
-      type: object
-      properties:
-        delay:
-          description: milliseconds between keystrokes
-          type: integer
-        text:
-          type: string
-    AccessibilityInvokeRequest:
-      type: object
-      required:
-      - id
-      properties:
-        action:
-          type: string
-        id:
-          type: string
-    WindowInfo:
-      type: object
-      properties:
-        height:
-          type: integer
-        id:
-          type: integer
-        isActive:
-          type: boolean
-        title:
-          type: string
-        width:
-          type: integer
-        x:
-          type: integer
-        y:
-          type: integer
-    AccessibilitySetValueRequest:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-        value:
-          type: string
-    MousePositionResponse:
-      type: object
-      properties:
-        x:
-          type: integer
-        y:
-          type: integer
-    DisplayInfoResponse:
-      type: object
-      properties:
-        displays:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisplayInfo'
+        status:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ProcessStatus'
     Recording:
       type: object
       required:
@@ -1127,13 +1020,24 @@ components:
           type: string
         status:
           type: string
-    AccessibilityTreeResponse:
+    ListRecordingsResponse:
+      type: object
+      required:
+      - recordings
+      properties:
+        recordings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recording'
+    Empty:
+      type: object
+    ProcessLogsResponse:
       type: object
       properties:
-        root:
-          $ref: '#/components/schemas/computeruse.AccessibilityNode'
-        truncated:
-          type: boolean
+        logs:
+          type: string
+        processName:
+          type: string
     AccessibilityBounds:
       type: object
       properties:
@@ -1145,77 +1049,78 @@ components:
           type: integer
         y:
           type: integer
-    StartRecordingRequest:
+    MouseMoveRequest:
       type: object
       properties:
-        label:
-          type: string
-    ListRecordingsResponse:
+        x:
+          type: integer
+        y:
+          type: integer
+    AccessibilityNodesResponse:
       type: object
-      required:
-      - recordings
       properties:
-        recordings:
+        matches:
           type: array
           items:
-            $ref: '#/components/schemas/Recording'
-    MouseScrollRequest:
+            $ref: '#/components/schemas/computeruse.AccessibilityNode'
+        truncated:
+          type: boolean
+    ProcessRestartResponse:
       type: object
       properties:
-        amount:
-          type: integer
-          default: 1
-          minimum: 0
-        direction:
-          description: up, down
+        message:
           type: string
-        x:
-          type: integer
-        y:
-          type: integer
-    ComputerUseStatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-    ProcessStatusResponse:
-      type: object
-      properties:
         processName:
           type: string
-        running:
-          type: boolean
-    Position:
+    ComputerUseStartResponse:
       type: object
       properties:
-        x:
-          type: integer
-        y:
-          type: integer
-    ProcessStatus:
+        message:
+          type: string
+        status:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ProcessStatus'
+    KeyboardPressRequest:
       type: object
       properties:
-        autoRestart:
-          type: boolean
-        pid:
-          type: integer
-        priority:
-          type: integer
-        running:
-          type: boolean
-    AccessibilityNodeRequest:
+        key:
+          type: string
+        modifiers:
+          description: ctrl, alt, shift, cmd
+          type: array
+          items:
+            type: string
+    AccessibilitySetValueRequest:
       type: object
       required:
       - id
       properties:
         id:
           type: string
-    ProcessErrorsResponse:
+        value:
+          type: string
+    DisplayInfo:
       type: object
       properties:
-        errors:
-          type: string
-        processName:
+        height:
+          type: integer
+        id:
+          type: integer
+        isActive:
+          type: boolean
+        width:
+          type: integer
+        x:
+          type: integer
+        y:
+          type: integer
+    AccessibilityNodeRequest:
+      type: object
+      required:
+      - id
+      properties:
+        id:
           type: string
     computeruse.AccessibilityNode:
       type: object
@@ -1242,15 +1147,23 @@ components:
           type: array
           items:
             type: string
-    AccessibilityNodesResponse:
+    WindowInfo:
       type: object
       properties:
-        matches:
-          type: array
-          items:
-            $ref: '#/components/schemas/computeruse.AccessibilityNode'
-        truncated:
+        height:
+          type: integer
+        id:
+          type: integer
+        isActive:
           type: boolean
+        title:
+          type: string
+        width:
+          type: integer
+        x:
+          type: integer
+        y:
+          type: integer
     FindAccessibilityNodesRequest:
       type: object
       properties:
@@ -1271,22 +1184,151 @@ components:
           type: array
           items:
             type: string
-    KeyboardPressRequest:
+    ComputerUseStatusResponse:
       type: object
       properties:
-        key:
+        status:
           type: string
-        modifiers:
-          description: ctrl, alt, shift, cmd
+    AccessibilityInvokeRequest:
+      type: object
+      required:
+      - id
+      properties:
+        action:
+          type: string
+        id:
+          type: string
+    ProcessStatus:
+      type: object
+      properties:
+        autoRestart:
+          type: boolean
+        pid:
+          type: integer
+        priority:
+          type: integer
+        running:
+          type: boolean
+    MouseDragResponse:
+      type: object
+      properties:
+        x:
+          type: integer
+        y:
+          type: integer
+    StartRecordingRequest:
+      type: object
+      properties:
+        label:
+          type: string
+    Position:
+      type: object
+      properties:
+        x:
+          type: integer
+        y:
+          type: integer
+    KeyboardTypeRequest:
+      type: object
+      properties:
+        delay:
+          description: milliseconds between keystrokes
+          type: integer
+        text:
+          type: string
+    MouseClickResponse:
+      type: object
+      properties:
+        x:
+          type: integer
+        y:
+          type: integer
+    DisplayInfoResponse:
+      type: object
+      properties:
+        displays:
           type: array
           items:
-            type: string
-    ProcessRestartResponse:
+            $ref: '#/components/schemas/DisplayInfo'
+    ProcessErrorsResponse:
       type: object
       properties:
-        message:
+        errors:
           type: string
         processName:
+          type: string
+    WindowsResponse:
+      type: object
+      properties:
+        windows:
+          type: array
+          items:
+            $ref: '#/components/schemas/WindowInfo'
+    StopRecordingRequest:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    MousePositionResponse:
+      type: object
+      properties:
+        x:
+          type: integer
+        y:
+          type: integer
+    MouseDragRequest:
+      type: object
+      properties:
+        button:
+          type: string
+        endX:
+          type: integer
+        endY:
+          type: integer
+        startX:
+          type: integer
+        startY:
+          type: integer
+    ProcessStatusResponse:
+      type: object
+      properties:
+        processName:
+          type: string
+        running:
+          type: boolean
+    MouseClickRequest:
+      type: object
+      properties:
+        button:
+          description: left, right, middle
+          type: string
+        double:
+          type: boolean
+        x:
+          type: integer
+        y:
+          type: integer
+    MouseScrollRequest:
+      type: object
+      properties:
+        amount:
+          type: integer
+          default: 1
+          minimum: 0
+        direction:
+          description: up, down
+          type: string
+        x:
+          type: integer
+        y:
+          type: integer
+    KeyboardHotkeyRequest:
+      type: object
+      properties:
+        keys:
+          description: e.g., "ctrl+c", "cmd+v"
           type: string
     ScreenshotResponse:
       type: object
@@ -1297,57 +1339,15 @@ components:
           type: string
         sizeBytes:
           type: integer
-    StopRecordingRequest:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    ComputerUseStartResponse:
+    AccessibilityTreeResponse:
       type: object
       properties:
-        message:
-          type: string
-        status:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ProcessStatus'
-    ComputerUseStopResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        status:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ProcessStatus'
+        root:
+          $ref: '#/components/schemas/computeruse.AccessibilityNode'
+        truncated:
+          type: boolean
     ScrollResponse:
       type: object
       properties:
         success:
           type: boolean
-    ProcessLogsResponse:
-      type: object
-      properties:
-        logs:
-          type: string
-        processName:
-          type: string
-    Empty:
-      type: object
-    DisplayInfo:
-      type: object
-      properties:
-        height:
-          type: integer
-        id:
-          type: integer
-        isActive:
-          type: boolean
-        width:
-          type: integer
-        x:
-          type: integer
-        y:
-          type: integer

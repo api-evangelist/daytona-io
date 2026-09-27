@@ -127,6 +127,13 @@ paths:
                 type: string
 components:
   schemas:
+    CreateContextRequest:
+      type: object
+      properties:
+        cwd:
+          type: string
+        language:
+          type: string
     InterpreterContext:
       type: object
       required:
@@ -155,10 +162,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterpreterContext'
-    CreateContextRequest:
-      type: object
-      properties:
-        cwd:
-          type: string
-        language:
-          type: string

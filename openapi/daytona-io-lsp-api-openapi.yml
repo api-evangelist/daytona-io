@@ -184,6 +184,47 @@ components:
           type: string
         pathToProject:
           type: string
+    LspCompletionParams:
+      type: object
+      required:
+      - languageId
+      - pathToProject
+      - position
+      - uri
+      properties:
+        context:
+          $ref: '#/components/schemas/CompletionContext'
+        languageId:
+          type: string
+        pathToProject:
+          type: string
+        position:
+          $ref: '#/components/schemas/LspPosition'
+        uri:
+          type: string
+    LspDocumentRequest:
+      type: object
+      required:
+      - languageId
+      - pathToProject
+      - uri
+      properties:
+        languageId:
+          type: string
+        pathToProject:
+          type: string
+        uri:
+          type: string
+    LspLocation:
+      type: object
+      required:
+      - range
+      - uri
+      properties:
+        range:
+          $ref: '#/components/schemas/LspRange'
+        uri:
+          type: string
     LspSymbol:
       type: object
       required:
@@ -196,26 +237,6 @@ components:
         location:
           $ref: '#/components/schemas/LspLocation'
         name:
-          type: string
-    LspRange:
-      type: object
-      required:
-      - end
-      - start
-      properties:
-        end:
-          $ref: '#/components/schemas/LspPosition'
-        start:
-          $ref: '#/components/schemas/LspPosition'
-    LspLocation:
-      type: object
-      required:
-      - range
-      - uri
-      properties:
-        range:
-          $ref: '#/components/schemas/LspRange'
-        uri:
           type: string
     CompletionItem:
       type: object
@@ -235,6 +256,16 @@ components:
           type: string
         sortText:
           type: string
+    LspPosition:
+      type: object
+      required:
+      - character
+      - line
+      properties:
+        character:
+          type: integer
+        line:
+          type: integer
     CompletionList:
       type: object
       required:
@@ -247,47 +278,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompletionItem'
-    LspDocumentRequest:
+    LspRange:
       type: object
       required:
-      - languageId
-      - pathToProject
-      - uri
+      - end
+      - start
       properties:
-        languageId:
-          type: string
-        pathToProject:
-          type: string
-        uri:
-          type: string
-    LspPosition:
-      type: object
-      required:
-      - character
-      - line
-      properties:
-        character:
-          type: integer
-        line:
-          type: integer
-    LspCompletionParams:
-      type: object
-      required:
-      - languageId
-      - pathToProject
-      - position
-      - uri
-      properties:
-        context:
-          $ref: '#/components/schemas/CompletionContext'
-        languageId:
-          type: string
-        pathToProject:
-          type: string
-        position:
+        end:
           $ref: '#/components/schemas/LspPosition'
-        uri:
-          type: string
+        start:
+          $ref: '#/components/schemas/LspPosition'
     CompletionContext:
       type: object
       required:

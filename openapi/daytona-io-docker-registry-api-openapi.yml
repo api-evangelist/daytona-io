@@ -205,6 +205,62 @@ paths:
       - docker-registry
 components:
   schemas:
+    UpdateDockerRegistry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Registry name
+        url:
+          type: string
+          description: Registry URL
+        username:
+          type: string
+          description: Registry username
+        password:
+          type: string
+          description: Registry password
+        project:
+          type: string
+          description: Registry project
+      required:
+      - name
+      - url
+      - username
+    RegistryPushAccessDto:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Temporary username for registry authentication
+          example: temp-user-123
+        secret:
+          type: string
+          description: Temporary secret for registry authentication
+          example: eyJhbGciOiJIUzI1NiIs...
+        registryUrl:
+          type: string
+          description: Registry URL
+          example: registry.example.com
+        registryId:
+          type: string
+          description: Registry ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        project:
+          type: string
+          description: Registry project ID
+          example: library
+        expiresAt:
+          type: string
+          description: Token expiration time in ISO format
+          example: '2023-12-31T23:59:59Z'
+      required:
+      - username
+      - secret
+      - registryUrl
+      - registryId
+      - project
+      - expiresAt
     DockerRegistry:
       type: object
       properties:
@@ -256,62 +312,6 @@ components:
       - registryType
       - createdAt
       - updatedAt
-    RegistryPushAccessDto:
-      type: object
-      properties:
-        username:
-          type: string
-          description: Temporary username for registry authentication
-          example: temp-user-123
-        secret:
-          type: string
-          description: Temporary secret for registry authentication
-          example: eyJhbGciOiJIUzI1NiIs...
-        registryUrl:
-          type: string
-          description: Registry URL
-          example: registry.example.com
-        registryId:
-          type: string
-          description: Registry ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        project:
-          type: string
-          description: Registry project ID
-          example: library
-        expiresAt:
-          type: string
-          description: Token expiration time in ISO format
-          example: '2023-12-31T23:59:59Z'
-      required:
-      - username
-      - secret
-      - registryUrl
-      - registryId
-      - project
-      - expiresAt
-    UpdateDockerRegistry:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Registry name
-        url:
-          type: string
-          description: Registry URL
-        username:
-          type: string
-          description: Registry username
-        password:
-          type: string
-          description: Registry password
-        project:
-          type: string
-          description: Registry project
-      required:
-      - name
-      - url
-      - username
     CreateDockerRegistry:
       type: object
       properties:

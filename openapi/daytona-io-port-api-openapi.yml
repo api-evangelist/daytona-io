@@ -50,6 +50,11 @@ paths:
                 $ref: '#/components/schemas/IsPortInUseResponse'
 components:
   schemas:
+    IsPortInUseResponse:
+      type: object
+      properties:
+        isInUse:
+          type: boolean
     PortList:
       type: object
       properties:
@@ -57,8 +62,3 @@ components:
           type: array
           items:
             type: integer
-    IsPortInUseResponse:
-      type: object
-      properties:
-        isInUse:
-          type: boolean

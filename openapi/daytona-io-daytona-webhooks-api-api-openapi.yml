@@ -124,7 +124,114 @@ webhooks:
       x-summary-source: derived
 components:
   schemas:
-    SnapshotRemovedWebhook:
+    SandboxState:
+      type: string
+      enum:
+      - creating
+      - restoring
+      - destroyed
+      - destroying
+      - started
+      - stopped
+      - starting
+      - stopping
+      - error
+      - build_failed
+      - pending_build
+      - building_snapshot
+      - unknown
+      - pulling_snapshot
+      - archived
+      - archiving
+      - resizing
+      - snapshotting
+      - forking
+      description: The state of the sandbox
+    SandboxStateUpdatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Sandbox ID
+          example: sandbox123
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        oldState:
+          description: Previous state
+          allOf:
+          - $ref: '#/components/schemas/SandboxState'
+        newState:
+          description: New state
+          allOf:
+          - $ref: '#/components/schemas/SandboxState'
+        updatedAt:
+          type: string
+          description: When the sandbox was last updated
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - organizationId
+      - oldState
+      - newState
+      - updatedAt
+    SandboxCreatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Sandbox ID
+          example: sandbox123
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        state:
+          description: Sandbox state
+          allOf:
+          - $ref: '#/components/schemas/SandboxState'
+        class:
+          description: Sandbox class
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+        createdAt:
+          type: string
+          description: When the sandbox was created
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - organizationId
+      - state
+      - class
+      - createdAt
+    SnapshotCreatedWebhook:
       type: object
       properties:
         event:
@@ -149,9 +256,13 @@ components:
           type: string
           description: Organization ID
           example: org123
-        removedAt:
+        state:
+          description: Snapshot state
+          allOf:
+          - $ref: '#/components/schemas/SnapshotState'
+        createdAt:
           type: string
-          description: When the snapshot was removed
+          description: When the snapshot was created
           example: '2025-12-19T10:30:00.000Z'
           format: date-time
       required:
@@ -160,7 +271,61 @@ components:
       - id
       - name
       - organizationId
-      - removedAt
+      - state
+      - createdAt
+    VolumeCreatedWebhook:
+      type: object
+      properties:
+        event:
+          description: Event type identifier
+          example: sandbox.created
+          allOf:
+          - $ref: '#/components/schemas/WebhookEvent'
+        timestamp:
+          type: string
+          description: Timestamp when the event occurred
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+        id:
+          type: string
+          description: Volume ID
+          example: vol-12345678
+        name:
+          type: string
+          description: Volume name
+          example: my-volume
+        organizationId:
+          type: string
+          description: Organization ID
+          example: org123
+        state:
+          description: Volume state
+          allOf:
+          - $ref: '#/components/schemas/VolumeState'
+        createdAt:
+          type: string
+          description: When the volume was created
+          example: '2025-12-19T10:30:00.000Z'
+          format: date-time
+      required:
+      - event
+      - timestamp
+      - id
+      - name
+      - organizationId
+      - state
+      - createdAt
+    VolumeState:
+      type: string
+      enum:
+      - creating
+      - ready
+      - pending_create
+      - pending_delete
+      - deleting
+      - deleted
+      - error
+      description: Volume state
     VolumeStateUpdatedWebhook:
       type: object
       properties:
@@ -208,7 +373,36 @@ components:
       - oldState
       - newState
       - updatedAt
-    SnapshotCreatedWebhook:
+    SandboxClass:
+      type: string
+      enum:
+      - small
+      - medium
+      - large
+      description: The class of the runner
+    SnapshotState:
+      type: string
+      enum:
+      - building
+      - pending
+      - pulling
+      - active
+      - inactive
+      - error
+      - build_failed
+      - removing
+    WebhookEvent:
+      type: string
+      enum:
+      - sandbox.created
+      - sandbox.state.updated
+      - snapshot.created
+      - snapshot.state.updated
+      - snapshot.removed
+      - volume.created
+      - volume.state.updated
+      description: The type of event being sent
+    SnapshotRemovedWebhook:
       type: object
       properties:
         event:
@@ -233,13 +427,9 @@ components:
           type: string
           description: Organization ID
           example: org123
-        state:
-          description: Snapshot state
-          allOf:
-          - $ref: '#/components/schemas/SnapshotState'
-        createdAt:
+        removedAt:
           type: string
-          description: When the snapshot was created
+          description: When the snapshot was removed
           example: '2025-12-19T10:30:00.000Z'
           format: date-time
       required:
@@ -248,8 +438,7 @@ components:
       - id
       - name
       - organizationId
-      - state
-      - createdAt
+      - removedAt
     SnapshotStateUpdatedWebhook:
       type: object
       properties:
@@ -293,195 +482,6 @@ components:
       - timestamp
       - id
       - name
-      - organizationId
-      - oldState
-      - newState
-      - updatedAt
-    VolumeState:
-      type: string
-      enum:
-      - creating
-      - ready
-      - pending_create
-      - pending_delete
-      - deleting
-      - deleted
-      - error
-      description: Volume state
-    SandboxCreatedWebhook:
-      type: object
-      properties:
-        event:
-          description: Event type identifier
-          example: sandbox.created
-          allOf:
-          - $ref: '#/components/schemas/WebhookEvent'
-        timestamp:
-          type: string
-          description: Timestamp when the event occurred
-          example: '2025-12-19T10:30:00.000Z'
-          format: date-time
-        id:
-          type: string
-          description: Sandbox ID
-          example: sandbox123
-        organizationId:
-          type: string
-          description: Organization ID
-          example: org123
-        state:
-          description: Sandbox state
-          allOf:
-          - $ref: '#/components/schemas/SandboxState'
-        class:
-          description: Sandbox class
-          allOf:
-          - $ref: '#/components/schemas/SandboxClass'
-        createdAt:
-          type: string
-          description: When the sandbox was created
-          example: '2025-12-19T10:30:00.000Z'
-          format: date-time
-      required:
-      - event
-      - timestamp
-      - id
-      - organizationId
-      - state
-      - class
-      - createdAt
-    WebhookEvent:
-      type: string
-      enum:
-      - sandbox.created
-      - sandbox.state.updated
-      - snapshot.created
-      - snapshot.state.updated
-      - snapshot.removed
-      - volume.created
-      - volume.state.updated
-      description: The type of event being sent
-    SandboxState:
-      type: string
-      enum:
-      - creating
-      - restoring
-      - destroyed
-      - destroying
-      - started
-      - stopped
-      - starting
-      - stopping
-      - error
-      - build_failed
-      - pending_build
-      - building_snapshot
-      - unknown
-      - pulling_snapshot
-      - archived
-      - archiving
-      - resizing
-      - snapshotting
-      - forking
-      description: The state of the sandbox
-    SandboxClass:
-      type: string
-      enum:
-      - small
-      - medium
-      - large
-      description: The class of the runner
-    VolumeCreatedWebhook:
-      type: object
-      properties:
-        event:
-          description: Event type identifier
-          example: sandbox.created
-          allOf:
-          - $ref: '#/components/schemas/WebhookEvent'
-        timestamp:
-          type: string
-          description: Timestamp when the event occurred
-          example: '2025-12-19T10:30:00.000Z'
-          format: date-time
-        id:
-          type: string
-          description: Volume ID
-          example: vol-12345678
-        name:
-          type: string
-          description: Volume name
-          example: my-volume
-        organizationId:
-          type: string
-          description: Organization ID
-          example: org123
-        state:
-          description: Volume state
-          allOf:
-          - $ref: '#/components/schemas/VolumeState'
-        createdAt:
-          type: string
-          description: When the volume was created
-          example: '2025-12-19T10:30:00.000Z'
-          format: date-time
-      required:
-      - event
-      - timestamp
-      - id
-      - name
-      - organizationId
-      - state
-      - createdAt
-    SnapshotState:
-      type: string
-      enum:
-      - building
-      - pending
-      - pulling
-      - active
-      - inactive
-      - error
-      - build_failed
-      - removing
-    SandboxStateUpdatedWebhook:
-      type: object
-      properties:
-        event:
-          description: Event type identifier
-          example: sandbox.created
-          allOf:
-          - $ref: '#/components/schemas/WebhookEvent'
-        timestamp:
-          type: string
-          description: Timestamp when the event occurred
-          example: '2025-12-19T10:30:00.000Z'
-          format: date-time
-        id:
-          type: string
-          description: Sandbox ID
-          example: sandbox123
-        organizationId:
-          type: string
-          description: Organization ID
-          example: org123
-        oldState:
-          description: Previous state
-          allOf:
-          - $ref: '#/components/schemas/SandboxState'
-        newState:
-          description: New state
-          allOf:
-          - $ref: '#/components/schemas/SandboxState'
-        updatedAt:
-          type: string
-          description: When the sandbox was last updated
-          example: '2025-12-19T10:30:00.000Z'
-          format: date-time
-      required:
-      - event
-      - timestamp
-      - id
       - organizationId
       - oldState
       - newState

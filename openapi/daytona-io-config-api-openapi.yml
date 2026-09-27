@@ -32,6 +32,31 @@ paths:
       - Config
 components:
   schemas:
+    PosthogConfig:
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: PostHog API key
+          example: phc_abc123
+        host:
+          type: string
+          description: PostHog host URL
+          example: https://app.posthog.com
+      required:
+      - apiKey
+      - host
+    RateLimitEntry:
+      type: object
+      properties:
+        ttl:
+          type: number
+          description: Rate limit TTL in seconds
+          example: 60
+        limit:
+          type: number
+          description: Rate limit max requests
+          example: 100
     RateLimitConfig:
       type: object
       properties:
@@ -51,25 +76,19 @@ components:
           description: Sandbox lifecycle rate limit
           allOf:
           - $ref: '#/components/schemas/RateLimitEntry'
-    OidcConfig:
+    Announcement:
       type: object
       properties:
-        issuer:
+        text:
           type: string
-          description: OIDC issuer
-          example: https://auth.example.com
-        clientId:
+          description: The announcement text
+          example: New feature available!
+        learnMoreUrl:
           type: string
-          description: OIDC client ID
-          example: daytona-client
-        audience:
-          type: string
-          description: OIDC audience
-          example: daytona-api
+          description: URL to learn more about the announcement
+          example: https://example.com/learn-more
       required:
-      - issuer
-      - clientId
-      - audience
+      - text
     DaytonaConfiguration:
       type: object
       properties:
@@ -162,44 +181,25 @@ components:
       - maxAutoArchiveInterval
       - maintananceMode
       - environment
-    RateLimitEntry:
+    OidcConfig:
       type: object
       properties:
-        ttl:
-          type: number
-          description: Rate limit TTL in seconds
-          example: 60
-        limit:
-          type: number
-          description: Rate limit max requests
-          example: 100
-    PosthogConfig:
-      type: object
-      properties:
-        apiKey:
+        issuer:
           type: string
-          description: PostHog API key
-          example: phc_abc123
-        host:
+          description: OIDC issuer
+          example: https://auth.example.com
+        clientId:
           type: string
-          description: PostHog host URL
-          example: https://app.posthog.com
+          description: OIDC client ID
+          example: daytona-client
+        audience:
+          type: string
+          description: OIDC audience
+          example: daytona-api
       required:
-      - apiKey
-      - host
-    Announcement:
-      type: object
-      properties:
-        text:
-          type: string
-          description: The announcement text
-          example: New feature available!
-        learnMoreUrl:
-          type: string
-          description: URL to learn more about the announcement
-          example: https://example.com/learn-more
-      required:
-      - text
+      - issuer
+      - clientId
+      - audience
   securitySchemes:
     bearer:
       scheme: bearer

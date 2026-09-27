@@ -218,6 +218,38 @@ paths:
                 $ref: '#/components/schemas/GitStatus'
 components:
   schemas:
+    GitAddRequest:
+      type: object
+      required:
+      - files
+      - path
+      properties:
+        files:
+          description: files to add (use . for all files)
+          type: array
+          items:
+            type: string
+        path:
+          type: string
+    GitCheckoutRequest:
+      type: object
+      required:
+      - branch
+      - path
+      properties:
+        branch:
+          type: string
+        path:
+          type: string
+    ListBranchResponse:
+      type: object
+      required:
+      - branches
+      properties:
+        branches:
+          type: array
+          items:
+            type: string
     GitCommitInfo:
       type: object
       required:
@@ -236,29 +268,6 @@ components:
         message:
           type: string
         timestamp:
-          type: string
-    GitBranchRequest:
-      type: object
-      required:
-      - name
-      - path
-      properties:
-        name:
-          type: string
-        path:
-          type: string
-    GitAddRequest:
-      type: object
-      required:
-      - files
-      - path
-      properties:
-        files:
-          description: files to add (use . for all files)
-          type: array
-          items:
-            type: string
-        path:
           type: string
     FileStatus:
       type: object
@@ -296,25 +305,17 @@ components:
       - Renamed
       - Copied
       - UpdatedButUnmerged
-    GitCheckoutRequest:
+    GitRepoRequest:
       type: object
       required:
-      - branch
       - path
       properties:
-        branch:
+        password:
           type: string
         path:
           type: string
-    ListBranchResponse:
-      type: object
-      required:
-      - branches
-      properties:
-        branches:
-          type: array
-          items:
-            type: string
+        username:
+          type: string
     GitCloneRequest:
       type: object
       required:
@@ -332,24 +333,6 @@ components:
         url:
           type: string
         username:
-          type: string
-    GitCommitRequest:
-      type: object
-      required:
-      - author
-      - email
-      - message
-      - path
-      properties:
-        allow_empty:
-          type: boolean
-        author:
-          type: string
-        email:
-          type: string
-        message:
-          type: string
-        path:
           type: string
     GitStatus:
       type: object
@@ -369,7 +352,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FileStatus'
-    GitDeleteBranchRequest:
+    GitCommitRequest:
+      type: object
+      required:
+      - author
+      - email
+      - message
+      - path
+      properties:
+        allow_empty:
+          type: boolean
+        author:
+          type: string
+        email:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    GitBranchRequest:
       type: object
       required:
       - name
@@ -379,16 +380,15 @@ components:
           type: string
         path:
           type: string
-    GitRepoRequest:
+    GitDeleteBranchRequest:
       type: object
       required:
+      - name
       - path
       properties:
-        password:
+        name:
           type: string
         path:
-          type: string
-        username:
           type: string
     GitCommitResponse:
       type: object

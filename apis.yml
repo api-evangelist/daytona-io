@@ -1,6 +1,10 @@
 aid: daytona-io
 deliveryModel:
   model: unknown
+  license_evidence:
+    repo: daytonaio/daytona
+    spdx: none
+    stars: 71715
   open_source: unknown
   commercial: true
   callable_host: true
@@ -10,7 +14,7 @@ deliveryModel:
   - openapi
   - pricing
   - repository-unlicensed
-  generated: '2026-08-28'
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -47,7 +51,7 @@ tags:
 - Computer Use
 - Developer Tools
 - Infrastructure
-- Open-Source
+- Open Source
 - Sandbox
 - Secure Execution
 tags_raw:
@@ -62,9 +66,10 @@ tags_raw:
 - Open Source
 - Sandbox
 - Secure Execution
+- Open-Source
 apis:
 - aid: daytona-io:daytona-io-admin-api
-  name: Daytona admin API
+  name: Daytona Admin API
   description: The admin API from Daytona — 15 operation(s) for admin.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -116,7 +121,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-api-keys-api
-  name: Daytona api-keys API
+  name: Daytona API Keys API
   description: The api-keys API from Daytona — 4 operation(s) for api-keys.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -168,7 +173,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-audit-api
-  name: Daytona audit API
+  name: Daytona Audit API
   description: The audit API from Daytona — 1 operation(s) for audit.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -220,7 +225,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-computer-use-api
-  name: Daytona computer-use API
+  name: Daytona Computer Use API
   description: The computer-use API from Daytona — 32 operation(s) for computer-use.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -272,7 +277,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-config-api
-  name: Daytona config API
+  name: Daytona Config API
   description: The config API from Daytona — 1 operation(s) for config.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -324,7 +329,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-docker-registry-api
-  name: Daytona docker-registry API
+  name: Daytona Docker Registry API
   description: The docker-registry API from Daytona — 3 operation(s) for docker-registry.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -374,7 +379,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-git-api
-  name: Daytona git API
+  name: Daytona Git API
   description: The git API from Daytona — 9 operation(s) for git.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -476,7 +481,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-info-api
-  name: Daytona info API
+  name: Daytona Info API
   description: The info API from Daytona — 3 operation(s) for info.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -528,7 +533,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-interpreter-api
-  name: Daytona interpreter API
+  name: Daytona Interpreter API
   description: The interpreter API from Daytona — 3 operation(s) for interpreter.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -580,7 +585,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-jobs-api
-  name: Daytona jobs API
+  name: Daytona Jobs API
   description: The jobs API from Daytona — 4 operation(s) for jobs.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -632,7 +637,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-lsp-api
-  name: Daytona lsp API
+  name: Daytona Lsp API
   description: The lsp API from Daytona — 7 operation(s) for lsp.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -684,7 +689,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-object-storage-api
-  name: Daytona object-storage API
+  name: Daytona Object Storage API
   description: The object-storage API from Daytona — 1 operation(s) for object-storage.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -736,7 +741,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-organizations-api
-  name: Daytona organizations API
+  name: Daytona Organizations API
   description: The organizations API from Daytona — 30 operation(s) for organizations.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -788,7 +793,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-port-api
-  name: Daytona port API
+  name: Daytona Port API
   description: The port API from Daytona — 2 operation(s) for port.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -840,7 +845,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-preview-api
-  name: Daytona preview API
+  name: Daytona Preview API
   description: The preview API from Daytona — 4 operation(s) for preview.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -892,7 +897,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-process-api
-  name: Daytona process API
+  name: Daytona Process API
   description: The process API from Daytona — 14 operation(s) for process.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -944,7 +949,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-regions-api
-  name: Daytona regions API
+  name: Daytona Regions API
   description: The regions API from Daytona — 1 operation(s) for regions.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -996,7 +1001,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-runners-api
-  name: Daytona runners API
+  name: Daytona Runners API
   description: The runners API from Daytona — 9 operation(s) for runners.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1048,7 +1053,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-sandbox-api
-  name: Daytona sandbox API
+  name: Daytona Sandbox API
   description: The sandbox API from Daytona — 37 operation(s) for sandbox.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1100,7 +1105,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-server-api
-  name: Daytona server API
+  name: Daytona Server API
   description: The server API from Daytona — 1 operation(s) for server.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1152,7 +1157,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-snapshots-api
-  name: Daytona snapshots API
+  name: Daytona Snapshots API
   description: The snapshots API from Daytona — 6 operation(s) for snapshots.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1204,7 +1209,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-toolbox-api
-  name: Daytona toolbox API
+  name: Daytona Toolbox API
   description: The toolbox API from Daytona — 61 operation(s) for toolbox.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1256,7 +1261,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-users-api
-  name: Daytona users API
+  name: Daytona Users API
   description: The users API from Daytona — 5 operation(s) for users.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1308,7 +1313,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-volumes-api
-  name: Daytona volumes API
+  name: Daytona Volumes API
   description: The volumes API from Daytona — 3 operation(s) for volumes.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1360,7 +1365,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-webhooks-api
-  name: Daytona webhooks API
+  name: Daytona Webhooks API
   description: The webhooks API from Daytona — 3 operation(s) for webhooks.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
@@ -1412,7 +1417,7 @@ apis:
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-workspace-api
-  name: Daytona workspace API
+  name: Daytona Workspace API
   description: The workspace API from Daytona — 12 operation(s) for workspace.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api

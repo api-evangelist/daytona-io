@@ -322,6 +322,30 @@ paths:
               - file
 components:
   schemas:
+    ReplaceRequest:
+      type: object
+      required:
+      - files
+      - newValue
+      - pattern
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+        newValue:
+          type: string
+        pattern:
+          type: string
+    SearchFilesResponse:
+      type: object
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          items:
+            type: string
     gin.H:
       type: object
       additionalProperties: {}
@@ -334,6 +358,19 @@ components:
           type: string
         success:
           type: boolean
+    Match:
+      type: object
+      required:
+      - content
+      - file
+      - line
+      properties:
+        content:
+          type: string
+        file:
+          type: string
+        line:
+          type: integer
     FileInfo:
       type: object
       required:
@@ -362,15 +399,6 @@ components:
           type: string
         size:
           type: integer
-    SearchFilesResponse:
-      type: object
-      required:
-      - files
-      properties:
-        files:
-          type: array
-          items:
-            type: string
     FilesDownloadRequest:
       type: object
       required:
@@ -380,31 +408,3 @@ components:
           type: array
           items:
             type: string
-    ReplaceRequest:
-      type: object
-      required:
-      - files
-      - newValue
-      - pattern
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-        newValue:
-          type: string
-        pattern:
-          type: string
-    Match:
-      type: object
-      required:
-      - content
-      - file
-      - line
-      properties:
-        content:
-          type: string
-        file:
-          type: string
-        line:
-          type: integer

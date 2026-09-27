@@ -34,13 +34,6 @@ paths:
       - Regions
 components:
   schemas:
-    RegionType:
-      type: string
-      enum:
-      - shared
-      - dedicated
-      - custom
-      description: The type of the region
     Region:
       type: object
       properties:
@@ -91,6 +84,13 @@ components:
       - regionType
       - createdAt
       - updatedAt
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
   securitySchemes:
     bearer:
       scheme: bearer

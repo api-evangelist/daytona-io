@@ -1142,332 +1142,6 @@ paths:
       - Organizations
 components:
   schemas:
-    OrganizationInvitation:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Invitation ID
-        email:
-          type: string
-          description: Email address of the invitee
-        invitedBy:
-          type: string
-          description: Email address of the inviter
-        organizationId:
-          type: string
-          description: Organization ID
-        organizationName:
-          type: string
-          description: Organization name
-        expiresAt:
-          format: date-time
-          type: string
-          description: Expiration date of the invitation
-        status:
-          type: string
-          description: Invitation status
-          enum:
-          - pending
-          - accepted
-          - declined
-          - cancelled
-        role:
-          type: string
-          description: Member role
-          enum:
-          - owner
-          - member
-        assignedRoles:
-          description: Assigned roles
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationRole'
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
-      required:
-      - id
-      - email
-      - invitedBy
-      - organizationId
-      - organizationName
-      - expiresAt
-      - status
-      - role
-      - assignedRoles
-      - createdAt
-      - updatedAt
-    CreateRegionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of the created region
-          example: region_12345
-        proxyApiKey:
-          type: string
-          description: Proxy API key for the region
-          example: proxy-api-key-xyz
-          nullable: true
-        sshGatewayApiKey:
-          type: string
-          description: SSH Gateway API key for the region
-          example: ssh-gateway-api-key-abc
-          nullable: true
-        snapshotManagerUsername:
-          type: string
-          description: Snapshot Manager username for the region
-          example: daytona
-          nullable: true
-        snapshotManagerPassword:
-          type: string
-          description: Snapshot Manager password for the region
-          nullable: true
-      required:
-      - id
-    OrganizationSandboxDefaultLimitedNetworkEgress:
-      type: object
-      properties:
-        sandboxDefaultLimitedNetworkEgress:
-          type: boolean
-          description: Sandbox default limited network egress
-      required:
-      - sandboxDefaultLimitedNetworkEgress
-    RegionUsageOverview:
-      type: object
-      properties:
-        regionId:
-          type: string
-        totalCpuQuota:
-          type: number
-        currentCpuUsage:
-          type: number
-        totalMemoryQuota:
-          type: number
-        currentMemoryUsage:
-          type: number
-        totalDiskQuota:
-          type: number
-        currentDiskUsage:
-          type: number
-        maxCpuPerSandbox:
-          type: number
-          nullable: true
-        maxMemoryPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerNonEphemeralSandbox:
-          type: number
-          nullable: true
-      required:
-      - regionId
-      - totalCpuQuota
-      - currentCpuUsage
-      - totalMemoryQuota
-      - currentMemoryUsage
-      - totalDiskQuota
-      - currentDiskUsage
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - maxDiskPerNonEphemeralSandbox
-    UpdateOrganizationRegionQuota:
-      type: object
-      properties:
-        totalCpuQuota:
-          type: number
-          nullable: true
-        totalMemoryQuota:
-          type: number
-          nullable: true
-        totalDiskQuota:
-          type: number
-          nullable: true
-        maxCpuPerSandbox:
-          type: number
-          nullable: true
-        maxMemoryPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerNonEphemeralSandbox:
-          type: number
-          nullable: true
-      required:
-      - totalCpuQuota
-      - totalMemoryQuota
-      - totalDiskQuota
-    Region:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Region ID
-          example: '123456789012'
-        name:
-          type: string
-          description: Region name
-          example: us-east-1
-        organizationId:
-          type: string
-          description: Organization ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-          nullable: true
-        regionType:
-          description: The type of the region
-          example: shared
-          allOf:
-          - $ref: '#/components/schemas/RegionType'
-        createdAt:
-          type: string
-          description: Creation timestamp
-          example: '2023-01-01T00:00:00.000Z'
-        updatedAt:
-          type: string
-          description: Last update timestamp
-          example: '2023-01-01T00:00:00.000Z'
-        proxyUrl:
-          type: string
-          description: Proxy URL for the region
-          example: https://proxy.example.com
-          nullable: true
-        sshGatewayUrl:
-          type: string
-          description: SSH Gateway URL for the region
-          example: http://ssh-gateway.example.com
-          nullable: true
-        snapshotManagerUrl:
-          type: string
-          description: Snapshot Manager URL for the region
-          example: http://snapshot-manager.example.com
-          nullable: true
-      required:
-      - id
-      - name
-      - regionType
-      - createdAt
-      - updatedAt
-    UpdateOrganizationQuota:
-      type: object
-      properties:
-        maxCpuPerSandbox:
-          type: number
-          nullable: true
-        maxMemoryPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerSandbox:
-          type: number
-          nullable: true
-        snapshotQuota:
-          type: number
-          nullable: true
-        maxSnapshotSize:
-          type: number
-          nullable: true
-        volumeQuota:
-          type: number
-          nullable: true
-        authenticatedRateLimit:
-          type: number
-          nullable: true
-        sandboxCreateRateLimit:
-          type: number
-          nullable: true
-        sandboxLifecycleRateLimit:
-          type: number
-          nullable: true
-        authenticatedRateLimitTtlSeconds:
-          type: number
-          nullable: true
-        sandboxCreateRateLimitTtlSeconds:
-          type: number
-          nullable: true
-        sandboxLifecycleRateLimitTtlSeconds:
-          type: number
-          nullable: true
-        snapshotDeactivationTimeoutMinutes:
-          type: number
-          nullable: true
-          description: Time in minutes before an unused snapshot is deactivated
-      required:
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - snapshotQuota
-      - maxSnapshotSize
-      - volumeQuota
-      - authenticatedRateLimit
-      - sandboxCreateRateLimit
-      - sandboxLifecycleRateLimit
-      - authenticatedRateLimitTtlSeconds
-      - sandboxCreateRateLimitTtlSeconds
-      - sandboxLifecycleRateLimitTtlSeconds
-      - snapshotDeactivationTimeoutMinutes
-    UpdateOrganizationRole:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the role
-          example: Maintainer
-        description:
-          type: string
-          description: The description of the role
-          example: Can manage all resources
-        permissions:
-          type: array
-          description: The list of permissions assigned to the role
-          items:
-            type: string
-            enum:
-            - write:registries
-            - delete:registries
-            - write:snapshots
-            - delete:snapshots
-            - write:sandboxes
-            - delete:sandboxes
-            - read:volumes
-            - write:volumes
-            - delete:volumes
-            - write:regions
-            - delete:regions
-            - read:runners
-            - write:runners
-            - delete:runners
-            - read:audit_logs
-      required:
-      - name
-      - description
-      - permissions
-    OrganizationSuspension:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Suspension reason
-        until:
-          format: date-time
-          type: string
-          description: Suspension until
-        suspensionCleanupGracePeriodHours:
-          type: number
-          description: Suspension cleanup grace period hours
-          minimum: 0
-      required:
-      - reason
-      - until
     RegenerateApiKeyResponse:
       type: object
       properties:
@@ -1477,6 +1151,27 @@ components:
           example: api-key-xyz123
       required:
       - apiKey
+    OrganizationUsageOverview:
+      type: object
+      properties:
+        regionUsage:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionUsageOverview'
+        totalSnapshotQuota:
+          type: number
+        currentSnapshotUsage:
+          type: number
+        totalVolumeQuota:
+          type: number
+        currentVolumeUsage:
+          type: number
+      required:
+      - regionUsage
+      - totalSnapshotQuota
+      - currentSnapshotUsage
+      - totalVolumeQuota
+      - currentVolumeUsage
     UpdateOrganizationDefaultRegion:
       type: object
       properties:
@@ -1486,67 +1181,26 @@ components:
           example: us
       required:
       - defaultRegionId
-    OrganizationUser:
+    SnapshotManagerCredentials:
       type: object
       properties:
-        userId:
+        username:
           type: string
-          description: User ID
-        organizationId:
+          description: Snapshot Manager username for the region
+          example: daytona
+        password:
           type: string
-          description: Organization ID
-        name:
-          type: string
-          description: User name
-        email:
-          type: string
-          description: User email
-        role:
-          type: string
-          description: Member role
-          enum:
-          - owner
-          - member
-        assignedRoles:
-          description: Roles assigned to the user
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationRole'
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
+          description: Snapshot Manager password for the region
       required:
-      - userId
-      - organizationId
-      - name
-      - email
-      - role
-      - assignedRoles
-      - createdAt
-      - updatedAt
-    UpdateRegion:
-      type: object
-      properties:
-        proxyUrl:
-          type: string
-          description: Proxy URL for the region
-          example: https://proxy.example.com
-          nullable: true
-        sshGatewayUrl:
-          type: string
-          description: SSH Gateway URL for the region
-          example: ssh://ssh-gateway.example.com
-          nullable: true
-        snapshotManagerUrl:
-          type: string
-          description: Snapshot Manager URL for the region
-          example: https://snapshot-manager.example.com
-          nullable: true
+      - username
+      - password
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
     CreateOrganization:
       type: object
       properties:
@@ -1677,47 +1331,268 @@ components:
       - authenticatedRateLimitTtlSeconds
       - sandboxCreateRateLimitTtlSeconds
       - sandboxLifecycleRateLimitTtlSeconds
-    OtelConfig:
+    OrganizationUser:
       type: object
       properties:
-        endpoint:
+        userId:
           type: string
-          description: Endpoint
-        headers:
-          type: object
-          description: Headers
-          example:
-            x-api-key: my-api-key
-          nullable: true
-          additionalProperties:
-            type: string
-      required:
-      - endpoint
-    RegionType:
-      type: string
-      enum:
-      - shared
-      - dedicated
-      - custom
-      description: The type of the region
-    CreateOrganizationInvitation:
-      type: object
-      properties:
+          description: User ID
+        organizationId:
+          type: string
+          description: Organization ID
+        name:
+          type: string
+          description: User name
         email:
           type: string
-          description: Email address of the invitee
-          example: mail@example.com
+          description: User email
         role:
           type: string
-          description: Organization member role for the invitee
+          description: Member role
           enum:
           - owner
           - member
-          default: member
+        assignedRoles:
+          description: Roles assigned to the user
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationRole'
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+      required:
+      - userId
+      - organizationId
+      - name
+      - email
+      - role
+      - assignedRoles
+      - createdAt
+      - updatedAt
+    UpdateRegion:
+      type: object
+      properties:
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: ssh://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: https://snapshot-manager.example.com
+          nullable: true
+    UpdateOrganizationRole:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the role
+          example: Maintainer
+        description:
+          type: string
+          description: The description of the role
+          example: Can manage all resources
+        permissions:
+          type: array
+          description: The list of permissions assigned to the role
+          items:
+            type: string
+            enum:
+            - write:registries
+            - delete:registries
+            - write:snapshots
+            - delete:snapshots
+            - write:sandboxes
+            - delete:sandboxes
+            - read:volumes
+            - write:volumes
+            - delete:volumes
+            - write:regions
+            - delete:regions
+            - read:runners
+            - write:runners
+            - delete:runners
+            - read:audit_logs
+      required:
+      - name
+      - description
+      - permissions
+    CreateRegionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the created region
+          example: region_12345
+        proxyApiKey:
+          type: string
+          description: Proxy API key for the region
+          example: proxy-api-key-xyz
+          nullable: true
+        sshGatewayApiKey:
+          type: string
+          description: SSH Gateway API key for the region
+          example: ssh-gateway-api-key-abc
+          nullable: true
+        snapshotManagerUsername:
+          type: string
+          description: Snapshot Manager username for the region
+          example: daytona
+          nullable: true
+        snapshotManagerPassword:
+          type: string
+          description: Snapshot Manager password for the region
+          nullable: true
+      required:
+      - id
+    OrganizationInvitation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Invitation ID
+        email:
+          type: string
+          description: Email address of the invitee
+        invitedBy:
+          type: string
+          description: Email address of the inviter
+        organizationId:
+          type: string
+          description: Organization ID
+        organizationName:
+          type: string
+          description: Organization name
+        expiresAt:
+          format: date-time
+          type: string
+          description: Expiration date of the invitation
+        status:
+          type: string
+          description: Invitation status
+          enum:
+          - pending
+          - accepted
+          - declined
+          - cancelled
+        role:
+          type: string
+          description: Member role
+          enum:
+          - owner
+          - member
+        assignedRoles:
+          description: Assigned roles
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationRole'
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+      required:
+      - id
+      - email
+      - invitedBy
+      - organizationId
+      - organizationName
+      - expiresAt
+      - status
+      - role
+      - assignedRoles
+      - createdAt
+      - updatedAt
+    RegionUsageOverview:
+      type: object
+      properties:
+        regionId:
+          type: string
+        totalCpuQuota:
+          type: number
+        currentCpuUsage:
+          type: number
+        totalMemoryQuota:
+          type: number
+        currentMemoryUsage:
+          type: number
+        totalDiskQuota:
+          type: number
+        currentDiskUsage:
+          type: number
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerNonEphemeralSandbox:
+          type: number
+          nullable: true
+      required:
+      - regionId
+      - totalCpuQuota
+      - currentCpuUsage
+      - totalMemoryQuota
+      - currentMemoryUsage
+      - totalDiskQuota
+      - currentDiskUsage
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - maxDiskPerNonEphemeralSandbox
+    CreateRegion:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Region name
+          example: us-east-1
+        proxyUrl:
+          type: string
+          description: Proxy URL for the region
+          example: https://proxy.example.com
+          nullable: true
+        sshGatewayUrl:
+          type: string
+          description: SSH Gateway URL for the region
+          example: ssh://ssh-gateway.example.com
+          nullable: true
+        snapshotManagerUrl:
+          type: string
+          description: Snapshot Manager URL for the region
+          example: https://snapshot-manager.example.com
+          nullable: true
+      required:
+      - name
+    UpdateOrganizationInvitation:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Organization member role
+          enum:
+          - owner
+          - member
         assignedRoleIds:
-          description: Array of assigned role IDs for the invitee
-          default:
-          - 00000000-0000-0000-0000-000000000001
+          description: Array of role IDs
           type: array
           items:
             type: string
@@ -1727,7 +1602,6 @@ components:
           description: Expiration date of the invitation
           example: '2021-12-31T23:59:59Z'
       required:
-      - email
       - role
       - assignedRoleIds
     CreateOrganizationRole:
@@ -1766,89 +1640,51 @@ components:
       - name
       - description
       - permissions
-    UpdateOrganizationInvitation:
+    OtelConfig:
       type: object
       properties:
-        role:
+        endpoint:
           type: string
-          description: Organization member role
-          enum:
-          - owner
-          - member
-        assignedRoleIds:
-          description: Array of role IDs
-          type: array
-          items:
-            type: string
-        expiresAt:
-          format: date-time
-          type: string
-          description: Expiration date of the invitation
-          example: '2021-12-31T23:59:59Z'
-      required:
-      - role
-      - assignedRoleIds
-    UpdateOrganizationMemberAccess:
-      type: object
-      properties:
-        role:
-          type: string
-          description: Organization member role
-          enum:
-          - owner
-          - member
-          default: member
-        assignedRoleIds:
-          description: Array of assigned role IDs
-          default:
-          - 00000000-0000-0000-0000-000000000001
-          type: array
-          items:
+          description: Endpoint
+        headers:
+          type: object
+          description: Headers
+          example:
+            x-api-key: my-api-key
+          nullable: true
+          additionalProperties:
             type: string
       required:
-      - role
-      - assignedRoleIds
-    SnapshotManagerCredentials:
+      - endpoint
+    Region:
       type: object
       properties:
-        username:
+        id:
           type: string
-          description: Snapshot Manager username for the region
-          example: daytona
-        password:
-          type: string
-          description: Snapshot Manager password for the region
-      required:
-      - username
-      - password
-    OrganizationUsageOverview:
-      type: object
-      properties:
-        regionUsage:
-          type: array
-          items:
-            $ref: '#/components/schemas/RegionUsageOverview'
-        totalSnapshotQuota:
-          type: number
-        currentSnapshotUsage:
-          type: number
-        totalVolumeQuota:
-          type: number
-        currentVolumeUsage:
-          type: number
-      required:
-      - regionUsage
-      - totalSnapshotQuota
-      - currentSnapshotUsage
-      - totalVolumeQuota
-      - currentVolumeUsage
-    CreateRegion:
-      type: object
-      properties:
+          description: Region ID
+          example: '123456789012'
         name:
           type: string
           description: Region name
           example: us-east-1
+        organizationId:
+          type: string
+          description: Organization ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+          nullable: true
+        regionType:
+          description: The type of the region
+          example: shared
+          allOf:
+          - $ref: '#/components/schemas/RegionType'
+        createdAt:
+          type: string
+          description: Creation timestamp
+          example: '2023-01-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          description: Last update timestamp
+          example: '2023-01-01T00:00:00.000Z'
         proxyUrl:
           type: string
           description: Proxy URL for the region
@@ -1857,15 +1693,19 @@ components:
         sshGatewayUrl:
           type: string
           description: SSH Gateway URL for the region
-          example: ssh://ssh-gateway.example.com
+          example: http://ssh-gateway.example.com
           nullable: true
         snapshotManagerUrl:
           type: string
           description: Snapshot Manager URL for the region
-          example: https://snapshot-manager.example.com
+          example: http://snapshot-manager.example.com
           nullable: true
       required:
+      - id
       - name
+      - regionType
+      - createdAt
+      - updatedAt
     OrganizationRole:
       type: object
       properties:
@@ -1918,6 +1758,166 @@ components:
       - isGlobal
       - createdAt
       - updatedAt
+    UpdateOrganizationMemberAccess:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Organization member role
+          enum:
+          - owner
+          - member
+          default: member
+        assignedRoleIds:
+          description: Array of assigned role IDs
+          default:
+          - 00000000-0000-0000-0000-000000000001
+          type: array
+          items:
+            type: string
+      required:
+      - role
+      - assignedRoleIds
+    CreateOrganizationInvitation:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address of the invitee
+          example: mail@example.com
+        role:
+          type: string
+          description: Organization member role for the invitee
+          enum:
+          - owner
+          - member
+          default: member
+        assignedRoleIds:
+          description: Array of assigned role IDs for the invitee
+          default:
+          - 00000000-0000-0000-0000-000000000001
+          type: array
+          items:
+            type: string
+        expiresAt:
+          format: date-time
+          type: string
+          description: Expiration date of the invitation
+          example: '2021-12-31T23:59:59Z'
+      required:
+      - email
+      - role
+      - assignedRoleIds
+    OrganizationSandboxDefaultLimitedNetworkEgress:
+      type: object
+      properties:
+        sandboxDefaultLimitedNetworkEgress:
+          type: boolean
+          description: Sandbox default limited network egress
+      required:
+      - sandboxDefaultLimitedNetworkEgress
+    UpdateOrganizationRegionQuota:
+      type: object
+      properties:
+        totalCpuQuota:
+          type: number
+          nullable: true
+        totalMemoryQuota:
+          type: number
+          nullable: true
+        totalDiskQuota:
+          type: number
+          nullable: true
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerNonEphemeralSandbox:
+          type: number
+          nullable: true
+      required:
+      - totalCpuQuota
+      - totalMemoryQuota
+      - totalDiskQuota
+    OrganizationSuspension:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Suspension reason
+        until:
+          format: date-time
+          type: string
+          description: Suspension until
+        suspensionCleanupGracePeriodHours:
+          type: number
+          description: Suspension cleanup grace period hours
+          minimum: 0
+      required:
+      - reason
+      - until
+    UpdateOrganizationQuota:
+      type: object
+      properties:
+        maxCpuPerSandbox:
+          type: number
+          nullable: true
+        maxMemoryPerSandbox:
+          type: number
+          nullable: true
+        maxDiskPerSandbox:
+          type: number
+          nullable: true
+        snapshotQuota:
+          type: number
+          nullable: true
+        maxSnapshotSize:
+          type: number
+          nullable: true
+        volumeQuota:
+          type: number
+          nullable: true
+        authenticatedRateLimit:
+          type: number
+          nullable: true
+        sandboxCreateRateLimit:
+          type: number
+          nullable: true
+        sandboxLifecycleRateLimit:
+          type: number
+          nullable: true
+        authenticatedRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        sandboxCreateRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        sandboxLifecycleRateLimitTtlSeconds:
+          type: number
+          nullable: true
+        snapshotDeactivationTimeoutMinutes:
+          type: number
+          nullable: true
+          description: Time in minutes before an unused snapshot is deactivated
+      required:
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - snapshotQuota
+      - maxSnapshotSize
+      - volumeQuota
+      - authenticatedRateLimit
+      - sandboxCreateRateLimit
+      - sandboxLifecycleRateLimit
+      - authenticatedRateLimitTtlSeconds
+      - sandboxCreateRateLimitTtlSeconds
+      - sandboxLifecycleRateLimitTtlSeconds
+      - snapshotDeactivationTimeoutMinutes
   securitySchemes:
     bearer:
       scheme: bearer

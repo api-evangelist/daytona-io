@@ -358,6 +358,24 @@ components:
           example: v0.0.0-dev
       required:
       - appVersion
+    RunnerServiceHealth:
+      type: object
+      properties:
+        serviceName:
+          type: string
+          description: Name of the service being checked
+          example: runner
+        healthy:
+          type: boolean
+          description: Whether the service is healthy
+          example: false
+        errorReason:
+          type: string
+          description: Error reason if the service is unhealthy
+          example: Cannot connect to the runner
+      required:
+      - serviceName
+      - healthy
     RunnerState:
       type: string
       enum:
@@ -385,115 +403,6 @@ components:
       required:
       - runnerSnapshotId
       - runnerId
-    CreateRunner:
-      type: object
-      properties:
-        regionId:
-          type: string
-        name:
-          type: string
-        tags:
-          description: Tags to associate with the runner
-          example:
-          - gpu
-          - us-east
-          type: array
-          items:
-            type: string
-      required:
-      - regionId
-      - name
-    CreateRunnerResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the runner
-          example: runner123
-        apiKey:
-          type: string
-          description: The API key for the runner
-          example: dtn_1234567890
-      required:
-      - id
-      - apiKey
-    RunnerHealthMetrics:
-      type: object
-      properties:
-        currentCpuLoadAverage:
-          type: number
-          description: Current CPU load average
-          example: 0.98
-        currentCpuUsagePercentage:
-          type: number
-          description: Current CPU usage percentage
-          example: 45.5
-        currentMemoryUsagePercentage:
-          type: number
-          description: Current memory usage percentage
-          example: 60.2
-        currentDiskUsagePercentage:
-          type: number
-          description: Current disk usage percentage
-          example: 35.8
-        currentAllocatedCpu:
-          type: number
-          description: Currently allocated CPU cores
-          example: 8
-        currentAllocatedMemoryGiB:
-          type: number
-          description: Currently allocated memory in GiB
-          example: 16
-        currentAllocatedDiskGiB:
-          type: number
-          description: Currently allocated disk in GiB
-          example: 100
-        currentSnapshotCount:
-          type: number
-          description: Number of snapshots currently stored
-          example: 5
-        currentStartedSandboxes:
-          type: number
-          description: Number of started sandboxes
-          example: 10
-        cpu:
-          type: number
-          description: Total CPU cores on the runner
-          example: 8
-        memoryGiB:
-          type: number
-          description: Total RAM in GiB on the runner
-          example: 16
-        diskGiB:
-          type: number
-          description: Total disk space in GiB on the runner
-          example: 100
-      required:
-      - currentCpuLoadAverage
-      - currentCpuUsagePercentage
-      - currentMemoryUsagePercentage
-      - currentDiskUsagePercentage
-      - currentAllocatedCpu
-      - currentAllocatedMemoryGiB
-      - currentAllocatedDiskGiB
-      - currentSnapshotCount
-      - currentStartedSandboxes
-      - cpu
-      - memoryGiB
-      - diskGiB
-    RunnerClass:
-      type: string
-      enum:
-      - container
-      - vm
-      description: The class of the runner
-    SandboxClass:
-      type: string
-      enum:
-      - small
-      - medium
-      - large
-      description: The class of the runner
     RunnerFull:
       type: object
       properties:
@@ -656,6 +565,20 @@ components:
       - apiVersion
       - runnerClass
       - apiKey
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
+    SandboxClass:
+      type: string
+      enum:
+      - small
+      - medium
+      - large
+      description: The class of the runner
     Runner:
       type: object
       properties:
@@ -808,31 +731,108 @@ components:
       - version
       - apiVersion
       - runnerClass
-    RegionType:
-      type: string
-      enum:
-      - shared
-      - dedicated
-      - custom
-      description: The type of the region
-    RunnerServiceHealth:
+    CreateRunnerResponse:
       type: object
       properties:
-        serviceName:
+        id:
           type: string
-          description: Name of the service being checked
-          example: runner
-        healthy:
-          type: boolean
-          description: Whether the service is healthy
-          example: false
-        errorReason:
+          description: The ID of the runner
+          example: runner123
+        apiKey:
           type: string
-          description: Error reason if the service is unhealthy
-          example: Cannot connect to the runner
+          description: The API key for the runner
+          example: dtn_1234567890
       required:
-      - serviceName
-      - healthy
+      - id
+      - apiKey
+    CreateRunner:
+      type: object
+      properties:
+        regionId:
+          type: string
+        name:
+          type: string
+        tags:
+          description: Tags to associate with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+      required:
+      - regionId
+      - name
+    RunnerHealthMetrics:
+      type: object
+      properties:
+        currentCpuLoadAverage:
+          type: number
+          description: Current CPU load average
+          example: 0.98
+        currentCpuUsagePercentage:
+          type: number
+          description: Current CPU usage percentage
+          example: 45.5
+        currentMemoryUsagePercentage:
+          type: number
+          description: Current memory usage percentage
+          example: 60.2
+        currentDiskUsagePercentage:
+          type: number
+          description: Current disk usage percentage
+          example: 35.8
+        currentAllocatedCpu:
+          type: number
+          description: Currently allocated CPU cores
+          example: 8
+        currentAllocatedMemoryGiB:
+          type: number
+          description: Currently allocated memory in GiB
+          example: 16
+        currentAllocatedDiskGiB:
+          type: number
+          description: Currently allocated disk in GiB
+          example: 100
+        currentSnapshotCount:
+          type: number
+          description: Number of snapshots currently stored
+          example: 5
+        currentStartedSandboxes:
+          type: number
+          description: Number of started sandboxes
+          example: 10
+        cpu:
+          type: number
+          description: Total CPU cores on the runner
+          example: 8
+        memoryGiB:
+          type: number
+          description: Total RAM in GiB on the runner
+          example: 16
+        diskGiB:
+          type: number
+          description: Total disk space in GiB on the runner
+          example: 100
+      required:
+      - currentCpuLoadAverage
+      - currentCpuUsagePercentage
+      - currentMemoryUsagePercentage
+      - currentDiskUsagePercentage
+      - currentAllocatedCpu
+      - currentAllocatedMemoryGiB
+      - currentAllocatedDiskGiB
+      - currentSnapshotCount
+      - currentStartedSandboxes
+      - cpu
+      - memoryGiB
+      - diskGiB
+    RunnerClass:
+      type: string
+      enum:
+      - container
+      - vm
+      description: The class of the runner
   securitySchemes:
     bearer:
       scheme: bearer

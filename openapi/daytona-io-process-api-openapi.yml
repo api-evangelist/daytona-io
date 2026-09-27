@@ -409,58 +409,47 @@ paths:
         required: true
 components:
   schemas:
-    PtySessionInfo:
+    Session:
       type: object
       required:
-      - active
-      - cols
-      - createdAt
-      - cwd
-      - envs
-      - id
-      - lazyStart
-      - rows
+      - commands
+      - sessionId
       properties:
-        active:
-          type: boolean
-        cols:
-          type: integer
-        createdAt:
-          type: string
-        cwd:
-          type: string
-        envs:
-          type: object
-          additionalProperties:
-            type: string
-        id:
-          type: string
-        lazyStart:
-          description: Whether this session uses lazy start
-          type: boolean
-        rows:
-          type: integer
-    CodeRunRequest:
-      type: object
-      required:
-      - code
-      - language
-      properties:
-        argv:
+        commands:
           type: array
           items:
-            type: string
-        code:
+            $ref: '#/components/schemas/Command'
+        sessionId:
           type: string
-        envs:
-          type: object
-          additionalProperties:
-            type: string
-        language:
-          description: python, javascript, typescript
+    SessionCommandLogsResponse:
+      type: object
+      required:
+      - output
+      - stderr
+      - stdout
+      properties:
+        output:
           type: string
-        timeout:
+        stderr:
+          type: string
+        stdout:
+          type: string
+    ExecuteResponse:
+      type: object
+      required:
+      - result
+      properties:
+        exitCode:
           type: integer
+        result:
+          type: string
+    SessionSendInputRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: string
     PtyResizeRequest:
       type: object
       required:
@@ -475,19 +464,25 @@ components:
           type: integer
           maximum: 1000
           minimum: 1
-    SessionCommandLogsResponse:
+    CodeRunResponse:
+      type: object
+      properties:
+        artifacts:
+          $ref: '#/components/schemas/CodeRunArtifacts'
+        exitCode:
+          type: integer
+        result:
+          type: string
+    PtyCreateResponse:
       type: object
       required:
-      - output
-      - stderr
-      - stdout
+      - sessionId
       properties:
-        output:
+        sessionId:
           type: string
-        stderr:
-          type: string
-        stdout:
-          type: string
+    gin.H:
+      type: object
+      additionalProperties: {}
     Chart:
       type: object
       properties:
@@ -525,6 +520,75 @@ components:
           type: array
           items:
             type: number
+    CodeRunArtifacts:
+      type: object
+      properties:
+        charts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart'
+    CodeRunRequest:
+      type: object
+      required:
+      - code
+      - language
+      properties:
+        argv:
+          type: array
+          items:
+            type: string
+        code:
+          type: string
+        envs:
+          type: object
+          additionalProperties:
+            type: string
+        language:
+          description: python, javascript, typescript
+          type: string
+        timeout:
+          type: integer
+    CreateSessionRequest:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+    SessionExecuteRequest:
+      type: object
+      required:
+      - command
+      properties:
+        async:
+          type: boolean
+        command:
+          type: string
+        runAsync:
+          type: boolean
+        suppressInputEcho:
+          type: boolean
+    Command:
+      type: object
+      required:
+      - command
+      - id
+      properties:
+        command:
+          type: string
+        exitCode:
+          type: integer
+        id:
+          type: string
+    PtyListResponse:
+      type: object
+      required:
+      - sessions
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PtySessionInfo'
     PtyCreateRequest:
       type: object
       properties:
@@ -543,75 +607,37 @@ components:
           type: boolean
         rows:
           type: integer
-    Session:
+    PtySessionInfo:
       type: object
       required:
-      - commands
-      - sessionId
-      properties:
-        commands:
-          type: array
-          items:
-            $ref: '#/components/schemas/Command'
-        sessionId:
-          type: string
-    CreateSessionRequest:
-      type: object
-      required:
-      - sessionId
-      properties:
-        sessionId:
-          type: string
-    SessionSendInputRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: string
-    SessionExecuteResponse:
-      type: object
-      required:
-      - cmdId
-      properties:
-        cmdId:
-          type: string
-        exitCode:
-          type: integer
-        output:
-          type: string
-        stderr:
-          type: string
-        stdout:
-          type: string
-    Command:
-      type: object
-      required:
-      - command
+      - active
+      - cols
+      - createdAt
+      - cwd
+      - envs
       - id
+      - lazyStart
+      - rows
       properties:
-        command:
-          type: string
-        exitCode:
+        active:
+          type: boolean
+        cols:
           type: integer
+        createdAt:
+          type: string
+        cwd:
+          type: string
+        envs:
+          type: object
+          additionalProperties:
+            type: string
         id:
           type: string
-    SessionExecuteRequest:
-      type: object
-      required:
-      - command
-      properties:
-        async:
+        lazyStart:
+          description: Whether this session uses lazy start
           type: boolean
-        command:
-          type: string
-        runAsync:
-          type: boolean
-        suppressInputEcho:
-          type: boolean
-    gin.H:
-      type: object
-      additionalProperties: {}
+        rows:
+          type: integer
     ChartElement:
       type: object
       properties:
@@ -655,47 +681,6 @@ components:
           type: string
         y_label:
           type: string
-    CodeRunResponse:
-      type: object
-      properties:
-        artifacts:
-          $ref: '#/components/schemas/CodeRunArtifacts'
-        exitCode:
-          type: integer
-        result:
-          type: string
-    PtyListResponse:
-      type: object
-      required:
-      - sessions
-      properties:
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PtySessionInfo'
-    PtyCreateResponse:
-      type: object
-      required:
-      - sessionId
-      properties:
-        sessionId:
-          type: string
-    CodeRunArtifacts:
-      type: object
-      properties:
-        charts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Chart'
-    ExecuteResponse:
-      type: object
-      required:
-      - result
-      properties:
-        exitCode:
-          type: integer
-        result:
-          type: string
     ExecuteRequest:
       type: object
       required:
@@ -714,3 +699,18 @@ components:
         timeout:
           description: Timeout in seconds, defaults to 10 seconds
           type: integer
+    SessionExecuteResponse:
+      type: object
+      required:
+      - cmdId
+      properties:
+        cmdId:
+          type: string
+        exitCode:
+          type: integer
+        output:
+          type: string
+        stderr:
+          type: string
+        stdout:
+          type: string
