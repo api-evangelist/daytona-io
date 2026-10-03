@@ -183,6 +183,17 @@ components:
           type: string
       required:
       - name
+    VolumeState:
+      type: string
+      enum:
+      - creating
+      - ready
+      - pending_create
+      - pending_delete
+      - deleting
+      - deleted
+      - error
+      description: Volume state
     VolumeDto:
       type: object
       properties:
@@ -229,17 +240,6 @@ components:
       - createdAt
       - updatedAt
       - errorReason
-    VolumeState:
-      type: string
-      enum:
-      - creating
-      - ready
-      - pending_create
-      - pending_delete
-      - deleting
-      - deleted
-      - error
-      description: Volume state
   securitySchemes:
     bearer:
       scheme: bearer

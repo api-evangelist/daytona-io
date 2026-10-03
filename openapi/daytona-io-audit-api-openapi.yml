@@ -81,6 +81,27 @@ paths:
       - Audit
 components:
   schemas:
+    PaginatedAuditLogs:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
+        nextToken:
+          type: string
+          description: Token for next page in cursor-based pagination
+      required:
+      - items
+      - total
+      - page
+      - totalPages
     AuditLog:
       type: object
       properties:
@@ -124,27 +145,6 @@ components:
       - actorEmail
       - action
       - createdAt
-    PaginatedAuditLogs:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
-        total:
-          type: number
-        page:
-          type: number
-        totalPages:
-          type: number
-        nextToken:
-          type: string
-          description: Token for next page in cursor-based pagination
-      required:
-      - items
-      - total
-      - page
-      - totalPages
   securitySchemes:
     bearer:
       scheme: bearer

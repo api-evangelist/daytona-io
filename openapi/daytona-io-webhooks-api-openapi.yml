@@ -111,20 +111,6 @@ paths:
       - Webhooks
 components:
   schemas:
-    WebhookAppPortalAccess:
-      type: object
-      properties:
-        token:
-          type: string
-          description: The authentication token for the Svix consumer app portal
-          example: appsk_...
-        url:
-          type: string
-          description: The URL to the webhook app portal
-          example: https://app.svix.com/app_1234567890
-      required:
-      - token
-      - url
     WebhookInitializationStatus:
       type: object
       properties:
@@ -161,6 +147,20 @@ components:
       - retryCount
       - createdAt
       - updatedAt
+    WebhookAppPortalAccess:
+      type: object
+      properties:
+        token:
+          type: string
+          description: The authentication token for the Svix consumer app portal
+          example: appsk_...
+        url:
+          type: string
+          description: The URL to the webhook app portal
+          example: https://app.svix.com/app_1234567890
+      required:
+      - token
+      - url
   securitySchemes:
     bearer:
       scheme: bearer

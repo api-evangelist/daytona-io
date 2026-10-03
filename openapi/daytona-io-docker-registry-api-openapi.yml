@@ -205,6 +205,57 @@ paths:
       - docker-registry
 components:
   schemas:
+    DockerRegistry:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Registry ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        name:
+          type: string
+          description: Registry name
+          example: My Docker Hub
+        url:
+          type: string
+          description: Registry URL
+          example: https://registry.hub.docker.com
+        username:
+          type: string
+          description: Registry username
+          example: username
+        project:
+          type: string
+          description: Registry project
+          example: my-project
+        registryType:
+          type: string
+          description: Registry type
+          enum:
+          - internal
+          - organization
+          - transient
+          - backup
+          example: internal
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+          example: '2024-01-31T12:00:00Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+          example: '2024-01-31T12:00:00Z'
+      required:
+      - id
+      - name
+      - url
+      - username
+      - project
+      - registryType
+      - createdAt
+      - updatedAt
     UpdateDockerRegistry:
       type: object
       properties:
@@ -261,57 +312,6 @@ components:
       - registryId
       - project
       - expiresAt
-    DockerRegistry:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Registry ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        name:
-          type: string
-          description: Registry name
-          example: My Docker Hub
-        url:
-          type: string
-          description: Registry URL
-          example: https://registry.hub.docker.com
-        username:
-          type: string
-          description: Registry username
-          example: username
-        project:
-          type: string
-          description: Registry project
-          example: my-project
-        registryType:
-          type: string
-          description: Registry type
-          enum:
-          - internal
-          - organization
-          - transient
-          - backup
-          example: internal
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-          example: '2024-01-31T12:00:00Z'
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
-          example: '2024-01-31T12:00:00Z'
-      required:
-      - id
-      - name
-      - url
-      - username
-      - project
-      - registryType
-      - createdAt
-      - updatedAt
     CreateDockerRegistry:
       type: object
       properties:

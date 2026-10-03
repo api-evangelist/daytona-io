@@ -1794,18 +1794,296 @@ components:
           description: Build information for the sandbox
           allOf:
           - $ref: '#/components/schemas/CreateBuildInfo'
-    MetricDataPoint:
+    CreateSandboxSnapshot:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name for the new snapshot
+          example: my-dev-env-v1
+      required:
+      - name
+    SshAccessValidationDto:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: Whether the SSH access token is valid
+          example: true
+        sandboxId:
+          type: string
+          description: ID of the sandbox this SSH access is for
+          example: 123e4567-e89b-12d3-a456-426614174000
+      required:
+      - valid
+      - sandboxId
+    PaginatedSandboxes:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sandbox'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    ForkSandbox:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name for the forked sandbox. If not provided, a unique name will be generated.
+          example: my-forked-sandbox
+    ToolboxProxyUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The toolbox proxy URL for the sandbox
+          example: https://proxy.app.daytona.io/toolbox
+      required:
+      - url
+    ResizeSandbox:
+      type: object
+      properties:
+        cpu:
+          type: integer
+          description: 'CPU cores to allocate to the sandbox (minimum: 1)'
+          example: 2
+          minimum: 1
+        memory:
+          type: integer
+          description: 'Memory in GB to allocate to the sandbox (minimum: 1)'
+          example: 4
+          minimum: 1
+        disk:
+          type: integer
+          description: Disk space in GB to allocate to the sandbox (can only be increased)
+          example: 20
+          minimum: 1
+    SandboxLabels:
+      type: object
+      properties:
+        labels:
+          type: object
+          description: Key-value pairs of labels
+          example:
+            environment: dev
+            team: backend
+          additionalProperties:
+            type: string
+      required:
+      - labels
+    LogEntry:
       type: object
       properties:
         timestamp:
           type: string
-          description: Timestamp of the data point
-        value:
+          description: Timestamp of the log entry
+        body:
+          type: string
+          description: Log message body
+        severityText:
+          type: string
+          description: Severity level text (e.g., INFO, WARN, ERROR)
+        severityNumber:
           type: number
-          description: Value at this timestamp
+          description: Severity level number
+        serviceName:
+          type: string
+          description: Service name that generated the log
+        resourceAttributes:
+          type: object
+          description: Resource attributes from OTEL
+          additionalProperties:
+            type: string
+        logAttributes:
+          type: object
+          description: Log-specific attributes
+          additionalProperties:
+            type: string
+        traceId:
+          type: string
+          description: Associated trace ID if available
+        spanId:
+          type: string
+          description: Associated span ID if available
       required:
       - timestamp
-      - value
+      - body
+      - severityText
+      - serviceName
+      - resourceAttributes
+      - logAttributes
+    TraceSpan:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier
+        spanId:
+          type: string
+          description: Span identifier
+        parentSpanId:
+          type: string
+          description: Parent span identifier
+        spanName:
+          type: string
+          description: Span name
+        timestamp:
+          type: string
+          description: Span start timestamp
+        durationNs:
+          type: number
+          description: Span duration in nanoseconds
+        spanAttributes:
+          type: object
+          description: Span attributes
+          additionalProperties:
+            type: string
+        statusCode:
+          type: string
+          description: Status code of the span
+        statusMessage:
+          type: string
+          description: Status message
+      required:
+      - traceId
+      - spanId
+      - spanName
+      - timestamp
+      - durationNs
+      - spanAttributes
+    UpdateSandboxStateDto:
+      type: object
+      properties:
+        state:
+          type: string
+          description: The new state for the sandbox
+          enum:
+          - creating
+          - restoring
+          - destroyed
+          - destroying
+          - started
+          - stopped
+          - starting
+          - stopping
+          - error
+          - build_failed
+          - pending_build
+          - building_snapshot
+          - unknown
+          - pulling_snapshot
+          - archived
+          - archiving
+          - resizing
+          - snapshotting
+          - forking
+          example: started
+        errorReason:
+          type: string
+          description: Optional error message when reporting an error state
+          example: Failed to pull snapshot image
+        recoverable:
+          type: boolean
+          description: Whether the sandbox is recoverable
+          example: true
+      required:
+      - state
+    Url:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL response
+      required:
+      - url
+    PaginatedTraces:
+      type: object
+      properties:
+        items:
+          description: List of trace summaries
+          type: array
+          items:
+            $ref: '#/components/schemas/TraceSummary'
+        total:
+          type: number
+          description: Total number of traces matching the query
+        page:
+          type: number
+          description: Current page number
+        totalPages:
+          type: number
+          description: Total number of pages
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    TraceSummary:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Unique trace identifier
+        rootSpanName:
+          type: string
+          description: Name of the root span
+        startTime:
+          type: string
+          description: Trace start time
+        endTime:
+          type: string
+          description: Trace end time
+        durationMs:
+          type: number
+          description: Total duration in milliseconds
+        spanCount:
+          type: number
+          description: Number of spans in this trace
+        statusCode:
+          type: string
+          description: Status code of the trace
+      required:
+      - traceId
+      - rootSpanName
+      - startTime
+      - endTime
+      - durationMs
+      - spanCount
+    SignedPortPreviewUrl:
+      type: object
+      properties:
+        sandboxId:
+          type: string
+          description: ID of the sandbox
+          example: '123456'
+        port:
+          type: integer
+          description: Port number of the signed preview URL
+          example: 3000
+        token:
+          type: string
+          description: Token of the signed preview URL
+          example: jl6wb9z5o3eii
+        url:
+          type: string
+          description: Signed preview url
+          example: https://{port}-{token}.{proxyDomain}
+      required:
+      - sandboxId
+      - port
+      - token
+      - url
     Organization:
       type: object
       properties:
@@ -1922,32 +2200,6 @@ components:
       - authenticatedRateLimitTtlSeconds
       - sandboxCreateRateLimitTtlSeconds
       - sandboxLifecycleRateLimitTtlSeconds
-    PortPreviewUrl:
-      type: object
-      properties:
-        sandboxId:
-          type: string
-          description: ID of the sandbox
-          example: '123456'
-        url:
-          type: string
-          description: Preview url
-          example: https://{port}-{sandboxId}.{proxyDomain}
-        token:
-          type: string
-          description: Access token
-          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
-      required:
-      - sandboxId
-      - url
-      - token
-    ForkSandbox:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name for the forked sandbox. If not provided, a unique name will be generated.
-          example: my-forked-sandbox
     SshAccessDto:
       type: object
       properties:
@@ -1990,195 +2242,6 @@ components:
       - createdAt
       - updatedAt
       - sshCommand
-    TraceSpan:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Trace identifier
-        spanId:
-          type: string
-          description: Span identifier
-        parentSpanId:
-          type: string
-          description: Parent span identifier
-        spanName:
-          type: string
-          description: Span name
-        timestamp:
-          type: string
-          description: Span start timestamp
-        durationNs:
-          type: number
-          description: Span duration in nanoseconds
-        spanAttributes:
-          type: object
-          description: Span attributes
-          additionalProperties:
-            type: string
-        statusCode:
-          type: string
-          description: Status code of the span
-        statusMessage:
-          type: string
-          description: Status message
-      required:
-      - traceId
-      - spanId
-      - spanName
-      - timestamp
-      - durationNs
-      - spanAttributes
-    ResizeSandbox:
-      type: object
-      properties:
-        cpu:
-          type: integer
-          description: 'CPU cores to allocate to the sandbox (minimum: 1)'
-          example: 2
-          minimum: 1
-        memory:
-          type: integer
-          description: 'Memory in GB to allocate to the sandbox (minimum: 1)'
-          example: 4
-          minimum: 1
-        disk:
-          type: integer
-          description: Disk space in GB to allocate to the sandbox (can only be increased)
-          example: 20
-          minimum: 1
-    LogEntry:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp of the log entry
-        body:
-          type: string
-          description: Log message body
-        severityText:
-          type: string
-          description: Severity level text (e.g., INFO, WARN, ERROR)
-        severityNumber:
-          type: number
-          description: Severity level number
-        serviceName:
-          type: string
-          description: Service name that generated the log
-        resourceAttributes:
-          type: object
-          description: Resource attributes from OTEL
-          additionalProperties:
-            type: string
-        logAttributes:
-          type: object
-          description: Log-specific attributes
-          additionalProperties:
-            type: string
-        traceId:
-          type: string
-          description: Associated trace ID if available
-        spanId:
-          type: string
-          description: Associated span ID if available
-      required:
-      - timestamp
-      - body
-      - severityText
-      - serviceName
-      - resourceAttributes
-      - logAttributes
-    SignedPortPreviewUrl:
-      type: object
-      properties:
-        sandboxId:
-          type: string
-          description: ID of the sandbox
-          example: '123456'
-        port:
-          type: integer
-          description: Port number of the signed preview URL
-          example: 3000
-        token:
-          type: string
-          description: Token of the signed preview URL
-          example: jl6wb9z5o3eii
-        url:
-          type: string
-          description: Signed preview url
-          example: https://{port}-{token}.{proxyDomain}
-      required:
-      - sandboxId
-      - port
-      - token
-      - url
-    MetricSeries:
-      type: object
-      properties:
-        metricName:
-          type: string
-          description: Name of the metric
-        dataPoints:
-          description: Data points for this metric
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricDataPoint'
-      required:
-      - metricName
-      - dataPoints
-    RegionQuota:
-      type: object
-      properties:
-        organizationId:
-          type: string
-        regionId:
-          type: string
-        totalCpuQuota:
-          type: number
-        totalMemoryQuota:
-          type: number
-        totalDiskQuota:
-          type: number
-        maxCpuPerSandbox:
-          type: number
-          nullable: true
-        maxMemoryPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerNonEphemeralSandbox:
-          type: number
-          nullable: true
-      required:
-      - organizationId
-      - regionId
-      - totalCpuQuota
-      - totalMemoryQuota
-      - totalDiskQuota
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - maxDiskPerNonEphemeralSandbox
-    SandboxVolume:
-      type: object
-      properties:
-        volumeId:
-          type: string
-          description: The ID of the volume
-          example: volume123
-        mountPath:
-          type: string
-          description: The mount path for the volume
-          example: /data
-        subpath:
-          type: string
-          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
-          example: users/alice
-      required:
-      - volumeId
-      - mountPath
     Sandbox:
       type: object
       properties:
@@ -2349,61 +2412,53 @@ components:
       - memory
       - disk
       - toolboxProxyUrl
-    TraceSummary:
+    PortPreviewUrl:
       type: object
       properties:
-        traceId:
-          type: string
-          description: Unique trace identifier
-        rootSpanName:
-          type: string
-          description: Name of the root span
-        startTime:
-          type: string
-          description: Trace start time
-        endTime:
-          type: string
-          description: Trace end time
-        durationMs:
-          type: number
-          description: Total duration in milliseconds
-        spanCount:
-          type: number
-          description: Number of spans in this trace
-        statusCode:
-          type: string
-          description: Status code of the trace
-      required:
-      - traceId
-      - rootSpanName
-      - startTime
-      - endTime
-      - durationMs
-      - spanCount
-    MetricsResponse:
-      type: object
-      properties:
-        series:
-          description: List of metric series
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricSeries'
-      required:
-      - series
-    SshAccessValidationDto:
-      type: object
-      properties:
-        valid:
-          type: boolean
-          description: Whether the SSH access token is valid
-          example: true
         sandboxId:
           type: string
-          description: ID of the sandbox this SSH access is for
-          example: 123e4567-e89b-12d3-a456-426614174000
+          description: ID of the sandbox
+          example: '123456'
+        url:
+          type: string
+          description: Preview url
+          example: https://{port}-{sandboxId}.{proxyDomain}
+        token:
+          type: string
+          description: Access token
+          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
       required:
-      - valid
       - sandboxId
+      - url
+      - token
+    OtelConfig:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          description: Endpoint
+        headers:
+          type: object
+          description: Headers
+          example:
+            x-api-key: my-api-key
+          nullable: true
+          additionalProperties:
+            type: string
+      required:
+      - endpoint
+    MetricDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp of the data point
+        value:
+          type: number
+          description: Value at this timestamp
+      required:
+      - timestamp
+      - value
     SandboxState:
       type: string
       enum:
@@ -2427,15 +2482,90 @@ components:
       - snapshotting
       - forking
       description: The state of the sandbox
-    CreateSandboxSnapshot:
+    SandboxDesiredState:
+      type: string
+      enum:
+      - destroyed
+      - started
+      - stopped
+      - resized
+      - archived
+      description: The desired state of the sandbox
+    CreateBuildInfo:
       type: object
       properties:
-        name:
+        dockerfileContent:
           type: string
-          description: Name for the new snapshot
-          example: my-dev-env-v1
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
       required:
-      - name
+      - dockerfileContent
+    PaginatedLogs:
+      type: object
+      properties:
+        items:
+          description: List of log entries
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+        total:
+          type: number
+          description: Total number of log entries matching the query
+        page:
+          type: number
+          description: Current page number
+        totalPages:
+          type: number
+          description: Total number of pages
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    SandboxVolume:
+      type: object
+      properties:
+        volumeId:
+          type: string
+          description: The ID of the volume
+          example: volume123
+        mountPath:
+          type: string
+          description: The mount path for the volume
+          example: /data
+        subpath:
+          type: string
+          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
+          example: users/alice
+      required:
+      - volumeId
+      - mountPath
+    MetricsResponse:
+      type: object
+      properties:
+        series:
+          description: List of metric series
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricSeries'
+      required:
+      - series
     BuildInfo:
       type: object
       properties:
@@ -2475,185 +2605,55 @@ components:
       - createdAt
       - updatedAt
       - snapshotRef
-    OtelConfig:
+    MetricSeries:
       type: object
       properties:
-        endpoint:
+        metricName:
           type: string
-          description: Endpoint
-        headers:
-          type: object
-          description: Headers
-          example:
-            x-api-key: my-api-key
+          description: Name of the metric
+        dataPoints:
+          description: Data points for this metric
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricDataPoint'
+      required:
+      - metricName
+      - dataPoints
+    RegionQuota:
+      type: object
+      properties:
+        organizationId:
+          type: string
+        regionId:
+          type: string
+        totalCpuQuota:
+          type: number
+        totalMemoryQuota:
+          type: number
+        totalDiskQuota:
+          type: number
+        maxCpuPerSandbox:
+          type: number
           nullable: true
-          additionalProperties:
-            type: string
-      required:
-      - endpoint
-    UpdateSandboxStateDto:
-      type: object
-      properties:
-        state:
-          type: string
-          description: The new state for the sandbox
-          enum:
-          - creating
-          - restoring
-          - destroyed
-          - destroying
-          - started
-          - stopped
-          - starting
-          - stopping
-          - error
-          - build_failed
-          - pending_build
-          - building_snapshot
-          - unknown
-          - pulling_snapshot
-          - archived
-          - archiving
-          - resizing
-          - snapshotting
-          - forking
-          example: started
-        errorReason:
-          type: string
-          description: Optional error message when reporting an error state
-          example: Failed to pull snapshot image
-        recoverable:
-          type: boolean
-          description: Whether the sandbox is recoverable
-          example: true
-      required:
-      - state
-    SandboxDesiredState:
-      type: string
-      enum:
-      - destroyed
-      - started
-      - stopped
-      - resized
-      - archived
-      description: The desired state of the sandbox
-    PaginatedTraces:
-      type: object
-      properties:
-        items:
-          description: List of trace summaries
-          type: array
-          items:
-            $ref: '#/components/schemas/TraceSummary'
-        total:
+        maxMemoryPerSandbox:
           type: number
-          description: Total number of traces matching the query
-        page:
+          nullable: true
+        maxDiskPerSandbox:
           type: number
-          description: Current page number
-        totalPages:
+          nullable: true
+        maxDiskPerNonEphemeralSandbox:
           type: number
-          description: Total number of pages
+          nullable: true
       required:
-      - items
-      - total
-      - page
-      - totalPages
-    PaginatedLogs:
-      type: object
-      properties:
-        items:
-          description: List of log entries
-          type: array
-          items:
-            $ref: '#/components/schemas/LogEntry'
-        total:
-          type: number
-          description: Total number of log entries matching the query
-        page:
-          type: number
-          description: Current page number
-        totalPages:
-          type: number
-          description: Total number of pages
-      required:
-      - items
-      - total
-      - page
-      - totalPages
-    Url:
-      type: object
-      properties:
-        url:
-          type: string
-          description: URL response
-      required:
-      - url
-    ToolboxProxyUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The toolbox proxy URL for the sandbox
-          example: https://proxy.app.daytona.io/toolbox
-      required:
-      - url
-    SandboxLabels:
-      type: object
-      properties:
-        labels:
-          type: object
-          description: Key-value pairs of labels
-          example:
-            environment: dev
-            team: backend
-          additionalProperties:
-            type: string
-      required:
-      - labels
-    CreateBuildInfo:
-      type: object
-      properties:
-        dockerfileContent:
-          type: string
-          description: The Dockerfile content used for the build
-          example: 'FROM node:14
-
-            WORKDIR /app
-
-            COPY . .
-
-            RUN npm install
-
-            CMD ["npm", "start"]'
-        contextHashes:
-          description: The context hashes used for the build
-          example:
-          - hash1
-          - hash2
-          type: array
-          items:
-            type: string
-      required:
-      - dockerfileContent
-    PaginatedSandboxes:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sandbox'
-        total:
-          type: number
-        page:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - items
-      - total
-      - page
-      - totalPages
+      - organizationId
+      - regionId
+      - totalCpuQuota
+      - totalMemoryQuota
+      - totalDiskQuota
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - maxDiskPerNonEphemeralSandbox
     UpdateSandboxNetworkSettings:
       type: object
       properties:

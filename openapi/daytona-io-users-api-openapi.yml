@@ -128,6 +128,18 @@ paths:
       - Users
 components:
   schemas:
+    UserPublicKey:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Public key
+        name:
+          type: string
+          description: Key name
+      required:
+      - key
+      - name
     User:
       type: object
       properties:
@@ -155,28 +167,6 @@ components:
       - email
       - publicKeys
       - createdAt
-    UserPublicKey:
-      type: object
-      properties:
-        key:
-          type: string
-          description: Public key
-        name:
-          type: string
-          description: Key name
-      required:
-      - key
-      - name
-    AccountProvider:
-      type: object
-      properties:
-        name:
-          type: string
-        displayName:
-          type: string
-      required:
-      - name
-      - displayName
     CreateLinkedAccount:
       type: object
       properties:
@@ -189,6 +179,16 @@ components:
       required:
       - provider
       - userId
+    AccountProvider:
+      type: object
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+      required:
+      - name
+      - displayName
   securitySchemes:
     bearer:
       scheme: bearer

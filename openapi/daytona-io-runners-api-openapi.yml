@@ -328,6 +328,64 @@ paths:
       - Runners
 components:
   schemas:
+    RunnerClass:
+      type: string
+      enum:
+      - container
+      - vm
+      description: The class of the runner
+    RunnerState:
+      type: string
+      enum:
+      - initializing
+      - ready
+      - disabled
+      - decommissioned
+      - unresponsive
+      description: The state of the runner
+    RunnerServiceHealth:
+      type: object
+      properties:
+        serviceName:
+          type: string
+          description: Name of the service being checked
+          example: runner
+        healthy:
+          type: boolean
+          description: Whether the service is healthy
+          example: false
+        errorReason:
+          type: string
+          description: Error reason if the service is unhealthy
+          example: Cannot connect to the runner
+      required:
+      - serviceName
+      - healthy
+    CreateRunner:
+      type: object
+      properties:
+        regionId:
+          type: string
+        name:
+          type: string
+        tags:
+          description: Tags to associate with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+      required:
+      - regionId
+      - name
+    RegionType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      - custom
+      description: The type of the region
     RunnerHealthcheck:
       type: object
       properties:
@@ -358,33 +416,6 @@ components:
           example: v0.0.0-dev
       required:
       - appVersion
-    RunnerServiceHealth:
-      type: object
-      properties:
-        serviceName:
-          type: string
-          description: Name of the service being checked
-          example: runner
-        healthy:
-          type: boolean
-          description: Whether the service is healthy
-          example: false
-        errorReason:
-          type: string
-          description: Error reason if the service is unhealthy
-          example: Cannot connect to the runner
-      required:
-      - serviceName
-      - healthy
-    RunnerState:
-      type: string
-      enum:
-      - initializing
-      - ready
-      - disabled
-      - decommissioned
-      - unresponsive
-      description: The state of the runner
     RunnerSnapshotDto:
       type: object
       properties:
@@ -403,6 +434,158 @@ components:
       required:
       - runnerSnapshotId
       - runnerId
+    Runner:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the runner
+          example: runner123
+        domain:
+          type: string
+          description: The domain of the runner
+          example: runner1.example.com
+        apiUrl:
+          type: string
+          description: The API URL of the runner
+          example: https://api.runner1.example.com
+        proxyUrl:
+          type: string
+          description: The proxy URL of the runner
+          example: https://proxy.runner1.example.com
+        cpu:
+          type: number
+          description: The CPU capacity of the runner
+          example: 8
+        memory:
+          type: number
+          description: The memory capacity of the runner in GiB
+          example: 16
+        disk:
+          type: number
+          description: The disk capacity of the runner in GiB
+          example: 100
+        gpu:
+          type: number
+          description: The GPU capacity of the runner
+          example: 1
+        gpuType:
+          type: string
+          description: The type of GPU
+        class:
+          description: The class of the runner
+          example: small
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+        currentCpuUsagePercentage:
+          type: number
+          description: Current CPU usage percentage
+          example: 45.6
+        currentMemoryUsagePercentage:
+          type: number
+          description: Current RAM usage percentage
+          example: 68.2
+        currentDiskUsagePercentage:
+          type: number
+          description: Current disk usage percentage
+          example: 33.8
+        currentAllocatedCpu:
+          type: number
+          description: Current allocated CPU
+          example: 4000
+        currentAllocatedMemoryGiB:
+          type: number
+          description: Current allocated memory in GiB
+          example: 8000
+        currentAllocatedDiskGiB:
+          type: number
+          description: Current allocated disk in GiB
+          example: 50000
+        currentSnapshotCount:
+          type: number
+          description: Current snapshot count
+          example: 12
+        currentStartedSandboxes:
+          type: number
+          description: Current number of started sandboxes
+          example: 5
+        availabilityScore:
+          type: number
+          description: Runner availability score
+          example: 85
+        region:
+          type: string
+          description: The region of the runner
+          example: us
+        name:
+          type: string
+          description: The name of the runner
+          example: runner1
+        state:
+          description: The state of the runner
+          example: initializing
+          allOf:
+          - $ref: '#/components/schemas/RunnerState'
+        lastChecked:
+          type: string
+          description: The last time the runner was checked
+          example: '2024-10-01T12:00:00Z'
+        unschedulable:
+          type: boolean
+          description: Whether the runner is unschedulable
+          example: false
+        tags:
+          description: Tags associated with the runner
+          example:
+          - gpu
+          - us-east
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          description: The creation timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        updatedAt:
+          type: string
+          description: The last update timestamp of the runner
+          example: '2023-10-01T12:00:00Z'
+        version:
+          type: string
+          description: The version of the runner (deprecated in favor of apiVersion)
+          example: '0'
+          deprecated: true
+        apiVersion:
+          type: string
+          description: The api version of the runner
+          example: '0'
+          deprecated: true
+        runnerClass:
+          description: The class of the runner
+          example: container
+          allOf:
+          - $ref: '#/components/schemas/RunnerClass'
+        appVersion:
+          type: string
+          description: The app version of the runner
+          example: v0.0.0-dev
+          deprecated: true
+      required:
+      - id
+      - cpu
+      - memory
+      - disk
+      - class
+      - region
+      - name
+      - state
+      - unschedulable
+      - tags
+      - createdAt
+      - updatedAt
+      - version
+      - apiVersion
+      - runnerClass
     RunnerFull:
       type: object
       properties:
@@ -565,172 +748,6 @@ components:
       - apiVersion
       - runnerClass
       - apiKey
-    RegionType:
-      type: string
-      enum:
-      - shared
-      - dedicated
-      - custom
-      description: The type of the region
-    SandboxClass:
-      type: string
-      enum:
-      - small
-      - medium
-      - large
-      description: The class of the runner
-    Runner:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the runner
-          example: runner123
-        domain:
-          type: string
-          description: The domain of the runner
-          example: runner1.example.com
-        apiUrl:
-          type: string
-          description: The API URL of the runner
-          example: https://api.runner1.example.com
-        proxyUrl:
-          type: string
-          description: The proxy URL of the runner
-          example: https://proxy.runner1.example.com
-        cpu:
-          type: number
-          description: The CPU capacity of the runner
-          example: 8
-        memory:
-          type: number
-          description: The memory capacity of the runner in GiB
-          example: 16
-        disk:
-          type: number
-          description: The disk capacity of the runner in GiB
-          example: 100
-        gpu:
-          type: number
-          description: The GPU capacity of the runner
-          example: 1
-        gpuType:
-          type: string
-          description: The type of GPU
-        class:
-          description: The class of the runner
-          example: small
-          allOf:
-          - $ref: '#/components/schemas/SandboxClass'
-        currentCpuUsagePercentage:
-          type: number
-          description: Current CPU usage percentage
-          example: 45.6
-        currentMemoryUsagePercentage:
-          type: number
-          description: Current RAM usage percentage
-          example: 68.2
-        currentDiskUsagePercentage:
-          type: number
-          description: Current disk usage percentage
-          example: 33.8
-        currentAllocatedCpu:
-          type: number
-          description: Current allocated CPU
-          example: 4000
-        currentAllocatedMemoryGiB:
-          type: number
-          description: Current allocated memory in GiB
-          example: 8000
-        currentAllocatedDiskGiB:
-          type: number
-          description: Current allocated disk in GiB
-          example: 50000
-        currentSnapshotCount:
-          type: number
-          description: Current snapshot count
-          example: 12
-        currentStartedSandboxes:
-          type: number
-          description: Current number of started sandboxes
-          example: 5
-        availabilityScore:
-          type: number
-          description: Runner availability score
-          example: 85
-        region:
-          type: string
-          description: The region of the runner
-          example: us
-        name:
-          type: string
-          description: The name of the runner
-          example: runner1
-        state:
-          description: The state of the runner
-          example: initializing
-          allOf:
-          - $ref: '#/components/schemas/RunnerState'
-        lastChecked:
-          type: string
-          description: The last time the runner was checked
-          example: '2024-10-01T12:00:00Z'
-        unschedulable:
-          type: boolean
-          description: Whether the runner is unschedulable
-          example: false
-        tags:
-          description: Tags associated with the runner
-          example:
-          - gpu
-          - us-east
-          type: array
-          items:
-            type: string
-        createdAt:
-          type: string
-          description: The creation timestamp of the runner
-          example: '2023-10-01T12:00:00Z'
-        updatedAt:
-          type: string
-          description: The last update timestamp of the runner
-          example: '2023-10-01T12:00:00Z'
-        version:
-          type: string
-          description: The version of the runner (deprecated in favor of apiVersion)
-          example: '0'
-          deprecated: true
-        apiVersion:
-          type: string
-          description: The api version of the runner
-          example: '0'
-          deprecated: true
-        runnerClass:
-          description: The class of the runner
-          example: container
-          allOf:
-          - $ref: '#/components/schemas/RunnerClass'
-        appVersion:
-          type: string
-          description: The app version of the runner
-          example: v0.0.0-dev
-          deprecated: true
-      required:
-      - id
-      - cpu
-      - memory
-      - disk
-      - class
-      - region
-      - name
-      - state
-      - unschedulable
-      - tags
-      - createdAt
-      - updatedAt
-      - version
-      - apiVersion
-      - runnerClass
     CreateRunnerResponse:
       type: object
       properties:
@@ -745,24 +762,6 @@ components:
       required:
       - id
       - apiKey
-    CreateRunner:
-      type: object
-      properties:
-        regionId:
-          type: string
-        name:
-          type: string
-        tags:
-          description: Tags to associate with the runner
-          example:
-          - gpu
-          - us-east
-          type: array
-          items:
-            type: string
-      required:
-      - regionId
-      - name
     RunnerHealthMetrics:
       type: object
       properties:
@@ -827,11 +826,12 @@ components:
       - cpu
       - memoryGiB
       - diskGiB
-    RunnerClass:
+    SandboxClass:
       type: string
       enum:
-      - container
-      - vm
+      - small
+      - medium
+      - large
       description: The class of the runner
   securitySchemes:
     bearer:
