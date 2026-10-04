@@ -1704,105 +1704,6 @@ paths:
       - Sandbox
 components:
   schemas:
-    CreateSandbox:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the sandbox. If not provided, the sandbox ID will be used as the name
-          example: MySandbox
-        snapshot:
-          type: string
-          description: The ID or name of the snapshot used for the sandbox
-          example: ubuntu-4vcpu-8ram-100gb
-        user:
-          type: string
-          description: The user associated with the project
-          example: daytona
-        env:
-          type: object
-          description: Environment variables for the sandbox
-          additionalProperties:
-            type: string
-          example:
-            NODE_ENV: production
-        labels:
-          type: object
-          description: Labels for the sandbox
-          additionalProperties:
-            type: string
-          example:
-            daytona.io/public: 'true'
-        public:
-          type: boolean
-          description: Whether the sandbox http preview is publicly accessible
-          example: false
-        networkBlockAll:
-          type: boolean
-          description: Whether to block all network access for the sandbox
-          example: false
-        networkAllowList:
-          type: string
-          description: Comma-separated list of allowed CIDR network addresses for the sandbox
-          example: 192.168.1.0/16,10.0.0.0/24
-        class:
-          type: string
-          description: The sandbox class type
-          enum:
-          - small
-          - medium
-          - large
-          example: small
-        target:
-          type: string
-          description: The target (region) where the sandbox will be created
-          example: us
-        cpu:
-          type: integer
-          description: CPU cores allocated to the sandbox
-          example: 2
-        gpu:
-          type: integer
-          description: GPU units allocated to the sandbox
-          example: 1
-        memory:
-          type: integer
-          description: Memory allocated to the sandbox in GB
-          example: 1
-        disk:
-          type: integer
-          description: Disk space allocated to the sandbox in GB
-          example: 3
-        autoStopInterval:
-          type: integer
-          description: Auto-stop interval in minutes (0 means disabled)
-          example: 30
-        autoArchiveInterval:
-          type: integer
-          description: Auto-archive interval in minutes (0 means the maximum interval will be used)
-          example: 10080
-        autoDeleteInterval:
-          type: integer
-          description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
-          example: 30
-        volumes:
-          description: Array of volumes to attach to the sandbox
-          type: array
-          items:
-            $ref: '#/components/schemas/SandboxVolume'
-        buildInfo:
-          description: Build information for the sandbox
-          allOf:
-          - $ref: '#/components/schemas/CreateBuildInfo'
-    CreateSandboxSnapshot:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name for the new snapshot
-          example: my-dev-env-v1
-      required:
-      - name
     SshAccessValidationDto:
       type: object
       properties:
@@ -1817,431 +1718,6 @@ components:
       required:
       - valid
       - sandboxId
-    PaginatedSandboxes:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sandbox'
-        total:
-          type: number
-        page:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - items
-      - total
-      - page
-      - totalPages
-    ForkSandbox:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name for the forked sandbox. If not provided, a unique name will be generated.
-          example: my-forked-sandbox
-    ToolboxProxyUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The toolbox proxy URL for the sandbox
-          example: https://proxy.app.daytona.io/toolbox
-      required:
-      - url
-    ResizeSandbox:
-      type: object
-      properties:
-        cpu:
-          type: integer
-          description: 'CPU cores to allocate to the sandbox (minimum: 1)'
-          example: 2
-          minimum: 1
-        memory:
-          type: integer
-          description: 'Memory in GB to allocate to the sandbox (minimum: 1)'
-          example: 4
-          minimum: 1
-        disk:
-          type: integer
-          description: Disk space in GB to allocate to the sandbox (can only be increased)
-          example: 20
-          minimum: 1
-    SandboxLabels:
-      type: object
-      properties:
-        labels:
-          type: object
-          description: Key-value pairs of labels
-          example:
-            environment: dev
-            team: backend
-          additionalProperties:
-            type: string
-      required:
-      - labels
-    LogEntry:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp of the log entry
-        body:
-          type: string
-          description: Log message body
-        severityText:
-          type: string
-          description: Severity level text (e.g., INFO, WARN, ERROR)
-        severityNumber:
-          type: number
-          description: Severity level number
-        serviceName:
-          type: string
-          description: Service name that generated the log
-        resourceAttributes:
-          type: object
-          description: Resource attributes from OTEL
-          additionalProperties:
-            type: string
-        logAttributes:
-          type: object
-          description: Log-specific attributes
-          additionalProperties:
-            type: string
-        traceId:
-          type: string
-          description: Associated trace ID if available
-        spanId:
-          type: string
-          description: Associated span ID if available
-      required:
-      - timestamp
-      - body
-      - severityText
-      - serviceName
-      - resourceAttributes
-      - logAttributes
-    TraceSpan:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Trace identifier
-        spanId:
-          type: string
-          description: Span identifier
-        parentSpanId:
-          type: string
-          description: Parent span identifier
-        spanName:
-          type: string
-          description: Span name
-        timestamp:
-          type: string
-          description: Span start timestamp
-        durationNs:
-          type: number
-          description: Span duration in nanoseconds
-        spanAttributes:
-          type: object
-          description: Span attributes
-          additionalProperties:
-            type: string
-        statusCode:
-          type: string
-          description: Status code of the span
-        statusMessage:
-          type: string
-          description: Status message
-      required:
-      - traceId
-      - spanId
-      - spanName
-      - timestamp
-      - durationNs
-      - spanAttributes
-    UpdateSandboxStateDto:
-      type: object
-      properties:
-        state:
-          type: string
-          description: The new state for the sandbox
-          enum:
-          - creating
-          - restoring
-          - destroyed
-          - destroying
-          - started
-          - stopped
-          - starting
-          - stopping
-          - error
-          - build_failed
-          - pending_build
-          - building_snapshot
-          - unknown
-          - pulling_snapshot
-          - archived
-          - archiving
-          - resizing
-          - snapshotting
-          - forking
-          example: started
-        errorReason:
-          type: string
-          description: Optional error message when reporting an error state
-          example: Failed to pull snapshot image
-        recoverable:
-          type: boolean
-          description: Whether the sandbox is recoverable
-          example: true
-      required:
-      - state
-    Url:
-      type: object
-      properties:
-        url:
-          type: string
-          description: URL response
-      required:
-      - url
-    PaginatedTraces:
-      type: object
-      properties:
-        items:
-          description: List of trace summaries
-          type: array
-          items:
-            $ref: '#/components/schemas/TraceSummary'
-        total:
-          type: number
-          description: Total number of traces matching the query
-        page:
-          type: number
-          description: Current page number
-        totalPages:
-          type: number
-          description: Total number of pages
-      required:
-      - items
-      - total
-      - page
-      - totalPages
-    TraceSummary:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Unique trace identifier
-        rootSpanName:
-          type: string
-          description: Name of the root span
-        startTime:
-          type: string
-          description: Trace start time
-        endTime:
-          type: string
-          description: Trace end time
-        durationMs:
-          type: number
-          description: Total duration in milliseconds
-        spanCount:
-          type: number
-          description: Number of spans in this trace
-        statusCode:
-          type: string
-          description: Status code of the trace
-      required:
-      - traceId
-      - rootSpanName
-      - startTime
-      - endTime
-      - durationMs
-      - spanCount
-    SignedPortPreviewUrl:
-      type: object
-      properties:
-        sandboxId:
-          type: string
-          description: ID of the sandbox
-          example: '123456'
-        port:
-          type: integer
-          description: Port number of the signed preview URL
-          example: 3000
-        token:
-          type: string
-          description: Token of the signed preview URL
-          example: jl6wb9z5o3eii
-        url:
-          type: string
-          description: Signed preview url
-          example: https://{port}-{token}.{proxyDomain}
-      required:
-      - sandboxId
-      - port
-      - token
-      - url
-    Organization:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Organization ID
-        name:
-          type: string
-          description: Organization name
-        createdBy:
-          type: string
-          description: User ID of the organization creator
-        personal:
-          type: boolean
-          description: Personal organization flag
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
-        suspended:
-          type: boolean
-          description: Suspended flag
-        suspendedAt:
-          format: date-time
-          type: string
-          description: Suspended at
-        suspensionReason:
-          type: string
-          description: Suspended reason
-        suspendedUntil:
-          format: date-time
-          type: string
-          description: Suspended until
-        suspensionCleanupGracePeriodHours:
-          type: number
-          description: Suspension cleanup grace period hours
-        maxCpuPerSandbox:
-          type: number
-          description: Max CPU per sandbox
-        maxMemoryPerSandbox:
-          type: number
-          description: Max memory per sandbox
-        maxDiskPerSandbox:
-          type: number
-          description: Max disk per sandbox
-        snapshotDeactivationTimeoutMinutes:
-          type: number
-          description: Time in minutes before an unused snapshot is deactivated
-          default: 20160
-        sandboxLimitedNetworkEgress:
-          type: boolean
-          description: Sandbox default network block all
-        defaultRegionId:
-          type: string
-          description: Default region ID
-        authenticatedRateLimit:
-          type: number
-          description: Authenticated rate limit per minute
-          nullable: true
-        sandboxCreateRateLimit:
-          type: number
-          description: Sandbox create rate limit per minute
-          nullable: true
-        sandboxLifecycleRateLimit:
-          type: number
-          description: Sandbox lifecycle rate limit per minute
-          nullable: true
-        experimentalConfig:
-          type: object
-          description: Experimental configuration
-        otelConfig:
-          description: OpenTelemetry collection configuration
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/OtelConfig'
-        authenticatedRateLimitTtlSeconds:
-          type: number
-          description: Authenticated rate limit TTL in seconds
-          nullable: true
-        sandboxCreateRateLimitTtlSeconds:
-          type: number
-          description: Sandbox create rate limit TTL in seconds
-          nullable: true
-        sandboxLifecycleRateLimitTtlSeconds:
-          type: number
-          description: Sandbox lifecycle rate limit TTL in seconds
-          nullable: true
-      required:
-      - id
-      - name
-      - createdBy
-      - personal
-      - createdAt
-      - updatedAt
-      - suspended
-      - suspendedAt
-      - suspensionReason
-      - suspendedUntil
-      - suspensionCleanupGracePeriodHours
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - snapshotDeactivationTimeoutMinutes
-      - sandboxLimitedNetworkEgress
-      - authenticatedRateLimit
-      - sandboxCreateRateLimit
-      - sandboxLifecycleRateLimit
-      - experimentalConfig
-      - otelConfig
-      - authenticatedRateLimitTtlSeconds
-      - sandboxCreateRateLimitTtlSeconds
-      - sandboxLifecycleRateLimitTtlSeconds
-    SshAccessDto:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the SSH access
-          example: 123e4567-e89b-12d3-a456-426614174000
-        sandboxId:
-          type: string
-          description: ID of the sandbox this SSH access is for
-          example: 123e4567-e89b-12d3-a456-426614174000
-        token:
-          type: string
-          description: SSH access token
-          example: abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
-        expiresAt:
-          format: date-time
-          type: string
-          description: When the SSH access expires
-          example: '2025-01-01T12:00:00.000Z'
-        createdAt:
-          format: date-time
-          type: string
-          description: When the SSH access was created
-          example: '2025-01-01T11:00:00.000Z'
-        updatedAt:
-          format: date-time
-          type: string
-          description: When the SSH access was last updated
-          example: '2025-01-01T11:00:00.000Z'
-        sshCommand:
-          type: string
-          description: SSH command to connect to the sandbox
-          example: ssh -p 2222 token@localhost
-      required:
-      - id
-      - sandboxId
-      - token
-      - expiresAt
-      - createdAt
-      - updatedAt
-      - sshCommand
     Sandbox:
       type: object
       properties:
@@ -2412,25 +1888,50 @@ components:
       - memory
       - disk
       - toolboxProxyUrl
-    PortPreviewUrl:
+    UpdateSandboxStateDto:
       type: object
       properties:
-        sandboxId:
+        state:
           type: string
-          description: ID of the sandbox
-          example: '123456'
-        url:
+          description: The new state for the sandbox
+          enum:
+          - creating
+          - restoring
+          - destroyed
+          - destroying
+          - started
+          - stopped
+          - starting
+          - stopping
+          - error
+          - build_failed
+          - pending_build
+          - building_snapshot
+          - unknown
+          - pulling_snapshot
+          - archived
+          - archiving
+          - resizing
+          - snapshotting
+          - forking
+          example: started
+        errorReason:
           type: string
-          description: Preview url
-          example: https://{port}-{sandboxId}.{proxyDomain}
-        token:
-          type: string
-          description: Access token
-          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
+          description: Optional error message when reporting an error state
+          example: Failed to pull snapshot image
+        recoverable:
+          type: boolean
+          description: Whether the sandbox is recoverable
+          example: true
       required:
-      - sandboxId
-      - url
-      - token
+      - state
+    ForkSandbox:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name for the forked sandbox. If not provided, a unique name will be generated.
+          example: my-forked-sandbox
     OtelConfig:
       type: object
       properties:
@@ -2447,50 +1948,6 @@ components:
             type: string
       required:
       - endpoint
-    MetricDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp of the data point
-        value:
-          type: number
-          description: Value at this timestamp
-      required:
-      - timestamp
-      - value
-    SandboxState:
-      type: string
-      enum:
-      - creating
-      - restoring
-      - destroyed
-      - destroying
-      - started
-      - stopped
-      - starting
-      - stopping
-      - error
-      - build_failed
-      - pending_build
-      - building_snapshot
-      - unknown
-      - pulling_snapshot
-      - archived
-      - archiving
-      - resizing
-      - snapshotting
-      - forking
-      description: The state of the sandbox
-    SandboxDesiredState:
-      type: string
-      enum:
-      - destroyed
-      - started
-      - stopped
-      - resized
-      - archived
-      description: The desired state of the sandbox
     CreateBuildInfo:
       type: object
       properties:
@@ -2516,6 +1973,37 @@ components:
             type: string
       required:
       - dockerfileContent
+    ToolboxProxyUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The toolbox proxy URL for the sandbox
+          example: https://proxy.app.daytona.io/toolbox
+      required:
+      - url
+    PaginatedTraces:
+      type: object
+      properties:
+        items:
+          description: List of trace summaries
+          type: array
+          items:
+            $ref: '#/components/schemas/TraceSummary'
+        total:
+          type: number
+          description: Total number of traces matching the query
+        page:
+          type: number
+          description: Current page number
+        totalPages:
+          type: number
+          description: Total number of pages
+      required:
+      - items
+      - total
+      - page
+      - totalPages
     PaginatedLogs:
       type: object
       properties:
@@ -2538,34 +2026,136 @@ components:
       - total
       - page
       - totalPages
-    SandboxVolume:
+    TraceSummary:
       type: object
       properties:
-        volumeId:
+        traceId:
           type: string
-          description: The ID of the volume
-          example: volume123
-        mountPath:
+          description: Unique trace identifier
+        rootSpanName:
           type: string
-          description: The mount path for the volume
-          example: /data
-        subpath:
+          description: Name of the root span
+        startTime:
           type: string
-          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
-          example: users/alice
+          description: Trace start time
+        endTime:
+          type: string
+          description: Trace end time
+        durationMs:
+          type: number
+          description: Total duration in milliseconds
+        spanCount:
+          type: number
+          description: Number of spans in this trace
+        statusCode:
+          type: string
+          description: Status code of the trace
       required:
-      - volumeId
-      - mountPath
-    MetricsResponse:
+      - traceId
+      - rootSpanName
+      - startTime
+      - endTime
+      - durationMs
+      - spanCount
+    CreateSandbox:
       type: object
       properties:
-        series:
-          description: List of metric series
+        name:
+          type: string
+          description: The name of the sandbox. If not provided, the sandbox ID will be used as the name
+          example: MySandbox
+        snapshot:
+          type: string
+          description: The ID or name of the snapshot used for the sandbox
+          example: ubuntu-4vcpu-8ram-100gb
+        user:
+          type: string
+          description: The user associated with the project
+          example: daytona
+        env:
+          type: object
+          description: Environment variables for the sandbox
+          additionalProperties:
+            type: string
+          example:
+            NODE_ENV: production
+        labels:
+          type: object
+          description: Labels for the sandbox
+          additionalProperties:
+            type: string
+          example:
+            daytona.io/public: 'true'
+        public:
+          type: boolean
+          description: Whether the sandbox http preview is publicly accessible
+          example: false
+        networkBlockAll:
+          type: boolean
+          description: Whether to block all network access for the sandbox
+          example: false
+        networkAllowList:
+          type: string
+          description: Comma-separated list of allowed CIDR network addresses for the sandbox
+          example: 192.168.1.0/16,10.0.0.0/24
+        class:
+          type: string
+          description: The sandbox class type
+          enum:
+          - small
+          - medium
+          - large
+          example: small
+        target:
+          type: string
+          description: The target (region) where the sandbox will be created
+          example: us
+        cpu:
+          type: integer
+          description: CPU cores allocated to the sandbox
+          example: 2
+        gpu:
+          type: integer
+          description: GPU units allocated to the sandbox
+          example: 1
+        memory:
+          type: integer
+          description: Memory allocated to the sandbox in GB
+          example: 1
+        disk:
+          type: integer
+          description: Disk space allocated to the sandbox in GB
+          example: 3
+        autoStopInterval:
+          type: integer
+          description: Auto-stop interval in minutes (0 means disabled)
+          example: 30
+        autoArchiveInterval:
+          type: integer
+          description: Auto-archive interval in minutes (0 means the maximum interval will be used)
+          example: 10080
+        autoDeleteInterval:
+          type: integer
+          description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
+          example: 30
+        volumes:
+          description: Array of volumes to attach to the sandbox
           type: array
           items:
-            $ref: '#/components/schemas/MetricSeries'
-      required:
-      - series
+            $ref: '#/components/schemas/SandboxVolume'
+        buildInfo:
+          description: Build information for the sandbox
+          allOf:
+          - $ref: '#/components/schemas/CreateBuildInfo'
+    SandboxDesiredState:
+      type: string
+      enum:
+      - destroyed
+      - started
+      - stopped
+      - resized
+      - archived
+      description: The desired state of the sandbox
     BuildInfo:
       type: object
       properties:
@@ -2605,6 +2195,231 @@ components:
       - createdAt
       - updatedAt
       - snapshotRef
+    TraceSpan:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier
+        spanId:
+          type: string
+          description: Span identifier
+        parentSpanId:
+          type: string
+          description: Parent span identifier
+        spanName:
+          type: string
+          description: Span name
+        timestamp:
+          type: string
+          description: Span start timestamp
+        durationNs:
+          type: number
+          description: Span duration in nanoseconds
+        spanAttributes:
+          type: object
+          description: Span attributes
+          additionalProperties:
+            type: string
+        statusCode:
+          type: string
+          description: Status code of the span
+        statusMessage:
+          type: string
+          description: Status message
+      required:
+      - traceId
+      - spanId
+      - spanName
+      - timestamp
+      - durationNs
+      - spanAttributes
+    UpdateSandboxNetworkSettings:
+      type: object
+      properties:
+        networkBlockAll:
+          type: boolean
+          description: Whether to block all network access for the sandbox
+          example: false
+        networkAllowList:
+          type: string
+          description: Comma-separated list of allowed CIDR network addresses for the sandbox
+          example: 192.168.1.0/16,10.0.0.0/24
+    SandboxState:
+      type: string
+      enum:
+      - creating
+      - restoring
+      - destroyed
+      - destroying
+      - started
+      - stopped
+      - starting
+      - stopping
+      - error
+      - build_failed
+      - pending_build
+      - building_snapshot
+      - unknown
+      - pulling_snapshot
+      - archived
+      - archiving
+      - resizing
+      - snapshotting
+      - forking
+      description: The state of the sandbox
+    SandboxLabels:
+      type: object
+      properties:
+        labels:
+          type: object
+          description: Key-value pairs of labels
+          example:
+            environment: dev
+            team: backend
+          additionalProperties:
+            type: string
+      required:
+      - labels
+    PaginatedSandboxes:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sandbox'
+        total:
+          type: number
+        page:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - items
+      - total
+      - page
+      - totalPages
+    MetricsResponse:
+      type: object
+      properties:
+        series:
+          description: List of metric series
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricSeries'
+      required:
+      - series
+    SandboxVolume:
+      type: object
+      properties:
+        volumeId:
+          type: string
+          description: The ID of the volume
+          example: volume123
+        mountPath:
+          type: string
+          description: The mount path for the volume
+          example: /data
+        subpath:
+          type: string
+          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
+          example: users/alice
+      required:
+      - volumeId
+      - mountPath
+    SignedPortPreviewUrl:
+      type: object
+      properties:
+        sandboxId:
+          type: string
+          description: ID of the sandbox
+          example: '123456'
+        port:
+          type: integer
+          description: Port number of the signed preview URL
+          example: 3000
+        token:
+          type: string
+          description: Token of the signed preview URL
+          example: jl6wb9z5o3eii
+        url:
+          type: string
+          description: Signed preview url
+          example: https://{port}-{token}.{proxyDomain}
+      required:
+      - sandboxId
+      - port
+      - token
+      - url
+    CreateSandboxSnapshot:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name for the new snapshot
+          example: my-dev-env-v1
+      required:
+      - name
+    ResizeSandbox:
+      type: object
+      properties:
+        cpu:
+          type: integer
+          description: 'CPU cores to allocate to the sandbox (minimum: 1)'
+          example: 2
+          minimum: 1
+        memory:
+          type: integer
+          description: 'Memory in GB to allocate to the sandbox (minimum: 1)'
+          example: 4
+          minimum: 1
+        disk:
+          type: integer
+          description: Disk space in GB to allocate to the sandbox (can only be increased)
+          example: 20
+          minimum: 1
+    SshAccessDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the SSH access
+          example: 123e4567-e89b-12d3-a456-426614174000
+        sandboxId:
+          type: string
+          description: ID of the sandbox this SSH access is for
+          example: 123e4567-e89b-12d3-a456-426614174000
+        token:
+          type: string
+          description: SSH access token
+          example: abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
+        expiresAt:
+          format: date-time
+          type: string
+          description: When the SSH access expires
+          example: '2025-01-01T12:00:00.000Z'
+        createdAt:
+          format: date-time
+          type: string
+          description: When the SSH access was created
+          example: '2025-01-01T11:00:00.000Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: When the SSH access was last updated
+          example: '2025-01-01T11:00:00.000Z'
+        sshCommand:
+          type: string
+          description: SSH command to connect to the sandbox
+          example: ssh -p 2222 token@localhost
+      required:
+      - id
+      - sandboxId
+      - token
+      - expiresAt
+      - createdAt
+      - updatedAt
+      - sshCommand
     MetricSeries:
       type: object
       properties:
@@ -2619,6 +2434,134 @@ components:
       required:
       - metricName
       - dataPoints
+    MetricDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp of the data point
+        value:
+          type: number
+          description: Value at this timestamp
+      required:
+      - timestamp
+      - value
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Organization ID
+        name:
+          type: string
+          description: Organization name
+        createdBy:
+          type: string
+          description: User ID of the organization creator
+        personal:
+          type: boolean
+          description: Personal organization flag
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation timestamp
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update timestamp
+        suspended:
+          type: boolean
+          description: Suspended flag
+        suspendedAt:
+          format: date-time
+          type: string
+          description: Suspended at
+        suspensionReason:
+          type: string
+          description: Suspended reason
+        suspendedUntil:
+          format: date-time
+          type: string
+          description: Suspended until
+        suspensionCleanupGracePeriodHours:
+          type: number
+          description: Suspension cleanup grace period hours
+        maxCpuPerSandbox:
+          type: number
+          description: Max CPU per sandbox
+        maxMemoryPerSandbox:
+          type: number
+          description: Max memory per sandbox
+        maxDiskPerSandbox:
+          type: number
+          description: Max disk per sandbox
+        snapshotDeactivationTimeoutMinutes:
+          type: number
+          description: Time in minutes before an unused snapshot is deactivated
+          default: 20160
+        sandboxLimitedNetworkEgress:
+          type: boolean
+          description: Sandbox default network block all
+        defaultRegionId:
+          type: string
+          description: Default region ID
+        authenticatedRateLimit:
+          type: number
+          description: Authenticated rate limit per minute
+          nullable: true
+        sandboxCreateRateLimit:
+          type: number
+          description: Sandbox create rate limit per minute
+          nullable: true
+        sandboxLifecycleRateLimit:
+          type: number
+          description: Sandbox lifecycle rate limit per minute
+          nullable: true
+        experimentalConfig:
+          type: object
+          description: Experimental configuration
+        otelConfig:
+          description: OpenTelemetry collection configuration
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/OtelConfig'
+        authenticatedRateLimitTtlSeconds:
+          type: number
+          description: Authenticated rate limit TTL in seconds
+          nullable: true
+        sandboxCreateRateLimitTtlSeconds:
+          type: number
+          description: Sandbox create rate limit TTL in seconds
+          nullable: true
+        sandboxLifecycleRateLimitTtlSeconds:
+          type: number
+          description: Sandbox lifecycle rate limit TTL in seconds
+          nullable: true
+      required:
+      - id
+      - name
+      - createdBy
+      - personal
+      - createdAt
+      - updatedAt
+      - suspended
+      - suspendedAt
+      - suspensionReason
+      - suspendedUntil
+      - suspensionCleanupGracePeriodHours
+      - maxCpuPerSandbox
+      - maxMemoryPerSandbox
+      - maxDiskPerSandbox
+      - snapshotDeactivationTimeoutMinutes
+      - sandboxLimitedNetworkEgress
+      - authenticatedRateLimit
+      - sandboxCreateRateLimit
+      - sandboxLifecycleRateLimit
+      - experimentalConfig
+      - otelConfig
+      - authenticatedRateLimitTtlSeconds
+      - sandboxCreateRateLimitTtlSeconds
+      - sandboxLifecycleRateLimitTtlSeconds
     RegionQuota:
       type: object
       properties:
@@ -2654,17 +2597,74 @@ components:
       - maxMemoryPerSandbox
       - maxDiskPerSandbox
       - maxDiskPerNonEphemeralSandbox
-    UpdateSandboxNetworkSettings:
+    LogEntry:
       type: object
       properties:
-        networkBlockAll:
-          type: boolean
-          description: Whether to block all network access for the sandbox
-          example: false
-        networkAllowList:
+        timestamp:
           type: string
-          description: Comma-separated list of allowed CIDR network addresses for the sandbox
-          example: 192.168.1.0/16,10.0.0.0/24
+          description: Timestamp of the log entry
+        body:
+          type: string
+          description: Log message body
+        severityText:
+          type: string
+          description: Severity level text (e.g., INFO, WARN, ERROR)
+        severityNumber:
+          type: number
+          description: Severity level number
+        serviceName:
+          type: string
+          description: Service name that generated the log
+        resourceAttributes:
+          type: object
+          description: Resource attributes from OTEL
+          additionalProperties:
+            type: string
+        logAttributes:
+          type: object
+          description: Log-specific attributes
+          additionalProperties:
+            type: string
+        traceId:
+          type: string
+          description: Associated trace ID if available
+        spanId:
+          type: string
+          description: Associated span ID if available
+      required:
+      - timestamp
+      - body
+      - severityText
+      - serviceName
+      - resourceAttributes
+      - logAttributes
+    Url:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL response
+      required:
+      - url
+    PortPreviewUrl:
+      type: object
+      properties:
+        sandboxId:
+          type: string
+          description: ID of the sandbox
+          example: '123456'
+        url:
+          type: string
+          description: Preview url
+          example: https://{port}-{sandboxId}.{proxyDomain}
+        token:
+          type: string
+          description: Access token
+          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
+      required:
+      - sandboxId
+      - url
+      - token
   securitySchemes:
     bearer:
       scheme: bearer

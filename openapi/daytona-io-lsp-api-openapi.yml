@@ -174,16 +174,6 @@ paths:
                   $ref: '#/components/schemas/LspSymbol'
 components:
   schemas:
-    LspServerRequest:
-      type: object
-      required:
-      - languageId
-      - pathToProject
-      properties:
-        languageId:
-          type: string
-        pathToProject:
-          type: string
     LspRange:
       type: object
       required:
@@ -194,6 +184,48 @@ components:
           $ref: '#/components/schemas/LspPosition'
         start:
           $ref: '#/components/schemas/LspPosition'
+    LspPosition:
+      type: object
+      required:
+      - character
+      - line
+      properties:
+        character:
+          type: integer
+        line:
+          type: integer
+    LspServerRequest:
+      type: object
+      required:
+      - languageId
+      - pathToProject
+      properties:
+        languageId:
+          type: string
+        pathToProject:
+          type: string
+    LspLocation:
+      type: object
+      required:
+      - range
+      - uri
+      properties:
+        range:
+          $ref: '#/components/schemas/LspRange'
+        uri:
+          type: string
+    CompletionList:
+      type: object
+      required:
+      - isIncomplete
+      - items
+      properties:
+        isIncomplete:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompletionItem'
     LspDocumentRequest:
       type: object
       required:
@@ -206,6 +238,37 @@ components:
         pathToProject:
           type: string
         uri:
+          type: string
+    LspSymbol:
+      type: object
+      required:
+      - kind
+      - location
+      - name
+      properties:
+        kind:
+          type: integer
+        location:
+          $ref: '#/components/schemas/LspLocation'
+        name:
+          type: string
+    CompletionItem:
+      type: object
+      required:
+      - label
+      properties:
+        detail:
+          type: string
+        documentation: {}
+        filterText:
+          type: string
+        insertText:
+          type: string
+        kind:
+          type: integer
+        label:
+          type: string
+        sortText:
           type: string
     LspCompletionParams:
       type: object
@@ -234,66 +297,3 @@ components:
           type: string
         triggerKind:
           type: integer
-    CompletionItem:
-      type: object
-      required:
-      - label
-      properties:
-        detail:
-          type: string
-        documentation: {}
-        filterText:
-          type: string
-        insertText:
-          type: string
-        kind:
-          type: integer
-        label:
-          type: string
-        sortText:
-          type: string
-    CompletionList:
-      type: object
-      required:
-      - isIncomplete
-      - items
-      properties:
-        isIncomplete:
-          type: boolean
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompletionItem'
-    LspLocation:
-      type: object
-      required:
-      - range
-      - uri
-      properties:
-        range:
-          $ref: '#/components/schemas/LspRange'
-        uri:
-          type: string
-    LspPosition:
-      type: object
-      required:
-      - character
-      - line
-      properties:
-        character:
-          type: integer
-        line:
-          type: integer
-    LspSymbol:
-      type: object
-      required:
-      - kind
-      - location
-      - name
-      properties:
-        kind:
-          type: integer
-        location:
-          $ref: '#/components/schemas/LspLocation'
-        name:
-          type: string

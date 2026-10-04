@@ -409,6 +409,147 @@ paths:
         required: true
 components:
   schemas:
+    gin.H:
+      type: object
+      additionalProperties: {}
+    Session:
+      type: object
+      required:
+      - commands
+      - sessionId
+      properties:
+        commands:
+          type: array
+          items:
+            $ref: '#/components/schemas/Command'
+        sessionId:
+          type: string
+    CodeRunResponse:
+      type: object
+      properties:
+        artifacts:
+          $ref: '#/components/schemas/CodeRunArtifacts'
+        exitCode:
+          type: integer
+        result:
+          type: string
+    SessionSendInputRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: string
+    PtyCreateResponse:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+    PtyListResponse:
+      type: object
+      required:
+      - sessions
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PtySessionInfo'
+    ExecuteRequest:
+      type: object
+      required:
+      - command
+      properties:
+        command:
+          type: string
+        cwd:
+          description: Current working directory
+          type: string
+        envs:
+          description: Environment variables to set for the command
+          type: object
+          additionalProperties:
+            type: string
+        timeout:
+          description: Timeout in seconds, defaults to 10 seconds
+          type: integer
+    CodeRunRequest:
+      type: object
+      required:
+      - code
+      - language
+      properties:
+        argv:
+          type: array
+          items:
+            type: string
+        code:
+          type: string
+        envs:
+          type: object
+          additionalProperties:
+            type: string
+        language:
+          description: python, javascript, typescript
+          type: string
+        timeout:
+          type: integer
+    Command:
+      type: object
+      required:
+      - command
+      - id
+      properties:
+        command:
+          type: string
+        exitCode:
+          type: integer
+        id:
+          type: string
+    ChartElement:
+      type: object
+      properties:
+        angle:
+          type: number
+        first_quartile:
+          type: number
+        group:
+          type: string
+        label:
+          type: string
+        max:
+          type: number
+        median:
+          type: number
+        min:
+          type: number
+        outliers:
+          type: array
+          items:
+            type: number
+        png:
+          type: string
+        points:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        radius:
+          type: number
+        third_quartile:
+          type: number
+        title:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+        x_label:
+          type: string
+        y_label:
+          type: string
     PtyResizeRequest:
       type: object
       required:
@@ -460,48 +601,18 @@ components:
           type: array
           items:
             type: number
-    ChartElement:
+    SessionCommandLogsResponse:
       type: object
+      required:
+      - output
+      - stderr
+      - stdout
       properties:
-        angle:
-          type: number
-        first_quartile:
-          type: number
-        group:
+        output:
           type: string
-        label:
+        stderr:
           type: string
-        max:
-          type: number
-        median:
-          type: number
-        min:
-          type: number
-        outliers:
-          type: array
-          items:
-            type: number
-        png:
-          type: string
-        points:
-          type: array
-          items:
-            type: array
-            items:
-              type: number
-        radius:
-          type: number
-        third_quartile:
-          type: number
-        title:
-          type: string
-        type:
-          type: string
-        value:
-          type: string
-        x_label:
-          type: string
-        y_label:
+        stdout:
           type: string
     SessionExecuteRequest:
       type: object
@@ -516,37 +627,20 @@ components:
           type: boolean
         suppressInputEcho:
           type: boolean
-    Session:
-      type: object
-      required:
-      - commands
-      - sessionId
-      properties:
-        commands:
-          type: array
-          items:
-            $ref: '#/components/schemas/Command'
-        sessionId:
-          type: string
-    PtyListResponse:
-      type: object
-      required:
-      - sessions
-      properties:
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PtySessionInfo'
-    PtyCreateResponse:
+    CreateSessionRequest:
       type: object
       required:
       - sessionId
       properties:
         sessionId:
           type: string
-    gin.H:
+    CodeRunArtifacts:
       type: object
-      additionalProperties: {}
+      properties:
+        charts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart'
     SessionExecuteResponse:
       type: object
       required:
@@ -562,15 +656,33 @@ components:
           type: string
         stdout:
           type: string
-    CodeRunResponse:
+    ExecuteResponse:
       type: object
+      required:
+      - result
       properties:
-        artifacts:
-          $ref: '#/components/schemas/CodeRunArtifacts'
         exitCode:
           type: integer
         result:
           type: string
+    PtyCreateRequest:
+      type: object
+      properties:
+        cols:
+          type: integer
+        cwd:
+          type: string
+        envs:
+          type: object
+          additionalProperties:
+            type: string
+        id:
+          type: string
+        lazyStart:
+          description: Don't start PTY until first client connects
+          type: boolean
+        rows:
+          type: integer
     PtySessionInfo:
       type: object
       required:
@@ -602,115 +714,3 @@ components:
           type: boolean
         rows:
           type: integer
-    CodeRunRequest:
-      type: object
-      required:
-      - code
-      - language
-      properties:
-        argv:
-          type: array
-          items:
-            type: string
-        code:
-          type: string
-        envs:
-          type: object
-          additionalProperties:
-            type: string
-        language:
-          description: python, javascript, typescript
-          type: string
-        timeout:
-          type: integer
-    ExecuteResponse:
-      type: object
-      required:
-      - result
-      properties:
-        exitCode:
-          type: integer
-        result:
-          type: string
-    ExecuteRequest:
-      type: object
-      required:
-      - command
-      properties:
-        command:
-          type: string
-        cwd:
-          description: Current working directory
-          type: string
-        envs:
-          description: Environment variables to set for the command
-          type: object
-          additionalProperties:
-            type: string
-        timeout:
-          description: Timeout in seconds, defaults to 10 seconds
-          type: integer
-    PtyCreateRequest:
-      type: object
-      properties:
-        cols:
-          type: integer
-        cwd:
-          type: string
-        envs:
-          type: object
-          additionalProperties:
-            type: string
-        id:
-          type: string
-        lazyStart:
-          description: Don't start PTY until first client connects
-          type: boolean
-        rows:
-          type: integer
-    SessionCommandLogsResponse:
-      type: object
-      required:
-      - output
-      - stderr
-      - stdout
-      properties:
-        output:
-          type: string
-        stderr:
-          type: string
-        stdout:
-          type: string
-    CreateSessionRequest:
-      type: object
-      required:
-      - sessionId
-      properties:
-        sessionId:
-          type: string
-    Command:
-      type: object
-      required:
-      - command
-      - id
-      properties:
-        command:
-          type: string
-        exitCode:
-          type: integer
-        id:
-          type: string
-    SessionSendInputRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: string
-    CodeRunArtifacts:
-      type: object
-      properties:
-        charts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Chart'

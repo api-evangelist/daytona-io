@@ -501,192 +501,6 @@ paths:
       - Workspace
 components:
   schemas:
-    SandboxState:
-      type: string
-      enum:
-      - creating
-      - restoring
-      - destroyed
-      - destroying
-      - started
-      - stopped
-      - starting
-      - stopping
-      - error
-      - build_failed
-      - pending_build
-      - building_snapshot
-      - unknown
-      - pulling_snapshot
-      - archived
-      - archiving
-      - resizing
-      - snapshotting
-      - forking
-      description: The state of the sandbox
-    CreateWorkspace:
-      type: object
-      properties:
-        image:
-          type: string
-          description: The image used for the workspace
-          example: daytonaio/workspace:latest
-        user:
-          type: string
-          description: The user associated with the project
-          example: daytona
-        env:
-          type: object
-          description: Environment variables for the workspace
-          additionalProperties:
-            type: string
-          example:
-            NODE_ENV: production
-        labels:
-          type: object
-          description: Labels for the workspace
-          additionalProperties:
-            type: string
-          example:
-            daytona.io/public: 'true'
-        public:
-          type: boolean
-          description: Whether the workspace http preview is publicly accessible
-          example: false
-        class:
-          type: string
-          description: The workspace class type
-          enum:
-          - small
-          - medium
-          - large
-          example: small
-        target:
-          type: string
-          description: The target (region) where the workspace will be created
-          enum:
-          - eu
-          - us
-          - asia
-          example: eu
-        cpu:
-          type: integer
-          description: CPU cores allocated to the workspace
-          example: 2
-        gpu:
-          type: integer
-          description: GPU units allocated to the workspace
-          example: 1
-        memory:
-          type: integer
-          description: Memory allocated to the workspace in GB
-          example: 1
-        disk:
-          type: integer
-          description: Disk space allocated to the workspace in GB
-          example: 3
-        autoStopInterval:
-          type: integer
-          description: Auto-stop interval in minutes (0 means disabled)
-          example: 30
-        autoArchiveInterval:
-          type: integer
-          description: Auto-archive interval in minutes (0 means the maximum interval will be used)
-          example: 10080
-        volumes:
-          description: Array of volumes to attach to the workspace
-          type: array
-          items:
-            $ref: '#/components/schemas/SandboxVolume'
-        buildInfo:
-          description: Build information for the workspace
-          allOf:
-          - $ref: '#/components/schemas/CreateBuildInfo'
-    SandboxDesiredState:
-      type: string
-      enum:
-      - destroyed
-      - started
-      - stopped
-      - resized
-      - archived
-      description: The desired state of the sandbox
-    SandboxLabels:
-      type: object
-      properties:
-        labels:
-          type: object
-          description: Key-value pairs of labels
-          example:
-            environment: dev
-            team: backend
-          additionalProperties:
-            type: string
-      required:
-      - labels
-    CreateBuildInfo:
-      type: object
-      properties:
-        dockerfileContent:
-          type: string
-          description: The Dockerfile content used for the build
-          example: 'FROM node:14
-
-            WORKDIR /app
-
-            COPY . .
-
-            RUN npm install
-
-            CMD ["npm", "start"]'
-        contextHashes:
-          description: The context hashes used for the build
-          example:
-          - hash1
-          - hash2
-          type: array
-          items:
-            type: string
-      required:
-      - dockerfileContent
-    SandboxInfo:
-      type: object
-      properties:
-        created:
-          type: string
-          description: The creation timestamp of the project
-          example: '2023-10-01T12:00:00Z'
-        name:
-          type: string
-          description: 'Deprecated: The name of the sandbox'
-          example: MySandbox
-          deprecated: true
-          default: ''
-        providerMetadata:
-          type: string
-          description: Additional metadata provided by the provider
-          example: '{"key": "value"}'
-      required:
-      - created
-      - name
-    SandboxVolume:
-      type: object
-      properties:
-        volumeId:
-          type: string
-          description: The ID of the volume
-          example: volume123
-        mountPath:
-          type: string
-          description: The mount path for the volume
-          example: /data
-        subpath:
-          type: string
-          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
-          example: users/alice
-      required:
-      - volumeId
-      - mountPath
     Workspace:
       type: object
       properties:
@@ -879,6 +693,170 @@ components:
       - memory
       - disk
       - toolboxProxyUrl
+    CreateWorkspace:
+      type: object
+      properties:
+        image:
+          type: string
+          description: The image used for the workspace
+          example: daytonaio/workspace:latest
+        user:
+          type: string
+          description: The user associated with the project
+          example: daytona
+        env:
+          type: object
+          description: Environment variables for the workspace
+          additionalProperties:
+            type: string
+          example:
+            NODE_ENV: production
+        labels:
+          type: object
+          description: Labels for the workspace
+          additionalProperties:
+            type: string
+          example:
+            daytona.io/public: 'true'
+        public:
+          type: boolean
+          description: Whether the workspace http preview is publicly accessible
+          example: false
+        class:
+          type: string
+          description: The workspace class type
+          enum:
+          - small
+          - medium
+          - large
+          example: small
+        target:
+          type: string
+          description: The target (region) where the workspace will be created
+          enum:
+          - eu
+          - us
+          - asia
+          example: eu
+        cpu:
+          type: integer
+          description: CPU cores allocated to the workspace
+          example: 2
+        gpu:
+          type: integer
+          description: GPU units allocated to the workspace
+          example: 1
+        memory:
+          type: integer
+          description: Memory allocated to the workspace in GB
+          example: 1
+        disk:
+          type: integer
+          description: Disk space allocated to the workspace in GB
+          example: 3
+        autoStopInterval:
+          type: integer
+          description: Auto-stop interval in minutes (0 means disabled)
+          example: 30
+        autoArchiveInterval:
+          type: integer
+          description: Auto-archive interval in minutes (0 means the maximum interval will be used)
+          example: 10080
+        volumes:
+          description: Array of volumes to attach to the workspace
+          type: array
+          items:
+            $ref: '#/components/schemas/SandboxVolume'
+        buildInfo:
+          description: Build information for the workspace
+          allOf:
+          - $ref: '#/components/schemas/CreateBuildInfo'
+    SandboxVolume:
+      type: object
+      properties:
+        volumeId:
+          type: string
+          description: The ID of the volume
+          example: volume123
+        mountPath:
+          type: string
+          description: The mount path for the volume
+          example: /data
+        subpath:
+          type: string
+          description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
+          example: users/alice
+      required:
+      - volumeId
+      - mountPath
+    WorkspacePortPreviewUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Preview url
+          example: https://123456-mysandbox.runner.com
+        token:
+          type: string
+          description: Access token
+          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
+      required:
+      - url
+      - token
+    SandboxInfo:
+      type: object
+      properties:
+        created:
+          type: string
+          description: The creation timestamp of the project
+          example: '2023-10-01T12:00:00Z'
+        name:
+          type: string
+          description: 'Deprecated: The name of the sandbox'
+          example: MySandbox
+          deprecated: true
+          default: ''
+        providerMetadata:
+          type: string
+          description: Additional metadata provided by the provider
+          example: '{"key": "value"}'
+      required:
+      - created
+      - name
+    CreateBuildInfo:
+      type: object
+      properties:
+        dockerfileContent:
+          type: string
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          type: array
+          items:
+            type: string
+      required:
+      - dockerfileContent
+    SandboxDesiredState:
+      type: string
+      enum:
+      - destroyed
+      - started
+      - stopped
+      - resized
+      - archived
+      description: The desired state of the sandbox
     BuildInfo:
       type: object
       properties:
@@ -918,20 +896,42 @@ components:
       - createdAt
       - updatedAt
       - snapshotRef
-    WorkspacePortPreviewUrl:
+    SandboxLabels:
       type: object
       properties:
-        url:
-          type: string
-          description: Preview url
-          example: https://123456-mysandbox.runner.com
-        token:
-          type: string
-          description: Access token
-          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
+        labels:
+          type: object
+          description: Key-value pairs of labels
+          example:
+            environment: dev
+            team: backend
+          additionalProperties:
+            type: string
       required:
-      - url
-      - token
+      - labels
+    SandboxState:
+      type: string
+      enum:
+      - creating
+      - restoring
+      - destroyed
+      - destroying
+      - started
+      - stopped
+      - starting
+      - stopping
+      - error
+      - build_failed
+      - pending_build
+      - building_snapshot
+      - unknown
+      - pulling_snapshot
+      - archived
+      - archiving
+      - resizing
+      - snapshotting
+      - forking
+      description: The state of the sandbox
   securitySchemes:
     bearer:
       scheme: bearer

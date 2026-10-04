@@ -32,20 +32,30 @@ paths:
       - Config
 components:
   schemas:
-    PosthogConfig:
+    Announcement:
       type: object
       properties:
-        apiKey:
+        text:
           type: string
-          description: PostHog API key
-          example: phc_abc123
-        host:
+          description: The announcement text
+          example: New feature available!
+        learnMoreUrl:
           type: string
-          description: PostHog host URL
-          example: https://app.posthog.com
+          description: URL to learn more about the announcement
+          example: https://example.com/learn-more
       required:
-      - apiKey
-      - host
+      - text
+    RateLimitEntry:
+      type: object
+      properties:
+        ttl:
+          type: number
+          description: Rate limit TTL in seconds
+          example: 60
+        limit:
+          type: number
+          description: Rate limit max requests
+          example: 100
     RateLimitConfig:
       type: object
       properties:
@@ -65,19 +75,6 @@ components:
           description: Sandbox lifecycle rate limit
           allOf:
           - $ref: '#/components/schemas/RateLimitEntry'
-    Announcement:
-      type: object
-      properties:
-        text:
-          type: string
-          description: The announcement text
-          example: New feature available!
-        learnMoreUrl:
-          type: string
-          description: URL to learn more about the announcement
-          example: https://example.com/learn-more
-      required:
-      - text
     DaytonaConfiguration:
       type: object
       properties:
@@ -189,17 +186,20 @@ components:
       - issuer
       - clientId
       - audience
-    RateLimitEntry:
+    PosthogConfig:
       type: object
       properties:
-        ttl:
-          type: number
-          description: Rate limit TTL in seconds
-          example: 60
-        limit:
-          type: number
-          description: Rate limit max requests
-          example: 100
+        apiKey:
+          type: string
+          description: PostHog API key
+          example: phc_abc123
+        host:
+          type: string
+          description: PostHog host URL
+          example: https://app.posthog.com
+      required:
+      - apiKey
+      - host
   securitySchemes:
     bearer:
       scheme: bearer
