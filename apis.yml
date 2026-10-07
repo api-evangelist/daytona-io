@@ -1634,6 +1634,8 @@ maintainers:
   email: kin@apievangelist.com
   url: https://kinlane.com
 common:
+- type: Pricing
+  url: https://www.daytona.io/pricing
 - type: Website
   url: https://www.daytona.io/
 - type: CapabilityMap
