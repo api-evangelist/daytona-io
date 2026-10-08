@@ -146,3 +146,180 @@ plans:
   currency: USD
   period: none
   unit: credits
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - compute
+  - credit
+  - data
+  plans:
+  - name: Compute vCPU
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Memory GiB
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: Storage GiB
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - other
+  - name: OS Windows
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia B300 (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia B200 (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: AMD MI355X (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia H200 (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia H100 (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia RTX PRO 6000 (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia RTX 5090 (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia RTX 4090 (preemptible)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia B300 (on-demand)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: AMD MI355X (on-demand)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia H200 (on-demand)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia H100 (on-demand)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia RTX PRO 6000 (on-demand)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia RTX 5090 (on-demand)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Nvidia RTX 4090 (on-demand)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Start-ups
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - none
