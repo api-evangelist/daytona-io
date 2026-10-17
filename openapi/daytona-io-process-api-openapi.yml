@@ -409,9 +409,75 @@ paths:
         required: true
 components:
   schemas:
+    PtyListResponse:
+      type: object
+      required:
+      - sessions
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PtySessionInfo'
+    SessionExecuteRequest:
+      type: object
+      required:
+      - command
+      properties:
+        async:
+          type: boolean
+        command:
+          type: string
+        runAsync:
+          type: boolean
+        suppressInputEcho:
+          type: boolean
     gin.H:
       type: object
       additionalProperties: {}
+    PtyCreateResponse:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+    Chart:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartElement'
+        png:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        x_label:
+          type: string
+        x_scale:
+          type: string
+        x_tick_labels:
+          type: array
+          items:
+            type: string
+        x_ticks:
+          type: array
+          items:
+            type: number
+        y_label:
+          type: string
+        y_scale:
+          type: string
+        y_tick_labels:
+          type: array
+          items:
+            type: string
+        y_ticks:
+          type: array
+          items:
+            type: number
     Session:
       type: object
       required:
@@ -424,14 +490,27 @@ components:
             $ref: '#/components/schemas/Command'
         sessionId:
           type: string
-    CodeRunResponse:
+    ExecuteResponse:
       type: object
+      required:
+      - result
       properties:
-        artifacts:
-          $ref: '#/components/schemas/CodeRunArtifacts'
         exitCode:
           type: integer
         result:
+          type: string
+    SessionCommandLogsResponse:
+      type: object
+      required:
+      - output
+      - stderr
+      - stdout
+      properties:
+        output:
+          type: string
+        stderr:
+          type: string
+        stdout:
           type: string
     SessionSendInputRequest:
       type: object
@@ -440,40 +519,21 @@ components:
       properties:
         data:
           type: string
-    PtyCreateResponse:
+    SessionExecuteResponse:
       type: object
       required:
-      - sessionId
+      - cmdId
       properties:
-        sessionId:
+        cmdId:
           type: string
-    PtyListResponse:
-      type: object
-      required:
-      - sessions
-      properties:
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PtySessionInfo'
-    ExecuteRequest:
-      type: object
-      required:
-      - command
-      properties:
-        command:
-          type: string
-        cwd:
-          description: Current working directory
-          type: string
-        envs:
-          description: Environment variables to set for the command
-          type: object
-          additionalProperties:
-            type: string
-        timeout:
-          description: Timeout in seconds, defaults to 10 seconds
+        exitCode:
           type: integer
+        output:
+          type: string
+        stderr:
+          type: string
+        stdout:
+          type: string
     CodeRunRequest:
       type: object
       required:
@@ -507,6 +567,51 @@ components:
           type: integer
         id:
           type: string
+    PtyResizeRequest:
+      type: object
+      required:
+      - cols
+      - rows
+      properties:
+        cols:
+          type: integer
+          maximum: 1000
+          minimum: 1
+        rows:
+          type: integer
+          maximum: 1000
+          minimum: 1
+    PtySessionInfo:
+      type: object
+      required:
+      - active
+      - cols
+      - createdAt
+      - cwd
+      - envs
+      - id
+      - lazyStart
+      - rows
+      properties:
+        active:
+          type: boolean
+        cols:
+          type: integer
+        createdAt:
+          type: string
+        cwd:
+          type: string
+        envs:
+          type: object
+          additionalProperties:
+            type: string
+        id:
+          type: string
+        lazyStart:
+          description: Whether this session uses lazy start
+          type: boolean
+        rows:
+          type: integer
     ChartElement:
       type: object
       properties:
@@ -550,89 +655,14 @@ components:
           type: string
         y_label:
           type: string
-    PtyResizeRequest:
+    CodeRunResponse:
       type: object
-      required:
-      - cols
-      - rows
       properties:
-        cols:
+        artifacts:
+          $ref: '#/components/schemas/CodeRunArtifacts'
+        exitCode:
           type: integer
-          maximum: 1000
-          minimum: 1
-        rows:
-          type: integer
-          maximum: 1000
-          minimum: 1
-    Chart:
-      type: object
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChartElement'
-        png:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        x_label:
-          type: string
-        x_scale:
-          type: string
-        x_tick_labels:
-          type: array
-          items:
-            type: string
-        x_ticks:
-          type: array
-          items:
-            type: number
-        y_label:
-          type: string
-        y_scale:
-          type: string
-        y_tick_labels:
-          type: array
-          items:
-            type: string
-        y_ticks:
-          type: array
-          items:
-            type: number
-    SessionCommandLogsResponse:
-      type: object
-      required:
-      - output
-      - stderr
-      - stdout
-      properties:
-        output:
-          type: string
-        stderr:
-          type: string
-        stdout:
-          type: string
-    SessionExecuteRequest:
-      type: object
-      required:
-      - command
-      properties:
-        async:
-          type: boolean
-        command:
-          type: string
-        runAsync:
-          type: boolean
-        suppressInputEcho:
-          type: boolean
-    CreateSessionRequest:
-      type: object
-      required:
-      - sessionId
-      properties:
-        sessionId:
+        result:
           type: string
     CodeRunArtifacts:
       type: object
@@ -641,29 +671,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Chart'
-    SessionExecuteResponse:
+    CreateSessionRequest:
       type: object
       required:
-      - cmdId
+      - sessionId
       properties:
-        cmdId:
-          type: string
-        exitCode:
-          type: integer
-        output:
-          type: string
-        stderr:
-          type: string
-        stdout:
-          type: string
-    ExecuteResponse:
-      type: object
-      required:
-      - result
-      properties:
-        exitCode:
-          type: integer
-        result:
+        sessionId:
           type: string
     PtyCreateRequest:
       type: object
@@ -683,34 +696,21 @@ components:
           type: boolean
         rows:
           type: integer
-    PtySessionInfo:
+    ExecuteRequest:
       type: object
       required:
-      - active
-      - cols
-      - createdAt
-      - cwd
-      - envs
-      - id
-      - lazyStart
-      - rows
+      - command
       properties:
-        active:
-          type: boolean
-        cols:
-          type: integer
-        createdAt:
+        command:
           type: string
         cwd:
+          description: Current working directory
           type: string
         envs:
+          description: Environment variables to set for the command
           type: object
           additionalProperties:
             type: string
-        id:
-          type: string
-        lazyStart:
-          description: Whether this session uses lazy start
-          type: boolean
-        rows:
+        timeout:
+          description: Timeout in seconds, defaults to 10 seconds
           type: integer

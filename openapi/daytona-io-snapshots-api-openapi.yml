@@ -316,6 +316,17 @@ paths:
       - Snapshots
 components:
   schemas:
+    SnapshotState:
+      type: string
+      enum:
+      - building
+      - pending
+      - pulling
+      - active
+      - inactive
+      - error
+      - build_failed
+      - removing
     PaginatedSnapshots:
       type: object
       properties:
@@ -376,14 +387,6 @@ components:
           description: ID of the region where the snapshot will be available. Defaults to organization default region if not specified.
       required:
       - name
-    Url:
-      type: object
-      properties:
-        url:
-          type: string
-          description: URL response
-      required:
-      - url
     CreateBuildInfo:
       type: object
       properties:
@@ -409,17 +412,6 @@ components:
             type: string
       required:
       - dockerfileContent
-    SnapshotState:
-      type: string
-      enum:
-      - building
-      - pending
-      - pulling
-      - active
-      - inactive
-      - error
-      - build_failed
-      - removing
     BuildInfo:
       type: object
       properties:
@@ -459,6 +451,14 @@ components:
       - createdAt
       - updatedAt
       - snapshotRef
+    Url:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL response
+      required:
+      - url
     SnapshotDto:
       type: object
       properties:

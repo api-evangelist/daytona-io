@@ -218,79 +218,6 @@ paths:
                 $ref: '#/components/schemas/GitStatus'
 components:
   schemas:
-    GitCommitInfo:
-      type: object
-      required:
-      - author
-      - email
-      - hash
-      - message
-      - timestamp
-      properties:
-        author:
-          type: string
-        email:
-          type: string
-        hash:
-          type: string
-        message:
-          type: string
-        timestamp:
-          type: string
-    GitBranchRequest:
-      type: object
-      required:
-      - name
-      - path
-      properties:
-        name:
-          type: string
-        path:
-          type: string
-    GitCloneRequest:
-      type: object
-      required:
-      - path
-      - url
-      properties:
-        branch:
-          type: string
-        commit_id:
-          type: string
-        password:
-          type: string
-        path:
-          type: string
-        url:
-          type: string
-        username:
-          type: string
-    FileStatus:
-      type: object
-      required:
-      - extra
-      - name
-      - staging
-      - worktree
-      properties:
-        extra:
-          type: string
-        name:
-          type: string
-        staging:
-          $ref: '#/components/schemas/Status'
-        worktree:
-          $ref: '#/components/schemas/Status'
-    GitDeleteBranchRequest:
-      type: object
-      required:
-      - name
-      - path
-      properties:
-        name:
-          type: string
-        path:
-          type: string
     GitCommitRequest:
       type: object
       required:
@@ -306,47 +233,6 @@ components:
         email:
           type: string
         message:
-          type: string
-        path:
-          type: string
-    GitRepoRequest:
-      type: object
-      required:
-      - path
-      properties:
-        password:
-          type: string
-        path:
-          type: string
-        username:
-          type: string
-    Status:
-      type: string
-      enum:
-      - Unmodified
-      - Untracked
-      - Modified
-      - Added
-      - Deleted
-      - Renamed
-      - Copied
-      - Updated but unmerged
-      x-enum-varnames:
-      - Unmodified
-      - Untracked
-      - Modified
-      - Added
-      - Deleted
-      - Renamed
-      - Copied
-      - UpdatedButUnmerged
-    GitCheckoutRequest:
-      type: object
-      required:
-      - branch
-      - path
-      properties:
-        branch:
           type: string
         path:
           type: string
@@ -375,6 +261,74 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FileStatus'
+    GitCheckoutRequest:
+      type: object
+      required:
+      - branch
+      - path
+      properties:
+        branch:
+          type: string
+        path:
+          type: string
+    GitDeleteBranchRequest:
+      type: object
+      required:
+      - name
+      - path
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+    GitCloneRequest:
+      type: object
+      required:
+      - path
+      - url
+      properties:
+        branch:
+          type: string
+        commit_id:
+          type: string
+        password:
+          type: string
+        path:
+          type: string
+        url:
+          type: string
+        username:
+          type: string
+    Status:
+      type: string
+      enum:
+      - Unmodified
+      - Untracked
+      - Modified
+      - Added
+      - Deleted
+      - Renamed
+      - Copied
+      - Updated but unmerged
+      x-enum-varnames:
+      - Unmodified
+      - Untracked
+      - Modified
+      - Added
+      - Deleted
+      - Renamed
+      - Copied
+      - UpdatedButUnmerged
+    GitBranchRequest:
+      type: object
+      required:
+      - name
+      - path
+      properties:
+        name:
+          type: string
+        path:
+          type: string
     GitAddRequest:
       type: object
       required:
@@ -397,3 +351,49 @@ components:
           type: array
           items:
             type: string
+    GitRepoRequest:
+      type: object
+      required:
+      - path
+      properties:
+        password:
+          type: string
+        path:
+          type: string
+        username:
+          type: string
+    GitCommitInfo:
+      type: object
+      required:
+      - author
+      - email
+      - hash
+      - message
+      - timestamp
+      properties:
+        author:
+          type: string
+        email:
+          type: string
+        hash:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+    FileStatus:
+      type: object
+      required:
+      - extra
+      - name
+      - staging
+      - worktree
+      properties:
+        extra:
+          type: string
+        name:
+          type: string
+        staging:
+          $ref: '#/components/schemas/Status'
+        worktree:
+          $ref: '#/components/schemas/Status'

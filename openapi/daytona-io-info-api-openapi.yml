@@ -59,14 +59,14 @@ paths:
                 $ref: '#/components/schemas/WorkDirResponse'
 components:
   schemas:
-    WorkDirResponse:
+    UserHomeDirResponse:
       type: object
       required:
       - dir
       properties:
         dir:
           type: string
-    UserHomeDirResponse:
+    WorkDirResponse:
       type: object
       required:
       - dir

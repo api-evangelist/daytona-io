@@ -159,6 +159,31 @@ paths:
       - Jobs
 components:
   schemas:
+    JobStatus:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - COMPLETED
+      - FAILED
+    JobType:
+      type: string
+      enum:
+      - CREATE_SANDBOX
+      - START_SANDBOX
+      - STOP_SANDBOX
+      - DESTROY_SANDBOX
+      - RESIZE_SANDBOX
+      - CREATE_BACKUP
+      - BUILD_SNAPSHOT
+      - PULL_SNAPSHOT
+      - RECOVER_SANDBOX
+      - INSPECT_SNAPSHOT_IN_REGISTRY
+      - REMOVE_SNAPSHOT
+      - UPDATE_SANDBOX_NETWORK_SETTINGS
+      - SNAPSHOT_SANDBOX
+      - FORK_SANDBOX
+      description: The type of the job
     PaginatedJobs:
       type: object
       properties:
@@ -177,23 +202,6 @@ components:
       - total
       - page
       - totalPages
-    UpdateJobStatus:
-      type: object
-      properties:
-        status:
-          description: The new status of the job
-          example: IN_PROGRESS
-          allOf:
-          - $ref: '#/components/schemas/JobStatus'
-        errorMessage:
-          type: string
-          description: Error message if the job failed
-          example: Failed to create sandbox
-        resultMetadata:
-          type: string
-          description: Result metadata for the job
-      required:
-      - status
     Job:
       type: object
       properties:
@@ -251,13 +259,23 @@ components:
       - resourceType
       - resourceId
       - createdAt
-    JobStatus:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - COMPLETED
-      - FAILED
+    UpdateJobStatus:
+      type: object
+      properties:
+        status:
+          description: The new status of the job
+          example: IN_PROGRESS
+          allOf:
+          - $ref: '#/components/schemas/JobStatus'
+        errorMessage:
+          type: string
+          description: Error message if the job failed
+          example: Failed to create sandbox
+        resultMetadata:
+          type: string
+          description: Result metadata for the job
+      required:
+      - status
     PollJobsResponse:
       type: object
       properties:
@@ -268,24 +286,6 @@ components:
             $ref: '#/components/schemas/Job'
       required:
       - jobs
-    JobType:
-      type: string
-      enum:
-      - CREATE_SANDBOX
-      - START_SANDBOX
-      - STOP_SANDBOX
-      - DESTROY_SANDBOX
-      - RESIZE_SANDBOX
-      - CREATE_BACKUP
-      - BUILD_SNAPSHOT
-      - PULL_SNAPSHOT
-      - RECOVER_SANDBOX
-      - INSPECT_SNAPSHOT_IN_REGISTRY
-      - REMOVE_SNAPSHOT
-      - UPDATE_SANDBOX_NETWORK_SETTINGS
-      - SNAPSHOT_SANDBOX
-      - FORK_SANDBOX
-      description: The type of the job
   securitySchemes:
     bearer:
       scheme: bearer

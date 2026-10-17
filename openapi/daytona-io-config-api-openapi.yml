@@ -45,36 +45,6 @@ components:
           example: https://example.com/learn-more
       required:
       - text
-    RateLimitEntry:
-      type: object
-      properties:
-        ttl:
-          type: number
-          description: Rate limit TTL in seconds
-          example: 60
-        limit:
-          type: number
-          description: Rate limit max requests
-          example: 100
-    RateLimitConfig:
-      type: object
-      properties:
-        failedAuth:
-          description: Failed authentication rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        authenticated:
-          description: Authenticated rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        sandboxCreate:
-          description: Sandbox create rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
-        sandboxLifecycle:
-          description: Sandbox lifecycle rate limit
-          allOf:
-          - $ref: '#/components/schemas/RateLimitEntry'
     DaytonaConfiguration:
       type: object
       properties:
@@ -167,6 +137,50 @@ components:
       - maxAutoArchiveInterval
       - maintananceMode
       - environment
+    RateLimitConfig:
+      type: object
+      properties:
+        failedAuth:
+          description: Failed authentication rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        authenticated:
+          description: Authenticated rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxCreate:
+          description: Sandbox create rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+        sandboxLifecycle:
+          description: Sandbox lifecycle rate limit
+          allOf:
+          - $ref: '#/components/schemas/RateLimitEntry'
+    RateLimitEntry:
+      type: object
+      properties:
+        ttl:
+          type: number
+          description: Rate limit TTL in seconds
+          example: 60
+        limit:
+          type: number
+          description: Rate limit max requests
+          example: 100
+    PosthogConfig:
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: PostHog API key
+          example: phc_abc123
+        host:
+          type: string
+          description: PostHog host URL
+          example: https://app.posthog.com
+      required:
+      - apiKey
+      - host
     OidcConfig:
       type: object
       properties:
@@ -186,20 +200,6 @@ components:
       - issuer
       - clientId
       - audience
-    PosthogConfig:
-      type: object
-      properties:
-        apiKey:
-          type: string
-          description: PostHog API key
-          example: phc_abc123
-        host:
-          type: string
-          description: PostHog host URL
-          example: https://app.posthog.com
-      required:
-      - apiKey
-      - host
   securitySchemes:
     bearer:
       scheme: bearer

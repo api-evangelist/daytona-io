@@ -174,71 +174,6 @@ paths:
                   $ref: '#/components/schemas/LspSymbol'
 components:
   schemas:
-    LspRange:
-      type: object
-      required:
-      - end
-      - start
-      properties:
-        end:
-          $ref: '#/components/schemas/LspPosition'
-        start:
-          $ref: '#/components/schemas/LspPosition'
-    LspPosition:
-      type: object
-      required:
-      - character
-      - line
-      properties:
-        character:
-          type: integer
-        line:
-          type: integer
-    LspServerRequest:
-      type: object
-      required:
-      - languageId
-      - pathToProject
-      properties:
-        languageId:
-          type: string
-        pathToProject:
-          type: string
-    LspLocation:
-      type: object
-      required:
-      - range
-      - uri
-      properties:
-        range:
-          $ref: '#/components/schemas/LspRange'
-        uri:
-          type: string
-    CompletionList:
-      type: object
-      required:
-      - isIncomplete
-      - items
-      properties:
-        isIncomplete:
-          type: boolean
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompletionItem'
-    LspDocumentRequest:
-      type: object
-      required:
-      - languageId
-      - pathToProject
-      - uri
-      properties:
-        languageId:
-          type: string
-        pathToProject:
-          type: string
-        uri:
-          type: string
     LspSymbol:
       type: object
       required:
@@ -252,24 +187,45 @@ components:
           $ref: '#/components/schemas/LspLocation'
         name:
           type: string
-    CompletionItem:
+    LspRange:
       type: object
       required:
-      - label
+      - end
+      - start
       properties:
-        detail:
+        end:
+          $ref: '#/components/schemas/LspPosition'
+        start:
+          $ref: '#/components/schemas/LspPosition'
+    LspLocation:
+      type: object
+      required:
+      - range
+      - uri
+      properties:
+        range:
+          $ref: '#/components/schemas/LspRange'
+        uri:
           type: string
-        documentation: {}
-        filterText:
+    LspServerRequest:
+      type: object
+      required:
+      - languageId
+      - pathToProject
+      properties:
+        languageId:
           type: string
-        insertText:
+        pathToProject:
           type: string
-        kind:
+    CompletionContext:
+      type: object
+      required:
+      - triggerKind
+      properties:
+        triggerCharacter:
+          type: string
+        triggerKind:
           type: integer
-        label:
-          type: string
-        sortText:
-          type: string
     LspCompletionParams:
       type: object
       required:
@@ -288,12 +244,56 @@ components:
           $ref: '#/components/schemas/LspPosition'
         uri:
           type: string
-    CompletionContext:
+    CompletionList:
       type: object
       required:
-      - triggerKind
+      - isIncomplete
+      - items
       properties:
-        triggerCharacter:
+        isIncomplete:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompletionItem'
+    CompletionItem:
+      type: object
+      required:
+      - label
+      properties:
+        detail:
           type: string
-        triggerKind:
+        documentation: {}
+        filterText:
+          type: string
+        insertText:
+          type: string
+        kind:
+          type: integer
+        label:
+          type: string
+        sortText:
+          type: string
+    LspDocumentRequest:
+      type: object
+      required:
+      - languageId
+      - pathToProject
+      - uri
+      properties:
+        languageId:
+          type: string
+        pathToProject:
+          type: string
+        uri:
+          type: string
+    LspPosition:
+      type: object
+      required:
+      - character
+      - line
+      properties:
+        character:
+          type: integer
+        line:
           type: integer
