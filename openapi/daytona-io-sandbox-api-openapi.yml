@@ -1,90 +1,339 @@
 openapi: 3.2.0
 info:
-  title: Daytona Sandbox API
-  description: Daytona Sandbox API — sandbox, workspace operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Sandbox API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Sandbox
 paths:
   /sandbox:
     get:
+      description: Advanced filtering and ordering. Eventually consistent.
       operationId: listSandboxes
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: verbose
-        required: false
+        style: simple
+      - description: Pagination cursor from a previous response
+        explode: true
         in: query
-        description: Include verbose output
+        name: cursor
+        required: false
         schema:
-          type: boolean
-      - name: labels
-        required: false
+          type: string
+        style: form
+      - description: Number of results per page
+        explode: true
         in: query
-        description: JSON encoded labels to filter by
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 200
+          minimum: 1
+          type: integer
+        style: form
+      - description: Filter by ID prefix (case-insensitive)
+        explode: true
+        in: query
+        name: id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by name prefix (case-insensitive)
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: JSON encoded labels to filter by
+        explode: true
+        in: query
+        name: labels
+        required: false
         schema:
           example: '{"label1": "value1", "label2": "value2"}'
           type: string
-      - name: includeErroredDeleted
-        required: false
+        style: form
+      - description: Include results with errored state and deleted desired state
+        explode: true
         in: query
-        description: Include errored and deleted sandboxes
+        name: includeErroredDeleted
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Include unclaimed warm pool sandboxes (excluded by default)
+        explode: true
+        in: query
+        name: includeWarm
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: List of states to filter by.
+        explode: true
+        in: query
+        name: states
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/SandboxState'
+          type: array
+        style: form
+      - description: List of snapshot names to filter by
+        explode: true
+        in: query
+        name: snapshots
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: List of regions IDs to filter by
+        explode: true
+        in: query
+        name: regionIds
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: List of sandbox classes to filter by
+        explode: true
+        in: query
+        name: sandboxClasses
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/SandboxClass'
+          type: array
+        style: form
+      - description: Minimum CPU
+        explode: true
+        in: query
+        name: minCpu
+        required: false
+        schema:
+          minimum: 1
+          type: number
+        style: form
+      - description: Maximum CPU
+        explode: true
+        in: query
+        name: maxCpu
+        required: false
+        schema:
+          minimum: 1
+          type: number
+        style: form
+      - description: Minimum memory in GiB
+        explode: true
+        in: query
+        name: minMemoryGiB
+        required: false
+        schema:
+          minimum: 1
+          type: number
+        style: form
+      - description: Maximum memory in GiB
+        explode: true
+        in: query
+        name: maxMemoryGiB
+        required: false
+        schema:
+          minimum: 1
+          type: number
+        style: form
+      - description: Minimum disk space in GiB
+        explode: true
+        in: query
+        name: minDiskGiB
+        required: false
+        schema:
+          minimum: 1
+          type: number
+        style: form
+      - description: Maximum disk space in GiB
+        explode: true
+        in: query
+        name: maxDiskGiB
+        required: false
+        schema:
+          minimum: 1
+          type: number
+        style: form
+      - description: Minimum GPU
+        explode: true
+        in: query
+        name: minGpu
+        required: false
+        schema:
+          minimum: 0
+          type: number
+        style: form
+      - description: Maximum GPU
+        explode: true
+        in: query
+        name: maxGpu
+        required: false
+        schema:
+          minimum: 0
+          type: number
+        style: form
+      - description: Filter by public status
+        explode: true
+        in: query
+        name: isPublic
+        required: false
         schema:
           type: boolean
+        style: form
+      - description: Filter by recoverable status
+        explode: true
+        in: query
+        name: isRecoverable
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Include items created after this timestamp
+        explode: true
+        in: query
+        name: createdAtAfter
+        required: false
+        schema:
+          example: '2024-01-01T00:00:00.000Z'
+          format: date-time
+          type: string
+        style: form
+      - description: Include items created before this timestamp
+        explode: true
+        in: query
+        name: createdAtBefore
+        required: false
+        schema:
+          example: '2024-12-31T23:59:59.000Z'
+          format: date-time
+          type: string
+        style: form
+      - description: Include items with last event after this timestamp
+        explode: true
+        in: query
+        name: lastEventAfter
+        required: false
+        schema:
+          example: '2024-01-01T00:00:00.000Z'
+          format: date-time
+          type: string
+        style: form
+      - description: Include items with last event before this timestamp
+        explode: true
+        in: query
+        name: lastEventBefore
+        required: false
+        schema:
+          example: '2024-12-31T23:59:59.000Z'
+          format: date-time
+          type: string
+        style: form
+      - description: Include items scheduled for auto destroy after this timestamp
+        explode: true
+        in: query
+        name: autoDestroyAtAfter
+        required: false
+        schema:
+          example: '2024-01-01T00:00:00.000Z'
+          format: date-time
+          type: string
+        style: form
+      - description: Include items scheduled for auto destroy before this timestamp
+        explode: true
+        in: query
+        name: autoDestroyAtBefore
+        required: false
+        schema:
+          example: '2024-12-31T23:59:59.000Z'
+          format: date-time
+          type: string
+        style: form
+      - description: Field to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          $ref: '#/components/schemas/SandboxListSortField'
+        style: form
+      - description: Direction to sort by
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          $ref: '#/components/schemas/SandboxListSortDirection'
+        style: form
       responses:
         '200':
-          description: List of all sandboxes
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Sandbox'
+                $ref: '#/components/schemas/ListSandboxesResponse'
+          description: ''
       security:
       - bearer: []
       - oauth2:
         - openid
         - profile
         - email
-      summary: List all sandboxes
+      summary: List sandboxes
       tags:
       - Sandbox
     post:
       operationId: createSandbox
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
+        style: simple
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateSandbox'
+        required: true
       responses:
         '200':
-          description: The sandbox has been successfully created.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: The sandbox has been successfully created.
       security:
       - bearer: []
       - oauth2:
@@ -94,235 +343,43 @@ paths:
       summary: Create a new sandbox
       tags:
       - Sandbox
-  /sandbox/paginated:
-    get:
-      operationId: listSandboxesPaginated
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      - name: page
-        required: false
-        in: query
-        description: Page number of the results
-        schema:
-          minimum: 1
-          default: 1
-          type: number
-      - name: limit
-        required: false
-        in: query
-        description: Number of results per page
-        schema:
-          minimum: 1
-          maximum: 200
-          default: 100
-          type: number
-      - name: id
-        required: false
-        in: query
-        description: Filter by partial ID match
-        schema:
-          example: abc123
-          type: string
-      - name: name
-        required: false
-        in: query
-        description: Filter by partial name match
-        schema:
-          example: abc123
-          type: string
-      - name: labels
-        required: false
-        in: query
-        description: JSON encoded labels to filter by
-        schema:
-          example: '{"label1": "value1", "label2": "value2"}'
-          type: string
-      - name: includeErroredDeleted
-        required: false
-        in: query
-        description: Include results with errored state and deleted desired state
-        schema:
-          default: false
-          type: boolean
-      - name: states
-        required: false
-        in: query
-        description: List of states to filter by
-        schema:
-          type: array
-          items:
-            type: string
-            enum:
-            - creating
-            - restoring
-            - destroying
-            - started
-            - stopped
-            - starting
-            - stopping
-            - error
-            - build_failed
-            - pending_build
-            - building_snapshot
-            - unknown
-            - pulling_snapshot
-            - archived
-            - archiving
-            - resizing
-            - snapshotting
-            - forking
-      - name: snapshots
-        required: false
-        in: query
-        description: List of snapshot names to filter by
-        schema:
-          type: array
-          items:
-            type: string
-      - name: regions
-        required: false
-        in: query
-        description: List of regions to filter by
-        schema:
-          type: array
-          items:
-            type: string
-      - name: minCpu
-        required: false
-        in: query
-        description: Minimum CPU
-        schema:
-          minimum: 1
-          type: number
-      - name: maxCpu
-        required: false
-        in: query
-        description: Maximum CPU
-        schema:
-          minimum: 1
-          type: number
-      - name: minMemoryGiB
-        required: false
-        in: query
-        description: Minimum memory in GiB
-        schema:
-          minimum: 1
-          type: number
-      - name: maxMemoryGiB
-        required: false
-        in: query
-        description: Maximum memory in GiB
-        schema:
-          minimum: 1
-          type: number
-      - name: minDiskGiB
-        required: false
-        in: query
-        description: Minimum disk space in GiB
-        schema:
-          minimum: 1
-          type: number
-      - name: maxDiskGiB
-        required: false
-        in: query
-        description: Maximum disk space in GiB
-        schema:
-          minimum: 1
-          type: number
-      - name: lastEventAfter
-        required: false
-        in: query
-        description: Include items with last event after this timestamp
-        schema:
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-          type: string
-      - name: lastEventBefore
-        required: false
-        in: query
-        description: Include items with last event before this timestamp
-        schema:
-          format: date-time
-          example: '2024-12-31T23:59:59Z'
-          type: string
-      - name: sort
-        required: false
-        in: query
-        description: Field to sort by
-        schema:
-          default: createdAt
-          type: string
-          enum:
-          - id
-          - name
-          - state
-          - snapshot
-          - region
-          - updatedAt
-          - createdAt
-          - lastActivityAt
-      - name: order
-        required: false
-        in: query
-        description: Direction to sort by
-        schema:
-          default: desc
-          type: string
-          enum:
-          - asc
-          - desc
-      responses:
-        '200':
-          description: Paginated list of all sandboxes
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedSandboxes'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: List all sandboxes paginated
-      tags:
-      - Sandbox
   /sandbox/for-runner:
     get:
       operationId: getSandboxesForRunner
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: states
-        required: false
+        style: simple
+      - description: Comma-separated list of sandbox states to filter by
+        explode: true
         in: query
-        description: Comma-separated list of sandbox states to filter by
+        name: states
+        required: false
         schema:
           type: string
-      - name: skipReconcilingSandboxes
-        required: false
+        style: form
+      - description: Skip sandboxes where state differs from desired state
+        explode: true
         in: query
-        description: Skip sandboxes where state differs from desired state
+        name: skipReconcilingSandboxes
+        required: false
         schema:
           type: boolean
+        style: form
       responses:
         '200':
-          description: List of sandboxes for the authenticated runner
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/Sandbox'
+                type: array
+          description: List of sandboxes for the authenticated runner
       security:
       - bearer: []
       - oauth2:
@@ -333,65 +390,32 @@ paths:
       tags:
       - Sandbox
   /sandbox/{sandboxIdOrName}:
-    get:
-      operationId: getSandbox
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      - name: sandboxIdOrName
-        required: true
-        in: path
-        description: ID or name of the sandbox
-        schema:
-          type: string
-      - name: verbose
-        required: false
-        in: query
-        description: Include verbose output
-        schema:
-          type: boolean
-      responses:
-        '200':
-          description: Sandbox details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Sandbox'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Get sandbox details
-      tags:
-      - Sandbox
     delete:
       operationId: deleteSandbox
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Sandbox has been deleted
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Sandbox has been deleted
       security:
       - bearer: []
       - oauth2:
@@ -401,35 +425,85 @@ paths:
       summary: Delete sandbox
       tags:
       - Sandbox
-  /sandbox/{sandboxIdOrName}/recover:
-    post:
-      operationId: recoverSandbox
+    get:
+      description: Sandboxes destroyed by spot preemption remain retrievable for 24 hours so `spotEvictedAt` can be read. Sandboxes destroyed by queue timeout remain retrievable for 24 hours so `queueTimedOutAt` can be read.
+      operationId: getSandbox
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: skipStart
-        required: false
+        style: simple
+      - description: Include verbose output
+        explode: true
         in: query
-        description: If true, the sandbox is left in STOPPED after recovery instead of being started.
+        name: verbose
+        required: false
         schema:
           type: boolean
+        style: form
       responses:
         '200':
-          description: Recovery initiated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Sandbox details
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get sandbox details
+      tags:
+      - Sandbox
+  /sandbox/{sandboxIdOrName}/recover:
+    post:
+      operationId: recoverSandbox
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
+        in: path
+        name: sandboxIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If true, the sandbox is left in STOPPED after recovery instead of being started.
+        explode: true
+        in: query
+        name: skipStart
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sandbox'
+          description: Recovery initiated
       security:
       - bearer: []
       - oauth2:
@@ -441,65 +515,76 @@ paths:
       - Sandbox
   /sandbox/{sandboxIdOrName}/start:
     post:
+      description: Starts a stopped or archived sandbox, or resumes a paused sandbox. The transition taken depends on the current sandbox state.
       operationId: startSandbox
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Sandbox has been started or is being restored from archived state
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Sandbox has been started, is being restored from archived state, or is being resumed from paused
       security:
       - bearer: []
       - oauth2:
         - openid
         - profile
         - email
-      summary: Start sandbox
+      summary: Start or resume sandbox
       tags:
       - Sandbox
   /sandbox/{sandboxIdOrName}/stop:
     post:
       operationId: stopSandbox
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: force
-        required: false
+        style: simple
+      - description: Force stop the sandbox using SIGKILL instead of SIGTERM
+        explode: true
         in: query
-        description: Force stop the sandbox using SIGKILL instead of SIGTERM
+        name: force
+        required: false
         schema:
           type: boolean
+        style: form
       responses:
         '200':
-          description: Sandbox has been stopped
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Sandbox has been stopped
       security:
       - bearer: []
       - oauth2:
@@ -509,35 +594,75 @@ paths:
       summary: Stop sandbox
       tags:
       - Sandbox
-  /sandbox/{sandboxIdOrName}/resize:
+  /sandbox/{sandboxIdOrName}/pause:
     post:
-      operationId: resizeSandbox
+      operationId: pauseSandbox
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResizeSandbox'
+        style: simple
       responses:
         '200':
-          description: Sandbox has been resized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Sandbox pause has been initiated
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Pause sandbox
+      tags:
+      - Sandbox
+  /sandbox/{sandboxIdOrName}/resize:
+    post:
+      operationId: resizeSandbox
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
+        in: path
+        name: sandboxIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResizeSandbox'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sandbox'
+          description: Sandbox has been resized
       security:
       - bearer: []
       - oauth2:
@@ -551,31 +676,35 @@ paths:
     put:
       operationId: replaceLabels
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/SandboxLabels'
+        required: true
       responses:
         '200':
-          description: Labels have been successfully replaced
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SandboxLabels'
+          description: Labels have been successfully replaced
       security:
       - bearer: []
       - oauth2:
@@ -589,24 +718,28 @@ paths:
     put:
       operationId: updateSandboxState
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
+        style: simple
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateSandboxStateDto'
+        required: true
       responses:
         '200':
           description: Sandbox state has been successfully updated
@@ -621,27 +754,33 @@ paths:
       - Sandbox
   /sandbox/{sandboxIdOrName}/backup:
     post:
+      deprecated: true
+      description: 'Deprecated: backups are managed automatically. This endpoint is a no-op kept for compatibility.'
       operationId: createBackup
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Sandbox backup has been initiated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Sandbox backup request acknowledged (no-op)
       security:
       - bearer: []
       - oauth2:
@@ -655,30 +794,34 @@ paths:
     post:
       operationId: createSandboxSnapshot
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateSandboxSnapshot'
+        required: true
       responses:
         '200':
-          description: Snapshot creation has been initiated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Snapshot creation has been initiated
       security:
       - bearer: []
       - oauth2:
@@ -692,30 +835,34 @@ paths:
     post:
       operationId: forkSandbox
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ForkSandbox'
+        required: true
       responses:
         '200':
-          description: Fork operation has been initiated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Fork operation has been initiated
       security:
       - bearer: []
       - oauth2:
@@ -729,31 +876,37 @@ paths:
     get:
       operationId: getSandboxForks
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: includeDestroyed
-        required: false
+        style: simple
+      - explode: true
         in: query
+        name: includeDestroyed
+        required: false
         schema:
           type: boolean
+        style: form
       responses:
         '200':
-          description: ''
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/Sandbox'
+                type: array
+          description: ''
       security:
       - bearer: []
       - oauth2:
@@ -767,24 +920,28 @@ paths:
     get:
       operationId: getSandboxParent
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: ''
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: ''
       security:
       - bearer: []
       - oauth2:
@@ -798,26 +955,30 @@ paths:
     get:
       operationId: getSandboxAncestors
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: ''
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/Sandbox'
+                type: array
+          description: ''
       security:
       - bearer: []
       - oauth2:
@@ -831,31 +992,37 @@ paths:
     post:
       operationId: updatePublicStatus
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: isPublic
-        required: true
+        style: simple
+      - description: Public status to set
+        explode: false
         in: path
-        description: Public status to set
+        name: isPublic
+        required: true
         schema:
           type: boolean
+        style: simple
       responses:
         '200':
-          description: Public status has been successfully updated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Public status has been successfully updated
       security:
       - bearer: []
       - oauth2:
@@ -865,22 +1032,104 @@ paths:
       summary: Update public status
       tags:
       - Sandbox
+  /sandbox/{sandboxId}/signing-key:
+    get:
+      operationId: getSandboxSigningKey
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID of the sandbox
+        explode: false
+        in: path
+        name: sandboxId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Signing key of the sandbox
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get the signing key for a sandbox
+      tags:
+      - Sandbox
+  /sandbox/{sandboxId}/signing-key/rotate:
+    post:
+      operationId: rotateSigningKey
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID of the sandbox
+        explode: false
+        in: path
+        name: sandboxId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: New signing key
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Rotate the signing key, invalidating all previously signed URLs
+      tags:
+      - Sandbox
   /sandbox/{sandboxId}/last-activity:
     post:
       operationId: updateLastActivity
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLastActivity'
+        required: false
       responses:
         '201':
           description: Last activity has been updated
@@ -897,31 +1146,37 @@ paths:
     post:
       operationId: setAutostopInterval
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: interval
-        required: true
+        style: simple
+      - description: Auto-stop interval in minutes (0 to disable)
+        explode: false
         in: path
-        description: Auto-stop interval in minutes (0 to disable)
+        name: interval
+        required: true
         schema:
           type: number
+        style: simple
       responses:
         '200':
-          description: Auto-stop interval has been set
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Auto-stop interval has been set
       security:
       - bearer: []
       - oauth2:
@@ -931,35 +1186,129 @@ paths:
       summary: Set sandbox auto-stop interval
       tags:
       - Sandbox
-  /sandbox/{sandboxIdOrName}/autoarchive/{interval}:
+  /sandbox/{sandboxIdOrName}/autopause/{interval}:
     post:
-      operationId: setAutoArchiveInterval
+      operationId: setAutoPauseInterval
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: interval
-        required: true
+        style: simple
+      - description: Auto-pause interval in minutes (0 to disable)
+        explode: false
         in: path
-        description: Auto-archive interval in minutes (0 means the maximum interval will be used)
+        name: interval
+        required: true
         schema:
           type: number
+        style: simple
       responses:
         '200':
-          description: Auto-archive interval has been set
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Auto-pause interval has been set
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Set sandbox auto-pause interval
+      tags:
+      - Sandbox
+  /sandbox/{sandboxIdOrName}/ttl/{ttlMinutes}:
+    post:
+      operationId: setTtl
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
+        in: path
+        name: sandboxIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Maximum time to live in minutes, re-anchored from the current time (0 to disable). When it elapses the sandbox is destroyed, even if it is stopped, paused, or archived
+        explode: false
+        in: path
+        name: ttlMinutes
+        required: true
+        schema:
+          type: number
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sandbox'
+          description: TTL has been set
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Set sandbox TTL
+      tags:
+      - Sandbox
+  /sandbox/{sandboxIdOrName}/autoarchive/{interval}:
+    post:
+      operationId: setAutoArchiveInterval
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
+        in: path
+        name: sandboxIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Auto-archive interval in minutes (0 means the maximum interval will be used)
+        explode: false
+        in: path
+        name: interval
+        required: true
+        schema:
+          type: number
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sandbox'
+          description: Auto-archive interval has been set
       security:
       - bearer: []
       - oauth2:
@@ -973,31 +1322,37 @@ paths:
     post:
       operationId: setAutoDeleteInterval
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: interval
-        required: true
+        style: simple
+      - description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
+        explode: false
         in: path
-        description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
+        name: interval
+        required: true
         schema:
           type: number
+        style: simple
       responses:
         '200':
-          description: Auto-delete interval has been set
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Auto-delete interval has been set
       security:
       - bearer: []
       - oauth2:
@@ -1012,31 +1367,35 @@ paths:
       description: Changes outbound network policy on the runner for a running sandbox (for example block all traffic, restore access, or set a CIDR allow list).
       operationId: updateNetworkSettings
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateSandboxNetworkSettings'
+        required: true
       responses:
         '200':
-          description: Network settings have been updated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Network settings have been updated
       security:
       - bearer: []
       - oauth2:
@@ -1046,28 +1405,75 @@ paths:
       summary: Update sandbox network settings
       tags:
       - Sandbox
-  /sandbox/{sandboxIdOrName}/archive:
-    post:
-      operationId: archiveSandbox
+  /sandbox/{sandboxIdOrName}/secrets:
+    put:
+      description: Replaces the set of vault secrets mounted in the sandbox. Attached, detached and rotated secrets take effect for outbound requests within seconds. New env vars become visible to processes spawned after the update; a sandbox created without any secrets must be restarted for newly attached secrets to work.
+      operationId: updateSandboxSecrets
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSandboxSecrets'
+        required: true
       responses:
         '200':
-          description: Sandbox has been archived
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: Sandbox secrets have been updated
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update sandbox secrets
+      tags:
+      - Sandbox
+  /sandbox/{sandboxIdOrName}/archive:
+    post:
+      operationId: archiveSandbox
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: sandboxIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sandbox'
+          description: Sandbox has been archived
       security:
       - bearer: []
       - oauth2:
@@ -1081,31 +1487,37 @@ paths:
     get:
       operationId: getPortPreviewUrl
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: port
-        required: true
+        style: simple
+      - description: Port number to get preview URL for
+        explode: false
         in: path
-        description: Port number to get preview URL for
+        name: port
+        required: true
         schema:
           type: number
+        style: simple
       responses:
         '200':
-          description: Preview URL for the specified port
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PortPreviewUrl'
+          description: Preview URL for the specified port
       security:
       - bearer: []
       - oauth2:
@@ -1119,37 +1531,45 @@ paths:
     get:
       operationId: getSignedPortPreviewUrl
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: port
-        required: true
+        style: simple
+      - description: Port number to get signed preview URL for
+        explode: false
         in: path
-        description: Port number to get signed preview URL for
+        name: port
+        required: true
         schema:
           type: integer
-      - name: expiresInSeconds
-        required: false
+        style: simple
+      - description: 'Expiration time in seconds (default: 60 seconds)'
+        explode: true
         in: query
-        description: 'Expiration time in seconds (default: 60 seconds)'
+        name: expiresInSeconds
+        required: false
         schema:
           type: integer
+        style: form
       responses:
         '200':
-          description: Signed preview URL for the specified port
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignedPortPreviewUrl'
+          description: Signed preview URL for the specified port
       security:
       - bearer: []
       - oauth2:
@@ -1163,30 +1583,38 @@ paths:
     post:
       operationId: expireSignedPortPreviewUrl
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: port
-        required: true
+        style: simple
+      - description: Port number to expire signed preview URL for
+        explode: false
         in: path
-        description: Port number to expire signed preview URL for
+        name: port
+        required: true
         schema:
           type: integer
-      - name: token
-        required: true
+        style: simple
+      - description: Token to expire signed preview URL for
+        explode: false
         in: path
-        description: Token to expire signed preview URL for
+        name: token
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
           description: Signed preview URL has been expired
@@ -1205,24 +1633,30 @@ paths:
       description: This endpoint is deprecated. Use `getBuildLogsUrl` instead.
       operationId: getBuildLogs
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: follow
-        required: false
+        style: simple
+      - description: Whether to follow the logs stream
+        explode: true
         in: query
-        description: Whether to follow the logs stream
+        name: follow
+        required: false
         schema:
           type: boolean
+        style: form
       responses:
         '200':
           description: Build logs stream
@@ -1239,25 +1673,29 @@ paths:
     get:
       operationId: getBuildLogsUrl
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Build logs URL
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Url'
+          description: Build logs URL
       security:
       - bearer: []
       - oauth2:
@@ -1268,71 +1706,40 @@ paths:
       tags:
       - Sandbox
   /sandbox/{sandboxIdOrName}/ssh-access:
-    post:
-      operationId: createSshAccess
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      - name: sandboxIdOrName
-        required: true
-        in: path
-        description: ID or name of the sandbox
-        schema:
-          type: string
-      - name: expiresInMinutes
-        required: false
-        in: query
-        description: 'Expiration time in minutes (default: 60)'
-        schema:
-          type: number
-      responses:
-        '200':
-          description: SSH access has been created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SshAccessDto'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Create SSH access for sandbox
-      tags:
-      - Sandbox
     delete:
       operationId: revokeSshAccess
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxIdOrName
-        required: true
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
         in: path
-        description: ID or name of the sandbox
+        name: sandboxIdOrName
+        required: true
         schema:
           type: string
-      - name: token
-        required: false
+        style: simple
+      - description: SSH access token to revoke. If not provided, all SSH access for the sandbox will be revoked.
+        explode: true
         in: query
-        description: SSH access token to revoke. If not provided, all SSH access for the sandbox will be revoked.
+        name: token
+        required: false
         schema:
           type: string
+        style: form
       responses:
         '200':
-          description: SSH access has been revoked
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+          description: SSH access has been revoked
       security:
       - bearer: []
       - oauth2:
@@ -1342,29 +1749,76 @@ paths:
       summary: Revoke SSH access for sandbox
       tags:
       - Sandbox
+    post:
+      operationId: createSshAccess
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID or name of the sandbox
+        explode: false
+        in: path
+        name: sandboxIdOrName
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: 'Expiration time in minutes (default: 60)'
+        explode: true
+        in: query
+        name: expiresInMinutes
+        required: false
+        schema:
+          type: number
+        style: form
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SshAccessDto'
+          description: SSH access has been created
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create SSH access for sandbox
+      tags:
+      - Sandbox
   /sandbox/ssh-access/validate:
     get:
       operationId: validateSshAccess
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: token
-        required: true
+        style: simple
+      - description: SSH access token to validate
+        explode: true
         in: query
-        description: SSH access token to validate
+        name: token
+        required: true
         schema:
           type: string
+        style: form
       responses:
         '200':
-          description: SSH access validation result
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SshAccessValidationDto'
+          description: SSH access validation result
       security:
       - bearer: []
       - oauth2:
@@ -1378,25 +1832,29 @@ paths:
     get:
       operationId: getToolboxProxyUrl
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Toolbox proxy URL for the specified sandbox
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ToolboxProxyUrl'
+          description: Toolbox proxy URL for the specified sandbox
       security:
       - bearer: []
       - oauth2:
@@ -1410,25 +1868,29 @@ paths:
     get:
       operationId: getOrganizationBySandboxId
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Organization
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Organization'
+          description: Organization
       security:
       - bearer: []
       - oauth2:
@@ -1442,25 +1904,29 @@ paths:
     get:
       operationId: getRegionQuotaBySandboxId
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Region quota
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegionQuota'
+          description: Region quota
       security:
       - bearer: []
       - oauth2:
@@ -1470,72 +1936,126 @@ paths:
       summary: Get region quota by sandbox ID
       tags:
       - Sandbox
+  /sandbox/{sandboxId}/secrets:
+    get:
+      operationId: resolveSandboxSecrets
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Sandbox ID
+        explode: false
+        in: path
+        name: sandboxId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/resolveSandboxSecrets_200_response_inner'
+                type: array
+          description: Decrypted secret key-value pairs for this sandbox
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Resolve sandbox secrets
+      tags:
+      - Sandbox
   /sandbox/{sandboxId}/telemetry/logs:
     get:
       description: Retrieve OTEL logs for a sandbox within a time range
       operationId: getSandboxLogs
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
-      - name: from
-        required: true
+        style: simple
+      - description: Start of time range (ISO 8601)
+        explode: true
         in: query
-        description: Start of time range (ISO 8601)
+        name: from
+        required: true
         schema:
           format: date-time
           type: string
-      - name: to
-        required: true
+        style: form
+      - description: End of time range (ISO 8601)
+        explode: true
         in: query
-        description: End of time range (ISO 8601)
+        name: to
+        required: true
         schema:
           format: date-time
           type: string
-      - name: page
+        style: form
+      - description: Page number (1-indexed)
+        explode: true
+        in: query
+        name: page
         required: false
-        in: query
-        description: Page number (1-indexed)
         schema:
           default: 1
-          type: number
-      - name: limit
-        required: false
+          type: integer
+        style: form
+      - description: Number of items per page
+        explode: true
         in: query
-        description: Number of items per page
+        name: limit
+        required: false
         schema:
           default: 100
-          type: number
-      - name: severities
-        required: false
+          type: integer
+        style: form
+      - description: Filter by severity levels (DEBUG, INFO, WARN, ERROR)
+        explode: true
         in: query
-        description: Filter by severity levels (DEBUG, INFO, WARN, ERROR)
+        name: severities
+        required: false
         schema:
-          type: array
           items:
             type: string
-      - name: search
-        required: false
+          type: array
+        style: form
+      - description: Search in log body
+        explode: true
         in: query
-        description: Search in log body
+        name: search
+        required: false
         schema:
           type: string
+        style: form
       responses:
         '200':
-          description: Paginated list of log entries
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedLogs'
+          description: Paginated list of log entries
       security:
       - bearer: []
       - oauth2:
@@ -1550,53 +2070,65 @@ paths:
       description: Retrieve OTEL traces for a sandbox within a time range
       operationId: getSandboxTraces
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
-      - name: from
-        required: true
+        style: simple
+      - description: Start of time range (ISO 8601)
+        explode: true
         in: query
-        description: Start of time range (ISO 8601)
+        name: from
+        required: true
         schema:
           format: date-time
           type: string
-      - name: to
-        required: true
+        style: form
+      - description: End of time range (ISO 8601)
+        explode: true
         in: query
-        description: End of time range (ISO 8601)
+        name: to
+        required: true
         schema:
           format: date-time
           type: string
-      - name: page
+        style: form
+      - description: Page number (1-indexed)
+        explode: true
+        in: query
+        name: page
         required: false
-        in: query
-        description: Page number (1-indexed)
         schema:
           default: 1
-          type: number
-      - name: limit
-        required: false
+          type: integer
+        style: form
+      - description: Number of items per page
+        explode: true
         in: query
-        description: Number of items per page
+        name: limit
+        required: false
         schema:
           default: 100
-          type: number
+          type: integer
+        style: form
       responses:
         '200':
-          description: Paginated list of trace summaries
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedTraces'
+          description: Paginated list of trace summaries
       security:
       - bearer: []
       - oauth2:
@@ -1611,33 +2143,39 @@ paths:
       description: Retrieve all spans for a specific trace
       operationId: getSandboxTraceSpans
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
-      - name: traceId
-        required: true
+        style: simple
+      - description: ID of the trace
+        explode: false
         in: path
-        description: ID of the trace
+        name: traceId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: List of spans in the trace
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/TraceSpan'
+                type: array
+          description: List of spans in the trace
       security:
       - bearer: []
       - oauth2:
@@ -1652,47 +2190,57 @@ paths:
       description: Retrieve OTEL metrics for a sandbox within a time range
       operationId: getSandboxMetrics
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: sandboxId
-        required: true
+        style: simple
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
-      - name: from
-        required: true
+        style: simple
+      - description: Start of time range (ISO 8601)
+        explode: true
         in: query
-        description: Start of time range (ISO 8601)
+        name: from
+        required: true
         schema:
           format: date-time
           type: string
-      - name: to
-        required: true
+        style: form
+      - description: End of time range (ISO 8601)
+        explode: true
         in: query
-        description: End of time range (ISO 8601)
+        name: to
+        required: true
         schema:
           format: date-time
           type: string
-      - name: metricNames
+        style: form
+      - description: Filter by metric names
+        explode: true
+        in: query
+        name: metricNames
         required: false
-        in: query
-        description: Filter by metric names
         schema:
-          type: array
           items:
             type: string
+          type: array
+        style: form
       responses:
         '200':
-          description: Metrics time series data
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MetricsResponse'
+          description: Metrics time series data
       security:
       - bearer: []
       - oauth2:
@@ -1704,243 +2252,13 @@ paths:
       - Sandbox
 components:
   schemas:
-    SandboxDesiredState:
-      type: string
-      enum:
-      - destroyed
-      - started
-      - stopped
-      - resized
-      - archived
-      description: The desired state of the sandbox
-    OtelConfig:
-      type: object
-      properties:
-        endpoint:
-          type: string
-          description: Endpoint
-        headers:
-          type: object
-          description: Headers
-          example:
-            x-api-key: my-api-key
-          nullable: true
-          additionalProperties:
-            type: string
-      required:
-      - endpoint
-    SandboxState:
-      type: string
-      enum:
-      - creating
-      - restoring
-      - destroyed
-      - destroying
-      - started
-      - stopped
-      - starting
-      - stopping
-      - error
-      - build_failed
-      - pending_build
-      - building_snapshot
-      - unknown
-      - pulling_snapshot
-      - archived
-      - archiving
-      - resizing
-      - snapshotting
-      - forking
-      description: The state of the sandbox
-    MetricsResponse:
-      type: object
-      properties:
-        series:
-          description: List of metric series
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricSeries'
-      required:
-      - series
-    MetricDataPoint:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp of the data point
-        value:
-          type: number
-          description: Value at this timestamp
-      required:
-      - timestamp
-      - value
-    RegionQuota:
-      type: object
-      properties:
-        organizationId:
-          type: string
-        regionId:
-          type: string
-        totalCpuQuota:
-          type: number
-        totalMemoryQuota:
-          type: number
-        totalDiskQuota:
-          type: number
-        maxCpuPerSandbox:
-          type: number
-          nullable: true
-        maxMemoryPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerSandbox:
-          type: number
-          nullable: true
-        maxDiskPerNonEphemeralSandbox:
-          type: number
-          nullable: true
-      required:
-      - organizationId
-      - regionId
-      - totalCpuQuota
-      - totalMemoryQuota
-      - totalDiskQuota
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - maxDiskPerNonEphemeralSandbox
-    MetricSeries:
-      type: object
-      properties:
-        metricName:
-          type: string
-          description: Name of the metric
-        dataPoints:
-          description: Data points for this metric
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricDataPoint'
-      required:
-      - metricName
-      - dataPoints
-    PaginatedTraces:
-      type: object
-      properties:
-        items:
-          description: List of trace summaries
-          type: array
-          items:
-            $ref: '#/components/schemas/TraceSummary'
-        total:
-          type: number
-          description: Total number of traces matching the query
-        page:
-          type: number
-          description: Current page number
-        totalPages:
-          type: number
-          description: Total number of pages
-      required:
-      - items
-      - total
-      - page
-      - totalPages
-    ResizeSandbox:
-      type: object
-      properties:
-        cpu:
-          type: integer
-          description: 'CPU cores to allocate to the sandbox (minimum: 1)'
-          example: 2
-          minimum: 1
-        memory:
-          type: integer
-          description: 'Memory in GB to allocate to the sandbox (minimum: 1)'
-          example: 4
-          minimum: 1
-        disk:
-          type: integer
-          description: Disk space in GB to allocate to the sandbox (can only be increased)
-          example: 20
-          minimum: 1
-    UpdateSandboxNetworkSettings:
-      type: object
-      properties:
-        networkBlockAll:
-          type: boolean
-          description: Whether to block all network access for the sandbox
-          example: false
-        networkAllowList:
-          type: string
-          description: Comma-separated list of allowed CIDR network addresses for the sandbox
-          example: 192.168.1.0/16,10.0.0.0/24
-    ToolboxProxyUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The toolbox proxy URL for the sandbox
-          example: https://proxy.app.daytona.io/toolbox
-      required:
-      - url
-    SshAccessValidationDto:
-      type: object
-      properties:
-        valid:
-          type: boolean
-          description: Whether the SSH access token is valid
-          example: true
-        sandboxId:
-          type: string
-          description: ID of the sandbox this SSH access is for
-          example: 123e4567-e89b-12d3-a456-426614174000
-      required:
-      - valid
-      - sandboxId
-    BuildInfo:
-      type: object
-      properties:
-        dockerfileContent:
-          type: string
-          description: The Dockerfile content used for the build
-          example: 'FROM node:14
-
-            WORKDIR /app
-
-            COPY . .
-
-            RUN npm install
-
-            CMD ["npm", "start"]'
-        contextHashes:
-          description: The context hashes used for the build
-          example:
-          - hash1
-          - hash2
-          type: array
-          items:
-            type: string
-        createdAt:
-          format: date-time
-          type: string
-          description: The creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: The last update timestamp
-        snapshotRef:
-          type: string
-          description: The snapshot reference
-          example: daytonaio/sandbox:latest
-      required:
-      - createdAt
-      - updatedAt
-      - snapshotRef
     UpdateSandboxStateDto:
-      type: object
+      example:
+        errorReason: Failed to pull snapshot image
+        recoverable: true
+        state: started
       properties:
         state:
-          type: string
           description: The new state for the sandbox
           enum:
           - creating
@@ -1962,430 +2280,101 @@ components:
           - resizing
           - snapshotting
           - forking
+          - pausing
+          - paused
+          - resuming
           example: started
-        errorReason:
           type: string
+        errorReason:
           description: Optional error message when reporting an error state
           example: Failed to pull snapshot image
+          type: string
         recoverable:
-          type: boolean
           description: Whether the sandbox is recoverable
           example: true
+          type: boolean
       required:
       - state
-    SandboxLabels:
       type: object
+    SandboxLabels:
+      example:
+        labels:
+          environment: dev
+          team: backend
       properties:
         labels:
-          type: object
+          additionalProperties:
+            type: string
           description: Key-value pairs of labels
           example:
             environment: dev
             team: backend
-          additionalProperties:
-            type: string
+          type: object
       required:
       - labels
-    CreateSandbox:
       type: object
+    ForkSandbox:
+      example:
+        name: my-forked-sandbox
       properties:
         name:
+          description: The name for the forked sandbox. If not provided, a unique name will be generated.
+          example: my-forked-sandbox
           type: string
-          description: The name of the sandbox. If not provided, the sandbox ID will be used as the name
-          example: MySandbox
-        snapshot:
-          type: string
-          description: The ID or name of the snapshot used for the sandbox
-          example: ubuntu-4vcpu-8ram-100gb
-        user:
-          type: string
-          description: The user associated with the project
-          example: daytona
-        env:
-          type: object
-          description: Environment variables for the sandbox
-          additionalProperties:
-            type: string
-          example:
-            NODE_ENV: production
-        labels:
-          type: object
-          description: Labels for the sandbox
-          additionalProperties:
-            type: string
-          example:
-            daytona.io/public: 'true'
-        public:
-          type: boolean
-          description: Whether the sandbox http preview is publicly accessible
-          example: false
-        networkBlockAll:
-          type: boolean
-          description: Whether to block all network access for the sandbox
-          example: false
-        networkAllowList:
-          type: string
-          description: Comma-separated list of allowed CIDR network addresses for the sandbox
-          example: 192.168.1.0/16,10.0.0.0/24
-        class:
-          type: string
-          description: The sandbox class type
-          enum:
-          - small
-          - medium
-          - large
-          example: small
-        target:
-          type: string
-          description: The target (region) where the sandbox will be created
-          example: us
-        cpu:
-          type: integer
-          description: CPU cores allocated to the sandbox
-          example: 2
-        gpu:
-          type: integer
-          description: GPU units allocated to the sandbox
-          example: 1
-        memory:
-          type: integer
-          description: Memory allocated to the sandbox in GB
-          example: 1
-        disk:
-          type: integer
-          description: Disk space allocated to the sandbox in GB
-          example: 3
-        autoStopInterval:
-          type: integer
-          description: Auto-stop interval in minutes (0 means disabled)
-          example: 30
-        autoArchiveInterval:
-          type: integer
-          description: Auto-archive interval in minutes (0 means the maximum interval will be used)
-          example: 10080
-        autoDeleteInterval:
-          type: integer
-          description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
-          example: 30
-        volumes:
-          description: Array of volumes to attach to the sandbox
-          type: array
-          items:
-            $ref: '#/components/schemas/SandboxVolume'
-        buildInfo:
-          description: Build information for the sandbox
-          allOf:
-          - $ref: '#/components/schemas/CreateBuildInfo'
-    SignedPortPreviewUrl:
       type: object
-      properties:
-        sandboxId:
-          type: string
-          description: ID of the sandbox
-          example: '123456'
-        port:
-          type: integer
-          description: Port number of the signed preview URL
-          example: 3000
-        token:
-          type: string
-          description: Token of the signed preview URL
-          example: jl6wb9z5o3eii
-        url:
-          type: string
-          description: Signed preview url
-          example: https://{port}-{token}.{proxyDomain}
-      required:
-      - sandboxId
-      - port
-      - token
-      - url
-    CreateSandboxSnapshot:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name for the new snapshot
-          example: my-dev-env-v1
-      required:
-      - name
-    Url:
-      type: object
-      properties:
-        url:
-          type: string
-          description: URL response
-      required:
-      - url
     TraceSpan:
-      type: object
+      example:
+        traceId: traceId
+        spanId: spanId
+        spanAttributes:
+          key: spanAttributes
+        parentSpanId: parentSpanId
+        durationNs: 0.8008281904610115
+        statusMessage: statusMessage
+        spanName: spanName
+        timestamp: timestamp
+        statusCode: statusCode
       properties:
         traceId:
-          type: string
           description: Trace identifier
+          type: string
         spanId:
-          type: string
           description: Span identifier
+          type: string
         parentSpanId:
-          type: string
           description: Parent span identifier
+          type: string
         spanName:
-          type: string
           description: Span name
-        timestamp:
           type: string
+        timestamp:
           description: Span start timestamp
+          type: string
         durationNs:
-          type: number
           description: Span duration in nanoseconds
+          type: number
         spanAttributes:
-          type: object
-          description: Span attributes
           additionalProperties:
             type: string
+          description: Span attributes
+          type: object
         statusCode:
-          type: string
           description: Status code of the span
-        statusMessage:
           type: string
+        statusMessage:
           description: Status message
+          type: string
       required:
-      - traceId
+      - durationNs
+      - spanAttributes
       - spanId
       - spanName
       - timestamp
-      - durationNs
-      - spanAttributes
-    Organization:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Organization ID
-        name:
-          type: string
-          description: Organization name
-        createdBy:
-          type: string
-          description: User ID of the organization creator
-        personal:
-          type: boolean
-          description: Personal organization flag
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation timestamp
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update timestamp
-        suspended:
-          type: boolean
-          description: Suspended flag
-        suspendedAt:
-          format: date-time
-          type: string
-          description: Suspended at
-        suspensionReason:
-          type: string
-          description: Suspended reason
-        suspendedUntil:
-          format: date-time
-          type: string
-          description: Suspended until
-        suspensionCleanupGracePeriodHours:
-          type: number
-          description: Suspension cleanup grace period hours
-        maxCpuPerSandbox:
-          type: number
-          description: Max CPU per sandbox
-        maxMemoryPerSandbox:
-          type: number
-          description: Max memory per sandbox
-        maxDiskPerSandbox:
-          type: number
-          description: Max disk per sandbox
-        snapshotDeactivationTimeoutMinutes:
-          type: number
-          description: Time in minutes before an unused snapshot is deactivated
-          default: 20160
-        sandboxLimitedNetworkEgress:
-          type: boolean
-          description: Sandbox default network block all
-        defaultRegionId:
-          type: string
-          description: Default region ID
-        authenticatedRateLimit:
-          type: number
-          description: Authenticated rate limit per minute
-          nullable: true
-        sandboxCreateRateLimit:
-          type: number
-          description: Sandbox create rate limit per minute
-          nullable: true
-        sandboxLifecycleRateLimit:
-          type: number
-          description: Sandbox lifecycle rate limit per minute
-          nullable: true
-        experimentalConfig:
-          type: object
-          description: Experimental configuration
-        otelConfig:
-          description: OpenTelemetry collection configuration
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/OtelConfig'
-        authenticatedRateLimitTtlSeconds:
-          type: number
-          description: Authenticated rate limit TTL in seconds
-          nullable: true
-        sandboxCreateRateLimitTtlSeconds:
-          type: number
-          description: Sandbox create rate limit TTL in seconds
-          nullable: true
-        sandboxLifecycleRateLimitTtlSeconds:
-          type: number
-          description: Sandbox lifecycle rate limit TTL in seconds
-          nullable: true
-      required:
-      - id
-      - name
-      - createdBy
-      - personal
-      - createdAt
-      - updatedAt
-      - suspended
-      - suspendedAt
-      - suspensionReason
-      - suspendedUntil
-      - suspensionCleanupGracePeriodHours
-      - maxCpuPerSandbox
-      - maxMemoryPerSandbox
-      - maxDiskPerSandbox
-      - snapshotDeactivationTimeoutMinutes
-      - sandboxLimitedNetworkEgress
-      - authenticatedRateLimit
-      - sandboxCreateRateLimit
-      - sandboxLifecycleRateLimit
-      - experimentalConfig
-      - otelConfig
-      - authenticatedRateLimitTtlSeconds
-      - sandboxCreateRateLimitTtlSeconds
-      - sandboxLifecycleRateLimitTtlSeconds
-    LogEntry:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp of the log entry
-        body:
-          type: string
-          description: Log message body
-        severityText:
-          type: string
-          description: Severity level text (e.g., INFO, WARN, ERROR)
-        severityNumber:
-          type: number
-          description: Severity level number
-        serviceName:
-          type: string
-          description: Service name that generated the log
-        resourceAttributes:
-          type: object
-          description: Resource attributes from OTEL
-          additionalProperties:
-            type: string
-        logAttributes:
-          type: object
-          description: Log-specific attributes
-          additionalProperties:
-            type: string
-        traceId:
-          type: string
-          description: Associated trace ID if available
-        spanId:
-          type: string
-          description: Associated span ID if available
-      required:
-      - timestamp
-      - body
-      - severityText
-      - serviceName
-      - resourceAttributes
-      - logAttributes
-    PortPreviewUrl:
-      type: object
-      properties:
-        sandboxId:
-          type: string
-          description: ID of the sandbox
-          example: '123456'
-        url:
-          type: string
-          description: Preview url
-          example: https://{port}-{sandboxId}.{proxyDomain}
-        token:
-          type: string
-          description: Access token
-          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
-      required:
-      - sandboxId
-      - url
-      - token
-    PaginatedSandboxes:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sandbox'
-        total:
-          type: number
-        page:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - items
-      - total
-      - page
-      - totalPages
-    TraceSummary:
-      type: object
-      properties:
-        traceId:
-          type: string
-          description: Unique trace identifier
-        rootSpanName:
-          type: string
-          description: Name of the root span
-        startTime:
-          type: string
-          description: Trace start time
-        endTime:
-          type: string
-          description: Trace end time
-        durationMs:
-          type: number
-          description: Total duration in milliseconds
-        spanCount:
-          type: number
-          description: Number of spans in this trace
-        statusCode:
-          type: string
-          description: Status code of the trace
-      required:
       - traceId
-      - rootSpanName
-      - startTime
-      - endTime
-      - durationMs
-      - spanCount
-    CreateBuildInfo:
       type: object
+    BuildInfo:
       properties:
         dockerfileContent:
-          type: string
           description: The Dockerfile content used for the build
           example: 'FROM node:14
 
@@ -2396,112 +2385,271 @@ components:
             RUN npm install
 
             CMD ["npm", "start"]'
+          type: string
         contextHashes:
           description: The context hashes used for the build
           example:
           - hash1
           - hash2
-          type: array
           items:
             type: string
-      required:
-      - dockerfileContent
-    ForkSandbox:
-      type: object
-      properties:
-        name:
+          type: array
+        createdAt:
+          description: The creation timestamp
+          format: date-time
           type: string
-          description: The name for the forked sandbox. If not provided, a unique name will be generated.
-          example: my-forked-sandbox
-    Sandbox:
+        updatedAt:
+          description: The last update timestamp
+          format: date-time
+          type: string
+        snapshotRef:
+          description: The snapshot reference
+          example: daytonaio/sandbox:latest
+          type: string
+      required:
+      - createdAt
+      - snapshotRef
+      - updatedAt
       type: object
+    SandboxDesiredState:
+      description: The desired state of the sandbox
+      enum:
+      - destroyed
+      - started
+      - stopped
+      - resized
+      - archived
+      - paused
+      type: string
+    PaginatedLogs:
+      example:
+        total: 6
+        totalPages: 5
+        page: 1
+        items:
+        - traceId: traceId
+          spanId: spanId
+          severityText: severityText
+          severityNumber: 0.8008281904610115
+          logAttributes:
+            key: logAttributes
+          body: body
+          serviceName: serviceName
+          resourceAttributes:
+            key: resourceAttributes
+          timestamp: timestamp
+        - traceId: traceId
+          spanId: spanId
+          severityText: severityText
+          severityNumber: 0.8008281904610115
+          logAttributes:
+            key: logAttributes
+          body: body
+          serviceName: serviceName
+          resourceAttributes:
+            key: resourceAttributes
+          timestamp: timestamp
+      properties:
+        items:
+          description: List of log entries
+          items:
+            $ref: '#/components/schemas/LogEntry'
+          type: array
+        total:
+          description: Total number of log entries matching the query
+          type: integer
+        page:
+          description: Current page number
+          type: integer
+        totalPages:
+          description: Total number of pages
+          type: integer
+      required:
+      - items
+      - page
+      - total
+      - totalPages
+      type: object
+    Sandbox:
+      example:
+        memory: 4
+        linkedSandboxId: sandbox123
+        buildInfo: ''
+        toolboxProxyUrl: https://proxy.app.daytona.io/toolbox
+        lastActivityAt: '2024-10-01T12:00:00.000Z'
+        warmPoolId: warmPoolId
+        autoStopInterval: 30
+        organizationId: organization123
+        otelEndpointOverride: https://otel-collector.example.com:4318
+        autoPauseInterval: 60
+        createdAt: '2024-10-01T12:00:00.000Z'
+        networkBlockAll: false
+        autoDeleteInterval: 30
+        domainAllowList: example.com,*.daytona.io
+        public: false
+        outboundProxyUrl: http://user:pass@proxy.example.com:3128
+        errorReason: The sandbox is not running
+        runnerId: runner123
+        id: sandbox123
+        state: creating
+        gpuType: H100
+        updatedAt: '2024-10-01T12:00:00.000Z'
+        sandboxClass: linux-vm
+        desiredState: destroyed
+        kvm: false
+        networkAllowList: 192.168.1.0/16,10.0.0.0/24
+        spotEvictedAt: '2026-08-13T12:00:00.000Z'
+        volumes:
+        - mountPath: /data
+          volumeId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          subpath: users/alice
+        - mountPath: /data
+          volumeId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          subpath: users/alice
+        cpu: 2
+        recoverable: true
+        env:
+          NODE_ENV: production
+        gpu: 0
+        daemonVersion: 1.0.0
+        backupCreatedAt: '2024-10-01T12:00:00.000Z'
+        labels:
+          daytona.io/public: 'true'
+        target: local
+        disk: 10
+        autoDestroyAt: '2026-07-15T12:00:00.000Z'
+        queueTimedOutAt: '2026-08-13T12:00:00.000Z'
+        spot: false
+        name: MySandbox
+        backupState: None
+        user: daytona
+        autoArchiveInterval: 10080
+        snapshot: daytonaio/sandbox:latest
+        queueTimeout: 5
       properties:
         id:
-          type: string
           description: The ID of the sandbox
           example: sandbox123
-        organizationId:
           type: string
+        organizationId:
           description: The organization ID of the sandbox
           example: organization123
-        name:
           type: string
+        name:
           description: The name of the sandbox
           example: MySandbox
-        snapshot:
           type: string
+        snapshot:
           description: The snapshot used for the sandbox
           example: daytonaio/sandbox:latest
-        user:
           type: string
+        user:
           description: The user associated with the project
           example: daytona
+          type: string
         env:
-          type: object
-          description: Environment variables for the sandbox
           additionalProperties:
             type: string
+          description: Environment variables for the sandbox
           example:
             NODE_ENV: production
-        labels:
           type: object
-          description: Labels for the sandbox
+        labels:
           additionalProperties:
             type: string
+          description: Labels for the sandbox
           example:
             daytona.io/public: 'true'
+          type: object
         public:
-          type: boolean
           description: Whether the sandbox http preview is public
           example: false
-        networkBlockAll:
           type: boolean
+        networkBlockAll:
           description: Whether to block all network access for the sandbox
           example: false
+          type: boolean
+        kvm:
+          description: Whether the sandbox exposes KVM (/dev/kvm) to its guest
+          example: false
+          type: boolean
         networkAllowList:
-          type: string
           description: Comma-separated list of allowed CIDR network addresses for the sandbox
           example: 192.168.1.0/16,10.0.0.0/24
-        target:
           type: string
+        domainAllowList:
+          description: Comma-separated list of allowed domains for the sandbox
+          example: example.com,*.daytona.io
+          type: string
+        outboundProxyUrl:
+          description: Outbound proxy URL the sandbox HTTP(S) traffic is routed through. Applied via the HTTP(S)_PROXY environment variables (convenience routing); network-layer enforcement applies only when the sandbox also has a domainAllowList. Only returned on single-sandbox reads — never on list responses.
+          example: http://user:pass@proxy.example.com:3128
+          type: string
+        otelEndpointOverride:
+          description: OTel collector endpoint override for this sandbox. When set, sandbox OTel data is sent to this endpoint instead of the default collector and is not available in the Daytona analytics API or dashboard. Only returned on single-sandbox reads — never on list responses.
+          example: https://otel-collector.example.com:4318
+          type: string
+        target:
           description: The target environment for the sandbox
           example: local
+          type: string
         cpu:
-          type: number
           description: The CPU quota for the sandbox
           example: 2
+          type: integer
         gpu:
-          type: number
           description: The GPU quota for the sandbox
           example: 0
+          type: integer
+        spot:
+          default: false
+          description: Whether this is a spot GPU sandbox. Spot sandboxes may be instantly terminated to free capacity for on-demand GPU sandboxes. Absent on APIs that predate this field; treat as false.
+          example: false
+          type: boolean
+        spotEvictedAt:
+          description: When this sandbox was destroyed by spot preemption. Set only for spot-evicted sandboxes, which stay retrievable by ID for 24 hours after eviction.
+          example: '2026-08-13T12:00:00.000Z'
+          type: string
+        queueTimedOutAt:
+          description: When this sandbox was destroyed because it waited too long for a runner. Set only for queue-timeout sandboxes, which stay retrievable by ID for 24 hours after the timeout.
+          example: '2026-08-13T12:00:00.000Z'
+          type: string
+        gpuType:
+          allOf:
+          - $ref: '#/components/schemas/GpuType'
+          description: The GPU type assigned to the sandbox
+          example: H100
         memory:
-          type: number
           description: The memory quota for the sandbox
           example: 4
+          type: integer
         disk:
-          type: number
           description: The disk quota for the sandbox
           example: 10
+          type: integer
         state:
-          description: The state of the sandbox
-          example: creating
           allOf:
           - $ref: '#/components/schemas/SandboxState'
+          description: The state of the sandbox
+          example: creating
         desiredState:
-          description: The desired state of the sandbox
-          example: destroyed
           allOf:
           - $ref: '#/components/schemas/SandboxDesiredState'
+          description: The desired state of the sandbox
+          example: destroyed
         errorReason:
-          type: string
           description: The error reason of the sandbox
           example: The sandbox is not running
+          type: string
         recoverable:
-          type: boolean
           description: Whether the sandbox error is recoverable.
           example: true
-        backupState:
+          type: boolean
+        warmPoolId:
+          description: Id of the warm pool this sandbox waits in; set only while it is an unclaimed member.
           type: string
+        backupState:
+          deprecated: true
           description: The state of the backup
           enum:
           - None
@@ -2510,167 +2658,1488 @@ components:
           - Completed
           - Error
           example: None
-        backupCreatedAt:
           type: string
+        backupCreatedAt:
+          deprecated: true
           description: The creation timestamp of the last backup
-          example: '2024-10-01T12:00:00Z'
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
         autoStopInterval:
-          type: number
           description: Auto-stop interval in minutes (0 means disabled)
           example: 30
-        autoArchiveInterval:
           type: number
+        autoPauseInterval:
+          description: Auto-pause interval in minutes (0 means disabled)
+          example: 60
+          type: number
+        autoArchiveInterval:
           description: Auto-archive interval in minutes
           example: 10080
-        autoDeleteInterval:
           type: number
+        autoDeleteInterval:
           description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
           example: 30
+          type: number
+        autoDestroyAt:
+          description: When the sandbox will be automatically destroyed, regardless of its state (only set when a TTL is configured)
+          example: '2026-07-15T12:00:00.000Z'
+          type: string
+        queueTimeout:
+          description: Minutes to wait for runner assignment before cancelling sandbox creation. Null means the wait is unlimited.
+          example: 5
+          type:
+          - integer
+          - 'null'
         volumes:
           description: Array of volumes attached to the sandbox
-          type: array
           items:
             $ref: '#/components/schemas/SandboxVolume'
+          type: array
         buildInfo:
-          description: Build information for the sandbox
           allOf:
           - $ref: '#/components/schemas/BuildInfo'
+          description: Build information for the sandbox
         createdAt:
-          type: string
           description: The creation timestamp of the sandbox
-          example: '2024-10-01T12:00:00Z'
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
         updatedAt:
-          type: string
           description: The last update timestamp of the sandbox
-          example: '2024-10-01T12:00:00Z'
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
         lastActivityAt:
-          type: string
           description: The last activity timestamp of the sandbox
-          example: '2024-10-01T12:00:00Z'
-        class:
+          example: '2024-10-01T12:00:00.000Z'
           type: string
+        sandboxClass:
           description: The class of the sandbox
           enum:
-          - small
-          - medium
-          - large
-          example: small
-          deprecated: true
-        daemonVersion:
+          - linux-vm
+          - container
+          - windows
+          example: linux-vm
           type: string
+          x-enum-varnames:
+          - LINUX_VM
+          - CONTAINER
+          - WINDOWS
+        daemonVersion:
           description: The version of the daemon running in the sandbox
           example: 1.0.0
-        runnerId:
           type: string
+        runnerId:
           description: The runner ID of the sandbox
           example: runner123
-        toolboxProxyUrl:
           type: string
+        linkedSandboxId:
+          description: ID of the sandbox this sandbox is linked to. When set, the sandbox is co-located on the same runner as the linked sandbox.
+          example: sandbox123
+          type: string
+        toolboxProxyUrl:
           description: The toolbox proxy URL for the sandbox
           example: https://proxy.app.daytona.io/toolbox
+          type: string
       required:
-      - id
-      - organizationId
-      - name
-      - user
-      - env
-      - labels
-      - public
-      - networkBlockAll
-      - target
       - cpu
-      - gpu
-      - memory
       - disk
-      - toolboxProxyUrl
-    SshAccessDto:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the SSH access
-          example: 123e4567-e89b-12d3-a456-426614174000
-        sandboxId:
-          type: string
-          description: ID of the sandbox this SSH access is for
-          example: 123e4567-e89b-12d3-a456-426614174000
-        token:
-          type: string
-          description: SSH access token
-          example: abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
-        expiresAt:
-          format: date-time
-          type: string
-          description: When the SSH access expires
-          example: '2025-01-01T12:00:00.000Z'
-        createdAt:
-          format: date-time
-          type: string
-          description: When the SSH access was created
-          example: '2025-01-01T11:00:00.000Z'
-        updatedAt:
-          format: date-time
-          type: string
-          description: When the SSH access was last updated
-          example: '2025-01-01T11:00:00.000Z'
-        sshCommand:
-          type: string
-          description: SSH command to connect to the sandbox
-          example: ssh -p 2222 token@localhost
-      required:
+      - env
+      - gpu
       - id
-      - sandboxId
-      - token
-      - expiresAt
-      - createdAt
-      - updatedAt
-      - sshCommand
-    PaginatedLogs:
+      - kvm
+      - labels
+      - memory
+      - name
+      - networkBlockAll
+      - organizationId
+      - public
+      - target
+      - toolboxProxyUrl
+      - user
       type: object
+    MetricDataPoint:
+      example:
+        value: 0.8008281904610115
+        timestamp: timestamp
       properties:
-        items:
-          description: List of log entries
-          type: array
-          items:
-            $ref: '#/components/schemas/LogEntry'
-        total:
+        timestamp:
+          description: Timestamp of the data point
+          type: string
+        value:
+          description: Value at this timestamp
           type: number
-          description: Total number of log entries matching the query
-        page:
-          type: number
-          description: Current page number
-        totalPages:
-          type: number
-          description: Total number of pages
       required:
-      - items
-      - total
-      - page
-      - totalPages
-    SandboxVolume:
+      - timestamp
+      - value
       type: object
+    SandboxVolume:
+      example:
+        mountPath: /data
+        volumeId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        subpath: users/alice
       properties:
         volumeId:
+          description: The ID or name of the volume. Resolved to the volume ID on sandbox create.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           type: string
-          description: The ID of the volume
-          example: volume123
         mountPath:
-          type: string
           description: The mount path for the volume
           example: /data
-        subpath:
           type: string
+        subpath:
           description: Optional subpath within the volume to mount. When specified, only this S3 prefix will be accessible. When omitted, the entire volume is mounted.
           example: users/alice
+          type: string
       required:
-      - volumeId
       - mountPath
+      - volumeId
+      type: object
+    CreateSandboxSnapshot:
+      example:
+        includeMemory: false
+        name: my-dev-env-v1
+      properties:
+        name:
+          description: Name for the new snapshot
+          example: my-dev-env-v1
+          type: string
+        includeMemory:
+          default: false
+          description: Include the VM's memory in the snapshot. VM sandboxes only. When true the sandbox must be STARTED; when false (default) VM sandboxes must be STOPPED. Container sandboxes do not support memory snapshots.
+          type: boolean
+      required:
+      - name
+      type: object
+    SshAccessDto:
+      example:
+        createdAt: '2025-01-01T11:00:00.000Z'
+        sshCommand: ssh -p 2222 token@localhost
+        sandboxId: 123e4567-e89b-12d3-a456-426614174000
+        id: 123e4567-e89b-12d3-a456-426614174000
+        expiresAt: '2025-01-01T12:00:00.000Z'
+        token: abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
+        updatedAt: '2025-01-01T11:00:00.000Z'
+      properties:
+        id:
+          description: Unique identifier for the SSH access
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+        sandboxId:
+          description: ID of the sandbox this SSH access is for
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+        token:
+          description: SSH access token
+          example: abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
+          type: string
+        expiresAt:
+          description: When the SSH access expires
+          example: '2025-01-01T12:00:00.000Z'
+          format: date-time
+          type: string
+        createdAt:
+          description: When the SSH access was created
+          example: '2025-01-01T11:00:00.000Z'
+          format: date-time
+          type: string
+        updatedAt:
+          description: When the SSH access was last updated
+          example: '2025-01-01T11:00:00.000Z'
+          format: date-time
+          type: string
+        sshCommand:
+          description: SSH command to connect to the sandbox
+          example: ssh -p 2222 token@localhost
+          type: string
+      required:
+      - createdAt
+      - expiresAt
+      - id
+      - sandboxId
+      - sshCommand
+      - token
+      - updatedAt
+      type: object
+    SandboxListSortDirection:
+      enum:
+      - asc
+      - desc
+      type: string
+    CreateSandbox:
+      example:
+        memory: 1
+        buildInfo: ''
+        autoStopInterval: 30
+        otelEndpointOverride: https://otel-collector.example.com:4318
+        autoPauseInterval: 60
+        networkBlockAll: false
+        autoDeleteInterval: 30
+        domainAllowList: example.com,*.daytona.io
+        public: false
+        linkedSandbox: sandbox123
+        outboundProxyUrl: http://user:pass@proxy.example.com:3128
+        gpuType:
+        - H100
+        kvm: false
+        networkAllowList: 192.168.1.0/16,10.0.0.0/24
+        volumes:
+        - mountPath: /data
+          volumeId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          subpath: users/alice
+        - mountPath: /data
+          volumeId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          subpath: users/alice
+        cpu: 2
+        ttlMinutes: 1440
+        env:
+          NODE_ENV: production
+        gpu: 1
+        secrets:
+        - ANTHROPIC_API_KEY: anthropic-prod
+        - DB_PASSWORD: DB_PASSWORD
+        labels:
+          daytona.io/public: 'true'
+        target: us
+        disk: 3
+        spot: false
+        name: MySandbox
+        user: daytona
+        autoArchiveInterval: 10080
+        snapshot: ubuntu-4vcpu-8ram-100gb
+        queueTimeout: 5
+      properties:
+        name:
+          description: The name of the sandbox. If not provided, the sandbox ID will be used as the name
+          example: MySandbox
+          type: string
+        snapshot:
+          description: The ID or name of the snapshot used for the sandbox
+          example: ubuntu-4vcpu-8ram-100gb
+          type: string
+        user:
+          description: The user associated with the project
+          example: daytona
+          type: string
+        env:
+          additionalProperties:
+            type: string
+          description: Environment variables for the sandbox
+          example:
+            NODE_ENV: production
+          type: object
+        labels:
+          additionalProperties:
+            type: string
+          description: Labels for the sandbox
+          example:
+            daytona.io/public: 'true'
+          type: object
+        public:
+          description: Whether the sandbox http preview is publicly accessible
+          example: false
+          type: boolean
+        networkBlockAll:
+          description: Whether to block all network access for the sandbox
+          example: false
+          type: boolean
+        kvm:
+          default: false
+          description: Expose KVM (/dev/kvm) inside the sandbox via nested virtualization. linux-vm snapshots only. Requires the sandbox_kvm feature for the organization.
+          example: false
+          type: boolean
+        networkAllowList:
+          description: Comma-separated list of allowed CIDR network addresses for the sandbox
+          example: 192.168.1.0/16,10.0.0.0/24
+          type: string
+        domainAllowList:
+          description: Comma-separated list of allowed domains for the sandbox
+          example: example.com,*.daytona.io
+          type: string
+        outboundProxyUrl:
+          description: 'Outbound proxy URL to route the sandbox HTTP(S) traffic through (http or https; credentials may be included in the URL). On its own this is convenience routing, not a security boundary: it is applied by injecting the standard HTTP(S)_PROXY environment variables at creation, so a process that clears those variables egresses directly. Combine with domainAllowList to have web-port (80/443) egress transparently redirected through the proxy chain at the network layer, which cannot be bypassed from inside the sandbox.'
+          example: http://user:pass@proxy.example.com:3128
+          type: string
+        otelEndpointOverride:
+          description: OTel collector endpoint override for this sandbox. When set, sandbox OTel data is sent to this endpoint instead of the default collector (the Daytona-hosted collector or the region-configured endpoint) and will not be available in the Daytona analytics API or dashboard.
+          example: https://otel-collector.example.com:4318
+          type: string
+        target:
+          description: The target (region) where the sandbox will be created
+          example: us
+          type: string
+        cpu:
+          description: CPU cores allocated to the sandbox
+          example: 2
+          type: integer
+        gpu:
+          description: GPU units allocated to the sandbox
+          example: 1
+          type: integer
+        gpuType:
+          description: Preferred GPU type for the sandbox. Accepts a single value or an ordered preference list — the scheduler tries each in order and pins the sandbox to the first that has capacity.
+          example:
+          - H100
+          items:
+            $ref: '#/components/schemas/GpuType'
+          type: array
+        spot:
+          default: false
+          description: GPU-only. When true, the sandbox may be instantly terminated without notice to free GPU capacity for an on-demand (non-spot) GPU sandbox. Ignored / rejected when the sandbox requests no GPUs.
+          example: false
+          type: boolean
+        memory:
+          description: Memory allocated to the sandbox in GB
+          example: 1
+          type: integer
+        disk:
+          description: Disk space allocated to the sandbox in GB
+          example: 3
+          type: integer
+        autoStopInterval:
+          description: Auto-stop interval in minutes (0 means disabled)
+          example: 30
+          type: integer
+        autoPauseInterval:
+          description: Auto-pause interval in minutes (0 means disabled). Only supported for sandbox classes that support pausing. Not allowed for ephemeral sandboxes. At most one of autoStopInterval and autoPauseInterval may be non-zero. For non-ephemeral sandbox classes that support pausing, defaults to 60 minutes (with auto-stop disabled) when neither interval is provided.
+          example: 60
+          type: integer
+        autoArchiveInterval:
+          description: Auto-archive interval in minutes (0 means the maximum interval will be used)
+          example: 10080
+          type: integer
+        autoDeleteInterval:
+          description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
+          example: 30
+          type: integer
+        ttlMinutes:
+          description: Maximum time to live in minutes, counted as wall-clock time since creation regardless of sandbox state (0 means disabled). When it elapses the sandbox is destroyed, even if it is stopped, paused, or archived. Subject to the maximum sandbox lifespan configured for the organization region and sandbox class, in which case it also defaults to that maximum and cannot be disabled.
+          example: 1440
+          type: integer
+        queueTimeout:
+          description: Minutes to wait for runner assignment before cancelling sandbox creation. Applies only while the sandbox is unassigned in pending_build or pulling_snapshot. Only honored when default queue timeout is enabled for the organization. Omit to use the organization default; null/omit with no organization default leaves the wait unlimited. Must be a positive integer.
+          example: 5
+          type: integer
+        volumes:
+          description: Array of volumes to attach to the sandbox
+          items:
+            $ref: '#/components/schemas/SandboxVolume'
+          type: array
+        buildInfo:
+          allOf:
+          - $ref: '#/components/schemas/CreateBuildInfo'
+          description: Build information for the sandbox
+        linkedSandbox:
+          description: 'ID or name of an existing sandbox to link the new sandbox to. The new sandbox will be scheduled on the same runner as the linked sandbox so a local network can be established between them. Linked sandboxes must be ephemeral (autoDeleteInterval=0) and cannot themselves be linked to another sandbox. GPU sandboxes cannot participate in links in either direction: a GPU sandbox cannot specify linkedSandbox, and cannot be the link target of another sandbox.'
+          example: sandbox123
+          type: string
+        secrets:
+          description: Secrets to mount in this sandbox. Each entry maps an env var name to a vault secret name.
+          example:
+          - ANTHROPIC_API_KEY: anthropic-prod
+          - DB_PASSWORD: DB_PASSWORD
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          type: array
+      type: object
+    SandboxListItem:
+      example:
+        memory: 4
+        toolboxProxyUrl: https://proxy.app.daytona.io/toolbox
+        lastActivityAt: '2024-10-01T12:00:00.000Z'
+        autoStopInterval: 30
+        warmPoolId: warmPoolId
+        organizationId: organization123
+        autoPauseInterval: 60
+        createdAt: '2024-10-01T12:00:00.000Z'
+        networkBlockAll: false
+        autoDeleteInterval: 30
+        domainAllowList: example.com,*.daytona.io
+        public: false
+        errorReason: The sandbox is not running
+        runnerId: runner123
+        id: sandbox123
+        state: creating
+        sandboxClass: linux-vm
+        gpuType: H100
+        updatedAt: '2024-10-01T12:00:00.000Z'
+        desiredState: destroyed
+        networkAllowList: 192.168.1.0/16,10.0.0.0/24
+        spotEvictedAt: '2026-08-13T12:00:00.000Z'
+        recoverable: true
+        cpu: 2
+        gpu: 0
+        daemonVersion: 1.0.0
+        target: local
+        labels:
+          daytona.io/public: 'true'
+        disk: 10
+        autoDestroyAt: '2026-07-15T12:00:00.000Z'
+        queueTimedOutAt: '2026-08-13T12:00:00.000Z'
+        spot: false
+        name: MySandbox
+        backupState: None
+        user: daytona
+        autoArchiveInterval: 10080
+        snapshot: daytonaio/sandbox:latest
+        queueTimeout: 5
+      properties:
+        id:
+          description: The ID of the sandbox
+          example: sandbox123
+          type: string
+        organizationId:
+          description: The organization ID of the sandbox
+          example: organization123
+          type: string
+        name:
+          description: The name of the sandbox
+          example: MySandbox
+          type: string
+        target:
+          description: The target environment for the sandbox
+          example: local
+          type: string
+        runnerId:
+          description: The runner ID of the sandbox
+          example: runner123
+          type: string
+        sandboxClass:
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+          description: The class of the sandbox
+          example: linux-vm
+        state:
+          allOf:
+          - $ref: '#/components/schemas/SandboxState'
+          description: The state of the sandbox
+          example: creating
+        desiredState:
+          allOf:
+          - $ref: '#/components/schemas/SandboxDesiredState'
+          description: The desired state of the sandbox
+          example: destroyed
+        snapshot:
+          description: The snapshot used for the sandbox
+          example: daytonaio/sandbox:latest
+          type: string
+        user:
+          description: The user associated with the project
+          example: daytona
+          type: string
+        errorReason:
+          description: The error reason of the sandbox
+          example: The sandbox is not running
+          type: string
+        recoverable:
+          description: Whether the sandbox error is recoverable.
+          example: true
+          type: boolean
+        public:
+          description: Whether the sandbox http preview is public
+          example: false
+          type: boolean
+        networkBlockAll:
+          description: Whether to block all network access for the sandbox
+          example: false
+          type: boolean
+        networkAllowList:
+          description: Comma-separated list of allowed CIDR network addresses for the sandbox
+          example: 192.168.1.0/16,10.0.0.0/24
+          type: string
+        domainAllowList:
+          description: Comma-separated list of allowed domains for the sandbox
+          example: example.com,*.daytona.io
+          type: string
+        cpu:
+          description: The CPU quota for the sandbox
+          example: 2
+          type: integer
+        gpu:
+          description: The GPU quota for the sandbox
+          example: 0
+          type: integer
+        spot:
+          default: false
+          description: Whether this is a spot GPU sandbox. Spot sandboxes may be instantly terminated to free capacity for on-demand GPU sandboxes. Absent on APIs that predate this field; treat as false.
+          example: false
+          type: boolean
+        spotEvictedAt:
+          description: When this sandbox was evicted by spot preemption. Set as soon as the sandbox is marked for eviction, so it is already present while the sandbox is still winding down.
+          example: '2026-08-13T12:00:00.000Z'
+          type: string
+        queueTimedOutAt:
+          description: When this sandbox was destroyed because it waited too long for a runner. Set only for queue-timeout sandboxes, which stay retrievable by ID for 24 hours after the timeout.
+          example: '2026-08-13T12:00:00.000Z'
+          type: string
+        gpuType:
+          allOf:
+          - $ref: '#/components/schemas/GpuType'
+          description: The GPU type assigned to the sandbox
+          example: H100
+        memory:
+          description: The memory quota for the sandbox
+          example: 4
+          type: integer
+        disk:
+          description: The disk quota for the sandbox
+          example: 10
+          type: integer
+        labels:
+          additionalProperties:
+            type: string
+          description: Labels for the sandbox
+          example:
+            daytona.io/public: 'true'
+          type: object
+        backupState:
+          description: The state of the backup
+          enum:
+          - None
+          - Pending
+          - InProgress
+          - Completed
+          - Error
+          example: None
+          type: string
+        autoStopInterval:
+          description: Auto-stop interval in minutes (0 means disabled)
+          example: 30
+          type: number
+        autoPauseInterval:
+          description: Auto-pause interval in minutes (0 means disabled)
+          example: 60
+          type: number
+        autoArchiveInterval:
+          description: Auto-archive interval in minutes
+          example: 10080
+          type: number
+        autoDeleteInterval:
+          description: Auto-delete interval in minutes (negative value means disabled, 0 means delete immediately upon stopping)
+          example: 30
+          type: number
+        autoDestroyAt:
+          description: When the sandbox will be automatically destroyed, regardless of its state (only set when a TTL is configured)
+          example: '2026-07-15T12:00:00.000Z'
+          type: string
+        queueTimeout:
+          description: Minutes to wait for runner assignment before cancelling sandbox creation. Null means the wait is unlimited.
+          example: 5
+          type:
+          - integer
+          - 'null'
+        createdAt:
+          description: The creation timestamp of the sandbox
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
+        updatedAt:
+          description: The last update timestamp of the sandbox
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
+        lastActivityAt:
+          description: The last activity timestamp of the sandbox
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
+        daemonVersion:
+          description: The version of the daemon running in the sandbox
+          example: 1.0.0
+          type: string
+        warmPoolId:
+          description: Id of the warm pool this sandbox waits in; set only while it is an unclaimed member
+          type: string
+        toolboxProxyUrl:
+          description: The toolbox proxy URL for the sandbox
+          example: https://proxy.app.daytona.io/toolbox
+          type: string
+      required:
+      - cpu
+      - disk
+      - gpu
+      - id
+      - labels
+      - memory
+      - name
+      - networkBlockAll
+      - organizationId
+      - public
+      - target
+      - toolboxProxyUrl
+      - user
+      type: object
+    PortPreviewUrl:
+      example:
+        sandboxId: '123456'
+        url: https://{port}-{sandboxId}.{proxyDomain}
+        token: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
+      properties:
+        sandboxId:
+          description: ID of the sandbox
+          example: '123456'
+          type: string
+        url:
+          description: Preview url
+          example: https://{port}-{sandboxId}.{proxyDomain}
+          type: string
+        token:
+          description: Access token
+          example: ul67qtv-jl6wb9z5o3eii-ljqt9qed6l
+          type: string
+      required:
+      - sandboxId
+      - token
+      - url
+      type: object
+    SshAccessValidationDto:
+      example:
+        valid: true
+        sandboxId: 123e4567-e89b-12d3-a456-426614174000
+      properties:
+        valid:
+          description: Whether the SSH access token is valid
+          example: true
+          type: boolean
+        sandboxId:
+          description: ID of the sandbox this SSH access is for
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      required:
+      - sandboxId
+      - valid
+      type: object
+    UpdateSandboxSecrets:
+      example:
+        secrets:
+        - ANTHROPIC_API_KEY: anthropic-prod
+        - DB_PASSWORD: DB_PASSWORD
+      properties:
+        secrets:
+          description: Secrets to mount in this sandbox, replacing the previously mounted set. Each entry maps an env var name to a vault secret name. Pass an empty array to detach all secrets.
+          example:
+          - ANTHROPIC_API_KEY: anthropic-prod
+          - DB_PASSWORD: DB_PASSWORD
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          type: array
+      required:
+      - secrets
+      type: object
+    ListSandboxesResponse:
+      example:
+        nextCursor: nextCursor
+        items:
+        - memory: 4
+          toolboxProxyUrl: https://proxy.app.daytona.io/toolbox
+          lastActivityAt: '2024-10-01T12:00:00.000Z'
+          autoStopInterval: 30
+          warmPoolId: warmPoolId
+          organizationId: organization123
+          autoPauseInterval: 60
+          createdAt: '2024-10-01T12:00:00.000Z'
+          networkBlockAll: false
+          autoDeleteInterval: 30
+          domainAllowList: example.com,*.daytona.io
+          public: false
+          errorReason: The sandbox is not running
+          runnerId: runner123
+          id: sandbox123
+          state: creating
+          sandboxClass: linux-vm
+          gpuType: H100
+          updatedAt: '2024-10-01T12:00:00.000Z'
+          desiredState: destroyed
+          networkAllowList: 192.168.1.0/16,10.0.0.0/24
+          spotEvictedAt: '2026-08-13T12:00:00.000Z'
+          recoverable: true
+          cpu: 2
+          gpu: 0
+          daemonVersion: 1.0.0
+          target: local
+          labels:
+            daytona.io/public: 'true'
+          disk: 10
+          autoDestroyAt: '2026-07-15T12:00:00.000Z'
+          queueTimedOutAt: '2026-08-13T12:00:00.000Z'
+          spot: false
+          name: MySandbox
+          backupState: None
+          user: daytona
+          autoArchiveInterval: 10080
+          snapshot: daytonaio/sandbox:latest
+          queueTimeout: 5
+        - memory: 4
+          toolboxProxyUrl: https://proxy.app.daytona.io/toolbox
+          lastActivityAt: '2024-10-01T12:00:00.000Z'
+          autoStopInterval: 30
+          warmPoolId: warmPoolId
+          organizationId: organization123
+          autoPauseInterval: 60
+          createdAt: '2024-10-01T12:00:00.000Z'
+          networkBlockAll: false
+          autoDeleteInterval: 30
+          domainAllowList: example.com,*.daytona.io
+          public: false
+          errorReason: The sandbox is not running
+          runnerId: runner123
+          id: sandbox123
+          state: creating
+          sandboxClass: linux-vm
+          gpuType: H100
+          updatedAt: '2024-10-01T12:00:00.000Z'
+          desiredState: destroyed
+          networkAllowList: 192.168.1.0/16,10.0.0.0/24
+          spotEvictedAt: '2026-08-13T12:00:00.000Z'
+          recoverable: true
+          cpu: 2
+          gpu: 0
+          daemonVersion: 1.0.0
+          target: local
+          labels:
+            daytona.io/public: 'true'
+          disk: 10
+          autoDestroyAt: '2026-07-15T12:00:00.000Z'
+          queueTimedOutAt: '2026-08-13T12:00:00.000Z'
+          spot: false
+          name: MySandbox
+          backupState: None
+          user: daytona
+          autoArchiveInterval: 10080
+          snapshot: daytonaio/sandbox:latest
+          queueTimeout: 5
+      properties:
+        items:
+          description: List of results for the current page
+          items:
+            $ref: '#/components/schemas/SandboxListItem'
+          type: array
+        nextCursor:
+          description: Cursor for the next page of results
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+      - nextCursor
+      type: object
+    RegionQuota:
+      example:
+        totalCpuQuota: 0.8008281904610115
+        maxSandboxLifespan: 7.386281948385884
+        allowedGpuTypes:
+        - H100
+        - H100
+        totalGpuQuota: 5.962133916683182
+        maxMemoryPerGpu: 2.027123023002322
+        organizationId: organizationId
+        maxCpuPerSandbox: 5.637376656633329
+        maxDiskPerSandbox: 7.061401241503109
+        maxDiskPerNonEphemeralSandbox: 9.301444243932576
+        regionId: regionId
+        maxCpuPerGpu: 3.616076749251911
+        maxMemoryPerSandbox: 2.3021358869347655
+        maxDiskPerGpu: 4.145608029883936
+        totalMemoryQuota: 6.027456183070403
+        totalDiskQuota: 1.4658129805029452
+        sandboxClass: ''
+      properties:
+        organizationId:
+          type: string
+        regionId:
+          type: string
+        sandboxClass:
+          allOf:
+          - $ref: '#/components/schemas/SandboxClass'
+        totalCpuQuota:
+          type: number
+        totalMemoryQuota:
+          type: number
+        totalDiskQuota:
+          type: number
+        totalGpuQuota:
+          type: number
+        allowedGpuTypes:
+          items:
+            $ref: '#/components/schemas/GpuType'
+          type: array
+        maxCpuPerSandbox:
+          type:
+          - number
+          - 'null'
+        maxMemoryPerSandbox:
+          type:
+          - number
+          - 'null'
+        maxDiskPerSandbox:
+          type:
+          - number
+          - 'null'
+        maxDiskPerNonEphemeralSandbox:
+          type:
+          - number
+          - 'null'
+        maxCpuPerGpu:
+          description: CPU maximum per requested GPU unit for GPU sandboxes.
+          type:
+          - number
+          - 'null'
+        maxMemoryPerGpu:
+          description: Memory maximum per requested GPU unit for GPU sandboxes.
+          type:
+          - number
+          - 'null'
+        maxDiskPerGpu:
+          description: Disk maximum per requested GPU unit for GPU sandboxes.
+          type:
+          - number
+          - 'null'
+        maxSandboxLifespan:
+          description: Maximum sandbox lifespan in minutes, measured from sandbox creation to its auto-destroy deadline. If null or 0, lifespan is unrestricted. When set, sandboxes created without a TTL default to this lifespan and TTL cannot be disabled.
+          type:
+          - number
+          - 'null'
+      required:
+      - maxCpuPerGpu
+      - maxCpuPerSandbox
+      - maxDiskPerGpu
+      - maxDiskPerNonEphemeralSandbox
+      - maxDiskPerSandbox
+      - maxMemoryPerGpu
+      - maxMemoryPerSandbox
+      - maxSandboxLifespan
+      - organizationId
+      - regionId
+      - sandboxClass
+      - totalCpuQuota
+      - totalDiskQuota
+      - totalGpuQuota
+      - totalMemoryQuota
+      type: object
+    Organization:
+      example:
+        secretQuota: 5.637376656633329
+        sandboxCreateRateLimit: 2.027123023002322
+        sandboxLifecycleRateLimitTtlSeconds: 1.0246457001441578
+        createdAt: '2000-01-23T04:56:07.000Z'
+        sandboxLimitedNetworkEgress: true
+        suspendedUntil: '2000-01-23T04:56:07.000Z'
+        ssoEnabled: true
+        directorySyncStatusChangedAt: '2000-01-23T04:56:07.000Z'
+        previewWarningEnabled: true
+        snapshotDeactivationTimeoutMinutes: 7.061401241503109
+        otelConfig: ''
+        authenticatedRateLimitTtlSeconds: 7.386281948385884
+        id: id
+        experimentalConfig: '{}'
+        updatedAt: '2000-01-23T04:56:07.000Z'
+        defaultRegionId: defaultRegionId
+        sandboxCreateRateLimitTtlSeconds: 1.2315135367772556
+        suspensionReason: suspensionReason
+        sandboxLifecycleRateLimit: 4.145608029883936
+        suspendedAt: '2000-01-23T04:56:07.000Z'
+        personal: true
+        suspensionCleanupGracePeriodHours: 0.8008281904610115
+        maxSecretsPerSandbox: 2.3021358869347655
+        directorySyncStatus: ''
+        authenticatedRateLimit: 3.616076749251911
+        suspended: true
+        defaultQueueTimeout: 9
+        maxCpuPerSandbox: 6.027456183070403
+        scimEnabled: true
+        maxDiskPerSandbox: 5.962133916683182
+        createdBy: createdBy
+        workosOrgId: workosOrgId
+        name: name
+        maxMemoryPerSandbox: 1.4658129805029452
+        directorySyncTokenRevokedAt: '2000-01-23T04:56:07.000Z'
+      properties:
+        id:
+          description: Organization ID
+          type: string
+        name:
+          description: Organization name
+          type: string
+        createdBy:
+          description: User ID of the organization creator
+          type: string
+        personal:
+          description: Personal organization flag
+          type: boolean
+        createdAt:
+          description: Creation timestamp
+          format: date-time
+          type: string
+        updatedAt:
+          description: Last update timestamp
+          format: date-time
+          type: string
+        suspended:
+          description: Suspended flag
+          type: boolean
+        suspendedAt:
+          description: Suspended at
+          format: date-time
+          type: string
+        suspensionReason:
+          description: Suspended reason
+          type: string
+        suspendedUntil:
+          description: Suspended until
+          format: date-time
+          type: string
+        suspensionCleanupGracePeriodHours:
+          description: Suspension cleanup grace period hours
+          type: number
+        maxCpuPerSandbox:
+          description: Max CPU per sandbox
+          type: number
+        maxMemoryPerSandbox:
+          description: Max memory per sandbox
+          type: number
+        maxDiskPerSandbox:
+          description: Max disk per sandbox
+          type: number
+        secretQuota:
+          description: Maximum number of secrets
+          type: number
+        maxSecretsPerSandbox:
+          description: Maximum number of secrets that can be mounted to a single sandbox
+          type: number
+        snapshotDeactivationTimeoutMinutes:
+          default: 20160
+          description: Time in minutes before an unused snapshot is deactivated
+          type: number
+        defaultQueueTimeout:
+          description: Default minutes to wait for runner assignment before cancelling sandbox creation. Applied when sandbox create omits queueTimeout. Null means no default.
+          type:
+          - integer
+          - 'null'
+        sandboxLimitedNetworkEgress:
+          description: Sandbox default network block all
+          type: boolean
+        previewWarningEnabled:
+          description: Whether the proxy shows the preview URL warning page for this organization
+          type: boolean
+        ssoEnabled:
+          description: Whether this organization may configure SSO identity providers
+          type: boolean
+        scimEnabled:
+          description: Whether this organization may use SCIM directory sync
+          type: boolean
+        defaultRegionId:
+          description: Default region ID
+          type: string
+        workosOrgId:
+          description: ID of the WorkOS organization mirrored from this organization (absent for personal organizations, which are never mirrored)
+          type: string
+        directorySyncStatus:
+          allOf:
+          - $ref: '#/components/schemas/DirectorySyncStatus'
+          description: Connection state of the WorkOS SCIM directory, as last reported by WorkOS (absent when no directory has ever reported in)
+        directorySyncStatusChangedAt:
+          description: When the directory sync status last changed
+          format: date-time
+          type: string
+        directorySyncTokenRevokedAt:
+          description: When the directory bearer token was revoked; absent while a valid token exists. A revoked token stops provisioning even if the directory is still active.
+          format: date-time
+          type: string
+        authenticatedRateLimit:
+          description: Authenticated rate limit per minute
+          type:
+          - number
+          - 'null'
+        sandboxCreateRateLimit:
+          description: Sandbox create rate limit per minute
+          type:
+          - number
+          - 'null'
+        sandboxLifecycleRateLimit:
+          description: Sandbox lifecycle rate limit per minute
+          type:
+          - number
+          - 'null'
+        experimentalConfig:
+          description: Experimental configuration
+          type: object
+        otelConfig:
+          allOf:
+          - $ref: '#/components/schemas/OtelConfig'
+          description: OpenTelemetry collection configuration
+        authenticatedRateLimitTtlSeconds:
+          description: Authenticated rate limit TTL in seconds
+          type:
+          - number
+          - 'null'
+        sandboxCreateRateLimitTtlSeconds:
+          description: Sandbox create rate limit TTL in seconds
+          type:
+          - number
+          - 'null'
+        sandboxLifecycleRateLimitTtlSeconds:
+          description: Sandbox lifecycle rate limit TTL in seconds
+          type:
+          - number
+          - 'null'
+      required:
+      - authenticatedRateLimit
+      - authenticatedRateLimitTtlSeconds
+      - createdAt
+      - createdBy
+      - defaultQueueTimeout
+      - experimentalConfig
+      - id
+      - maxCpuPerSandbox
+      - maxDiskPerSandbox
+      - maxMemoryPerSandbox
+      - maxSecretsPerSandbox
+      - name
+      - otelConfig
+      - personal
+      - previewWarningEnabled
+      - sandboxCreateRateLimit
+      - sandboxCreateRateLimitTtlSeconds
+      - sandboxLifecycleRateLimit
+      - sandboxLifecycleRateLimitTtlSeconds
+      - sandboxLimitedNetworkEgress
+      - scimEnabled
+      - secretQuota
+      - snapshotDeactivationTimeoutMinutes
+      - ssoEnabled
+      - suspended
+      - suspendedAt
+      - suspendedUntil
+      - suspensionCleanupGracePeriodHours
+      - suspensionReason
+      - updatedAt
+      type: object
+    SignedPortPreviewUrl:
+      example:
+        port: 3000
+        sandboxId: '123456'
+        url: https://{port}-{token}.{proxyDomain}
+        token: jl6wb9z5o3eii
+      properties:
+        sandboxId:
+          description: ID of the sandbox
+          example: '123456'
+          type: string
+        port:
+          description: Port number of the signed preview URL
+          example: 3000
+          type: integer
+        token:
+          description: Token of the signed preview URL
+          example: jl6wb9z5o3eii
+          type: string
+        url:
+          description: Signed preview url
+          example: https://{port}-{token}.{proxyDomain}
+          type: string
+      required:
+      - port
+      - sandboxId
+      - token
+      - url
+      type: object
+    MetricSeries:
+      example:
+        metricName: metricName
+        dataPoints:
+        - value: 0.8008281904610115
+          timestamp: timestamp
+        - value: 0.8008281904610115
+          timestamp: timestamp
+      properties:
+        metricName:
+          description: Name of the metric
+          type: string
+        dataPoints:
+          description: Data points for this metric
+          items:
+            $ref: '#/components/schemas/MetricDataPoint'
+          type: array
+      required:
+      - dataPoints
+      - metricName
+      type: object
+    DirectorySyncStatus:
+      description: Connection state of the WorkOS SCIM directory, as last reported by WorkOS (absent when no directory has ever reported in)
+      enum:
+      - active
+      - inactive
+      - deleted
+      type: string
+    UpdateSandboxNetworkSettings:
+      example:
+        networkBlockAll: false
+        domainAllowList: example.com,*.daytona.io
+        networkAllowList: 192.168.1.0/16,10.0.0.0/24
+      properties:
+        networkBlockAll:
+          description: Whether to block all network access for the sandbox
+          example: false
+          type: boolean
+        networkAllowList:
+          description: Comma-separated list of allowed CIDR network addresses for the sandbox
+          example: 192.168.1.0/16,10.0.0.0/24
+          type: string
+        domainAllowList:
+          description: Comma-separated list of allowed domains for the sandbox
+          example: example.com,*.daytona.io
+          type: string
+      type: object
+    TraceSummary:
+      example:
+        traceId: traceId
+        spanCount: 6.027456183070403
+        rootSpanName: rootSpanName
+        startTime: startTime
+        endTime: endTime
+        durationMs: 0.8008281904610115
+        statusCode: statusCode
+      properties:
+        traceId:
+          description: Unique trace identifier
+          type: string
+        rootSpanName:
+          description: Name of the root span
+          type: string
+        startTime:
+          description: Trace start time
+          type: string
+        endTime:
+          description: Trace end time
+          type: string
+        durationMs:
+          description: Total duration in milliseconds
+          type: number
+        spanCount:
+          description: Number of spans in this trace
+          type: number
+        statusCode:
+          description: Status code of the trace
+          type: string
+      required:
+      - durationMs
+      - endTime
+      - rootSpanName
+      - spanCount
+      - startTime
+      - traceId
+      type: object
+    OtelConfig:
+      example:
+        organizationId: organizationId
+        headers:
+          x-api-key: my-api-key
+        endpoint: endpoint
+      properties:
+        endpoint:
+          description: Endpoint
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: Headers
+          example:
+            x-api-key: my-api-key
+          type:
+          - object
+          - 'null'
+        organizationId:
+          description: Organization ID the config belongs to
+          type: string
+      required:
+      - endpoint
+      type: object
+    ToolboxProxyUrl:
+      example:
+        url: https://proxy.app.daytona.io/toolbox
+      properties:
+        url:
+          description: The toolbox proxy URL for the sandbox
+          example: https://proxy.app.daytona.io/toolbox
+          type: string
+      required:
+      - url
+      type: object
+    SandboxState:
+      enum:
+      - creating
+      - restoring
+      - destroyed
+      - destroying
+      - started
+      - stopped
+      - starting
+      - stopping
+      - error
+      - build_failed
+      - pending_build
+      - building_snapshot
+      - unknown
+      - pulling_snapshot
+      - archived
+      - archiving
+      - resizing
+      - snapshotting
+      - forking
+      - pausing
+      - paused
+      - resuming
+      type: string
+    ResizeSandbox:
+      example:
+        disk: 20
+        memory: 4
+        cpu: 2
+      properties:
+        cpu:
+          description: 'CPU cores to allocate to the sandbox (minimum: 1)'
+          example: 2
+          minimum: 1
+          type: integer
+        memory:
+          description: 'Memory in GB to allocate to the sandbox (minimum: 1)'
+          example: 4
+          minimum: 1
+          type: integer
+        disk:
+          description: Disk space in GB to allocate to the sandbox (can only be increased)
+          example: 20
+          minimum: 1
+          type: integer
+      type: object
+    resolveSandboxSecrets_200_response_inner:
+      example:
+        hosts:
+        - api.anthropic.com
+        placeholder: dtn_secret_a7f3b2c1e9d4
+        env: ANTHROPIC_API_KEY
+        value: sk-ant-...
+      properties:
+        env:
+          example: ANTHROPIC_API_KEY
+          type: string
+        placeholder:
+          example: dtn_secret_a7f3b2c1e9d4
+          type: string
+        value:
+          example: sk-ant-...
+          type: string
+        hosts:
+          example:
+          - api.anthropic.com
+          items:
+            type: string
+          type: array
+      type: object
+    LogEntry:
+      example:
+        traceId: traceId
+        spanId: spanId
+        severityText: severityText
+        severityNumber: 0.8008281904610115
+        logAttributes:
+          key: logAttributes
+        body: body
+        serviceName: serviceName
+        resourceAttributes:
+          key: resourceAttributes
+        timestamp: timestamp
+      properties:
+        timestamp:
+          description: Timestamp of the log entry
+          type: string
+        body:
+          description: Log message body
+          type: string
+        severityText:
+          description: Severity level text (e.g., INFO, WARN, ERROR)
+          type: string
+        severityNumber:
+          description: Severity level number
+          type: number
+        serviceName:
+          description: Service name that generated the log
+          type: string
+        resourceAttributes:
+          additionalProperties:
+            type: string
+          description: Resource attributes from OTEL
+          type: object
+        logAttributes:
+          additionalProperties:
+            type: string
+          description: Log-specific attributes
+          type: object
+        traceId:
+          description: Associated trace ID if available
+          type: string
+        spanId:
+          description: Associated span ID if available
+          type: string
+      required:
+      - body
+      - logAttributes
+      - resourceAttributes
+      - serviceName
+      - severityText
+      - timestamp
+      type: object
+    PaginatedTraces:
+      example:
+        total: 1
+        totalPages: 5
+        page: 5
+        items:
+        - traceId: traceId
+          spanCount: 6.027456183070403
+          rootSpanName: rootSpanName
+          startTime: startTime
+          endTime: endTime
+          durationMs: 0.8008281904610115
+          statusCode: statusCode
+        - traceId: traceId
+          spanCount: 6.027456183070403
+          rootSpanName: rootSpanName
+          startTime: startTime
+          endTime: endTime
+          durationMs: 0.8008281904610115
+          statusCode: statusCode
+      properties:
+        items:
+          description: List of trace summaries
+          items:
+            $ref: '#/components/schemas/TraceSummary'
+          type: array
+        total:
+          description: Total number of traces matching the query
+          type: integer
+        page:
+          description: Current page number
+          type: integer
+        totalPages:
+          description: Total number of pages
+          type: integer
+      required:
+      - items
+      - page
+      - total
+      - totalPages
+      type: object
+    CreateBuildInfo:
+      properties:
+        dockerfileContent:
+          description: The Dockerfile content used for the build
+          example: 'FROM node:14
+
+            WORKDIR /app
+
+            COPY . .
+
+            RUN npm install
+
+            CMD ["npm", "start"]'
+          type: string
+        contextHashes:
+          description: The context hashes used for the build
+          example:
+          - hash1
+          - hash2
+          items:
+            type: string
+          type: array
+      required:
+      - dockerfileContent
+      type: object
+    SandboxListSortField:
+      enum:
+      - name
+      - cpu
+      - memoryGib
+      - diskGib
+      - lastActivityAt
+      - createdAt
+      type: string
+    Url:
+      example:
+        url: url
+      properties:
+        url:
+          description: URL response
+          type: string
+      required:
+      - url
+      type: object
+    GpuType:
+      enum:
+      - H100
+      - H200
+      - B300
+      - RTX-PRO-6000
+      - RTX-4090
+      - RTX-5090
+      - MI355X
+      type: string
+      x-enum-varnames:
+      - H100
+      - H200
+      - B300
+      - RTX_PRO_6000
+      - RTX_4090
+      - RTX_5090
+      - MI355X
+    MetricsResponse:
+      example:
+        series:
+        - metricName: metricName
+          dataPoints:
+          - value: 0.8008281904610115
+            timestamp: timestamp
+          - value: 0.8008281904610115
+            timestamp: timestamp
+        - metricName: metricName
+          dataPoints:
+          - value: 0.8008281904610115
+            timestamp: timestamp
+          - value: 0.8008281904610115
+            timestamp: timestamp
+      properties:
+        series:
+          description: List of metric series
+          items:
+            $ref: '#/components/schemas/MetricSeries'
+          type: array
+      required:
+      - series
+      type: object
+    UpdateLastActivity:
+      example:
+        activityType: toolbox
+      properties:
+        activityType:
+          description: Optional type of interaction that reset the activity timer.
+          example: toolbox
+          type: string
+      type: object
+    SandboxClass:
+      enum:
+      - linux-vm
+      - container
+      - windows
+      type: string
+      x-enum-varnames:
+      - LINUX_VM
+      - CONTAINER
+      - WINDOWS
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

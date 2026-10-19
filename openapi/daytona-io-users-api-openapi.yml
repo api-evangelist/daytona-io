@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Users API
-  description: Daytona Users API — users operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Users API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Users
 paths:
@@ -22,11 +21,11 @@ paths:
       parameters: []
       responses:
         '200':
-          description: User details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+          description: User details
       security:
       - bearer: []
       - oauth2:
@@ -36,165 +35,296 @@ paths:
       summary: Get authenticated user
       tags:
       - Users
-  /users/account-providers:
-    get:
-      operationId: getAvailableAccountProviders
+  /users/me/logins:
+    post:
+      description: Called by the dashboard once per completed sign-in. The email access gate evaluates the user and reports the login to analytics; a refused user receives 403 with code EMAIL_ACCESS_DENIED.
+      operationId: recordLogin
       parameters: []
       responses:
-        '200':
-          description: Available account providers
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AccountProvider'
+        '204':
+          description: Login recorded
       security:
       - bearer: []
       - oauth2:
         - openid
         - profile
         - email
-      summary: Get available account providers
+      summary: Record a completed login
+      tags:
+      - Users
+  /users/privacy-policies/accept:
+    post:
+      operationId: acceptPrivacyPolicies
+      parameters: []
+      responses:
+        '204':
+          description: Privacy policies accepted
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Accept the current privacy policies
+      tags:
+      - Users
+  /users/account-providers:
+    get:
+      description: Social sign-in providers (Google, GitHub, ...) enabled for this environment, each flagged with whether the authenticated user has an identity linked through it.
+      operationId: getAccountProviders
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AccountProvider'
+                type: array
+          description: Account providers
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get account providers
       tags:
       - Users
   /users/linked-accounts:
     post:
+      deprecated: true
+      description: Withdrawn. This operation is no longer supported and always responds 410.
       operationId: linkAccount
       parameters: []
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateLinkedAccount'
+        required: true
       responses:
-        '204':
-          description: Account linked successfully
+        '410':
+          description: Account linking is no longer supported
       security:
       - bearer: []
       - oauth2:
         - openid
         - profile
         - email
-      summary: Link account
+      summary: Link account (withdrawn)
       tags:
       - Users
-  /users/linked-accounts/{provider}/{providerUserId}:
-    delete:
-      operationId: unlinkAccount
-      parameters:
-      - name: provider
-        required: true
-        in: path
-        schema:
-          type: string
-      - name: providerUserId
-        required: true
-        in: path
-        schema:
-          type: string
-      responses:
-        '204':
-          description: Account unlinked successfully
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Unlink account
-      tags:
-      - Users
-  /users/mfa/sms/enroll:
-    post:
-      operationId: enrollInSmsMfa
+  /users/me/pending-sso-links:
+    get:
+      operationId: listPendingSsoLinks
       parameters: []
       responses:
         '200':
-          description: SMS MFA enrollment URL
           content:
             application/json:
               schema:
-                type: string
+                items:
+                  $ref: '#/components/schemas/PendingSsoLink'
+                type: array
+          description: Pending SSO account links
       security:
       - bearer: []
       - oauth2:
         - openid
         - profile
         - email
-      summary: Enroll in SMS MFA
+      summary: List pending SSO account links for the authenticated user
+      tags:
+      - Users
+  /users/me/pending-sso-links/{id}/confirm:
+    post:
+      operationId: confirmPendingSsoLink
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '204':
+          description: SSO identity linked
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Confirm (link) a pending SSO account link
+      tags:
+      - Users
+  /users/me/pending-sso-links/{id}:
+    delete:
+      operationId: dismissPendingSsoLink
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '204':
+          description: Pending SSO link dismissed
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Dismiss a pending SSO account link
       tags:
       - Users
 components:
   schemas:
     CreateLinkedAccount:
-      type: object
+      example:
+        provider: provider
+        userId: userId
       properties:
         provider:
-          type: string
           description: The authentication provider of the secondary account
-        userId:
           type: string
+        userId:
           description: The user ID of the secondary account
+          type: string
       required:
       - provider
       - userId
-    UserPublicKey:
       type: object
-      properties:
-        key:
-          type: string
-          description: Public key
-        name:
-          type: string
-          description: Key name
-      required:
-      - key
-      - name
-    User:
-      type: object
+    PendingSsoLink:
+      example:
+        organizationId: organizationId
+        createdAt: createdAt
+        idpName: idpName
+        id: id
+        providerEmail: providerEmail
+        expiresAt: expiresAt
       properties:
         id:
           type: string
+        idpName:
+          description: Display name of the identity provider requesting to be linked
+          type: string
+        organizationId:
+          description: Organization that configured the identity provider
+          type: string
+        providerEmail:
+          description: Email asserted by the identity provider
+          type:
+          - string
+          - 'null'
+        createdAt:
+          type: string
+        expiresAt:
+          type: string
+      required:
+      - createdAt
+      - expiresAt
+      - id
+      - idpName
+      - organizationId
+      - providerEmail
+      type: object
+    User:
+      example:
+        emailVerified: true
+        createdAt: '2000-01-23T04:56:07.000Z'
+        publicKeys:
+        - name: name
+          key: key
+        - name: name
+          key: key
+        pylonEmailHash: pylonEmailHash
+        name: name
+        id: id
+        email: email
+        privacyPoliciesAccepted: true
+      properties:
+        id:
           description: User ID
+          type: string
         name:
-          type: string
           description: User name
-        email:
           type: string
+        email:
           description: User email
+          type: string
+        emailVerified:
+          description: Whether the user email address has been verified
+          type: boolean
+        pylonEmailHash:
+          description: HMAC of the user email for Pylon support-widget identity verification
+          type: string
+        privacyPoliciesAccepted:
+          description: Whether the user has accepted the current privacy policies. Populated on the /users/me endpoint.
+          type: boolean
         publicKeys:
           description: User public keys
-          type: array
           items:
             $ref: '#/components/schemas/UserPublicKey'
+          type: array
         createdAt:
+          description: Creation timestamp
           format: date-time
           type: string
-          description: Creation timestamp
       required:
+      - createdAt
+      - email
+      - emailVerified
       - id
       - name
-      - email
       - publicKeys
-      - createdAt
-    AccountProvider:
       type: object
+    UserPublicKey:
+      example:
+        name: name
+        key: key
       properties:
-        name:
+        key:
+          description: Public key
           type: string
-        displayName:
+        name:
+          description: Key name
           type: string
       required:
+      - key
       - name
+      type: object
+    AccountProvider:
+      example:
+        provider: provider
+        displayName: displayName
+        linked: true
+      properties:
+        provider:
+          description: WorkOS identity provider, e.g. GoogleOAuth or GitHubOAuth
+          type: string
+        displayName:
+          description: Human-readable provider name
+          type: string
+        linked:
+          description: Whether the authenticated user has an identity from this provider
+          type: boolean
+      required:
       - displayName
+      - linked
+      - provider
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Admin Regions API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Regions API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Regions
 paths:
@@ -22,81 +21,102 @@ paths:
       parameters: []
       responses:
         '200':
-          description: List of all shared regions
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/Region'
+                type: array
+          description: List of all shared regions
       summary: List all shared regions
       tags:
       - Regions
 components:
   schemas:
     Region:
-      type: object
+      example:
+        organizationId: 123e4567-e89b-12d3-a456-426614174000
+        otelEndpoint: https://otel-collector.example.com:4318
+        createdAt: '2023-01-01T00:00:00.000Z'
+        snapshotManagerUrl: http://snapshot-manager.example.com
+        regionType: shared
+        proxyUrl: https://proxy.example.com
+        name: us-east-1
+        sshGatewayUrl: http://ssh-gateway.example.com
+        id: '123456789012'
+        updatedAt: '2023-01-01T00:00:00.000Z'
       properties:
         id:
-          type: string
           description: Region ID
           example: '123456789012'
-        name:
           type: string
+        name:
           description: Region name
           example: us-east-1
-        organizationId:
           type: string
+        organizationId:
           description: Organization ID
           example: 123e4567-e89b-12d3-a456-426614174000
-          nullable: true
+          type:
+          - string
+          - 'null'
         regionType:
-          description: The type of the region
-          example: shared
           allOf:
           - $ref: '#/components/schemas/RegionType'
+          description: The type of the region
+          example: shared
         createdAt:
-          type: string
           description: Creation timestamp
           example: '2023-01-01T00:00:00.000Z'
-        updatedAt:
           type: string
+        updatedAt:
           description: Last update timestamp
           example: '2023-01-01T00:00:00.000Z'
-        proxyUrl:
           type: string
+        proxyUrl:
           description: Proxy URL for the region
           example: https://proxy.example.com
-          nullable: true
+          type:
+          - string
+          - 'null'
         sshGatewayUrl:
-          type: string
           description: SSH Gateway URL for the region
           example: http://ssh-gateway.example.com
-          nullable: true
+          type:
+          - string
+          - 'null'
         snapshotManagerUrl:
-          type: string
           description: Snapshot Manager URL for the region
           example: http://snapshot-manager.example.com
-          nullable: true
+          type:
+          - string
+          - 'null'
+        otelEndpoint:
+          description: OTel collector endpoint for sandboxes created in this region. When set, sandbox OTel data is sent to this endpoint instead of the Daytona-hosted collector and will not be available in the Daytona analytics API or dashboard.
+          example: https://otel-collector.example.com:4318
+          type:
+          - string
+          - 'null'
       required:
+      - createdAt
       - id
       - name
       - regionType
-      - createdAt
       - updatedAt
+      type: object
     RegionType:
-      type: string
+      description: The type of the region
       enum:
       - shared
       - dedicated
       - custom
-      description: The type of the region
+      type: string
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

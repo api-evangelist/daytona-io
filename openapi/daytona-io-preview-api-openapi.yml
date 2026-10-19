@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Preview API
-  description: Daytona Preview API — preview operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Preview API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Preview
 paths:
@@ -20,19 +19,21 @@ paths:
     get:
       operationId: isSandboxPublic
       parameters:
-      - name: sandboxId
-        required: true
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Public status of the sandbox
           content:
             application/json:
               schema:
                 type: boolean
+          description: Public status of the sandbox
       security:
       - bearer: []
       - oauth2:
@@ -42,29 +43,69 @@ paths:
       summary: Check if sandbox is public
       tags:
       - Preview
+  /preview/{sandboxId}/preview-warning:
+    get:
+      operationId: isPreviewWarningEnabled
+      parameters:
+      - description: ID of the sandbox, or a signed preview URL token (requires the port query param)
+        explode: false
+        in: path
+        name: sandboxId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Port the signed preview URL token was issued for. Required when sandboxId is a signed token.
+        explode: true
+        in: query
+        name: port
+        required: false
+        schema:
+          type: number
+        style: form
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewWarning'
+          description: Whether the preview warning page is enabled for the sandbox
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Check if the preview warning page is enabled for the sandbox
+      tags:
+      - Preview
   /preview/{sandboxId}/validate/{authToken}:
     get:
       operationId: isValidAuthToken
       parameters:
-      - name: sandboxId
-        required: true
+      - description: ID of the sandbox
+        explode: false
         in: path
-        description: ID of the sandbox
+        name: sandboxId
+        required: true
         schema:
           type: string
-      - name: authToken
-        required: true
+        style: simple
+      - description: Auth token of the sandbox
+        explode: false
         in: path
-        description: Auth token of the sandbox
+        name: authToken
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Sandbox auth token validation status
           content:
             application/json:
               schema:
                 type: boolean
+          description: Sandbox auth token validation status
       security:
       - bearer: []
       - oauth2:
@@ -74,22 +115,54 @@ paths:
       summary: Check if sandbox auth token is valid
       tags:
       - Preview
+  /preview/{sandboxId}/signing-key:
+    get:
+      operationId: getSigningKey
+      parameters:
+      - description: ID of the sandbox
+        explode: false
+        in: path
+        name: sandboxId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Signing key of the sandbox
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get the signing key for a sandbox
+      tags:
+      - Preview
   /preview/{sandboxId}/access:
     get:
       operationId: hasSandboxAccess
       parameters:
-      - name: sandboxId
-        required: true
+      - explode: false
         in: path
+        name: sandboxId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: User access status to the sandbox
           content:
             application/json:
               schema:
                 type: boolean
+          description: User access status to the sandbox
+        '404':
+          description: Sandbox not found. For members of the owning organization whose sandbox was deleted, the body carries code "SANDBOX_DESTROYED".
       security:
       - bearer: []
       - oauth2:
@@ -103,25 +176,29 @@ paths:
     get:
       operationId: getSandboxIdFromSignedPreviewUrlToken
       parameters:
-      - name: signedPreviewToken
-        required: true
+      - description: Signed preview URL token
+        explode: false
         in: path
-        description: Signed preview URL token
+        name: signedPreviewToken
+        required: true
         schema:
           type: string
-      - name: port
-        required: true
+        style: simple
+      - description: Port number to get sandbox ID from signed preview URL token
+        explode: false
         in: path
-        description: Port number to get sandbox ID from signed preview URL token
+        name: port
+        required: true
         schema:
           type: number
+        style: simple
       responses:
         '200':
-          description: Sandbox ID from signed preview URL token
           content:
             application/json:
               schema:
                 type: string
+          description: Sandbox ID from signed preview URL token
       security:
       - bearer: []
       - oauth2:
@@ -132,12 +209,23 @@ paths:
       tags:
       - Preview
 components:
+  schemas:
+    PreviewWarning:
+      example:
+        enabled: true
+      properties:
+        enabled:
+          description: Whether the preview warning page is enabled for the sandbox
+          type: boolean
+      required:
+      - enabled
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

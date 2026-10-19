@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@daytona.com
+    name: Daytona Platforms Inc.
+    url: https://www.daytona.io
+  description: Daytona AI platform API Docs
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Warm Pools API
+  version: '1.0'
+servers:
+- url: http://localhost:3000
+tags:
+- name: warm-pools
+paths:
+  /warm-pools:
+    get:
+      operationId: listWarmPools
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WarmPool'
+                type: array
+          description: List of warm pools
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: List warm pools for the organization
+      tags:
+      - warm-pools
+    post:
+      operationId: createWarmPool
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWarmPool'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarmPool'
+          description: The warm pool has been created
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create a warm pool
+      tags:
+      - warm-pools
+  /warm-pools/{id}:
+    delete:
+      operationId: deleteWarmPool
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Warm pool ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '204':
+          description: The warm pool has been deleted
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Delete a warm pool
+      tags:
+      - warm-pools
+    patch:
+      operationId: updateWarmPool
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Warm pool ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWarmPool'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarmPool'
+          description: The warm pool has been updated
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update a warm pool size
+      tags:
+      - warm-pools
+components:
+  schemas:
+    UpdateWarmPool:
+      example:
+        pool: 5
+      properties:
+        pool:
+          description: New desired number of warm sandboxes (0 drains the pool)
+          example: 5
+          minimum: 0
+          type: number
+      required:
+      - pool
+      type: object
+    WarmPool:
+      example:
+        pool: 0.8008281904610115
+        cpu: 1.4658129805029452
+        osUser: osUser
+        env:
+          key: env
+        target: target
+        currentSize: 6.027456183070403
+        organizationId: organizationId
+        createdAt: createdAt
+        disk: 5.637376656633329
+        mem: 5.962133916683182
+        errorReason: errorReason
+        id: id
+        snapshot: snapshot
+        updatedAt: updatedAt
+      properties:
+        id:
+          type: string
+        organizationId:
+          type: string
+        snapshot:
+          type: string
+        target:
+          type: string
+        pool:
+          description: Desired number of warm sandboxes
+          type: number
+        currentSize:
+          description: Current number of ready warm sandboxes in the pool
+          type: number
+        cpu:
+          type: number
+        mem:
+          type: number
+        disk:
+          type: number
+        osUser:
+          type: string
+        env:
+          additionalProperties:
+            type: string
+          type: object
+        errorReason:
+          type:
+          - string
+          - 'null'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - cpu
+      - createdAt
+      - currentSize
+      - disk
+      - env
+      - id
+      - mem
+      - organizationId
+      - osUser
+      - pool
+      - snapshot
+      - target
+      - updatedAt
+      type: object
+    CreateWarmPool:
+      example:
+        pool: 3
+        snapshot: my-snapshot
+        target: us
+      properties:
+        snapshot:
+          description: The snapshot (id or name) to keep warm sandboxes for. A pool only serves sandbox creates that use this snapshot with the default OS user and no custom env, volumes or secrets.
+          example: my-snapshot
+          type: string
+        pool:
+          description: Number of warm sandboxes to keep ready (capped by the organization quota)
+          example: 3
+          minimum: 1
+          type: number
+        target:
+          description: Target region for the warm pool. Defaults to the organization default region.
+          example: us
+          type: string
+      required:
+      - pool
+      - snapshot
+      type: object
+  securitySchemes:
+    bearer:
+      bearerFormat: JWT
+      description: API Key access
+      scheme: bearer
+      type: http
+    oauth2:
+      openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

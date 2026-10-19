@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Webhooks API
-  description: Daytona Webhooks API — webhooks operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Webhooks API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Webhooks
 paths:
@@ -20,24 +19,28 @@ paths:
     post:
       operationId: WebhookController_getAppPortalAccess
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: organizationId
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: organizationId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: App Portal access generated successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WebhookAppPortalAccess'
+          description: App Portal access generated successfully
       security:
       - bearer: []
       - oauth2:
@@ -51,24 +54,28 @@ paths:
     get:
       operationId: WebhookController_getInitializationStatus
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: organizationId
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: organizationId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Webhook initialization status
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WebhookInitializationStatus'
+          description: Webhook initialization status
         '404':
           description: Webhook initialization status not found
       security:
@@ -80,21 +87,61 @@ paths:
       summary: Get webhook initialization status for an organization
       tags:
       - Webhooks
+  /webhooks/organizations/{organizationId}/initialize:
+    post:
+      operationId: WebhookController_initializeWebhooks
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Organization ID
+        explode: false
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookInitializationStatus'
+          description: Webhooks initialized successfully
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Initialize webhooks for an organization
+      tags:
+      - Webhooks
   /webhooks/organizations/{organizationId}/refresh-endpoints:
     post:
       operationId: WebhookController_refreshEndpoints
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: organizationId
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: organizationId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '204':
           description: Endpoint flag refreshed
@@ -111,62 +158,74 @@ paths:
       - Webhooks
 components:
   schemas:
-    WebhookInitializationStatus:
-      type: object
-      properties:
-        organizationId:
-          type: string
-          description: Organization ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        svixApplicationId:
-          type: string
-          description: The ID of the Svix application
-          example: app_1234567890
-          nullable: true
-        lastError:
-          type: string
-          description: The error reason for the last initialization attempt
-          example: Failed to create Svix application
-          nullable: true
-        retryCount:
-          type: number
-          description: The number of times the initialization has been attempted
-          example: 3
-        createdAt:
-          type: string
-          description: When the webhook initialization was created
-          example: '2023-01-01T00:00:00.000Z'
-        updatedAt:
-          type: string
-          description: When the webhook initialization was last updated
-          example: '2023-01-01T00:00:00.000Z'
-      required:
-      - organizationId
-      - svixApplicationId
-      - lastError
-      - retryCount
-      - createdAt
-      - updatedAt
     WebhookAppPortalAccess:
-      type: object
+      example:
+        url: https://app.svix.com/app_1234567890
+        token: appsk_...
       properties:
         token:
-          type: string
           description: The authentication token for the Svix consumer app portal
           example: appsk_...
-        url:
           type: string
+        url:
           description: The URL to the webhook app portal
           example: https://app.svix.com/app_1234567890
+          type: string
       required:
       - token
       - url
+      type: object
+    WebhookInitializationStatus:
+      example:
+        organizationId: 123e4567-e89b-12d3-a456-426614174000
+        createdAt: '2023-01-01T00:00:00.000Z'
+        lastError: Failed to create Svix application
+        retryCount: 3
+        svixApplicationId: app_1234567890
+        updatedAt: '2023-01-01T00:00:00.000Z'
+      properties:
+        organizationId:
+          description: Organization ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+        svixApplicationId:
+          description: The ID of the Svix application
+          example: app_1234567890
+          type:
+          - string
+          - 'null'
+        lastError:
+          description: The error reason for the last initialization attempt
+          example: Failed to create Svix application
+          type:
+          - string
+          - 'null'
+        retryCount:
+          description: The number of times the initialization has been attempted
+          example: 3
+          type: number
+        createdAt:
+          description: When the webhook initialization was created
+          example: '2023-01-01T00:00:00.000Z'
+          type: string
+        updatedAt:
+          description: When the webhook initialization was last updated
+          example: '2023-01-01T00:00:00.000Z'
+          type: string
+      required:
+      - createdAt
+      - lastError
+      - organizationId
+      - retryCount
+      - svixApplicationId
+      - updatedAt
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

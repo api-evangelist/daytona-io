@@ -1,71 +1,41 @@
 openapi: 3.2.0
 info:
-  title: Daytona API Keys API
-  description: Daytona Api Keys API — api-keys operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona API Keys API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: API Keys
 paths:
   /api-keys:
-    post:
-      operationId: createApiKey
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateApiKey'
-      responses:
-        '201':
-          description: API key created successfully.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiKeyResponse'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Create API key
-      tags:
-      - API Keys
     get:
       operationId: listApiKeys
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: API keys retrieved successfully.
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/ApiKeyList'
+                type: array
+          description: API keys retrieved successfully.
         '500':
           description: Error fetching API keys.
       security:
@@ -77,23 +47,58 @@ paths:
       summary: List API keys
       tags:
       - API Keys
+    post:
+      operationId: createApiKey
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApiKey'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyResponse'
+          description: API key created successfully.
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create API key
+      tags:
+      - API Keys
   /api-keys/current:
     get:
       operationId: getCurrentApiKey
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: API key retrieved successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiKeyList'
+          description: API key retrieved successfully.
       security:
       - bearer: []
       - oauth2:
@@ -104,50 +109,24 @@ paths:
       tags:
       - API Keys
   /api-keys/{name}:
-    get:
-      operationId: getApiKey
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      - name: name
-        required: true
-        in: path
-        schema:
-          type: string
-      responses:
-        '200':
-          description: API key retrieved successfully.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiKeyList'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Get API key
-      tags:
-      - API Keys
     delete:
       operationId: deleteApiKey
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: name
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: name
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '204':
           description: API key deleted successfully.
@@ -160,26 +139,66 @@ paths:
       summary: Delete API key
       tags:
       - API Keys
+    get:
+      operationId: getApiKey
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyList'
+          description: API key retrieved successfully.
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get API key
+      tags:
+      - API Keys
   /api-keys/{userId}/{name}:
     delete:
       operationId: deleteApiKeyForUser
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: userId
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: userId
+        required: true
         schema:
           type: string
-      - name: name
-        required: true
+        style: simple
+      - explode: false
         in: path
+        name: name
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '204':
           description: API key deleted successfully.
@@ -194,67 +213,21 @@ paths:
       - API Keys
 components:
   schemas:
-    ApiKeyResponse:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the API key
-          example: My API Key
-        value:
-          type: string
-          description: The API key value
-          example: bb_sk_1234567890abcdef
-        createdAt:
-          format: date-time
-          type: string
-          description: When the API key was created
-          example: '2024-03-14T12:00:00.000Z'
-        permissions:
-          type: array
-          description: The list of organization resource permissions assigned to the API key
-          items:
-            type: string
-            enum:
-            - write:registries
-            - delete:registries
-            - write:snapshots
-            - delete:snapshots
-            - write:sandboxes
-            - delete:sandboxes
-            - read:volumes
-            - write:volumes
-            - delete:volumes
-            - write:regions
-            - delete:regions
-            - read:runners
-            - write:runners
-            - delete:runners
-            - read:audit_logs
-        expiresAt:
-          format: date-time
-          type: string
-          description: When the API key expires
-          example: '2025-06-09T12:00:00.000Z'
-          nullable: true
-      required:
-      - name
-      - value
-      - createdAt
-      - permissions
-      - expiresAt
     CreateApiKey:
-      type: object
+      example:
+        permissions:
+        - write:registries
+        - write:registries
+        name: My API Key
+        expiresAt: '2025-06-09T12:00:00.000Z'
       properties:
         name:
-          type: string
           description: The name of the API key
           example: My API Key
+          type: string
         permissions:
-          type: array
           description: The list of organization resource permissions explicitly assigned to the API key
           items:
-            type: string
             enum:
             - write:registries
             - delete:registries
@@ -271,36 +244,76 @@ components:
             - write:runners
             - delete:runners
             - read:audit_logs
+            - manage:api_keys
+            - manage:secrets
+            - read:limits
+            - manage:sso
+            - read:billing
+            - manage:billing
+            type: string
+            x-enum-varnames:
+            - WRITE_REGISTRIES
+            - DELETE_REGISTRIES
+            - WRITE_SNAPSHOTS
+            - DELETE_SNAPSHOTS
+            - WRITE_SANDBOXES
+            - DELETE_SANDBOXES
+            - READ_VOLUMES
+            - WRITE_VOLUMES
+            - DELETE_VOLUMES
+            - WRITE_REGIONS
+            - DELETE_REGIONS
+            - READ_RUNNERS
+            - WRITE_RUNNERS
+            - DELETE_RUNNERS
+            - READ_AUDIT_LOGS
+            - MANAGE_API_KEYS
+            - MANAGE_SECRETS
+            - READ_LIMITS
+            - MANAGE_SSO
+            - READ_BILLING
+            - MANAGE_BILLING
+          type: array
         expiresAt:
-          format: date-time
-          type: string
           description: When the API key expires
           example: '2025-06-09T12:00:00.000Z'
-          nullable: true
+          format: date-time
+          type:
+          - string
+          - 'null'
       required:
       - name
       - permissions
-    ApiKeyList:
       type: object
+    ApiKeyList:
+      example:
+        organizationId: 123e4567-e89b-12d3-a456-426614174000
+        createdAt: '2024-03-14T12:00:00.000Z'
+        lastUsedAt: '2024-03-14T12:00:00.000Z'
+        permissions:
+        - write:registries
+        - write:registries
+        name: My API Key
+        value: bb_********************def
+        userId: '123'
+        expiresAt: '2024-03-14T12:00:00.000Z'
       properties:
         name:
-          type: string
           description: The name of the API key
           example: My API Key
-        value:
           type: string
+        value:
           description: The masked API key value
           example: bb_********************def
-        createdAt:
-          format: date-time
           type: string
+        createdAt:
           description: When the API key was created
           example: '2024-03-14T12:00:00.000Z'
+          format: date-time
+          type: string
         permissions:
-          type: array
           description: The list of organization resource permissions assigned to the API key
           items:
-            type: string
             enum:
             - write:registries
             - delete:registries
@@ -317,36 +330,159 @@ components:
             - write:runners
             - delete:runners
             - read:audit_logs
+            - manage:api_keys
+            - manage:secrets
+            - read:limits
+            - manage:sso
+            - read:billing
+            - manage:billing
+            type: string
+            x-enum-varnames:
+            - WRITE_REGISTRIES
+            - DELETE_REGISTRIES
+            - WRITE_SNAPSHOTS
+            - DELETE_SNAPSHOTS
+            - WRITE_SANDBOXES
+            - DELETE_SANDBOXES
+            - READ_VOLUMES
+            - WRITE_VOLUMES
+            - DELETE_VOLUMES
+            - WRITE_REGIONS
+            - DELETE_REGIONS
+            - READ_RUNNERS
+            - WRITE_RUNNERS
+            - DELETE_RUNNERS
+            - READ_AUDIT_LOGS
+            - MANAGE_API_KEYS
+            - MANAGE_SECRETS
+            - READ_LIMITS
+            - MANAGE_SSO
+            - READ_BILLING
+            - MANAGE_BILLING
+          type: array
         lastUsedAt:
-          format: date-time
-          type: string
           description: When the API key was last used
           example: '2024-03-14T12:00:00.000Z'
-          nullable: true
-        expiresAt:
           format: date-time
-          type: string
+          type:
+          - string
+          - 'null'
+        expiresAt:
           description: When the API key expires
           example: '2024-03-14T12:00:00.000Z'
-          nullable: true
+          format: date-time
+          type:
+          - string
+          - 'null'
         userId:
-          type: string
           description: The user ID of the user who created the API key
           example: '123'
+          type: string
+        organizationId:
+          description: The organization ID associated with the API key
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
       required:
-      - name
-      - value
       - createdAt
-      - permissions
-      - lastUsedAt
       - expiresAt
+      - lastUsedAt
+      - name
+      - permissions
       - userId
+      - value
+      type: object
+    ApiKeyResponse:
+      example:
+        createdAt: '2024-03-14T12:00:00.000Z'
+        permissions:
+        - write:registries
+        - write:registries
+        name: My API Key
+        value: bb_sk_1234567890abcdef
+        expiresAt: '2025-06-09T12:00:00.000Z'
+      properties:
+        name:
+          description: The name of the API key
+          example: My API Key
+          type: string
+        value:
+          description: The API key value
+          example: bb_sk_1234567890abcdef
+          type: string
+        createdAt:
+          description: When the API key was created
+          example: '2024-03-14T12:00:00.000Z'
+          format: date-time
+          type: string
+        permissions:
+          description: The list of organization resource permissions assigned to the API key
+          items:
+            enum:
+            - write:registries
+            - delete:registries
+            - write:snapshots
+            - delete:snapshots
+            - write:sandboxes
+            - delete:sandboxes
+            - read:volumes
+            - write:volumes
+            - delete:volumes
+            - write:regions
+            - delete:regions
+            - read:runners
+            - write:runners
+            - delete:runners
+            - read:audit_logs
+            - manage:api_keys
+            - manage:secrets
+            - read:limits
+            - manage:sso
+            - read:billing
+            - manage:billing
+            type: string
+            x-enum-varnames:
+            - WRITE_REGISTRIES
+            - DELETE_REGISTRIES
+            - WRITE_SNAPSHOTS
+            - DELETE_SNAPSHOTS
+            - WRITE_SANDBOXES
+            - DELETE_SANDBOXES
+            - READ_VOLUMES
+            - WRITE_VOLUMES
+            - DELETE_VOLUMES
+            - WRITE_REGIONS
+            - DELETE_REGIONS
+            - READ_RUNNERS
+            - WRITE_RUNNERS
+            - DELETE_RUNNERS
+            - READ_AUDIT_LOGS
+            - MANAGE_API_KEYS
+            - MANAGE_SECRETS
+            - READ_LIMITS
+            - MANAGE_SSO
+            - READ_BILLING
+            - MANAGE_BILLING
+          type: array
+        expiresAt:
+          description: When the API key expires
+          example: '2025-06-09T12:00:00.000Z'
+          format: date-time
+          type:
+          - string
+          - 'null'
+      required:
+      - createdAt
+      - expiresAt
+      - name
+      - permissions
+      - value
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

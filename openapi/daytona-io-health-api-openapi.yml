@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Health API
-  description: Daytona Health API — Health operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Health API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Health
 paths:
@@ -33,109 +32,17 @@ paths:
       parameters: []
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthController_check_200_response'
           description: The Health Check is successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: ok
-                  info:
-                    type: object
-                    example:
-                      database:
-                        status: up
-                    additionalProperties:
-                      type: object
-                      required:
-                      - status
-                      properties:
-                        status:
-                          type: string
-                      additionalProperties: true
-                    nullable: true
-                  error:
-                    type: object
-                    example: {}
-                    additionalProperties:
-                      type: object
-                      required:
-                      - status
-                      properties:
-                        status:
-                          type: string
-                      additionalProperties: true
-                    nullable: true
-                  details:
-                    type: object
-                    example:
-                      database:
-                        status: up
-                    additionalProperties:
-                      type: object
-                      required:
-                      - status
-                      properties:
-                        status:
-                          type: string
-                      additionalProperties: true
         '503':
-          description: The Health Check is not successful
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  info:
-                    type: object
-                    example:
-                      database:
-                        status: up
-                    additionalProperties:
-                      type: object
-                      required:
-                      - status
-                      properties:
-                        status:
-                          type: string
-                      additionalProperties: true
-                    nullable: true
-                  error:
-                    type: object
-                    example:
-                      redis:
-                        status: down
-                        message: Could not connect
-                    additionalProperties:
-                      type: object
-                      required:
-                      - status
-                      properties:
-                        status:
-                          type: string
-                      additionalProperties: true
-                    nullable: true
-                  details:
-                    type: object
-                    example:
-                      database:
-                        status: up
-                      redis:
-                        status: down
-                        message: Could not connect
-                    additionalProperties:
-                      type: object
-                      required:
-                      - status
-                      properties:
-                        status:
-                          type: string
-                      additionalProperties: true
+                $ref: '#/components/schemas/HealthController_check_503_response'
+          description: The Health Check is not successful
       security:
       - bearer: []
       tags:
@@ -143,12 +50,109 @@ paths:
       summary: Health controller check
       x-summary-source: derived
 components:
+  schemas:
+    HealthController_check_503_response:
+      example:
+        details:
+          database:
+            status: up
+          redis:
+            status: down
+            message: Could not connect
+        error:
+          redis:
+            status: down
+            message: Could not connect
+        status: error
+        info:
+          database:
+            status: up
+      properties:
+        status:
+          example: error
+          type: string
+        info:
+          additionalProperties:
+            $ref: '#/components/schemas/HealthController_check_200_response_info_value'
+          example:
+            database:
+              status: up
+          type:
+          - object
+          - 'null'
+        error:
+          additionalProperties:
+            $ref: '#/components/schemas/HealthController_check_200_response_info_value'
+          example:
+            redis:
+              status: down
+              message: Could not connect
+          type:
+          - object
+          - 'null'
+        details:
+          additionalProperties:
+            $ref: '#/components/schemas/HealthController_check_200_response_info_value'
+          example:
+            database:
+              status: up
+            redis:
+              status: down
+              message: Could not connect
+          type: object
+      type: object
+    HealthController_check_200_response_info_value:
+      additionalProperties: true
+      properties:
+        status:
+          type: string
+      required:
+      - status
+      type: object
+    HealthController_check_200_response:
+      example:
+        details:
+          database:
+            status: up
+        error: {}
+        status: ok
+        info:
+          database:
+            status: up
+      properties:
+        status:
+          example: ok
+          type: string
+        info:
+          additionalProperties:
+            $ref: '#/components/schemas/HealthController_check_200_response_info_value'
+          example:
+            database:
+              status: up
+          type:
+          - object
+          - 'null'
+        error:
+          additionalProperties:
+            $ref: '#/components/schemas/HealthController_check_200_response_info_value'
+          example: {}
+          type:
+          - object
+          - 'null'
+        details:
+          additionalProperties:
+            $ref: '#/components/schemas/HealthController_check_200_response_info_value'
+          example:
+            database:
+              status: up
+          type: object
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

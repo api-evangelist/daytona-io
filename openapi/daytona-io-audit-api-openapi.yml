@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Admin Audit API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Audit API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Audit
 paths:
@@ -20,56 +19,150 @@ paths:
     get:
       operationId: getOrganizationAuditLogs
       parameters:
-      - name: organizationId
-        required: true
+      - description: Organization ID
+        explode: false
         in: path
-        description: Organization ID
+        name: organizationId
+        required: true
         schema:
           type: string
-      - name: page
-        required: false
+        style: simple
+      - description: Page number of the results
+        explode: true
         in: query
-        description: Page number of the results
+        name: page
+        required: false
         schema:
-          minimum: 1
           default: 1
-          type: number
-      - name: limit
-        required: false
-        in: query
-        description: Number of results per page
-        schema:
           minimum: 1
-          maximum: 200
+          type: integer
+        style: form
+      - description: Number of results per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
           default: 100
-          type: number
-      - name: from
-        required: false
+          maximum: 200
+          minimum: 1
+          type: integer
+        style: form
+      - deprecated: true
+        description: Deprecated alias for `createdAt[gte]`. From date (ISO 8601 format).
+        explode: true
         in: query
-        description: From date (ISO 8601 format)
+        name: from
+        required: false
         schema:
           format: date-time
           type: string
-      - name: to
-        required: false
+        style: form
+      - deprecated: true
+        description: Deprecated alias for `createdAt[lte]`. To date (ISO 8601 format).
+        explode: true
         in: query
-        description: To date (ISO 8601 format)
+        name: to
+        required: false
         schema:
           format: date-time
           type: string
-      - name: nextToken
-        required: false
+        style: form
+      - description: Token for cursor-based pagination. When provided, takes precedence over page parameter.
+        explode: true
         in: query
-        description: Token for cursor-based pagination. When provided, takes precedence over page parameter.
+        name: nextToken
+        required: false
         schema:
           type: string
+        style: form
+      - description: Filter by audit log ID.
+        explode: true
+        in: query
+        name: id
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by actor user ID.
+        explode: true
+        in: query
+        name: actorId
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by actor email.
+        explode: true
+        in: query
+        name: actorEmail
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by actor API key prefix.
+        explode: true
+        in: query
+        name: actorApiKeyPrefix
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by actor API key suffix.
+        explode: true
+        in: query
+        name: actorApiKeySuffix
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by action.
+        explode: true
+        in: query
+        name: action
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by target type.
+        explode: true
+        in: query
+        name: targetType
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by target ID.
+        explode: true
+        in: query
+        name: targetId
+        required: false
+        schema:
+          $ref: '#/components/schemas/StringFilter'
+        style: form
+      - description: Filter by HTTP status code.
+        explode: true
+        in: query
+        name: statusCode
+        required: false
+        schema:
+          $ref: '#/components/schemas/IntFilter'
+        style: form
+      - description: Filter by creation timestamp.
+        explode: true
+        in: query
+        name: createdAt
+        required: false
+        schema:
+          $ref: '#/components/schemas/DateFilter'
+        style: form
       responses:
         '200':
-          description: Paginated list of organization audit logs
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedAuditLogs'
+          description: Paginated list of organization audit logs
       security:
       - bearer: []
       - oauth2:
@@ -79,10 +172,228 @@ paths:
       summary: Get audit logs for organization
       tags:
       - Audit
+  /audit/scenarios:
+    get:
+      description: Returns the supported audit log actions grouped by target type. The list is derived at runtime from the audited routes and system events, so it always reflects what can actually appear in the audit log.
+      operationId: getAuditScenarios
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditScenarios'
+          description: Supported audit log scenarios grouped by target type
+      summary: Get supported audit log scenarios
+      tags:
+      - Audit
 components:
   schemas:
-    AuditLog:
+    AuditScenarios:
+      example:
+        targets:
+        - targetType: api_key
+          actions:
+          - create
+          - create
+        - targetType: api_key
+          actions:
+          - create
+          - create
+      properties:
+        targets:
+          description: Supported audit log scenarios grouped by target type. Derived at runtime from the audited routes and system events, sorted by target type.
+          items:
+            $ref: '#/components/schemas/AuditTargetScenario'
+          type: array
+      required:
+      - targets
       type: object
+    AuditTargetScenario:
+      example:
+        targetType: api_key
+        actions:
+        - create
+        - create
+      properties:
+        targetType:
+          description: Resource type the actions apply to. Scenarios that are not scoped to a specific resource type (e.g. leaving an organization) are grouped under "other".
+          enum:
+          - api_key
+          - organization
+          - organization_invitation
+          - organization_role
+          - organization_user
+          - docker_registry
+          - runner
+          - sandbox
+          - snapshot
+          - user
+          - volume
+          - warm_pool
+          - region
+          - secret
+          - other
+          - identity_provider
+          type: string
+        actions:
+          description: Actions that can be audited against this target type, sorted alphabetically.
+          items:
+            enum:
+            - create
+            - read
+            - update
+            - delete
+            - login
+            - register
+            - change_password
+            - set_default
+            - update_access
+            - update_quota
+            - create_region_quota
+            - update_region_quota
+            - delete_region_quota
+            - suspend
+            - unsuspend
+            - accept
+            - decline
+            - link_account
+            - unlink_account
+            - accept_privacy_policies
+            - leave_organization
+            - regenerate_key_pair
+            - update_scheduling
+            - update_draining
+            - start
+            - stop
+            - resize
+            - replace_labels
+            - create_backup
+            - update_public_status
+            - rotate_signing_key
+            - set_auto_stop_interval
+            - set_auto_pause_interval
+            - set_ttl
+            - set_auto_archive_interval
+            - set_auto_delete_interval
+            - archive
+            - snapshot
+            - fork
+            - pause
+            - get_port_preview_url
+            - set_general_status
+            - activate
+            - deactivate
+            - update_network_settings
+            - update_secrets
+            - send_webhook_message
+            - initialize_webhooks
+            - update_sandbox_default_limited_network_egress
+            - update_preview_warning
+            - update_sso_enabled
+            - generate_workos_admin_portal_link
+            - update_scim_enabled
+            - update_otel_config
+            - delete_otel_config
+            - update_default_queue_timeout
+            - create_ssh_access
+            - revoke_ssh_access
+            - recover
+            - regenerate_proxy_api_key
+            - regenerate_ssh_gateway_api_key
+            - regenerate_snapshot_manager_credentials
+            - auto_stop
+            - auto_archive
+            - auto_delete
+            - ttl_expire
+            - queue_timeout_expire
+            - spot_evict
+            type: string
+          type: array
+      required:
+      - actions
+      - targetType
+      type: object
+    PaginatedAuditLogs:
+      example:
+        total: 6
+        nextToken: nextToken
+        totalPages: 5
+        page: 1
+        items:
+        - actorApiKeyPrefix: actorApiKeyPrefix
+          metadata:
+            key: ''
+          targetId: targetId
+          errorMessage: errorMessage
+          ipAddress: ipAddress
+          actorEmail: actorEmail
+          targetType: targetType
+          userAgent: userAgent
+          source: source
+          organizationId: organizationId
+          createdAt: '2000-01-23T04:56:07.000Z'
+          actorId: actorId
+          action: action
+          id: id
+          actorApiKeySuffix: actorApiKeySuffix
+          statusCode: 0.8008281904610115
+        - actorApiKeyPrefix: actorApiKeyPrefix
+          metadata:
+            key: ''
+          targetId: targetId
+          errorMessage: errorMessage
+          ipAddress: ipAddress
+          actorEmail: actorEmail
+          targetType: targetType
+          userAgent: userAgent
+          source: source
+          organizationId: organizationId
+          createdAt: '2000-01-23T04:56:07.000Z'
+          actorId: actorId
+          action: action
+          id: id
+          actorApiKeySuffix: actorApiKeySuffix
+          statusCode: 0.8008281904610115
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AuditLog'
+          type: array
+        total:
+          type: integer
+        page:
+          type: integer
+        totalPages:
+          type: integer
+        nextToken:
+          description: Token for next page in cursor-based pagination
+          type: string
+      required:
+      - items
+      - page
+      - total
+      - totalPages
+      type: object
+    AuditLog:
+      example:
+        actorApiKeyPrefix: actorApiKeyPrefix
+        metadata:
+          key: ''
+        targetId: targetId
+        errorMessage: errorMessage
+        ipAddress: ipAddress
+        actorEmail: actorEmail
+        targetType: targetType
+        userAgent: userAgent
+        source: source
+        organizationId: organizationId
+        createdAt: '2000-01-23T04:56:07.000Z'
+        actorId: actorId
+        action: action
+        id: id
+        actorApiKeySuffix: actorApiKeySuffix
+        statusCode: 0.8008281904610115
       properties:
         id:
           type: string
@@ -113,44 +424,93 @@ components:
         source:
           type: string
         metadata:
-          type: object
           additionalProperties: true
+          type: object
         createdAt:
           format: date-time
           type: string
       required:
-      - id
-      - actorId
-      - actorEmail
       - action
+      - actorEmail
+      - actorId
       - createdAt
-    PaginatedAuditLogs:
+      - id
       type: object
+    IntFilter:
       properties:
-        items:
-          type: array
+        eq:
+          description: Match values equal to this value.
+          type: number
+        not:
+          description: Match values not equal to this value.
+          type: number
+        in:
+          description: Match values present in this list. Accepts comma-separated values or repeated query parameters. Maximum 100 entries.
           items:
-            $ref: '#/components/schemas/AuditLog'
-        total:
+            type: number
+          type: array
+        notIn:
+          description: Match values not present in this list. Accepts comma-separated values or repeated query parameters. Maximum 100 entries.
+          items:
+            type: number
+          type: array
+        gte:
+          description: Match values greater than or equal to this value.
           type: number
-        page:
+        lte:
+          description: Match values less than or equal to this value.
           type: number
-        totalPages:
+        gt:
+          description: Match values strictly greater than this value.
           type: number
-        nextToken:
+        lt:
+          description: Match values strictly less than this value.
+          type: number
+      type: object
+    StringFilter:
+      properties:
+        eq:
+          description: Match values equal to this value.
           type: string
-          description: Token for next page in cursor-based pagination
-      required:
-      - items
-      - total
-      - page
-      - totalPages
+        not:
+          description: Match values not equal to this value.
+          type: string
+        in:
+          description: Match values present in this list. Accepts comma-separated values or repeated query parameters. Maximum 100 entries.
+          items:
+            type: string
+          type: array
+        notIn:
+          description: Match values not present in this list. Accepts comma-separated values or repeated query parameters. Maximum 100 entries.
+          items:
+            type: string
+          type: array
+      type: object
+    DateFilter:
+      properties:
+        gte:
+          description: Match values greater than or equal to this timestamp (ISO 8601).
+          format: date-time
+          type: string
+        lte:
+          description: Match values less than or equal to this timestamp (ISO 8601).
+          format: date-time
+          type: string
+        gt:
+          description: Match values strictly greater than this timestamp (ISO 8601).
+          format: date-time
+          type: string
+        lt:
+          description: Match values strictly less than this timestamp (ISO 8601).
+          format: date-time
+          type: string
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

@@ -127,22 +127,6 @@ paths:
                 type: string
 components:
   schemas:
-    ListContextsResponse:
-      type: object
-      required:
-      - contexts
-      properties:
-        contexts:
-          type: array
-          items:
-            $ref: '#/components/schemas/InterpreterContext'
-    CreateContextRequest:
-      type: object
-      properties:
-        cwd:
-          type: string
-        language:
-          type: string
     InterpreterContext:
       type: object
       required:
@@ -162,3 +146,19 @@ components:
           type: string
         language:
           type: string
+    CreateContextRequest:
+      type: object
+      properties:
+        cwd:
+          type: string
+        language:
+          type: string
+    ListContextsResponse:
+      type: object
+      required:
+      - contexts
+      properties:
+        contexts:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterpreterContext'

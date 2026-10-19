@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Admin Object Storage API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Object Storage API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Object Storage
 paths:
@@ -20,19 +19,21 @@ paths:
     get:
       operationId: getPushAccess
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Temporary storage access has been generated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/StorageAccessDto'
+          description: Temporary storage access has been generated
       security:
       - bearer: []
       - oauth2:
@@ -45,45 +46,58 @@ paths:
 components:
   schemas:
     StorageAccessDto:
-      type: object
+      example:
+        organizationId: 123e4567-e89b-12d3-a456-426614174000
+        bucket: daytona
+        accessKey: temp-user-123
+        sessionToken: eyJhbGciOiJIUzI1NiIs...
+        secret: abchbGciOiJIUzI1NiIs...
+        region: us-east-1
+        storageUrl: storage.example.com
       properties:
         accessKey:
-          type: string
           description: Access key for storage authentication
           example: temp-user-123
-        secret:
           type: string
+        secret:
           description: Secret key for storage authentication
           example: abchbGciOiJIUzI1NiIs...
-        sessionToken:
           type: string
+        sessionToken:
           description: Session token for storage authentication
           example: eyJhbGciOiJIUzI1NiIs...
-        storageUrl:
           type: string
+        storageUrl:
           description: Storage URL
           example: storage.example.com
-        organizationId:
           type: string
+        organizationId:
           description: Organization ID
           example: 123e4567-e89b-12d3-a456-426614174000
-        bucket:
           type: string
+        bucket:
           description: S3 bucket name
           example: daytona
+          type: string
+        region:
+          description: Region for the storage backend (e.g. "us-east-2")
+          example: us-east-1
+          type: string
       required:
       - accessKey
+      - bucket
+      - organizationId
+      - region
       - secret
       - sessionToken
       - storageUrl
-      - organizationId
-      - bucket
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

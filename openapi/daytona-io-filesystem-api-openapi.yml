@@ -322,6 +322,64 @@ paths:
               - file
 components:
   schemas:
+    Match:
+      type: object
+      required:
+      - content
+      - file
+      - line
+      properties:
+        content:
+          type: string
+        file:
+          type: string
+        line:
+          type: integer
+    gin.H:
+      type: object
+      additionalProperties: {}
+    SearchFilesResponse:
+      type: object
+      required:
+      - files
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+    FilesDownloadRequest:
+      type: object
+      required:
+      - paths
+      properties:
+        paths:
+          type: array
+          items:
+            type: string
+    ReplaceResult:
+      type: object
+      properties:
+        error:
+          type: string
+        file:
+          type: string
+        success:
+          type: boolean
+    ReplaceRequest:
+      type: object
+      required:
+      - files
+      - newValue
+      - pattern
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+        newValue:
+          type: string
+        pattern:
+          type: string
     FileInfo:
       type: object
       required:
@@ -350,61 +408,3 @@ components:
           type: string
         size:
           type: integer
-    ReplaceRequest:
-      type: object
-      required:
-      - files
-      - newValue
-      - pattern
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-        newValue:
-          type: string
-        pattern:
-          type: string
-    gin.H:
-      type: object
-      additionalProperties: {}
-    ReplaceResult:
-      type: object
-      properties:
-        error:
-          type: string
-        file:
-          type: string
-        success:
-          type: boolean
-    FilesDownloadRequest:
-      type: object
-      required:
-      - paths
-      properties:
-        paths:
-          type: array
-          items:
-            type: string
-    Match:
-      type: object
-      required:
-      - content
-      - file
-      - line
-      properties:
-        content:
-          type: string
-        file:
-          type: string
-        line:
-          type: integer
-    SearchFilesResponse:
-      type: object
-      required:
-      - files
-      properties:
-        files:
-          type: array
-          items:
-            type: string

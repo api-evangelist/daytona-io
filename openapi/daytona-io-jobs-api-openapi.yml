@@ -1,18 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Daytona Admin Jobs API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Jobs API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: Jobs
 paths:
@@ -21,42 +20,50 @@ paths:
       description: Returns a paginated list of jobs for the runner, optionally filtered by status.
       operationId: listJobs
       parameters:
-      - name: page
-        required: false
+      - description: Page number of the results
+        explode: true
         in: query
-        description: Page number of the results
+        name: page
+        required: false
         schema:
-          minimum: 1
           default: 1
-          type: number
-      - name: limit
-        required: false
-        in: query
-        description: 'Maximum number of jobs to return (default: 100, max: 500)'
-        schema:
           minimum: 1
-          maximum: 200
-          default: 100
-          type: number
-      - name: status
-        required: false
+          type: integer
+        style: form
+      - description: 'Maximum number of jobs to return (default: 100, max: 500)'
+        explode: true
         in: query
-        description: Filter jobs by status
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 200
+          minimum: 1
+          type: integer
+        style: form
+      - description: Filter jobs by status
+        explode: true
+        in: query
+        name: status
+        required: false
         schema:
           $ref: '#/components/schemas/JobStatus'
-      - name: offset
-        required: false
+        style: form
+      - description: 'Number of jobs to skip for pagination (default: 0)'
+        explode: true
         in: query
-        description: 'Number of jobs to skip for pagination (default: 0)'
+        name: offset
+        required: false
         schema:
-          type: number
+          type: integer
+        style: form
       responses:
         '200':
-          description: List of jobs for the runner
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedJobs'
+          description: List of jobs for the runner
       security:
       - bearer: []
       - oauth2:
@@ -71,25 +78,29 @@ paths:
       description: Long poll endpoint for runners to fetch pending jobs. Returns immediately if jobs are available, otherwise waits up to timeout seconds.
       operationId: pollJobs
       parameters:
-      - name: timeout
-        required: false
+      - description: 'Timeout in seconds for long polling (default: 30, max: 60)'
+        explode: true
         in: query
-        description: 'Timeout in seconds for long polling (default: 30, max: 60)'
-        schema:
-          type: number
-      - name: limit
+        name: timeout
         required: false
-        in: query
-        description: 'Maximum number of jobs to return (default: 10, max: 100)'
         schema:
-          type: number
+          type: integer
+        style: form
+      - description: 'Maximum number of jobs to return (default: 10, max: 100)'
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
       responses:
         '200':
-          description: List of jobs for the runner
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PollJobsResponse'
+          description: List of jobs for the runner
       security:
       - bearer: []
       - oauth2:
@@ -103,19 +114,21 @@ paths:
     get:
       operationId: getJob
       parameters:
-      - name: jobId
-        required: true
+      - description: ID of the job
+        explode: false
         in: path
-        description: ID of the job
+        name: jobId
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: Job details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Job'
+          description: Job details
       security:
       - bearer: []
       - oauth2:
@@ -129,25 +142,27 @@ paths:
     post:
       operationId: updateJobStatus
       parameters:
-      - name: jobId
-        required: true
+      - description: ID of the job
+        explode: false
         in: path
-        description: ID of the job
+        name: jobId
+        required: true
         schema:
           type: string
+        style: simple
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateJobStatus'
+        required: true
       responses:
         '200':
-          description: Job status updated successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Job'
+          description: Job status updated successfully
       security:
       - bearer: []
       - oauth2:
@@ -159,15 +174,29 @@ paths:
       - Jobs
 components:
   schemas:
-    JobStatus:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - COMPLETED
-      - FAILED
+    UpdateJobStatus:
+      example:
+        resultMetadata: resultMetadata
+        errorMessage: Failed to create sandbox
+        status: IN_PROGRESS
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/JobStatus'
+          description: The new status of the job
+          example: IN_PROGRESS
+        errorMessage:
+          description: Error message if the job failed
+          example: Failed to create sandbox
+          type: string
+        resultMetadata:
+          description: Result metadata for the job
+          type: string
+      required:
+      - status
+      type: object
     JobType:
-      type: string
+      description: The type of the job
       enum:
       - CREATE_SANDBOX
       - START_SANDBOX
@@ -181,117 +210,172 @@ components:
       - INSPECT_SNAPSHOT_IN_REGISTRY
       - REMOVE_SNAPSHOT
       - UPDATE_SANDBOX_NETWORK_SETTINGS
+      - UPDATE_SANDBOX_SECRETS
       - SNAPSHOT_SANDBOX
       - FORK_SANDBOX
-      description: The type of the job
+      - PAUSE_SANDBOX
+      type: string
     PaginatedJobs:
-      type: object
+      example:
+        total: 0
+        totalPages: 1
+        page: 6
+        items:
+        - createdAt: '2024-10-01T12:00:00.000Z'
+          resourceId: sandbox123
+          payload: payload
+          errorMessage: Failed to create sandbox
+          id: job123
+          type: CREATE_SANDBOX
+          traceContext:
+            traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+          status: PENDING
+          resourceType: SANDBOX
+          updatedAt: '2024-10-01T12:00:00.000Z'
+        - createdAt: '2024-10-01T12:00:00.000Z'
+          resourceId: sandbox123
+          payload: payload
+          errorMessage: Failed to create sandbox
+          id: job123
+          type: CREATE_SANDBOX
+          traceContext:
+            traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+          status: PENDING
+          resourceType: SANDBOX
+          updatedAt: '2024-10-01T12:00:00.000Z'
       properties:
         items:
-          type: array
           items:
             $ref: '#/components/schemas/Job'
+          type: array
         total:
-          type: number
+          type: integer
         page:
-          type: number
+          type: integer
         totalPages:
-          type: number
+          type: integer
       required:
       - items
-      - total
       - page
+      - total
       - totalPages
-    Job:
       type: object
+    PollJobsResponse:
+      example:
+        jobs:
+        - createdAt: '2024-10-01T12:00:00.000Z'
+          resourceId: sandbox123
+          payload: payload
+          errorMessage: Failed to create sandbox
+          id: job123
+          type: CREATE_SANDBOX
+          traceContext:
+            traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+          status: PENDING
+          resourceType: SANDBOX
+          updatedAt: '2024-10-01T12:00:00.000Z'
+        - createdAt: '2024-10-01T12:00:00.000Z'
+          resourceId: sandbox123
+          payload: payload
+          errorMessage: Failed to create sandbox
+          id: job123
+          type: CREATE_SANDBOX
+          traceContext:
+            traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+          status: PENDING
+          resourceType: SANDBOX
+          updatedAt: '2024-10-01T12:00:00.000Z'
+      properties:
+        jobs:
+          description: List of jobs
+          items:
+            $ref: '#/components/schemas/Job'
+          type: array
+      required:
+      - jobs
+      type: object
+    JobStatus:
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - COMPLETED
+      - FAILED
+      type: string
+    Job:
+      example:
+        createdAt: '2024-10-01T12:00:00.000Z'
+        resourceId: sandbox123
+        payload: payload
+        errorMessage: Failed to create sandbox
+        id: job123
+        type: CREATE_SANDBOX
+        traceContext:
+          traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+        status: PENDING
+        resourceType: SANDBOX
+        updatedAt: '2024-10-01T12:00:00.000Z'
       properties:
         id:
-          type: string
           description: The ID of the job
           example: job123
+          type: string
         type:
-          description: The type of the job
-          example: CREATE_SANDBOX
           allOf:
           - $ref: '#/components/schemas/JobType'
+          description: The type of the job
+          example: CREATE_SANDBOX
         status:
-          description: The status of the job
-          example: PENDING
           allOf:
           - $ref: '#/components/schemas/JobStatus'
+          description: The status of the job
+          example: PENDING
         resourceType:
-          type: string
           description: The type of resource this job operates on
           enum:
           - SANDBOX
           - SNAPSHOT
           - BACKUP
           example: SANDBOX
-        resourceId:
           type: string
+        resourceId:
           description: The ID of the resource this job operates on (sandboxId, snapshotRef, etc.)
           example: sandbox123
-        payload:
           type: string
+        payload:
           description: Job-specific JSON-encoded payload data (operational metadata)
+          type: string
         traceContext:
-          type: object
-          description: OpenTelemetry trace context for distributed tracing (W3C Trace Context format)
           additionalProperties: true
+          description: OpenTelemetry trace context for distributed tracing (W3C Trace Context format)
           example:
             traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+          type: object
         errorMessage:
-          type: string
           description: Error message if the job failed
           example: Failed to create sandbox
+          type: string
         createdAt:
-          type: string
           description: The creation timestamp of the job
-          example: '2024-10-01T12:00:00Z'
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
         updatedAt:
-          type: string
           description: The last update timestamp of the job
-          example: '2024-10-01T12:00:00Z'
+          example: '2024-10-01T12:00:00.000Z'
+          type: string
       required:
-      - id
-      - type
-      - status
-      - resourceType
-      - resourceId
       - createdAt
-    UpdateJobStatus:
-      type: object
-      properties:
-        status:
-          description: The new status of the job
-          example: IN_PROGRESS
-          allOf:
-          - $ref: '#/components/schemas/JobStatus'
-        errorMessage:
-          type: string
-          description: Error message if the job failed
-          example: Failed to create sandbox
-        resultMetadata:
-          type: string
-          description: Result metadata for the job
-      required:
+      - id
+      - resourceId
+      - resourceType
       - status
-    PollJobsResponse:
+      - type
       type: object
-      properties:
-        jobs:
-          description: List of jobs
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-      required:
-      - jobs
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

@@ -1,71 +1,41 @@
 openapi: 3.2.0
 info:
-  title: Daytona Admin Docker Registry API
-  description: Daytona Admin API — admin, audit, config, runners, docker-registry, regions, object-storage, jobs operations on the Daytona AI platform.
-  version: '1.0'
   contact:
+    email: support@daytona.com
     name: Daytona Platforms Inc.
     url: https://www.daytona.io
-    email: support@daytona.com
+  description: Daytona AI platform API Docs
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Daytona Docker Registry API
+  version: '1.0'
 servers:
-- url: https://app.daytona.io/api
-  description: Daytona Cloud production API
+- url: http://localhost:3000
 tags:
 - name: docker-registry
 paths:
   /docker-registry:
-    post:
-      operationId: createRegistry
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateDockerRegistry'
-      responses:
-        '201':
-          description: The docker registry has been successfully created.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DockerRegistry'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Create registry
-      tags:
-      - docker-registry
     get:
       operationId: listRegistries
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
+        style: simple
       responses:
         '200':
-          description: List of all docker registries
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/DockerRegistry'
+                type: array
+          description: List of all docker registries
       security:
       - bearer: []
       - oauth2:
@@ -75,29 +45,66 @@ paths:
       summary: List registries
       tags:
       - docker-registry
+    post:
+      operationId: createRegistry
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDockerRegistry'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DockerRegistry'
+          description: The docker registry has been successfully created.
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Create registry
+      tags:
+      - docker-registry
   /docker-registry/registry-push-access:
     get:
       operationId: getTransientPushAccess
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: regionId
-        required: false
+        style: simple
+      - description: ID of the region where the snapshot will be available (defaults to organization default region)
+        explode: true
         in: query
-        description: ID of the region where the snapshot will be available (defaults to organization default region)
+        name: regionId
+        required: false
         schema:
           type: string
+        style: form
       responses:
         '200':
-          description: Temporary registry access has been generated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegistryPushAccessDto'
+          description: Temporary registry access has been generated
       security:
       - bearer: []
       - oauth2:
@@ -108,89 +115,25 @@ paths:
       tags:
       - docker-registry
   /docker-registry/{id}:
-    get:
-      operationId: getRegistry
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      - name: id
-        required: true
-        in: path
-        description: ID of the docker registry
-        schema:
-          type: string
-      responses:
-        '200':
-          description: The docker registry
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DockerRegistry'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Get registry
-      tags:
-      - docker-registry
-    patch:
-      operationId: updateRegistry
-      parameters:
-      - name: X-Daytona-Organization-ID
-        in: header
-        description: Use with JWT to specify the organization ID
-        required: false
-        schema:
-          type: string
-      - name: id
-        required: true
-        in: path
-        description: ID of the docker registry
-        schema:
-          type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateDockerRegistry'
-      responses:
-        '200':
-          description: The docker registry has been successfully updated.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DockerRegistry'
-      security:
-      - bearer: []
-      - oauth2:
-        - openid
-        - profile
-        - email
-      summary: Update registry
-      tags:
-      - docker-registry
     delete:
       operationId: deleteRegistry
       parameters:
-      - name: X-Daytona-Organization-ID
+      - description: Use with JWT to specify the organization ID
+        explode: false
         in: header
-        description: Use with JWT to specify the organization ID
+        name: X-Daytona-Organization-ID
         required: false
         schema:
           type: string
-      - name: id
-        required: true
+        style: simple
+      - description: ID of the docker registry
+        explode: false
         in: path
-        description: ID of the docker registry
+        name: id
+        required: true
         schema:
           type: string
+        style: simple
       responses:
         '204':
           description: The docker registry has been successfully deleted.
@@ -203,112 +146,144 @@ paths:
       summary: Delete registry
       tags:
       - docker-registry
+    get:
+      operationId: getRegistry
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID of the docker registry
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DockerRegistry'
+          description: The docker registry
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Get registry
+      tags:
+      - docker-registry
+    patch:
+      operationId: updateRegistry
+      parameters:
+      - description: Use with JWT to specify the organization ID
+        explode: false
+        in: header
+        name: X-Daytona-Organization-ID
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: ID of the docker registry
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDockerRegistry'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DockerRegistry'
+          description: The docker registry has been successfully updated.
+      security:
+      - bearer: []
+      - oauth2:
+        - openid
+        - profile
+        - email
+      summary: Update registry
+      tags:
+      - docker-registry
 components:
   schemas:
     UpdateDockerRegistry:
-      type: object
+      example:
+        password: password
+        name: name
+        project: project
+        url: url
+        username: username
       properties:
         name:
-          type: string
           description: Registry name
+          type: string
         url:
-          type: string
           description: Registry URL
+          type: string
         username:
-          type: string
           description: Registry username
+          type: string
         password:
-          type: string
           description: Registry password
-        project:
           type: string
+        project:
           description: Registry project
+          type: string
       required:
       - name
       - url
       - username
-    CreateDockerRegistry:
       type: object
-      properties:
-        name:
-          type: string
-          description: Registry name
-        url:
-          type: string
-          description: Registry URL
-        username:
-          type: string
-          description: Registry username
-        password:
-          type: string
-          description: Registry password
-        project:
-          type: string
-          description: Registry project
-      required:
-      - name
-      - url
-      - username
-      - password
-    RegistryPushAccessDto:
-      type: object
-      properties:
-        username:
-          type: string
-          description: Temporary username for registry authentication
-          example: temp-user-123
-        secret:
-          type: string
-          description: Temporary secret for registry authentication
-          example: eyJhbGciOiJIUzI1NiIs...
-        registryUrl:
-          type: string
-          description: Registry URL
-          example: registry.example.com
-        registryId:
-          type: string
-          description: Registry ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        project:
-          type: string
-          description: Registry project ID
-          example: library
-        expiresAt:
-          type: string
-          description: Token expiration time in ISO format
-          example: '2023-12-31T23:59:59Z'
-      required:
-      - username
-      - secret
-      - registryUrl
-      - registryId
-      - project
-      - expiresAt
     DockerRegistry:
-      type: object
+      example:
+        registryType: internal
+        createdAt: '2024-01-31T12:00:00.000Z'
+        name: My Docker Hub
+        project: my-project
+        id: 123e4567-e89b-12d3-a456-426614174000
+        url: https://registry.hub.docker.com
+        username: username
+        updatedAt: '2024-01-31T12:00:00.000Z'
       properties:
         id:
-          type: string
           description: Registry ID
           example: 123e4567-e89b-12d3-a456-426614174000
-        name:
           type: string
+        name:
           description: Registry name
           example: My Docker Hub
-        url:
           type: string
+        url:
           description: Registry URL
           example: https://registry.hub.docker.com
-        username:
           type: string
+        username:
           description: Registry username
           example: username
-        project:
           type: string
+        project:
           description: Registry project
           example: my-project
-        registryType:
           type: string
+        registryType:
           description: Registry type
           enum:
           - internal
@@ -316,31 +291,103 @@ components:
           - transient
           - backup
           example: internal
+          type: string
         createdAt:
-          format: date-time
-          type: string
           description: Creation timestamp
-          example: '2024-01-31T12:00:00Z'
-        updatedAt:
+          example: '2024-01-31T12:00:00.000Z'
           format: date-time
           type: string
+        updatedAt:
           description: Last update timestamp
-          example: '2024-01-31T12:00:00Z'
+          example: '2024-01-31T12:00:00.000Z'
+          format: date-time
+          type: string
       required:
+      - createdAt
       - id
       - name
-      - url
-      - username
       - project
       - registryType
-      - createdAt
       - updatedAt
+      - url
+      - username
+      type: object
+    RegistryPushAccessDto:
+      example:
+        registryUrl: registry.example.com
+        registryId: 123e4567-e89b-12d3-a456-426614174000
+        project: library
+        secret: eyJhbGciOiJIUzI1NiIs...
+        expiresAt: '2023-12-31T23:59:59.000Z'
+        username: temp-user-123
+      properties:
+        username:
+          description: Temporary username for registry authentication
+          example: temp-user-123
+          type: string
+        secret:
+          description: Temporary secret for registry authentication
+          example: eyJhbGciOiJIUzI1NiIs...
+          type: string
+        registryUrl:
+          description: Registry URL
+          example: registry.example.com
+          type: string
+        registryId:
+          description: Registry ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+        project:
+          description: Registry project ID
+          example: library
+          type: string
+        expiresAt:
+          description: Token expiration time in ISO format
+          example: '2023-12-31T23:59:59.000Z'
+          type: string
+      required:
+      - expiresAt
+      - project
+      - registryId
+      - registryUrl
+      - secret
+      - username
+      type: object
+    CreateDockerRegistry:
+      example:
+        password: password
+        name: name
+        project: project
+        url: url
+        username: username
+      properties:
+        name:
+          description: Registry name
+          type: string
+        url:
+          description: Registry URL
+          type: string
+        username:
+          description: Registry username
+          type: string
+        password:
+          description: Registry password
+          type: string
+        project:
+          description: Registry project
+          type: string
+      required:
+      - name
+      - password
+      - url
+      - username
+      type: object
   securitySchemes:
     bearer:
-      scheme: bearer
       bearerFormat: JWT
-      type: http
       description: API Key access
+      scheme: bearer
+      type: http
     oauth2:
-      type: openIdConnect
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
+      type: openIdConnect

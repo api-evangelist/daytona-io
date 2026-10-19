@@ -68,58 +68,6 @@ tags_raw:
 - Secure Execution
 - Open-Source
 apis:
-- aid: daytona-io:daytona-io-admin-api
-  name: Daytona Admin API
-  description: The admin API from Daytona — 15 operation(s) for admin.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Admin
-  tags_raw:
-  - admin
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-admin-api-openapi.yml
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/sandboxes
-  - type: APIReference
-    url: https://www.daytona.io/docs/en/tools/api/
-  - type: JSONSchema
-    url: json-schema/daytona-sandbox-schema.json
-  - type: JSONStructure
-    url: json-structure/daytona-sandbox-structure.json
-  - type: Examples
-    url: examples/daytona-sandbox-create-example.json
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/file-system
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/git
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/language-server-protocol
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/process-execution
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/agent-tools/computer-use
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/snapshots
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/volumes
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/preview
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/webhooks
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/account-management/organizations
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/account-management/api-keys
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/account-management/linked-accounts
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/deployments/customer-managed-compute
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/security/audit-logs
-  - type: Documentation
-    url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-api-keys-api
   name: Daytona API Keys API
   description: The api-keys API from Daytona — 4 operation(s) for api-keys.
@@ -1416,18 +1364,26 @@ apis:
     url: https://www.daytona.io/docs/en/security/audit-logs
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
-- aid: daytona-io:daytona-io-workspace-api
-  name: Daytona Workspace API
-  description: The workspace API from Daytona — 12 operation(s) for workspace.
+- aid: daytona-io:daytona-io-daytona-toolbox-api-api
+  name: Daytona Toolbox API
+  description: The Daytona Toolbox API API from Daytona — 0 operation(s) for daytona toolbox api.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Workspace
-  tags_raw:
-  - workspace
+  - Daytona Toolbox API
   properties:
   - type: OpenAPI
-    url: openapi/daytona-io-workspace-api-openapi.yml
+    url: openapi/daytona-io-daytona-toolbox-api-api-openapi.yml
+- aid: daytona-io:daytona-io-secret-api
+  name: Daytona Secret API
+  description: The secret API from Daytona — 3 operation(s) for secret.
+  humanURL: https://www.daytona.io/docs/en/tools/api/
+  baseURL: https://app.daytona.io/api
+  tags:
+  - secret
+  properties:
+  - type: OpenAPI
+    url: openapi/daytona-io-secret-api-openapi.yml
   - type: Documentation
     url: https://www.daytona.io/docs/en/sandboxes
   - type: APIReference
@@ -1468,117 +1424,56 @@ apis:
     url: https://www.daytona.io/docs/en/security/audit-logs
   - type: Documentation
     url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
-- aid: daytona-io:daytona-io-daytona-admin-api-api
-  name: Daytona Admin API
-  description: The Daytona Admin API API from Daytona — 0 operation(s) for daytona admin api.
+- aid: daytona-io:daytona-io-warm-pools-api
+  name: Daytona Warm Pools API
+  description: The warm-pools API from Daytona — 2 operation(s) for warm-pools.
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Daytona Admin API
+  - warm-pools
   properties:
   - type: OpenAPI
-    url: openapi/daytona-io-daytona-admin-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-api-keys-api-api
-  name: Daytona Api Keys API
-  description: The Daytona Api Keys API API from Daytona — 0 operation(s) for daytona api keys api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Api Keys API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-api-keys-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-health-api-api
-  name: Daytona Health API
-  description: The Daytona Health API API from Daytona — 0 operation(s) for daytona health api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Health API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-health-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-organizations-api-api
-  name: Daytona Organizations API
-  description: >-
-    The Daytona Organizations API API from Daytona — 0 operation(s) for daytona organizations api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Organizations API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-organizations-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-preview-api-api
-  name: Daytona Preview API
-  description: The Daytona Preview API API from Daytona — 0 operation(s) for daytona preview api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Preview API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-preview-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-sandbox-api-api
-  name: Daytona Sandbox API
-  description: The Daytona Sandbox API API from Daytona — 0 operation(s) for daytona sandbox api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Sandbox API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-sandbox-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-snapshots-api-api
-  name: Daytona Snapshots API
-  description: The Daytona Snapshots API API from Daytona — 0 operation(s) for daytona snapshots api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Snapshots API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-snapshots-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-toolbox-api-api
-  name: Daytona Toolbox API
-  description: The Daytona Toolbox API API from Daytona — 0 operation(s) for daytona toolbox api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Toolbox API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-toolbox-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-users-api-api
-  name: Daytona Users API
-  description: The Daytona Users API API from Daytona — 0 operation(s) for daytona users api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Users API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-users-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-volumes-api-api
-  name: Daytona Volumes API
-  description: The Daytona Volumes API API from Daytona — 0 operation(s) for daytona volumes api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Volumes API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-volumes-api-api-openapi.yml
-- aid: daytona-io:daytona-io-daytona-webhooks-api-api
-  name: Daytona Webhooks API
-  description: The Daytona Webhooks API API from Daytona — 0 operation(s) for daytona webhooks api.
-  humanURL: https://www.daytona.io/docs/en/tools/api/
-  baseURL: https://app.daytona.io/api
-  tags:
-  - Daytona Webhooks API
-  properties:
-  - type: OpenAPI
-    url: openapi/daytona-io-daytona-webhooks-api-api-openapi.yml
+    url: openapi/daytona-io-warm-pools-api-openapi.yml
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/sandboxes
+  - type: APIReference
+    url: https://www.daytona.io/docs/en/tools/api/
+  - type: JSONSchema
+    url: json-schema/daytona-sandbox-schema.json
+  - type: JSONStructure
+    url: json-structure/daytona-sandbox-structure.json
+  - type: Examples
+    url: examples/daytona-sandbox-create-example.json
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/file-system
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/git
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/language-server-protocol
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/process-execution
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/agent-tools/computer-use
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/snapshots
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/volumes
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/preview
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/webhooks
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/account-management/organizations
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/account-management/api-keys
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/account-management/linked-accounts
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/deployments/customer-managed-compute
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/security/audit-logs
+  - type: Documentation
+    url: https://www.daytona.io/docs/en/observability/opentelemetry-collection
 - aid: daytona-io:daytona-io-filesystem-api
   name: Daytona Filesystem API
   description: The Filesystem API from Daytona — 12 operation(s) for filesystem.
