@@ -329,3 +329,9 @@ components:
     oauth2:
       openIdConnectUrl: http://localhost:3000/.well-known/openid-configuration
       type: openIdConnect
+x-provenance:
+  method: harvested
+  publisher: Daytona
+  source: https://www.daytona.io/docs/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
