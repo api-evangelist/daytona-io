@@ -332,9 +332,10 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
-  - Git
+  - Version Control
   tags_raw:
   - git
+  - Git
   properties:
   - type: OpenAPI
     url: openapi/daytona-io-git-api-openapi.yml
@@ -1380,6 +1381,8 @@ apis:
   humanURL: https://www.daytona.io/docs/en/tools/api/
   baseURL: https://app.daytona.io/api
   tags:
+  - Secret
+  tags_raw:
   - secret
   properties:
   - type: OpenAPI
